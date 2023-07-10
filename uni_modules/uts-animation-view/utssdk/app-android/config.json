@@ -1,7 +1,0 @@
-{
-	"dependencies": [
-		"com.airbnb.android:lottie:3.4.0"
-	],
-	"minSdkVersion": 21
-}
-

@@ -78,56 +78,6 @@
                     }, {
                         name: "实例测试示例",
                         url: "SyntaxCase/instanceTest"
-                    }, {
-                        name: "基础语法测试例",
-                        url: "SyntaxCase/basicTest"
-                    }] as Page[]
-                },
-                {
-                    name: "资源加载示例",
-                    open: false,
-                    pages: [{
-                        name: "图片加载示例",
-                        url: "resource/resource"
-                    }, {
-                        name: "文件读取示例",
-                        url: "resource/fileRead"
-                    }] as Page[]
-                },
-                {
-                    name: "组件开发示例",
-                    open: false,
-                    pages: [{
-                        name: "Hello UTS Component",
-                        url: "component/helloView"
-                    }] as Page[]
-                },
-                {
-                    name: "android平台示例",
-                    open: false,
-                    pages: [{
-                        name: "activity生命周期监听",
-                        url: "lifecycle/lifecycle"
-                    }, {
-                        name: "播放asset音频(需自定义基座)",
-                        url: "advance/android/assetaudio"
-                    }, {
-                        name: "操作DecorView",
-                        url: "advance/android/decorview"
-                    }, {
-                        name: "读取meta配置",
-                        function: "testMetaRead"
-                    }, {
-                        name: "退出当前应用",
-                        function: "testQuitApp"
-                    }] as Page[]
-                },
-                {
-                    name: "iOS平台示例",
-                    open: false,
-                    pages: [{
-                        name: "资源路径获取示例",
-                        url: "advance/iOS/getResourcePath"
                     }] as Page[]
                 },
                 ] as ListItem[],

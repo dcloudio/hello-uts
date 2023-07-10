@@ -2,7 +2,7 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 
 		{
-			"path": "pages/index/index",
+			"path": "pages/index/basicTest",
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
@@ -11,82 +11,6 @@
 
 		{
 			"path": "pages/advance/advance",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/SystemAPI/SystemAPI",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		},
-		{
-			"path": "pages/SystemAPI/Alert/alert",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-
-		},
-		{
-			"path": "pages/component/helloView",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/SDKIntegration/SDKIntegration",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		},
-		{
-			"path": "pages/SDKIntegration/TencentLocation/TencentLocation",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		},
-		{
-			"path": "pages/SDKIntegration/Lottie/index",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		},
-		{
-			"path": "pages/SDKIntegration/Toast/Toast",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		},
-		{
-			"path": "pages/lifecycle/lifecycle",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		},
-		{
-			"path": "pages/resource/resource",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/resource/fileRead",
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
@@ -116,15 +40,6 @@
 			}
 
 		},
-		{
-			"path": "pages/SystemAPI/ScreenListen/screenlisten",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		},
-
 		{
 			"path": "pages/SyntaxCase/index",
 			"style": {
@@ -157,17 +72,7 @@
 				"enablePullDownRefresh": false
 			}
 
-		},
-    {
-      "path" : "pages/SyntaxCase/basicTest",
-      "style" :                                                                                    
-      {
-          "navigationBarTitleText": "",
-          "enablePullDownRefresh": false
-      }
-    }
-
-
+		}
 	],
 	"tabBar": {
 		"color": "#7A7E83",
@@ -175,18 +80,12 @@
 		"borderStyle": "black",
 		"backgroundColor": "#F8F8F8",
 		"list": [{
-				"pagePath": "pages/index/index",
-				"text": "入门"
+				"pagePath": "pages/index/basicTest",
+				"text": "基础语法"
 			},
 			{
 				"pagePath": "pages/advance/advance",
-				"text": "进阶"
-			}, {
-				"pagePath": "pages/SystemAPI/SystemAPI",
-				"text": "系统API"
-			}, {
-				"pagePath": "pages/SDKIntegration/SDKIntegration",
-				"text": "三方SDK"
+				"text": "进阶语法"
 			}
 		]
 	},
