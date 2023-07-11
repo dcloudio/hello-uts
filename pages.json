@@ -72,6 +72,22 @@
 				"enablePullDownRefresh": false
 			}
 
+		},
+		{
+			"path": "pages/SyntaxCase/utsAndroid",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/SyntaxCase/utsiOS",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
 	"tabBar": {

@@ -61,14 +61,32 @@
                         }, {
                             name: "参数传递示例",
                             url: "SyntaxCase/paramTest"
-                        }, {
-                            name: "日志打印示例",
-                            url: "SyntaxCase/consoleTest"
                         },{
                             name: "实例测试示例",
                             url: "SyntaxCase/instanceTest"
                         }]
                     },
+					{
+					    name: "日志打印",
+					    open: false,
+					    pages: [{
+					        name: "console示例",
+					        url: "SyntaxCase/consoleTest"
+					    }]
+					},
+                    {
+                        name: "平台代码示例",
+                        open: false,
+                        pages: [{
+                            name: "UTSAndroid",
+                            url: "SyntaxCase/utsAndroid"
+                        }, {
+                            name: "UTSiOS",
+                            url: "SyntaxCase/utsiOS"
+                        }]
+                    },
+					
+					
                 ],
                 arrowUpIcon: '/static/icons/arrow-up.png',
                 arrowDownIcon: '/static/icons/arrow-down.png',
