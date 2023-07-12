@@ -1,0 +1,112 @@
+import {
+	UTSAndroid
+} from "io.dcloud.uts";
+
+
+/**
+ * UTSAndroid.getAppContext
+ */
+export function getAppContextTest():boolean{
+	if(UTSAndroid.getAppContext() == null){
+		console.log("UTSAndroid.getAppContext() error")
+		return false
+	}
+	if(UTSAndroid.getUniActivity() == null){
+		console.log("UTSAndroid.getUniActivity() error")
+		return false
+	}
+	if(UTSAndroid.getUniActivity()!.getApplicationContext() == UTSAndroid.getAppContext()){
+		console.log(UTSAndroid.getUniActivity()!.getApplicationContext())
+		console.log(UTSAndroid.getAppContext())
+		return false
+	}
+	console.log("getAppContextTest success")
+	return true
+}
+
+export function getUniActivityTest(){
+	console.log(UTSAndroid.getUniActivity())
+}
+
+
+export function getAppTempPathTest(){
+	console.log(UTSAndroid.getAppTempPath())
+}
+
+export function typeofClickTest():boolean{
+	
+	if(UTSAndroid.typeof('hello wrold') != 'string'){
+		return false
+	}
+	if(UTSAndroid.typeof(3.1415926) != 'number'){
+		return false
+	}
+	if(UTSAndroid.typeof(-100) != 'number'){
+		return false
+	}
+	if(UTSAndroid.typeof(false) != 'boolean'){
+		return false
+	}
+	if(UTSAndroid.typeof(true) != 'boolean'){
+		return false
+	}
+	if(UTSAndroid.typeof(new Date()) != 'object'){
+		return false
+	}
+	
+	return true
+	
+}
+
+
+export function checkSystemPermissionGrantedTest():boolean{
+	let ret = UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!,utsArrayOf('Manifest.permission.RECORD_AUDIO'))
+	console.log(ret)
+	let ret3 = UTSAndroid.checkSystemPermissionGranted(UTSAndroid.getUniActivity()!,utsArrayOf('Manifest.permission.ACCESS_WIFI_STATE','Manifest.permission.WRITE_CALENDAR','Manifest.permission.BLUETOOTH'))
+	console.log(ret3)
+	
+	return true
+}
+
+
+export function getSystemPermissionDeniedTest():boolean{
+	let ret = UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!,utsArrayOf('Manifest.permission.RECORD_AUDIO'))
+	console.log(ret)
+	let ret3 = UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!,utsArrayOf('Manifest.permission.ACCESS_WIFI_STATE','Manifest.permission.WRITE_CALENDAR','Manifest.permission.BLUETOOTH'))
+	console.log(ret3)
+	
+	return true
+}
+
+export function gotoSystemPermissionActivityTest(){
+	UTSAndroid.gotoSystemPermissionActivity(UTSAndroid.getUniActivity()!,utsArrayOf('Manifest.permission.RECORD_AUDIO'))
+}
+
+export function requestSystemPermission(){
+	
+	// UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!,utsArrayOf('Manifest.permission.RECORD_AUDIO'))
+	
+	// let permissionNeed : string[] = utsArrayOf("android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_FINE_LOCATION");
+	// UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight:boolean,_grantedList:string[]) {
+	// 	if (allRight) {
+	// 		// 交给目前的location 引擎，真实执行
+	// 		console.log("all right:")
+	// 	}
+	// }, function (_doNotAskAgain:boolean,_grantedList:string[]) {
+	// 	console.log("用户拒绝了部分权限:")
+		
+	// })
+	
+	
+}
+
+/**
+ * 一组权限，申请流程测试
+ */
+export function arrayPermissionFlowTest():boolean{
+	// if(!UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!,utsArrayOf("android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_FINE_LOCATION"))){
+	// 	// 此时预期 
+	// 	return false
+	// }
+	return true
+}
