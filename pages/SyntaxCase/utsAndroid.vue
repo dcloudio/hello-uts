@@ -1,105 +1,212 @@
 <template>
 	<view>
-		<button class="width:100%" @click="getAppContextClick" >getAppContext</button>
-		<button class="width:100%" @click="getUniActivityClick">getUniActivity</button>
-		<button class="width:100%" @click="getAppTempPathClick">getAppTempPath</button>
-		<button class="width:100%" @click="typeofClick">typeof</button>
-		<button class="width:100%" @click="checkSystemPermissionGrantedClick">checkSystemPermissionGranted</button>
-		<button class="width:100%" @click="getSystemPermissionDeniedClick">getSystemPermissionDenied</button>
-		<button class="width:100%" @click="gotoSystemPermissionActivityClick">gotoSystemPermissionActivity</button>
-		<button class="width:100%" @click="arrayPermissionFlowClick">组权限申请流程测试</button>
+		<view class="uni-padding-wrap uni-common-mt">
+			<view class="uni-hello-text">
+				逐一点击执行，观察测试反馈
+			</view>
+		</view>
+		
+		<button @click="getAppContextClick">getAppContext</button>
+		<button @click="getUniActivityClick">getUniActivity</button>
+		<button @click="getAppTempPathClick">getAppTempPath</button>
+		<button @click="typeofClick">typeof</button>
+		<button @click="arrayPermissionFlowClick">组权限申请流程测试</button>
+		<button @click="singlePermissionFlowClick">单权限申请流程测试</button>
+		<button @click="dispatchAsyncClick">任务分发测试</button>
+		<button @click="pathTestClick">路径转换测试</button>
+		<view class="uni-padding-wrap uni-common-mt">
+			<view class="uni-hello-text">
+				1. 当前页面已通过initAppLifecycle函数注册了生命周期监听。
+			</view>
+			<view class="uni-hello-text">
+				2. 手动切换其他APP再返回，可在控制台和界面观察事件日志
+			</view>
+		</view>
+		<view class="uni-padding-wrap uni-common-mt">
+			<view class="text-box" scroll-y="true">
+				<text>{{text}}</text>
+			</view>
+		</view>
+		<button class="testButton" @click="gotoSystemPermissionActivityClick">手动申请权限测试</button>
+		<button @tap="testGoOtherActivity">跳转拍照界面</button>
+		<button @tap="testUnRegLifecycle">取消注册周期函数</button>
+		<image :src="selectImage" v-if="selectImage"></image>
 		
 	</view>
 </template>
 
 <script>
-	
 	import {
 		getAppContextTest,
 		getUniActivityTest,
 		getAppTempPathTest,
 		typeofClickTest,
-		checkSystemPermissionGrantedTest,
-		getSystemPermissionDeniedTest,
 		gotoSystemPermissionActivityTest,
-		arrayPermissionFlowTest
+		arrayPermissionFlowTest,
+		singlePermissionFlowTest,
+		dispatchAsyncTest,
+		convert2AbsFullPathTest,
+		unRegLifecycle,
+		initAppLifecycle,
+		gotoCameraTake
 	} from '@/uni_modules/uts-platform-api'
-	
+
 	/**
 	 * 测试在页面生命周期之外，使用api
 	 */
 	export default {
 		data() {
-			return {}
+			return {
+				text: '',
+				selectImage:''
+			}
+		},
+		onLoad:function(){
+			let that = this;
+			initAppLifecycle(function(eventLog){
+				// 展示捕捉到的声明周期日志
+				that.text = that.text += eventLog;
+				that.text = that.text += '\n';
+			});
 		},
 		methods: {
-			
-			getAppContextClick() {
-				console.log("getAppContextClick")
-				if(getAppContextTest()){
+			testGoOtherActivity(){
+				var that = this;
+				let ret = gotoCameraTake(function(file){
+					// 展示捕捉到的声明周期日志
+					console.log(file);
+					that.selectImage = "file://" + file;
+				});
+				
+				if(!ret){
 					uni.showToast({
-						title:'测试通过'
-					})
-				}else{
-					uni.showToast({
-						icon:'error',
+						icon:'none',
 						title:'测试失败'
 					})
 				}
 			},
-			
-			getUniActivityClick() {
-				getUniActivityTest()
+			testUnRegLifecycle(){
+				// 取消注册生命周期
+				unRegLifecycle();
 			},
-	
+			getAppContextClick() {
+				if (getAppContextTest()) {
+					uni.showToast({
+						title: '测试通过'
+					})
+				} else {
+					uni.showToast({
+						icon: 'error',
+						title: '测试失败'
+					})
+				}
+			},
+
+			getUniActivityClick() {
+				if (getUniActivityTest()) {
+					uni.showToast({
+						title: '测试通过'
+					})
+				} else {
+					uni.showToast({
+						icon: 'error',
+						title: '测试失败'
+					})
+				}
+			},
+			pathTestClick() {
+				if (convert2AbsFullPathTest()) {
+					uni.showToast({
+						title: '测试通过'
+					})
+				} else {
+					uni.showToast({
+						icon: 'error',
+						title: '测试失败'
+					})
+				}
+			},
 			getAppTempPathClick() {
-				getAppTempPathTest()
+				if (getAppTempPathTest()) {
+					uni.showToast({
+						title: '测试通过'
+					})
+				} else {
+					uni.showToast({
+						icon: 'error',
+						title: '测试失败'
+					})
+				}
+			},
+			dispatchAsyncClick() {
+				dispatchAsyncTest(function(ret,desc){
+					if (ret) {
+						uni.showToast({
+							icon: 'none',
+							title: '测试通过'
+						})
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: '失败：' + desc
+						})
+					}
+				})
 			},
 			typeofClick() {
-				if(typeofClickTest()){
+				if (typeofClickTest()) {
 					uni.showToast({
-						title:'测试通过'
+						title: '测试通过'
 					})
-				}else{
+				} else {
 					uni.showToast({
-						icon:'error',
-						title:'测试失败'
-					})
-				}
-			},
-			checkSystemPermissionGrantedClick() {
-				if(checkSystemPermissionGrantedTest()){
-					uni.showToast({
-						title:'测试通过'
-					})
-				}else{
-					uni.showToast({
-						icon:'error',
-						title:'测试失败'
+						icon: 'error',
+						title: '测试失败'
 					})
 				}
 			},
-			getSystemPermissionDeniedClick() {
-				if(getSystemPermissionDeniedTest()){
-					uni.showToast({
-						title:'测试通过'
-					})
-				}else{
-					uni.showToast({
-						icon:'error',
-						title:'测试失败'
-					})
-				}
-			},
+			
 			gotoSystemPermissionActivityClick() {
 				gotoSystemPermissionActivityTest()
 			},
 			arrayPermissionFlowClick() {
-				arrayPermissionFlowTest()
+				arrayPermissionFlowTest(function(ret,desc){
+					if (ret) {
+						uni.showToast({
+							icon: 'none',
+							title: '测试通过'
+						})
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: '失败：' + desc
+						})
+					}
+				})
+			},
+			singlePermissionFlowClick() {
+				singlePermissionFlowTest(function(ret,desc){
+					if (ret) {
+						uni.showToast({
+							icon: 'none',
+							title: '测试通过'
+						})
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: '失败：' + desc
+						})
+					}
+				})
 			}
+			
+			
 		}
 	}
 </script>
 
 <style>
+	.testButton{
+		width:100%
+	}
 </style>
