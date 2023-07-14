@@ -14,6 +14,7 @@
 		<button @click="singlePermissionFlowClick">单权限申请流程测试</button>
 		<button @click="dispatchAsyncClick">任务分发测试</button>
 		<button @click="pathTestClick">路径转换测试</button>
+		<button @click="privacyStateClick">隐私协议状态测试</button>
 		<view class="uni-padding-wrap uni-common-mt">
 			<view class="uni-hello-text">
 				1. 当前页面已通过initAppLifecycle函数注册了生命周期监听。
@@ -27,11 +28,16 @@
 				<text>{{text}}</text>
 			</view>
 		</view>
-		<button class="testButton" @click="gotoSystemPermissionActivityClick">手动申请权限测试</button>
+		<button @click="gotoSystemPermissionActivityClick">手动申请权限测试</button>
 		<button @tap="testGoOtherActivity">跳转拍照界面</button>
 		<button @tap="testUnRegLifecycle">取消注册周期函数</button>
 		<image :src="selectImage" v-if="selectImage"></image>
-		
+		<view class="uni-padding-wrap uni-common-mt">
+			<view class="uni-hello-text">
+				获取设备信息，观察是否符合预期
+			</view>
+		</view>
+		<button @tap="getDeviceInfoClick">获取设备基础信息</button>
 	</view>
 </template>
 
@@ -48,7 +54,9 @@
 		convert2AbsFullPathTest,
 		unRegLifecycle,
 		initAppLifecycle,
-		gotoCameraTake
+		gotoCameraTake,
+		getDeviceInfoTest,
+		privacyStateTest
 	} from '@/uni_modules/uts-platform-api'
 
 	/**
@@ -70,6 +78,23 @@
 			});
 		},
 		methods: {
+			privacyStateClick(){
+				privacyStateTest(function(ret,desc){
+					if (ret) {
+						uni.showToast({
+							title: '测试通过'
+						})
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: '失败：' + desc
+						})
+					}
+				})
+			},
+			getDeviceInfoClick(){
+				this.text = getDeviceInfoTest()
+			},
 			testGoOtherActivity(){
 				var that = this;
 				let ret = gotoCameraTake(function(file){
@@ -142,7 +167,6 @@
 				dispatchAsyncTest(function(ret,desc){
 					if (ret) {
 						uni.showToast({
-							icon: 'none',
 							title: '测试通过'
 						})
 					} else {
