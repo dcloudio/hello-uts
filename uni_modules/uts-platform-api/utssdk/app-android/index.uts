@@ -270,7 +270,7 @@ export function arrayPermissionFlowTest(callback : (ret : boolean, desc : string
 	let permissionNeed = utsArrayOf("android.permission.READ_CALENDAR", "android.permission.WRITE_CALENDAR", "android.permission.READ_CONTACTS", "android.permission.WRITE_CONTACTS", "android.permission.GET_ACCOUNTS")
 	
 	if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
-		callback(false, "预期当前不具备 读写日历/联系人的权限")
+		callback(false, "已具备 日历/联系人权限")
 		return;
 	}
 
