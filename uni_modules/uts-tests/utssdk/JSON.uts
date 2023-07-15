@@ -1,5 +1,12 @@
 import { describe, test, expect, Result } from './tests.uts'
 
+
+
+class User{
+	name:string = "";
+	age:number = 12;
+}
+
 export function testJSON() : Result {
     return describe("JSON", () => {
         test('parse', () => {
@@ -19,7 +26,8 @@ export function testJSON() : Result {
                 age: 30,
                 city: 'New York',
             });
-
+			
+			
             const json2 = '{"string":"Hello","number":42,"boolean":true,"nullValue":null,"array":[1,2,3],"object":{"nestedKey":"nestedValue"}}';
             const obj2 = JSON.parse(json2)!;
             expect(obj2).toEqual({
@@ -35,7 +43,11 @@ export function testJSON() : Result {
             expect(obj2['object']).toEqual({
                 nestedKey: 'nestedValue',
             })
-
+			
+			// 目前仅android 支持，暂不放开
+			// let obj3 = JSON.parse<User>(json1);
+			// console.log(obj3)
+			
             // const json3 = '["apple","banana","cherry"]';
             // const obj3 = JSON.parse(json3)!;
             // TODO JSON.parse 后数组的类型 无法强转

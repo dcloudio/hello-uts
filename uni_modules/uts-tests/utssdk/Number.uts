@@ -11,5 +11,29 @@ export function testNumber(): Result {
             expect(financial(0)).toEqual("0.00");
             expect(financial(1)).toEqual("1.00");
         })
+		
+		test('parseInt', () => {
+		    expect(parseInt("123.456")).toEqual(123);
+		})
+		test('parseFloat', () => {
+			expect(parseFloat("11.20")).toEqual(11.2);
+		})
+		
+		test('isFinite', () => {
+		    expect(isFinite(1000 / 1)).toEqual(true);
+			expect(isFinite(910)).toEqual(true);
+			expect(isFinite(0)).toEqual(true);
+		})
+		
+		test('isNaN', () => {
+			expect(isNaN(0)).toEqual(false);
+		})
+		
+		test('toPrecision', () => {
+			expect(123.456.toPrecision(4)).toEqual("123.5");
+			expect(0.004.toPrecision(4)).toEqual("0.004000");
+			expect(1.23e5.toPrecision(4)).toEqual("1.230e+5");
+		})
+		
     })
 }
