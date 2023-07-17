@@ -3,14 +3,13 @@
         <page-head :title="title"></page-head>
 
         <view class="uni-panel" v-for="(item, index) in list" :key="index">
-            <view class="uni-panel-h" :class="item.open ? 'uni-panel-h-on' : ''" @click="triggerCollapse(index)">
+            <view class="uni-panel-h" :class="item.open ? 'uni-panel-h-on' : ''" @click="triggerCollapse(index, item)">
                 <text class="uni-panel-text">{{item.name}}</text>
                 <image :src="item.pages.length > 0 ? item.open ? arrowUpIcon : arrowDownIcon : arrowRightIcon"
                     class="uni-icon"></image>
             </view>
             <view class="uni-panel-c" v-if="item.open">
-                <view class="uni-navigate-item" v-for="(page,key) in item.pages" :key="key" @click="goDetailPage(page)"
-                    hover-class="uni-navigate-item-active">
+                <view class="uni-navigate-item" v-for="(page,key) in item.pages" :key="key" @click="goDetailPage(page)" hover-class="uni-navigate-item-active">
                     <text class="uni-navigate-text">{{page.name}}</text>
                     <image :src="arrowRightIcon" class="uni-icon" v-if="page.url"></image>
                 </view>
@@ -18,26 +17,16 @@
         </view>
     </view>
 </template>
-<script lang="ts">
+<script>
     import {
         doTimerTask,
         doIntervalTask,
         clearIntervalTask,
+        playAssetAudio,
         getMetaConfig,
-        quitApp,
-        TimerOptions
+        quitApp
     } from "../../uni_modules/uts-advance";
 
-    type Page = {
-        name : string,
-        url ?: string
-        function ?: string
-    }
-    type ListItem = {
-        name : string,
-        open : boolean,
-        pages : Page[],
-    }
     export default {
         data() {
             return {
@@ -45,49 +34,67 @@
                 taskId: 0,
 
                 list: [{
-                    name: "延迟任务",
-                    open: false,
-                    pages: [{
-                        name: "开启延迟任务",
-                        function: "testTimer"
-                    }] as Page[]
-                },
-                {
-                    name: "定时任务",
-                    open: false,
-                    pages: [{
-                        name: "开启定时任务",
-                        function: "testInterval"
-                    }, {
-                        name: "关闭定时任务",
-                        function: "testClearInterval"
-                    }] as Page[]
-                },
-                {
-                    name: "语法示例",
-                    open: false,
-                    pages: [{
-                        name: "进阶语法示例",
-                        url: "SyntaxCase/index"
-                    }, {
-                        name: "参数传递示例",
-                        url: "SyntaxCase/paramTest"
-                    }, {
-                        name: "日志打印示例",
-                        url: "SyntaxCase/consoleTest"
-                    }, {
-                        name: "实例测试示例",
-                        url: "SyntaxCase/instanceTest"
-                    }] as Page[]
-                },
-                ] as ListItem[],
+                        name: "延迟任务",
+                        open: false,
+                        pages: [{
+                            name: "开启延迟任务",
+                            function: "testTimer"
+                        }]
+                    },
+                    {
+                        name: "定时任务",
+                        open: false,
+                        pages: [{
+                            name: "开启定时任务",
+                            function: "testInterval"
+                        }, {
+                            name: "关闭定时任务",
+                            function: "testClearInterval"
+                        }]
+                    },
+                    {
+                        name: "语法示例",
+                        open: false,
+                        pages: [{
+                            name: "进阶语法示例",
+                            url: "SyntaxCase/index"
+                        }, {
+                            name: "参数传递示例",
+                            url: "SyntaxCase/paramTest"
+                        },{
+                            name: "实例测试示例",
+                            url: "SyntaxCase/instanceTest"
+                        }]
+                    },
+					{
+					    name: "日志打印",
+					    open: false,
+					    pages: [{
+					        name: "console示例",
+					        url: "SyntaxCase/consoleTest"
+					    }]
+					},
+                    {
+                        name: "平台代码示例",
+                        open: false,
+                        pages: [{
+                            name: "UTSAndroid",
+                            url: "SyntaxCase/utsAndroid"
+                        }, {
+                            name: "UTSiOS",
+                            url: "SyntaxCase/utsiOS"
+                        }]
+                    },
+					
+					
+                ],
                 arrowUpIcon: '/static/icons/arrow-up.png',
                 arrowDownIcon: '/static/icons/arrow-down.png',
                 arrowRightIcon: '/static/icons/arrow-right.png',
             }
         },
         methods: {
-            triggerCollapse(index : number) {
+            triggerCollapse(index) {
                 for (var i = 0; i < this.list.length; ++i) {
                     if (index == i) {
                         this.list[i].open = !this.list[i].open;
@@ -96,26 +103,9 @@
                     }
                 }
             },
-            goDetailPage(e : Page) {
-                if (e.function != null) {
-                    const funName = e.function
-                    switch (funName) {
-                        case 'testTimer':
-                            this.testTimer()
-                            break
-                        case 'testInterval':
-                            this.testInterval()
-                            break
-                        case 'testClearInterval':
-                            this.testClearInterval()
-                            break
-                        case 'testMetaRead':
-                            this.testMetaRead()
-                            break
-                        case 'testQuitApp':
-                            this.testQuitApp()
-                            break
-                    }
+            goDetailPage(e) {
+                if (e.function) {
+                    this[e.function]()
                     return
                 }
                 uni.navigateTo({
@@ -126,56 +116,54 @@
             /**
              * 测试延迟任务
              */
-            testTimer: function () {
+            testTimer: function() {
                 doTimerTask({
-                    start: function (response) {
+                    start: function(response) {
                         uni.showToast({
                             title: response,
                             icon: 'none'
                         });
                     },
-                    work: function (response) {
+                    work: function(response) {
                         uni.showToast({
                             title: response,
                             icon: 'none'
                         });
                     },
-                } as TimerOptions);
+                });
             },
             /**
              * 测试周期任务
              */
-            testInterval: function () {
+            testInterval: function() {
                 var ret = doIntervalTask({
-                    start: function (response) {
+                    start: function(response) {
                         uni.showToast({
                             title: response,
                             icon: 'none'
                         });
                     },
-                    work: function (response) {
+                    work: function(response) {
                         uni.showToast({
                             title: response,
                             icon: 'none'
                         });
                     },
-                } as TimerOptions);
-                if (ret.taskId != null) {
-                    this.taskId = ret.taskId!;
-                }
+                });
+                this.taskId = ret.taskId;
             },
             /**
              * 取消周期任务
              */
-            testClearInterval: function () {
+            testClearInterval: function() {
                 console.log(this.taskId);
                 clearIntervalTask(this.taskId);
             },
-            // testInputDialog() {
-            //     getUserInput(function (res) {
-            //         console.log(res);
-            //     });
-            // },
+            testInputDialog() {
+                getUserInput(function(res) {
+                    console.log(res);
+                });
+            },
             testQuitApp() {
                 quitApp()
             },
@@ -194,4 +182,8 @@
 
 <style>
     @import '@/common/uni-uvue.css';
+
+    .uni-container {
+        min-height: 100%;
+    }
 </style>

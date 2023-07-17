@@ -74,5 +74,10 @@
 	"uniStatistics": {
 		"enable": false
 	},
-	"vueVersion": "3"
+	"vueVersion": "3",
+	"uni-app-x" : {
+	    "uvue" : {
+	        "flex-direction" : "cloum"
+	    }
+	}
 }
