@@ -3,7 +3,7 @@ const ERR_RE = /expected:<(.*)> but was:<(.*)>/
 let result;
 
 beforeAll(async () => {
-    await program.reLaunch('/pages/test/index')
+    await program.reLaunch('/pages/index/basicTest')
     page = await program.currentPage()
     await page.waitFor(3000);
     const data = await page.data();
