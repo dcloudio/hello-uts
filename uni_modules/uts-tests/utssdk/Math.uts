@@ -236,5 +236,10 @@ export function testMath(): Result {
             expect(Math.trunc(42.84)).toEqual(42);
             expect(Math.trunc(0.123)).toEqual(0);
         })
+		test('round', () => {
+		    expect(Math.round(0.9).toEqual(1));
+		    expect(Math.round(5.95)).toEqual(6);
+		    expect(Math.round(-5.05)).toEqual(-5);
+		})
     })
 }
