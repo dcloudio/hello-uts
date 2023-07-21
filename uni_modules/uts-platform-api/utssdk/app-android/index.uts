@@ -1,6 +1,3 @@
-import {
-	UTSAndroid
-} from "io.dcloud.uts";
 import MediaStore from "android.provider.MediaStore";
 import Activity from "android.app.Activity";
 import Bitmap from "android.graphics.Bitmap";

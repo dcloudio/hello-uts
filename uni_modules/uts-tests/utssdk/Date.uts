@@ -10,6 +10,19 @@ export function testDate() : Result {
                 expect(secondsElapsed).toEqual(2);
             }, 2000)
         })
+		test('valueOf', () => {
+		    const date1 = new Date('December 17, 1995 03:24:00');
+			expect(date1.valueOf()).toEqual(819141840000);
+			const date2 = new Date('1995-12-17T03:24:00');
+			expect(date2.valueOf()).toEqual(819141840000);
+		})
+		test('parse', () => {
+			const unixTimeZero = Date.parse('01 Jan 1970 00:00:00 GMT');
+			const javaScriptRelease = Date.parse('04 Dec 1995 00:12:00 GMT');
+			
+			expect(unixTimeZero.toString()).toEqual("Thu Jan 01 1970 08:00:00 GMT+0800");
+			expect(javaScriptRelease.toString()).toEqual("Mon Dec 04 1995 08:12:00 GMT+0800");
+		})
         test('getDate', () => {
             const birthday = new Date('August 19, 1975 23:15:30');
             const date1 = birthday.getDate();
