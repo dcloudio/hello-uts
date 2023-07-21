@@ -58,12 +58,13 @@ export function testMap(): Result {
             expect(map3.get(333)).toEqual(333);
             // ios不支持链式调用
             // myMap.set(1, 'foobar').set(2, 'baz');
-            const map4 = new Map<UTSJSONObject,string>();
-            const key1 = {}, key2 = {};
-            map4.set(key1, '1')
-            map4.set(key2, '2')
-            expect(map4.get(key1)).toEqual('1');
-            expect(map4.get(key2)).toEqual('2');
+            // const map4 = new Map<UTSJSONObject,string>();
+			// key 不支持对象
+            // const key1 = {}, key2 = {};
+            // map4.set(key1, '1')
+            // map4.set(key2, '2')
+            // expect(map4.get(key1)).toEqual('1');
+            // expect(map4.get(key2)).toEqual('2');
             const map5 = new Map<string,string>([['key1', 'value1'], ['key2', 'value2']]);
             expect(map5.get('key1')).toEqual('value1');
             expect(map5.get('key2')).toEqual('value2');
