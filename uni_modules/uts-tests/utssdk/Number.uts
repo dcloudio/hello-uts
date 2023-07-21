@@ -35,5 +35,21 @@ export function testNumber(): Result {
 			expect(1.23e5.toPrecision(4)).toEqual("1.230e+5");
 		})
 		
+		test('toString', () => {
+			expect((10).toString()).toEqual("10");
+			expect((17).toString()).toEqual("17");
+			expect((17.2).toString()).toEqual("17.2");
+			expect((6).toString(2)).toEqual("110");
+			expect((254).toString(16)).toEqual("fe");
+			expect((-10).toString(2)).toEqual("-1010");
+			expect((-0xff).toString(2)).toEqual("-11111111");
+		})
+		
+		test('valueOf', () => {
+			expect((10).valueOf()).toEqual(10);
+			expect((-10.2).valueOf()).toEqual(-10.2);
+			expect((0xf).valueOf()).toEqual(15);
+		})
+		
     })
 }
