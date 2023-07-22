@@ -20,8 +20,8 @@ export function testDate() : Result {
 			const unixTimeZero = Date.parse('01 Jan 1970 00:00:00 GMT');
 			const javaScriptRelease = Date.parse('04 Dec 1995 00:12:00 GMT');
 			
-			expect(unixTimeZero.toString()).toEqual("Thu Jan 01 1970 08:00:00 GMT+0800");
-			expect(javaScriptRelease.toString()).toEqual("Mon Dec 04 1995 08:12:00 GMT+0800");
+			expect(unixTimeZero).toEqual(0);
+			expect(javaScriptRelease).toEqual(818035920000);
 		})
         test('getDate', () => {
             const birthday = new Date('August 19, 1975 23:15:30');

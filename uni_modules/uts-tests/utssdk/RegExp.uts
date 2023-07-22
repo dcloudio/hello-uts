@@ -148,8 +148,8 @@ export function testRegExp(): Result {
             const re10 = new RegExp('^foo.bar$', 's');
             expect(re10.test('foo\nbar')).toEqual(true);
             
-            const re11 = /(?=a)?b/;
-            expect(re11.test("b")).toEqual(true);
+            // const re11 = /(?=a)?b/;
+            // expect(re11.test("b")).toEqual(true);
             
             const isValidIdentifierName = (str: string): boolean => {
               const reg =

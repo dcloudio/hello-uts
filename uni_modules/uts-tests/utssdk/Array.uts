@@ -344,5 +344,9 @@ export function testArray(): Result {
             // expect(iterator1.next().value).toEqual(2);
             // expect(iterator1.next().done).toEqual(true);
         })
+		test("toString", () => {
+		    const array1 = [1, 2, 'a', '1a'];
+		    expect(array1.toString()).toEqual("1,2,a,1a");
+		})
     })
 }
