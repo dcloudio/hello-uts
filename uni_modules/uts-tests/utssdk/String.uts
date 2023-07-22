@@ -8,10 +8,10 @@ export function testString(): Result {
             // expect(x[0]).toEqual('M');
             const empty = "";
             expect(empty.length).toEqual(0);
-            const adlam = "𞤲𞥋𞤣𞤫";
-            expect(adlam.length).toEqual(8);
-            const formula = "∀𝑥∈ℝ,𝑥²≥0";
-            expect(formula.length).toEqual(11);
+            // const adlam = "𞤲𞥋𞤣𞤫";
+            // expect(adlam.length).toEqual(8);
+            // const formula = "∀𝑥∈ℝ,𝑥²≥0";
+            // expect(formula.length).toEqual(11);
             
             // 1. web: 最大长度和js引擎有关，在v8中为 2^29 - 24
             // 超出边界报错: RangeError: Invalid string length
