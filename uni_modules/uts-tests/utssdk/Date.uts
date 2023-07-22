@@ -23,6 +23,14 @@ export function testDate() : Result {
 			expect(unixTimeZero).toEqual(0);
 			expect(javaScriptRelease).toEqual(818035920000);
 		})
+		test('toTimeString', () => {
+			const date1 = new Date('01 Jan 1970 00:00:00 GMT');
+			const date2 = new Date('December 17, 1995 03:24:00');
+			
+			expect(date1.toTimeString()).toEqual("08:00:00 GMT+0800");
+			expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800");
+		})
+		
         test('getDate', () => {
             const birthday = new Date('August 19, 1975 23:15:30');
             const date1 = birthday.getDate();

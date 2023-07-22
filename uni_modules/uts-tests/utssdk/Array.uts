@@ -278,7 +278,15 @@ export function testArray(): Result {
             expect(array1.unshift(4, 5)).toEqual(5);
             expect(array1).toEqual([4, 5, 1, 2, 3]);
         })
-        
+		test("toString", () => {
+		    const array1: number[] = [1, 2, 3];
+		    expect(array1.toString()).toEqual("1,2,3");
+			const array2 = new Array<string>()
+			array2.push("a")
+			array2.push("b")
+			array2.push("c")
+			expect(array2.toString()).toEqual("a,b,c");
+		})
         test('reverse', () => {
             // const array1: string[] = ['one', 'two', 'three'];
             // const reversed1: string[] = array1.reverse();
