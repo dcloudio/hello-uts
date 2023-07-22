@@ -275,6 +275,9 @@ export function testString(): Result {
             expect(str2.substring(3, 8)).toEqual("lo wo");
             expect(str2.substring(0, -1)).toEqual("");
             expect(str2.substring(0, 20)).toEqual("hello world");
+			
+			var str3 = "aaa";
+			expect(str3.substring(10, 1)).toEqual("aa");
         })
         test("trim", () => {
             const greeting = '   Hello world!   ';
