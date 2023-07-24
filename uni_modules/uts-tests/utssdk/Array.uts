@@ -256,7 +256,7 @@ export function testArray(): Result {
             expect(array1).toEqual([1, 100000, 21, 30, 4]);
             
             const array2 = [5, 1, 4, 2, 3];
-            array2.sort((a: number, b: number):number => a - b);
+            array2.sort((a, b):Int => a - b);
             expect(array2).toEqual([1, 2, 3, 4, 5]);
             
             // const array3 = [5, "banana", 4, "apple", 3, "cherry", 2, "date", 1];

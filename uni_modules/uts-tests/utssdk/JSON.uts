@@ -13,7 +13,7 @@ export function testJSON() : Result {
             const json = `{"result":true, "count":42}`;
             const obj = JSON.parse(json)!;
             expect(obj["count"]).toEqual(42);
-            expect(obj["result"]).toEqual(true);
+            expect(obj["result"] as boolean).toEqual(true);
 
             const json1 = `{
                 "name": "John",

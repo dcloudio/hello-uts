@@ -164,12 +164,12 @@ export function testString(): Result {
             const regex = /Dog/i;
             expect(p.replace(regex, 'ferret')).toEqual("The quick brown fox jumps over the lazy ferret. If the dog reacted, was it really lazy?");
             const str = 'abc12345#$*%';
-            const replacer = (match:string, p1:string, p2:string, p3:string, offset:number, string:string): string => {
+            const replacer = (match:string, p: string[], offset:number, string:string): string => {
               // p1 is nondigits, p2 digits, and p3 non-alphanumerics
               expect(offset).toEqual(0);
               expect(match).toEqual(str);
               expect(string).toEqual(str);
-              return [p1, p2, p3].join(' - ');
+              return p.join(' - ');
             }
             var newString = str.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
             expect(newString).toEqual("abc - 12345 - #$*%");

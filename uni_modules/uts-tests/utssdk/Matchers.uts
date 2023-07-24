@@ -12,7 +12,7 @@ export class Matchers<T> {
         throw new Error(format(expected, this.actual))
         // #endif
         // #ifdef APP-IOS
-        NSException(name = NSExceptionName.internalInconsistencyException, reason = format(expected, this.actual)).raise()
+        // NSException(name = NSExceptionName.internalInconsistencyException, reason = format(expected, this.actual)).raise()
         // #endif
     }
 }
