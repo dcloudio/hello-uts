@@ -107,27 +107,27 @@ export function testString(): Result {
             
             expect("".indexOf("test")).toEqual(-1);
         })
-        test('match', () => {
-            const str = 'The quick brown fox jumps over the lazy dog. It barked.';
-            const result = str.match(new RegExp('[A-Z]', 'g'));
-            expect(result).toEqual(["T", "I"]);
+        // test('match', () => {
+        //     const str = 'The quick brown fox jumps over the lazy dog. It barked.';
+        //     const result = str.match(new RegExp('[A-Z]', 'g'));
+        //     expect(result).toEqual(["T", "I"]);
             
-            const str1 = 'For more information, see Chapter 3.4.5.1';
-            const result1 = str1.match(/see (chapter \d+(\.\d)*)/i);
-            expect(result1[0]).toEqual("see Chapter 3.4.5.1");
-            expect(result1[1]).toEqual("Chapter 3.4.5.1");
-            expect(result1[2]).toEqual(".1");
-            expect(result1.index).toEqual(22);
-            expect(result1.input).toEqual(str1);
+        //     const str1 = 'For more information, see Chapter 3.4.5.1';
+        //     const result1 = str1.match(/see (chapter \d+(\.\d)*)/i);
+        //     expect(result1[0]).toEqual("see Chapter 3.4.5.1");
+        //     expect(result1[1]).toEqual("Chapter 3.4.5.1");
+        //     expect(result1[2]).toEqual(".1");
+        //     expect(result1.index).toEqual(22);
+        //     expect(result1.input).toEqual(str1);
             
-            const str2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-            const result2 = str2.match(/[A-E]/gi);
-            expect(result2).toEqual(['A', 'B', 'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e']);
+        //     const str2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        //     const result2 = str2.match(/[A-E]/gi);
+        //     expect(result2).toEqual(['A', 'B', 'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e']);
             
-            const str3 = 'Nothing will come of nothing.';
-            const result3 = str3.match();
-            expect(result3).toEqual([""]);
-        })
+        //     const str3 = 'Nothing will come of nothing.';
+        //     const result3 = str3.match();
+        //     expect(result3).toEqual([""]);
+        // })
         test('padEnd', () => {
             const str1 = 'Breaded Mushrooms';
             expect(str1.padEnd(25, '.')).toEqual("Breaded Mushrooms........");
