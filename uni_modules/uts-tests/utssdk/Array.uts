@@ -2,6 +2,23 @@ import { describe, test, expect, Result } from './tests.uts'
 
 export function testArray(): Result {
     return describe("Array", () => {
+		
+		test('constructor', () => {
+			// 构造器测试
+			let a1 = [1,2,3]
+			expect(a1).toEqual([1,2,3]);
+			let a2 = [1,'2',3]
+			expect(a2).toEqual([1,'2',3]);
+			let a3 = new Array(1,2,3);
+			expect(a3).toEqual(new Array(1,2,3));
+			let a4 = new Array(1,'2',3);
+			expect(a4).toEqual(new Array(1,'2',3));
+			let a5 = Array(1,2,3);
+			expect(a5).toEqual(Array(1,2,3));
+			let a6 = Array(1,'2','3')
+			expect(a6).toEqual(Array(1,'2','3'));
+		})
+		
         test('length', () => {
             const arr: string[] = ['shoes', 'shirts', 'socks', 'sweaters'];
             expect(arr.length).toEqual(4);
