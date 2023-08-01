@@ -176,6 +176,10 @@ export function testArray(): Result {
             expect(index).toEqual(3);
             index = array.lastIndexOf(2, 2);
             expect(index).toEqual(0);
+			
+			
+			
+			
         })
         test("map", () => {
             const array1: number[] = [1, 4, 9, 16];

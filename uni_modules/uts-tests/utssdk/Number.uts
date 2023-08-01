@@ -2,6 +2,7 @@ import { describe, test, expect, Result } from './tests.uts'
 
 export function testNumber(): Result {
     return describe("Number", () => {
+		
         test('toFixed', () => {
             function financial(x: Number): String {
               return x.toFixed(2);
@@ -10,6 +11,16 @@ export function testNumber(): Result {
             expect(financial(0.004)).toEqual("0.00");
             expect(financial(0)).toEqual("0.00");
             expect(financial(1)).toEqual("1.00");
+			
+			let num1: number = -1.1 / 0
+			let num2: number = -1.1 / 0.1
+			let num3: number = -1.1 / -0.1
+			console.warn(num1)
+			console.warn(num2)
+			console.warn(num3)
+			let obj = {"id":"3be2c600-894c-4231-aa56-82fd989cc961","result":{"result":[num1, num2, num3]}}
+			console.log(JSON.stringify(obj))
+			
         })
 		
 		test('parseInt', () => {
@@ -49,6 +60,13 @@ export function testNumber(): Result {
 			expect((10).valueOf()).toEqual(10);
 			expect((-10.2).valueOf()).toEqual(-10.2);
 			expect((0xf).valueOf()).toEqual(15);
+		})
+		
+		// 数据转换操作示例
+		test('toX', () => {
+			let num = 10.123
+			expect(num.toInt()).toEqual(10);
+			expect(num.toDouble()).toEqual(10.123);
 		})
 		
     })

@@ -444,6 +444,8 @@ export function logFloatTest() {
 }
 export function logIntTest() {
 	console.log(2023)
+	console.log(2023.0)
+	console.log(2023.002)
 }
 
 export function logObjectTest(){
