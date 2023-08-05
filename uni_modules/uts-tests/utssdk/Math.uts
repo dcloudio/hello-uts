@@ -1,4 +1,4 @@
-import { describe, test, expect, Result } from './tests.uts'
+import { describe, test, expect,expectNumber, Result } from './tests.uts'
 
 export function testMath(): Result {
     return describe("Math", () => {
@@ -68,8 +68,8 @@ export function testMath(): Result {
         test('acosh', () => {
             // 解决精度问题
             expect(Math.acosh(1)).toEqual(0.0);
-            expect(Math.acosh(2)).toEqual(1.3169578969248166);
-            expect(Math.acosh(2.5)).toEqual(1.566799236972411);
+			expectNumber(Math.acosh(2)).toEqualDouble(1.3169578969248166);
+            expectNumber(Math.acosh(2.5)).toEqualDouble(1.566799236972411);
         })
         test('asin', () => {
             expect(Math.asin(-1)).toEqual(-1.5707963267948966);
@@ -79,10 +79,10 @@ export function testMath(): Result {
             expect(Math.asin(1)).toEqual(1.5707963267948966);
         })
         test('asinh', () => {
-            expect(Math.asinh(1)).toEqual(0.881373587019543);
-            expect(Math.asinh(0)).toEqual(0);
-            expect(Math.asinh(-1)).toEqual(-0.881373587019543);
-            expect(Math.asinh(2)).toEqual(1.4436354751788103);
+            expectNumber(Math.asinh(1)).toEqualDouble(0.881373587019543);
+            expectNumber(Math.asinh(0)).toEqualDouble(0);
+            expectNumber(Math.asinh(-1)).toEqualDouble(-0.881373587019543);
+            expectNumber(Math.asinh(2)).toEqualDouble(1.4436354751788103);
         })
         test('atan', () => {
             expect(Math.atan(1)).toEqual(0.7853981633974483);
@@ -133,8 +133,8 @@ export function testMath(): Result {
             expect(Math.exp(1)).toEqual(2.718281828459045);
         })
         test('expm1', () => {
-            expect(Math.expm1(1)).toEqual(1.718281828459045);
-            expect(Math.expm1(-38)).toEqual(-1);
+            expectNumber(Math.expm1(1)).toEqualDouble(1.718281828459045);
+            expectNumber(Math.expm1(-38)).toEqualDouble(-1);
         })
         test('floor', () => {
             expect(Math.floor(5.95)).toEqual(5);
@@ -144,7 +144,7 @@ export function testMath(): Result {
         })
         test('fround', () => {
             expect(Math.fround(1.5)).toEqual(1.5);
-            expect(Math.fround(1.337)).toEqual(1.3370000123977661);
+            expectNumber(Math.fround(1.337)).toEqualDouble(1.3370000123977661);
         })
         // test('hypot', () => {
             // expect(Math.hypot(3, 4)).toEqual(5);
@@ -187,8 +187,8 @@ export function testMath(): Result {
             expect(Math.min(-2, -3, -1)).toEqual(-3);
         })
         test('pow', () => {
-            expect(Math.pow(7, 3)).toEqual(343);
-            expect(Math.pow(4, 0.5)).toEqual(2);
+            expectNumber(Math.pow(7, 3)).toEqualDouble(343);
+            expectNumber(Math.pow(4, 0.5)).toEqualDouble(2);
         })
         test('random', () => {
             function getRandomInt(max:number):number {

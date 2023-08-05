@@ -1,4 +1,4 @@
-import { Matchers } from './Matchers.uts'
+import { Matchers,NumberMatchers } from './Matchers.uts'
 
 export const describes = new Map<string, Result>()
 
@@ -31,4 +31,8 @@ export function test(name: string, fn: () => void) {
 
 export function expect<T>(value: T): Matchers<T> {
     return new Matchers(value);
+}
+
+export function expectNumber(value: number): NumberMatchers {
+    return new NumberMatchers(value);
 }
