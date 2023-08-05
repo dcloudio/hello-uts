@@ -1,4 +1,4 @@
-import { describe, test, expect, Result } from './tests.uts'
+import { describe, test, expect,expectNumber, Result } from './tests.uts'
 
 export function testOperators(): Result {
     return describe("Operators", () => {
@@ -97,7 +97,7 @@ export function testOperators(): Result {
             expect(divide(-10, 5)).toEqual(-2);
             expect(divide(0.1, 0.3)).toEqual(0.33333333333333337);
             expect(divide(0.3, 0.1)).toEqual(2.9999999999999996);
-            expect(divide(1.5, 0.5)).toEqual(3);
+            expectNumber(divide(1.5, 0.5)).toEqualDouble(3);
             expect(divide(3, 2)).toEqual(1.5);
             // 暂不支持字面量
             // expect(3 / 2).toEqual(1.5);
@@ -205,10 +205,10 @@ export function testOperators(): Result {
             expect(multiply(1, -10)).toEqual(-10);
             expect(multiply(2, 3)).toEqual(6);
             expect(multiply(0.2, 0.3)).toEqual(0.06);
-            expect(multiply(1.5, 6)).toEqual(9);
-            expect(multiply(1000, 0.001)).toEqual(1);
-            expect(multiply(1000, -0.001)).toEqual(-1);
-            expect(multiply(1000, -0.001)).toEqual(-1);
+            expectNumber(multiply(1.5, 6)).toEqualDouble(9);
+            expectNumber(multiply(1000, 0.001)).toEqualDouble(1);
+            expectNumber(multiply(1000, -0.001)).toEqualDouble(-1);
+            expectNumber(multiply(1000, -0.001)).toEqualDouble(-1);
             expect(multiply(9999, 9999)).toEqual(99980001);
             expect(multiply(100000000, 10)).toEqual(1000000000);
         })
@@ -280,7 +280,7 @@ export function testOperators(): Result {
             expect(subtract(-5, 3)).toEqual(-8);
             expect(subtract(5, -3)).toEqual(8);
             expect(subtract(5, 0)).toEqual(5);
-            expect(subtract(1.5, 0.5)).toEqual(1);
+            expectNumber(subtract(1.5, 0.5)).toEqualDouble(1);
             expect(subtract(5.5, 2)).toEqual(3.5);
             expect(subtract(5.5, 2)).toEqual(3.5);
             expect(subtract(2.22, 1.11)).toEqual(1.11);

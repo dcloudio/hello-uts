@@ -19,6 +19,16 @@ export function testArray(): Result {
 			expect(a6).toEqual(Array(1,'2','3'));
 		})
 		
+		test('equals', () => {
+			// 构造器测试
+			let a1 = [1,2,3]
+			let a2 = [1,2,3]
+			let equalsRet = (a1 == a2)
+			console.log(equalsRet)
+			expect(equalsRet).toEqual(false);
+			
+		})
+		
         test('length', () => {
             const arr: string[] = ['shoes', 'shirts', 'socks', 'sweaters'];
             expect(arr.length).toEqual(4);

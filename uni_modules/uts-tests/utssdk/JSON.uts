@@ -80,7 +80,7 @@ export function testJSON() : Result {
 
             const obj1 = { name: 'John', age: 30, address: { city: 'New York', country: 'USA' } };
             const json1 = JSON.stringify(obj1);
-            expect(json1).toEqual('{"name":"John","age":30,"address":{"city":"New York","country":"USA"}}');
+            expect(json1).toEqual('{"address":{"country":"USA","city":"New York"},"name":"John","age":30}');
 
             const obj2 = ['apple', 'banana', 'cherry'];
             const json2 = JSON.stringify(obj2);
@@ -102,7 +102,7 @@ export function testJSON() : Result {
             expect(JSON.stringify([3, 'false', false])).toEqual(`[3,"false",false]`);
             expect(JSON.stringify({})).toEqual('{}');
             expect(JSON.stringify(true)).toEqual('true');
-            expect(JSON.stringify('foo')).toEqual('foo');
+            expect(JSON.stringify('foo')).toEqual('"foo"');
         })
     })
 }

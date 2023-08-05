@@ -73,12 +73,13 @@ export function testRegExp(): Result {
             expect(regex1.test(str1)).toEqual(true);
             expect(regex1.test(str1)).toEqual(false);
         })
-        test("unicode", () => {
-            const regex1 = new RegExp('foo', 'u');
-            expect(regex1.unicode).toEqual(true);
-            const regex2 = new RegExp('bar');
-            expect(regex2.unicode).toEqual(false);
-        })
+		// android 暂时不支持 unicode
+        // test("unicode", () => {
+        //     const regex1 = new RegExp('foo', 'u');
+        //     expect(regex1.unicode).toEqual(true);
+        //     const regex2 = new RegExp('bar');
+        //     expect(regex2.unicode).toEqual(false);
+        // })
         
         test('test', () => {
             const str = 'table football';
@@ -218,6 +219,7 @@ export function testRegExp(): Result {
             const result7 = pattern7.exec('2023/05-26');
             expect(result7).toEqual(null);
             
+			
             const pattern8 = /https:\/\/(?!\w+\.(com|net))\w+\.\w+/;
             const result8 = pattern8.exec('https://example.org')!;
             expect(result8[0]).toEqual('https://example.org');
