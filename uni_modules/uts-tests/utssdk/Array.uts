@@ -168,6 +168,14 @@ export function testArray(): Result {
             expect(array2.includes('c', 100)).toEqual(false);
         })
         test("indexOf", () => {
+			
+			let raw = {}
+			let arr = new Array()
+			arr.push({});
+			arr.push({});
+			arr.push(raw);
+			expect(arr.indexOf(raw)).toEqual(2);
+			
             const beasts: string[] = ['ant', 'bison', 'camel', 'duck', 'bison'];
             expect(beasts.indexOf('bison')).toEqual(1);
             expect(beasts.indexOf('bison', 2)).toEqual(4);
@@ -191,6 +199,15 @@ export function testArray(): Result {
             expect(elements.join('-')).toEqual("Fire-Air-Water");
         })
         test("lastIndexOf", () => {
+			
+			let raw = {}
+			let arr = new Array()
+			arr.push({});
+			arr.push({});
+			arr.push(raw);
+			expect(arr.lastIndexOf(raw)).toEqual(2);
+			
+			
             const animals: string[] = ['Dodo', 'Tiger', 'Penguin', 'Dodo'];
             expect(animals.lastIndexOf('Dodo')).toEqual(3);
             expect(animals.lastIndexOf('Tiger')).toEqual(1);
