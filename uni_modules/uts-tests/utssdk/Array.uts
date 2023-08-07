@@ -170,7 +170,7 @@ export function testArray(): Result {
         test("indexOf", () => {
 			
 			let raw = {}
-			let arr = new Array()
+			let arr = new Array<any>()
 			arr.push({});
 			arr.push({});
 			arr.push(raw);
@@ -201,7 +201,7 @@ export function testArray(): Result {
         test("lastIndexOf", () => {
 			
 			let raw = {}
-			let arr = new Array()
+			let arr = new Array<any>()
 			arr.push({});
 			arr.push({});
 			arr.push(raw);
