@@ -24,12 +24,16 @@ export function testKeyWord(): Result {
         
 		
 		test('instanceof', () => {
-			let user1 = new User()
+			let user1:any = new User()
 			let instanceRet1 = user1 instanceof User
 			expect(instanceRet1).toEqual(true)
 			let instanceRet2 = user1 instanceof String
 			expect(instanceRet2).toEqual(false)
-			
+			let num1:any = 3.1415926 
+			let instanceRet3 = num1 instanceof String
+			expect(instanceRet3).toEqual(false)
+			let instanceRet4 = num1 instanceof Number
+			expect(instanceRet4).toEqual(true)
 		})
 		
 		
