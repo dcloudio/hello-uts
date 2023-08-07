@@ -1,0 +1,37 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+class User{
+	name:string = "";
+	age:number = 0
+}
+
+export function testKeyWord(): Result {
+    return describe("Error", () => {
+        test('new', () => {
+           let new1 = new User()
+		   expect(JSON.stringify(new1)).toEqual('{"age":0,"name":""}')
+		   new1.age = 10
+		   new1.name = "job"
+		   expect(JSON.stringify(new1)).toEqual('{"age":10,"name":"job"}')
+        })
+		
+		test('typeof', () => {
+		   let new1 = new User()
+		   expect(typeof(new1)).toEqual('object')
+		   expect(typeof(123456.789)).toEqual('number')
+		   expect(typeof("hello world")).toEqual('string')
+		})
+        
+		
+		test('instanceof', () => {
+			let user1 = new User()
+			let instanceRet1 = user1 instanceof User
+			expect(instanceRet1).toEqual(true)
+			let instanceRet2 = user1 instanceof String
+			expect(instanceRet2).toEqual(false)
+			
+		})
+		
+		
+    })
+}

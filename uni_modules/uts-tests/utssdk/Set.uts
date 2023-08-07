@@ -19,6 +19,9 @@ export function testSet(): Result {
             set1.forEach((item)=>{
               expect(set1.has(item)).toEqual(true);
             })
+			console.log(set1)
+			let set2 = set1.add(66);
+			console.log(set2)
         })
         test('clear', () => {
             const set1 = new Set<any>();

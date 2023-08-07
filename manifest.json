@@ -74,10 +74,10 @@
 	"uniStatistics": {
 		"enable": false
 	},
-	"vueVersion": "3"
-	// "uni-app-x" : {
-	//     "uvue" : {
-	//         "flex-direction" : "cloum"
-	//     }
-	// }
+	"vueVersion": "3",
+	"uni-app-x" : {
+	    "uvue" : {
+	        "flex-direction" : "cloum"
+	    }
+	}
 }
