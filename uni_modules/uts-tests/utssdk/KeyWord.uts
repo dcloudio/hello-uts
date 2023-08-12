@@ -20,6 +20,9 @@ export function testKeyWord(): Result {
 		   expect(typeof(new1)).toEqual('object')
 		   expect(typeof(123456.789)).toEqual('number')
 		   expect(typeof("hello world")).toEqual('string')
+		   console.log(typeof([1,2,3]))
+		   let arr1 = new Array<any>()
+		   console.log(arr1)
 		})
         
 		

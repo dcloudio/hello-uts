@@ -101,8 +101,15 @@ export function testJSON() : Result {
             expect(JSON.stringify({ x: 5, y: 6 })).toEqual(`{"x":5,"y":6}`);
             expect(JSON.stringify([3, 'false', false])).toEqual(`[3,"false",false]`);
             expect(JSON.stringify({})).toEqual('{}');
+			expect(JSON.stringify(1002)).toEqual('1002');
+			expect(JSON.stringify(1002.202)).toEqual('1002.202');
+			expect(JSON.stringify(null)).toEqual('null');
+			expect(JSON.stringify(100/0.0)).toEqual('null');
             expect(JSON.stringify(true)).toEqual('true');
+			expect(JSON.stringify(false)).toEqual('false');
             expect(JSON.stringify('foo')).toEqual('"foo"');
+			expect(JSON.stringify(Math.PI)).toEqual('3.141592653589793');
+			expect(JSON.stringify(Math.E)).toEqual('2.718281828459045');
         })
     })
 }
