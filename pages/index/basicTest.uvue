@@ -1,66 +1,67 @@
 <template>
+  <!-- #ifdef APP -->
+  <scroll-view style="flex: 1">
+    <!-- #endif -->
     <view class="content">
-		<page-head :title="title"></page-head>
-        <view v-for="(item,index) in resultArray" :key="index" class="result">
-            <view>{{names[index]}}测试结果：</view>
-            <view>
-                测试api：{{item.passed.join(', ')}}
-            </view>
-            <view>总共：{{item.total}}</view>
-            <view>通过：{{item.passed.length}}</view>
-            <view>失败：{{item.failed.length}}</view>
-            <view v-for="(fail,i) in item.failed" :key="i">
-                <text class="failed">{{fail}}</text>
-            </view>
+      <page-head :title="title"></page-head>
+      <view v-for="(item, index) in resultArray" :key="index" class="result">
+        <view>{{ names[index] }}测试结果：</view>
+        <view> 测试api：{{ item.passed.join(', ') }} </view>
+        <view>总共：{{ item.total }}</view>
+        <view>通过：{{ item.passed.length }}</view>
+        <view>失败：{{ item.failed.length }}</view>
+        <view v-for="(fail, i) in item.failed" :key="i">
+          <text class="failed">{{ fail }}</text>
         </view>
+      </view>
     </view>
+    <!-- #ifdef APP -->
+  </scroll-view>
+  <!-- #endif -->
 </template>
 <script lang="ts">
-    import {
-        runTests,
-        Result
-    } from '../../uni_modules/uts-tests'
+import { runTests, Result } from '../../uni_modules/uts-tests'
 
-    export default {
-        data() {
-            return {
-				title: 'UTS基础语法',
-                resultArray: [] as Result[],
-                result: {} as UTSJSONObject,
-                names: [] as string[]
-            }
-        },
-        onReady() {
-            this.test()
-        },
-        methods: {
-            test() {
-                this.result = runTests()
-                const resultMap = this.result.toMap()
-                resultMap.forEach((res, name) => {
-                    this.names.push(name)
-                    this.resultArray.push(res as Result)
-                })
-            }
-        }
+export default {
+  data() {
+    return {
+      title: 'UTS基础语法',
+      resultArray: [] as Result[],
+      result: {} as UTSJSONObject,
+      names: [] as string[],
     }
+  },
+  onReady() {
+    this.test()
+  },
+  methods: {
+    test() {
+      this.result = runTests()
+      const resultMap = this.result.toMap()
+      resultMap.forEach((res, name) => {
+        this.names.push(name)
+        this.resultArray.push(res as Result)
+      })
+    },
+  },
+}
 </script>
 <style>
-	@import '@/common/uni-uvue.css';
-    .content {
-		min-height: 100%;
-        padding: 32rpx;
-    }
+@import '@/common/uni-uvue.css';
+.content {
+  min-height: 100%;
+  padding: 32rpx;
+}
 
-    .passed {
-        color: green;
-    }
+.passed {
+  color: green;
+}
 
-    .failed {
-        color: red;
-    }
+.failed {
+  color: red;
+}
 
-    .result {
-        margin-bottom: 20rpx;
-    }
+.result {
+  margin-bottom: 20rpx;
+}
 </style>
