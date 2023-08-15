@@ -11,7 +11,7 @@ export function testJSON() : Result {
     return describe("JSON", () => {
         test('parse', () => {
             const json = `{"result":true, "count":42}`;
-            const obj = JSON.parse(json)!;
+            const obj = JSON.parse(json) as UTSJSONObject;
             expect(obj["count"]).toEqual(42);
             expect(obj["result"] as boolean).toEqual(true);
 
@@ -29,7 +29,7 @@ export function testJSON() : Result {
 			
 			
             const json2 = '{"string":"Hello","number":42,"boolean":true,"nullValue":null,"array":[1,2,3],"object":{"nestedKey":"nestedValue"}}';
-            const obj2 = JSON.parse(json2)!;
+            const obj2 = JSON.parse<UTSJSONObject>(json2)!;
             expect(obj2).toEqual({
                 string: 'Hello',
                 number: 42,
