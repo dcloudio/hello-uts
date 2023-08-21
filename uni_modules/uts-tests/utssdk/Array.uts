@@ -10,6 +10,9 @@ export function testArray(): Result {
 			let a2 = [1,'2',3]
 			expect(a2).toEqual([1,'2',3]);
 			let a3 = new Array(1,2,3);
+		
+		// swift 中字面量创建数组，仅支持同一类型的元素
+		// #ifndef APP-IOS
 			expect(a3).toEqual(new Array(1,2,3));
 			let a4 = new Array(1,'2',3);
 			expect(a4).toEqual(new Array(1,'2',3));
@@ -17,6 +20,8 @@ export function testArray(): Result {
 			expect(a5).toEqual(Array(1,2,3));
 			let a6 = Array(1,'2','3')
 			expect(a6).toEqual(Array(1,'2','3'));
+		// #endif
+
 		})
 		
 		test('equals', () => {
@@ -25,7 +30,13 @@ export function testArray(): Result {
 			let a2 = [1,2,3]
 			let equalsRet = (a1 == a2)
 			console.log(equalsRet)
-			expect(equalsRet).toEqual(false);
+			// #ifndef APP-IOS
+				expect(equalsRet).toEqual(false);
+			// #endif
+			// #ifdef APP-IOS
+				expect(equalsRet).toEqual(true);
+			// #endif
+			
 			
 		})
 		
@@ -170,7 +181,7 @@ export function testArray(): Result {
         test("indexOf", () => {
 			
 			let raw = {}
-			let arr = new Array<any>()
+			let arr = new Array<UTSJSONObject>()
 			arr.push({});
 			arr.push({});
 			arr.push(raw);
@@ -201,7 +212,7 @@ export function testArray(): Result {
         test("lastIndexOf", () => {
 			
 			let raw = {}
-			let arr = new Array<any>()
+			let arr = new Array<UTSJSONObject>()
 			arr.push({});
 			arr.push({});
 			arr.push(raw);
@@ -315,11 +326,23 @@ export function testArray(): Result {
               { name: "John", age: 24 },
               { name: "Sarah", age: 19 },
               { name: "Bob", age: 27 },
-              { name: "Alice", age: 21 }
+              { name: "Alice", age: 21 }   
             ];
             // 先强转类型，解决编译报错
             array4.sort((a, b):number => (a['age'] as number) - (b['age'] as number));
-            expect(array4).toEqual([{ name: "Sarah", age: 19 }, { name: "Alice", age: 21 }, { name: "John", age: 24 }, { name: "Bob", age: 27 }]);
+			
+			// #ifndef APP-IOS
+				expect(array4).toEqual([{ name: "Sarah", age: 19 }, { name: "Alice", age: 21 }, { name: "John", age: 24 }, { name: "Bob", age: 27 }]);
+			// #endif
+			
+			// #ifdef APP-IOS
+				const arr = array4.map((value: UTSJSONObject): number => { return value["age"] as number })
+				expect(arr).toEqual([19, 21, 24, 27])
+			// #endif
+			
+            
+			
+
         })
         test("unshift", () => {
             const array1: number[] = [1, 2, 3];
