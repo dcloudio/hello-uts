@@ -16,13 +16,21 @@ export function testKeyWord(): Result {
         })
 		
 		test('typeof', () => {
-		   let new1 = new User()
-		   expect(typeof(new1)).toEqual('object')
-		   expect(typeof(123456.789)).toEqual('number')
-		   expect(typeof("hello world")).toEqual('string')
-		   console.log(typeof([1,2,3]))
-		   let arr1 = new Array<any>()
-		   console.log(arr1)
+			let new1 = new User()
+			expect(typeof(new1)).toEqual('object')
+			expect(typeof(123456.789)).toEqual('number')
+			expect(typeof(789778979798797987979)).toEqual('number')
+			expect(typeof(0.0)).toEqual('number')
+			expect(typeof("hello world")).toEqual('string')
+			expect(typeof([1,2,3])).toEqual('object')
+			expect(typeof(new Array<any>())).toEqual('object')
+			expect(typeof(new Set<any>())).toEqual('object')
+			expect(typeof(new Map<any,any>())).toEqual('object')
+			expect(typeof(new Date())).toEqual('object')
+			expect(typeof("hello world")).toEqual('string')
+			// 原生对象
+			expect(typeof(UTSAndroid.getUniActivity())).toEqual('object')
+		   
 		})
         
 		
