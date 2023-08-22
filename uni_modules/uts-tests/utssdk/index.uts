@@ -31,7 +31,6 @@ export function runTests() : UTSJSONObject {
     const MathRes = testMath();
     const RegExpRes = testRegExp();
 	const KeyWordRes = testKeyWord();
-	const extapiRes = testExtapi();
 	
     // #ifdef APP-ANDROID
     // const ReactiveArrayRes = testReactiveArray();
@@ -56,7 +55,6 @@ export function runTests() : UTSJSONObject {
         Operators: OperatorsRes,
         Math: MathRes,
         RegExp: RegExpRes,
-		KeyWord:KeyWordRes,
-		extapi:extapiRes
+		KeyWord:KeyWordRes
     }
 }
