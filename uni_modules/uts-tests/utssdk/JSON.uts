@@ -2,9 +2,9 @@ import { describe, test, expect, Result } from './tests.uts'
 
 
 
-class User{
-	name:string = "";
-	age:number = 12;
+type UserJSON={
+	id:string;
+	name:string|null;
 }
 
 export function testJSON() : Result {
@@ -73,6 +73,32 @@ export function testJSON() : Result {
             // expect(JSON.parse('"foo"')!).toEqual("foo");
             // expect(JSON.parse('null')!).toEqual(null);
         })
+		test('parseObject', () => {
+		    const json = `{"result":true, "count":42}`;
+		    const obj = JSON.parseObject(json);
+		    expect(obj!["count"]).toEqual(42);
+		    expect(obj!["result"] as boolean).toEqual(true);
+		
+		    expect(JSON.parseObject('{}')!).toEqual({});
+			
+			const json1 = `{
+			    "name": "John",
+			    "id": "30"
+			  }`;
+			let obj2 = JSON.parseObject<UserJSON>(json1);
+			expect(obj2!!.id).toEqual("30");
+			
+			const json2 = `{
+			    "id": "30"
+			  }`;
+			let obj3 = JSON.parseObject<UserJSON>(json2);
+			expect(obj3!!.id).toEqual("30");
+			const json3 = `{
+			    "name": "John"
+			  }`;
+			 let obj4 = JSON.parseObject<UserJSON>(json3);
+			expect(obj4).toEqual(null);
+		})
         test('stringify', () => {
             const obj = { name: 'John', age: 30 };
             const json = JSON.stringify(obj);
@@ -111,5 +137,10 @@ export function testJSON() : Result {
 			expect(JSON.stringify(Math.PI)).toEqual('3.141592653589793');
 			expect(JSON.stringify(Math.E)).toEqual('2.718281828459045');
         })
+		
+		
+		
     })
+	
+	
 }

@@ -1,0 +1,70 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+
+export function testExtapi() : Result {
+	return describe("Storage", () => {
+		test('setStorage', () => {
+
+			uni.setStorage({
+				key: "dddddd",
+				data: 1,
+				complete: (res) => {
+					let ret = uni.getStorageSync("dddddd")
+					expect(ret).toEqual(1)
+					uni.setStorageSync("dddddd",3.14159265358)
+					ret = uni.getStorageSync("dddddd")
+					expect(ret).toEqual(3.14159265358)
+				}
+			})
+
+
+			uni.setStorage({
+				key: "dddddd",
+				data: true,
+				complete: (res) => {
+					console.log(res)
+					let ret = uni.getStorageSync("dddddd")
+					expect(ret).toEqual(true)
+					uni.setStorageSync("dddddd",false)
+					ret = uni.getStorageSync("dddddd")
+					expect(ret).toEqual(false)
+				}
+			})
+			
+			
+			uni.setStorage({
+				key: "dddddd",
+				data: "海上生明月，天涯共此时，情人怨遥夜，竟夕起相思。",
+				complete: (res) => {
+					console.log(res)
+					let ret = uni.getStorageSync("dddddd")
+					expect(ret).toEqual("海上生明月，天涯共此时，情人怨遥夜，竟夕起相思。")
+					uni.setStorageSync("dddddd","床前明月光，疑似地上霜")
+					ret = uni.getStorageSync("dddddd")
+					expect(ret).toEqual("床前明月光，疑似地上霜")
+				}
+			})
+			
+			
+			// IOS 打印对象乱序，暂时注释
+			// uni.setStorage({
+			// 	key: "dddddd",
+			// 	data: {
+			// 		"a": 1,
+			// 		"b": "2",
+			// 		"c": {
+			// 			"x": "1",
+			// 			"y": true
+			// 		}
+			// 	},
+			// 	complete: (res) => {
+			// 		let ret = uni.getStorageSync("dddddd")
+			// 		console.log(ret)
+			// 		expect(JSON.stringify(ret)).toEqual('{"a":1,"b":"2","c":{"x":"1","y":true}}')
+			// 	}
+			// })
+		})
+
+
+	})
+}

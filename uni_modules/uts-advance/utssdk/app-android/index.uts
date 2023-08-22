@@ -484,7 +484,7 @@ export function logDateCombineTest(){
  * 
  */
 export function quitApp(){
-	UTSAndroid.quitApp()
+	UTSAndroid.exit()
 }
 
 export class User {  
