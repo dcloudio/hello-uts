@@ -99,6 +99,21 @@ export function testJSON() : Result {
 			 let obj4 = JSON.parseObject<UserJSON>(json3);
 			expect(obj4).toEqual(null);
 		})
+		test('parseArray', () => {
+		    const json1 = `[1,2,3]`;
+		    const array1 = JSON.parseArray(json1);
+			expect(array1).toEqual([1,2,3]);
+			
+			const json2 = `[1,"hello world",3]`;
+			const array2 = JSON.parseArray(json2);
+			expect(array2).toEqual([1,"hello world",3]);
+			
+			
+			const json3 = `[{"name":"John","id":"30"},{"name":"jack","id":"21"}]`;
+			const array3 = JSON.parseArray(json3);
+			expect((array3!![0] as UserJSON).name).toEqual("John");
+			
+		})
         test('stringify', () => {
             const obj = { name: 'John', age: 30 };
             const json = JSON.stringify(obj);
