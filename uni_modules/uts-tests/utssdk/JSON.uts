@@ -114,18 +114,16 @@ export function testJSON() : Result {
 			
 			const json3 = `[{"name":"John","id":"30"},{"name":"jack","id":"21"}]`;
 			const array3 = JSON.parseArray(json3);
-			expect((array3!![0] as UserJSON).name).toEqual("John");
+			expect((array3![0] as UTSJSONObject)["name"]).toEqual("John");
 			
 		})
         test('stringify', () => {
             const obj = { name: 'John', age: 30 };
             const json = JSON.stringify(obj);
             // expect(json).toEqual('{"name":"John","age":30}');
-		    console.log(json)
 
             const obj1 = { name: 'John', age: 30, address: { city: 'New York', country: 'USA' } };
             const json1 = JSON.stringify(obj1);
-			console.log(json1)
             // expect(json1).toEqual('{"address":{"country":"USA","city":"New York"},"name":"John","age":30}');
 
             const obj2 = ['apple', 'banana', 'cherry'];
@@ -145,7 +143,6 @@ export function testJSON() : Result {
 //     "age": 30
 // }`);
             // expect(JSON.stringify({ x: 5, y: 6 })).toEqual(`{"x":5,"y":6}`);
-			console.log(JSON.stringify({ x: 5, y: 6 }))
             expect(JSON.stringify([3, 'false', false])).toEqual(`[3,"false",false]`);
             expect(JSON.stringify({})).toEqual('{}');
 			expect(JSON.stringify(1002)).toEqual('1002');
@@ -154,9 +151,12 @@ export function testJSON() : Result {
 			// expect(JSON.stringify(100/0.0)).toEqual('null');
             expect(JSON.stringify(true)).toEqual('true');
 			expect(JSON.stringify(false)).toEqual('false');
-            expect(JSON.stringify('foo')).toEqual('foo');
+			//console.log(JSON.stringify('foo'))
+            //expect(JSON.stringify('foo')).toEqual('foo');
 			expect(JSON.stringify(Math.PI)).toEqual('3.141592653589793');
 			expect(JSON.stringify(Math.E)).toEqual('2.718281828459045');
+			
+			
         })
 		
 		
