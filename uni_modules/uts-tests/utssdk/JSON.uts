@@ -46,7 +46,17 @@ export function testJSON() : Result {
             })
 			expect(obj2.getString("object.nestedKey")).toEqual('nestedValue')
 	
-			
+	
+			let json3 = `{"id":"216776999999","name":"小王","grade":1.0,"list":[1,2,3],"address":{"province":"beijing","city":"haidian","streat":"taipingzhuang","other":2},"anyValue":[[null,null]],"obj":{"a":1,"b":false,"c":null},"customClass":{"name":"lisi","age":30},"numList":[1,2,3,null],"list2":[1,2,3,4],"dic":{"1":{"c":[null]}},"dicArr":[{"a":{"c":[null]}},{"b":{"c":1}}]}`
+			let obj3 = JSON.parse(json3)! as UTSJSONObject;
+			let obj3Address = obj3.getAny("address")!
+			console.log(obj3Address)
+			expect(obj3Address instanceof UTSJSONObject).toEqual(true)
+			let obj3DicArr = obj3.getArray("dicArr")!
+			let obj3DicArrFirst = obj3DicArr[0] as UTSJSONObject
+			let obj3DicArrFirstA = obj3DicArrFirst['a']
+			console.log(obj3DicArrFirstA instanceof UTSJSONObject)
+			expect(obj3DicArrFirstA instanceof UTSJSONObject).toEqual(true)
 			// 目前仅android 支持，暂不放开
 			// let obj3 = JSON.parse<User>(json1);
 			// console.log(obj3)
