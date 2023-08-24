@@ -69,5 +69,38 @@ export function testNumber(): Result {
 			expect(num.toDouble()).toEqual(10.123);
 		})
 		
+		test('numberEquals', () => {
+			let a1 = 10.123
+			let b1 = 10.12300
+			expect(a1 == b1).toEqual(true);
+			let a2 = 0
+			let b2 = 0.0
+			expect(a2 == b2).toEqual(true);
+			
+			let a3 = -1000
+			let b3 = -1000.0
+			expect(a3 == b3).toEqual(true);
+			
+			let a4 = 123456789123456
+			let b4 = 123456789123456.0
+			expect(a4 == b4).toEqual(true);
+			
+			let a5 = -123456789123456
+			let b5 = -123456789123456.01
+			expect(a5 == b5).toEqual(false);
+			
+			let a6 = 246.0 / 123 * 1.0
+			let b6 = 2
+			let c6 = 2.0
+			expect(a6 == b6).toEqual(true);
+			expect(b6 == c6).toEqual(true);
+			
+			let a7 = -10 * 123.2
+			let b7 = - 1232
+			expect(a7 == b7).toEqual(true);
+			
+		})
+		
+		
     })
 }
