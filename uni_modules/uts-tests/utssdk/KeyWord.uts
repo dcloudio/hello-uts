@@ -54,6 +54,12 @@ export function testKeyWord(): Result {
 			expect(instanceRet4).toEqual(true)
 		})
 		
+		test('isArray', () => {
+			let user1:any = new User()
+			expect(Array.isArray(user1)).toEqual(false)
+			expect(Array.isArray([1,2,3])).toEqual(true)
+		})
+		
 		
     })
 }
