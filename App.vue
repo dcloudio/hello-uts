@@ -1,23 +1,32 @@
 <!-- HBuilder X 版本要求: 3.6.11+ -->
 <script lang="ts">
+let firstBackTime = 0
 export default {
   onLaunch: function () {
-    console.log('App Launch');
+    console.log('App Launch')
   },
   onShow: function () {
-    console.log('App Show');
+    console.log('App Show')
   },
   onHide: function () {
-    console.log('App Hide');
+    console.log('App Hide')
   },
-  onLastPageBackPress: function (): boolean | null {
-    uni.showToast({
-      title: '再按一次退出应用',
-      position: 'bottom',
-    });
-    return null;
+  onLastPageBackPress: function () {
+    if (firstBackTime == 0) {
+      uni.showToast({
+        title: '再按一次退出应用',
+        position: 'bottom',
+      })
+      firstBackTime = Date.now()
+      setTimeout(() => {
+        firstBackTime = 0
+      }, 2000)
+    } else if (Date.now() - firstBackTime < 2000) {
+      firstBackTime = Date.now()
+      uni.exit(null)
+    }
   },
-};
+}
 </script>
 
 <style>
