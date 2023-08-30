@@ -12,6 +12,7 @@ export default {
     console.log('App Hide')
   },
   onLastPageBackPress: function () {
+    console.log('App LastPageBackPress')
     if (firstBackTime == 0) {
       uni.showToast({
         title: '再按一次退出应用',
@@ -25,6 +26,9 @@ export default {
       firstBackTime = Date.now()
       uni.exit(null)
     }
+  },
+  onExit() {
+    console.log('App Exit')
   },
 }
 </script>
