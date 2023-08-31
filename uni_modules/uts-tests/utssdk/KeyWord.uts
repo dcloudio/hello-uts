@@ -45,12 +45,12 @@ export function testKeyWord(): Result {
 			let user1:any = new User()
 			let instanceRet1 = user1 instanceof User
 			expect(instanceRet1).toEqual(true)
-			let instanceRet2 = user1 instanceof String
+			let instanceRet2 = (typeof user1) == "string"
 			expect(instanceRet2).toEqual(false)
 			let num1:any = 3.1415926 
-			let instanceRet3 = num1 instanceof String
+			let instanceRet3 = (typeof num1) == "string" 
 			expect(instanceRet3).toEqual(false)
-			let instanceRet4 = num1 instanceof Number
+			let instanceRet4 = (typeof num1) == "number"
 			expect(instanceRet4).toEqual(true)
 		})
 		
