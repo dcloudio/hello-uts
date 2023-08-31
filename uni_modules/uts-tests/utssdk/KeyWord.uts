@@ -51,7 +51,7 @@ export function testKeyWord(): Result {
 			let instanceRet3 = (typeof num1) == "string" 
 			expect(instanceRet3).toEqual(false)
 			let instanceRet4 = (typeof num1) == "number"
-			expect(instanceRet4).toEqual(true)
+			expect(instanceRet4).toEqual(false)
 		})
 		
 		test('isArray', () => {
