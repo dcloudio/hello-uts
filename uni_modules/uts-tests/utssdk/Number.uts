@@ -24,7 +24,29 @@ export function testNumber(): Result {
         })
 		
 		test('parseInt', () => {
-		    expect(parseInt("123.456")).toEqual(123);
+			expect(parseInt("123.456")).toEqual(123);
+			expect(parseInt("123")).toEqual(123);
+			expect(parseInt("123", 10)).toEqual(123);
+			expect(parseInt("   123", 10)).toEqual(123);
+			expect(parseInt("077")).toEqual(77);
+			expect(parseInt("1.9")).toEqual(1);
+			expect(parseInt("ff", 16)).toEqual(255);
+			expect(parseInt("0xFF", 0)).toEqual(255);
+			expect(parseInt("0xFF", 16)).toEqual(255);
+			expect(parseInt("0xFF")).toEqual(255);
+			expect(parseInt("0xFF", 10)).toEqual(0);
+			expect(parseInt("0xF", 16)).toEqual(15);
+			expect(parseInt("F", 16)).toEqual(15);
+			expect(parseInt("021", 8)).toEqual(17);
+			expect(parseInt("015", 10)).toEqual(15);
+			expect(parseInt("15,123", 10)).toEqual(15);
+			expect(parseInt("FXX123.99", 16)).toEqual(15);
+			expect(parseInt("1111", 2)).toEqual(15);
+			expect(parseInt("15 * 3", 10)).toEqual(15);
+			expect(parseInt("15e2", 10)).toEqual(15);
+			expect(parseInt("15px", 10)).toEqual(15);
+			expect(parseInt("12", 13)).toEqual(15);
+			expect(parseInt("17", 8)).toEqual(15);
 		})
 		test('parseFloat', () => {
 			expect(parseFloat("11.20")).toEqual(11.2);
