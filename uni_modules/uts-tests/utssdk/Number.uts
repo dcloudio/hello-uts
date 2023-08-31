@@ -50,6 +50,11 @@ export function testNumber(): Result {
 		})
 		test('parseFloat', () => {
 			expect(parseFloat("11.20")).toEqual(11.2);
+			expect(parseFloat("3.14")).toEqual(3.14);
+			expect(parseFloat("  3.14  ")).toEqual(3.14);
+			expect(parseFloat("314e-2")).toEqual(3.14);
+			expect(parseFloat("0.0314E+2")).toEqual(3.14);
+			expect(parseFloat("3.14some non-digit characters")).toEqual(3.14);
 		})
 		
 		test('isFinite', () => {
