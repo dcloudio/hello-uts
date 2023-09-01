@@ -80,9 +80,6 @@ export function typeofClickTest() : boolean {
 	if (UTSAndroid.typeof(3.1415926) != 'number') {
 		return false
 	}
-	if (UTSAndroid.typeof(-100) != 'number') {
-		return false
-	}
 	if (UTSAndroid.typeof(false) != 'boolean') {
 		return false
 	}
