@@ -49,7 +49,6 @@ export default {
 <style>
 @import '@/common/uni-uvue.css';
 .content {
-  min-height: 100%;
   padding: 32rpx;
 }
 

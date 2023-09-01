@@ -10,50 +10,38 @@ import { testSet } from './Set.uts'
 import { testOperators } from './Operators.uts'
 import { testMath } from './Math.uts'
 import { testRegExp } from './RegExp.uts'
-// #ifdef APP-ANDROID
-// import { testReactiveArray } from './reactiveArray.uts'
-// import { testReactiveMap } from './ReactiveMap.uts'
-// #endif
+import { testForLoop } from './ForLoop.uts'
 export { Result } from './tests.uts'
 
 // Promise、Proxy、Reflect、Weakmap、WeakSet 不支持
 export function runTests() : UTSJSONObject {
-    const ArrayRes = testArray();
-    const DateRes = testDate();
-    const StringRes = testString();
-    const ErrorRes = testError();
-    const JsonRes = testJSON();
-    const NumberRes = testNumber();
-    const MapRes = testMap();
-    const SetRes = testSet();
-    const OperatorsRes = testOperators();
-    const MathRes = testMath();
-    const RegExpRes = testRegExp();
-	const KeyWordRes = testKeyWord();
-	
-    // #ifdef APP-ANDROID
-    // const ReactiveArrayRes = testReactiveArray();
-    // const ReactiveMapRes = testReactiveMap();
-    // #endif
+  const ArrayRes = testArray();
+  const DateRes = testDate();
+  const StringRes = testString();
+  const ErrorRes = testError();
+  const JsonRes = testJSON();
+  const NumberRes = testNumber();
+  const MapRes = testMap();
+  const SetRes = testSet();
+  const OperatorsRes = testOperators();
+  const MathRes = testMath();
+  const RegExpRes = testRegExp();
+  const KeyWordRes = testKeyWord();
+  const ForLoopRes = testForLoop();
 
-    return {
-        Array: ArrayRes,
-        // #ifdef APP-ANDROID
-        // ReactiveArray: ReactiveArrayRes,
-        // #endif
-        Date: DateRes,
-        String: StringRes,
-        Error: ErrorRes,
-        Json: JsonRes,
-        Number: NumberRes,
-        Map: MapRes,
-        // #ifdef APP-ANDROID
-        // ReactiveMap: ReactiveMapRes,
-        // #endif
-        Set: SetRes,
-        Operators: OperatorsRes,
-        Math: MathRes,
-        RegExp: RegExpRes,
-		KeyWord:KeyWordRes
-    }
+  return {
+    Array: ArrayRes,
+    Date: DateRes,
+    String: StringRes,
+    Error: ErrorRes,
+    Json: JsonRes,
+    Number: NumberRes,
+    Map: MapRes,
+    Set: SetRes,
+    Operators: OperatorsRes,
+    Math: MathRes,
+    RegExp: RegExpRes,
+    KeyWord: KeyWordRes,
+    ForLoop: ForLoopRes,
+  }
 }
