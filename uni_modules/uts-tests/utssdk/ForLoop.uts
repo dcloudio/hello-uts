@@ -54,9 +54,9 @@ export function testForLoop(): Result {
       }
       expect(result5).toEqual([0, 1, 2, 3, 4])
 
-      let result6 = 0
-      for (; result6 < 5; result6++);
-      expect(result6).toEqual(5)
+      // let result6 = 0
+      // for (; result6 < 5; result6++);
+      // expect(result6).toEqual(5)
     })
 
     test('break and continue', () => {

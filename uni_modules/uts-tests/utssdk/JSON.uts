@@ -7,6 +7,23 @@ type UserJSON={
 	name:string|null;
 }
 
+type PersionJSON = {
+	/**
+	* @JSON_FIELD "a+b"
+	*/
+	a_b: string;
+	/**
+	* @JSON_FIELD "a-b"
+	*/
+	a_b_: number;
+	/**
+	* @JSON_FIELD "class"
+	*/
+	_class: boolean;
+}
+
+
+
 export function testJSON() : Result {
     return describe("JSON", () => {
         test('parse', () => {
@@ -168,8 +185,16 @@ export function testJSON() : Result {
 			
 			
         })
-		
-		
+	
+		test('invalidField', () => {
+			let str = "{\"a+b\":\"test1\",\"a-b\":2,\"class\":true}"
+			let p = JSON.parseObject<PersionJSON>(str)
+			expect(p?._class).toEqual(true)
+			expect(p?.a_b).toEqual("test1")
+			
+			let retStr = JSON.stringify(p)
+			console.log(retStr)    
+		})
 		
     })
 	
