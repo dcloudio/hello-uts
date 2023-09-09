@@ -107,13 +107,13 @@ export function testJSON() : Result {
             // expect(JSON.parse('null')!).toEqual(null);
 			
 			const json4 = '{"data":[{"a":"1"},{"a":2},[{"b":true},{"b":"test"}],[1, 2, 3]]}';
-			const obj4 = JSON.parse<UTSJSONObject>(json4)!;
-			expect(obj4.getString('data[0].a')).toEqual("1")
-			expect(obj4.getNumber('data[1].a')).toEqual(2)
-			expect(obj4.getBoolean('data[2][0].b')).toEqual(true)
-			expect(obj4.getAny('data[1].a')).toEqual(2)
-			expect(obj4.getJSON('data[2][1]')).toEqual({"b":"test"})
-			expect(obj4.getArray('data[3]')).toEqual([1, 2, 3])
+			const obj4 = JSON.parseObject(json4);
+			expect(obj4?.getString('data[0].a')).toEqual("1")
+			expect(obj4?.getNumber('data[1].a')).toEqual(2)
+			expect(obj4?.getBoolean('data[2][0].b')).toEqual(true)
+			expect(obj4?.getAny('data[1].a')).toEqual(2)
+			expect(obj4?.getJSON('data[2][1]')).toEqual({"b":"test"})   
+			expect(obj4?.getArray('data[3]')).toEqual([1, 2, 3])
 
         })
 		test('parseObject', () => {
