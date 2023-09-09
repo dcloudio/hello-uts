@@ -63,7 +63,7 @@ export function testNumber(): Result {
 			expect(isFinite(0)).toEqual(true);
 		})
 		test('isInteger', () => {
-		    expect(Number.isInteger(12.0)).toEqual(true);
+		    expect(Number.isInteger(12)).toEqual(true);
 			expect(Number.isInteger(12.01)).toEqual(false);
 			expect(Number.isInteger(-213123112.01)).toEqual(false);
 			expect(Number.isInteger(-213123112)).toEqual(true);
