@@ -7,7 +7,7 @@ type UserJSON={
 	name:string|null;
 }
 
-type PersionJSON = {
+type PersonJSON = {
 	/**
 	* @JSON_FIELD "a+b"
 	*/
@@ -23,15 +23,6 @@ type PersionJSON = {
 }
 
 
-
-/**
- * 测试属性名为 原生关键字的场景
- */
-type UserWithKeyWord={
-	class:string;
-	abstract:number;
-	is:boolean;
-}
 
 
 export function testJSON() : Result {
@@ -200,9 +191,10 @@ export function testJSON() : Result {
 	
 		test('invalidField', () => {
 			let str = "{\"a+b\":\"test1\",\"a-b\":2,\"class\":true}"
-			let p = JSON.parseObject<PersionJSON>(str)
+			let p = JSON.parseObject<PersonJSON>(str)
 			expect(p?._class).toEqual(true)
 			expect(p?.a_b).toEqual("test1")
+			
 			
 			let retStr = JSON.stringify(p)
 			console.log(retStr)    
