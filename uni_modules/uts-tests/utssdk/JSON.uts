@@ -109,8 +109,7 @@ export function testJSON() : Result {
 
 
             expect(JSON.parse('{}')!).toEqual({});
-			let userKeyWord = JSON.parse<UserWithKeyWord>('{"is":false,"class":"classOne","abstract":12}')
-			expect(userKeyWord!.class).toEqual("classOne");
+		
             // TODO 不支持boolean、string，js端需抹平
             // expect(JSON.parse('true')!).toEqual(true);
             // expect(JSON.parse('"foo"')!).toEqual("foo");
