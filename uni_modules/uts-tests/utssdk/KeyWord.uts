@@ -22,9 +22,10 @@ export function testKeyWord(): Result {
 		test('typeof', () => {
 			let new1 = new User()
 			expect(typeof(new1)).toEqual('object')
-			// expect(typeof(123456.789)).toEqual('number')
+			expect(typeof(123456.789)).toEqual('Double')
 			//expect(typeof(789778979798797987979)).toEqual('number')
-			// expect(typeof(0.0)).toEqual('number')
+			expect(typeof(0.0)).toEqual('Double')
+
 			expect(typeof("hello world")).toEqual('string')
 			expect(typeof([1,2,3])).toEqual('object')
 			expect(typeof(new Array<any>())).toEqual('object')
