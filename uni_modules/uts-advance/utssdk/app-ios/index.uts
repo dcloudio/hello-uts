@@ -1,5 +1,6 @@
 import { UIImageView , UIImage , UIScreen } from 'UIKit';
 import { DispatchQueue } from 'Dispatch';
+import { CGFloat } from 'CoreFoundation';
 export function addViewToDecorView() { }
 export function removeViewToDecorView() { }
 export function initAppLifecycle() { }
@@ -83,7 +84,7 @@ export function getResourcePath(path: string) {
 			
 			// 添加imageView并设置frame
 			vc.view.addSubview(imageView)
-			let imageSize = 80.0
+			let imageSize: CGFloat = 80.0
 			let midx = (UIScreen.main.bounds.size.width - imageSize) / 2
 			let midy = (UIScreen.main.bounds.size.height - imageSize) / 2
 			imageView.frame = CGRect(x = midx, y = midy, width = imageSize, height = imageSize)
