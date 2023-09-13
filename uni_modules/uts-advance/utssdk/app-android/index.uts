@@ -22,11 +22,6 @@ import AlertDialog from 'android.app.AlertDialog';
 import DialogInterface from 'android.content.DialogInterface';
 import EditText from 'android.widget.EditText';
 
-import {
-	UTSAndroid
-} from "io.dcloud.uts";
-
-
 
 /**
  * 定时任务参数封装

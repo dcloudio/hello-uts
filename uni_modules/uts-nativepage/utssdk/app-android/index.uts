@@ -17,10 +17,6 @@ import IBinder from 'android.os.IBinder';
 import Toast from 'android.widget.Toast';
 
 
-import {
-	UTSAndroid
-} from "io.dcloud.uts";
-
 import Service from 'android.app.Service';
 import System from 'java.lang.System';
 import Looper from 'android.os.Looper';
