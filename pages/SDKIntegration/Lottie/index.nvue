@@ -8,7 +8,7 @@
         <button @tap="changeAction(1)">测试action play</button>
         <button @tap="changeAction(2)">测试action pause</button>
         <button @tap="changeAction(3)">测试action stop</button>
-        <uts-animation-view ref="animView" :path="animUrl" :autoplay="autoplay" :loop="loop" :action="action"
+       <uts-animation-view ref="animView" :path="animUrl" :autoplay="autoplay" :loop="loop" :action="action"
             :hidden="hidden" @bindended="testAnimEnd" @click="lottieClickTest" @longpress="lottieLongpressTest"
             :style="{width:widthNum+'rpx',height:heightNum+'px',background:yanse}">
         </uts-animation-view>
