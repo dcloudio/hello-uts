@@ -7,6 +7,36 @@ class User{
 
 export function testKeyWord(): Result {
     return describe("KeyWord", () => {
+		
+		test('encodeURI', () => {
+		   expect(encodeURI("你好")).toEqual('%E4%BD%A0%E5%A5%BD')
+		   expect(encodeURI("你好+22")).toEqual('%E4%BD%A0%E5%A5%BD+22')
+		   expect(encodeURI("你;/=好+22")).toEqual('%E4%BD%A0;/=%E5%A5%BD+22')
+		   expect(encodeURI("https://demo.dcloud.net.cn/mock/最新/12")).toEqual('https://demo.dcloud.net.cn/mock/%E6%9C%80%E6%96%B0/12')
+		})
+		
+		test('decodeURI', () => {
+		   expect(decodeURI('%E4%BD%A0%E5%A5%BD')).toEqual('你好')
+		   expect(decodeURI("%E4%BD%A0%E5%A5%BD+22")).toEqual('你好+22')
+		   expect(decodeURI("%E4%BD%A0;/=%E5%A5%BD+22")).toEqual('你;/=好+22')
+		   expect(decodeURI("https://demo.dcloud.net.cn/mock/%E6%9C%80%E6%96%B0/12")).toEqual('https://demo.dcloud.net.cn/mock/最新/12')
+		})
+		
+		test('encodeURIComponent', () => {
+		   expect(encodeURIComponent("你好")).toEqual('%E4%BD%A0%E5%A5%BD')
+		   expect(encodeURIComponent("你好+22")).toEqual('%E4%BD%A0%E5%A5%BD%2B22')
+		   expect(encodeURIComponent("你;/=好+22")).toEqual('%E4%BD%A0%3B%2F%3D%E5%A5%BD%2B22')
+		   expect(encodeURIComponent("https://demo.dcloud.net.cn/mock/最新/12")).toEqual('https%3A%2F%2Fdemo.dcloud.net.cn%2Fmock%2F%E6%9C%80%E6%96%B0%2F12')
+		})
+		
+		test('decodeURIComponent', () => {
+		   expect(decodeURIComponent('%E4%BD%A0%E5%A5%BD')).toEqual('你好')
+		   expect(decodeURIComponent('%E4%BD%A0%E5%A5%BD%2B22')).toEqual('你好+22')
+		   expect(decodeURIComponent('%E4%BD%A0%3B%2F%3D%E5%A5%BD%2B22')).toEqual('你;/=好+22')
+		   expect(decodeURIComponent("https://demo.dcloud.net.cn/mock/%E6%9C%80%E6%96%B0/12")).toEqual('https://demo.dcloud.net.cn/mock/最新/12')
+		})
+		
+		
         test('new', () => {
            let new1 = new User()
 		   // expect(JSON.stringify(new1)).toEqual('{"age":0,"name":""}')
