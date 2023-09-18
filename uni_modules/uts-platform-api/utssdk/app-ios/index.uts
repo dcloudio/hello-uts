@@ -517,7 +517,8 @@ export function tepeofTest(): string[] {
 	}
 	results.push(JSON.stringify(res1)!)
 	
-	let str2 = UTSiOS.typeof(2)
+	let num = 2;
+	let str2 = UTSiOS.typeof(num)
 	let res2: UTSiOSTestResult = {
 		key: "2类型是",
 		value: str2,

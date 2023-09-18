@@ -1,0 +1,45 @@
+/**
+ * json参数格式定义
+ */
+export type inputJSON = {
+	inputText: string,
+	errCode: number
+}
+/**
+ * json入参格式
+ */
+export type JsonParamOptions = {
+	input: inputJSON;
+	success: (res: inputJSON) => void;
+	fail?: (res: string) => void;
+	complete?: (res: string) => void;
+};
+
+/**
+ * 导出无参的UTS函数
+ * @param opts
+ */
+export function callWithoutParam(success: () => void) {
+	success();
+	return { name: "doSthWithCallback" };
+}
+
+/**
+ * 导出一个字符串入参的UTS函数
+ */
+export function callWithStringParam(input: string, success: (res: string) => void) {
+	success(input);
+	return { name: "doSthWithCallback" };
+}
+
+/**
+ * 导出一个JSON入参的UTS函数
+ */
+export function callWithJSONParam(opts: JsonParamOptions) {
+	opts.input.errCode = 10;
+	opts.success(opts.input);
+	return { name: "doSthWithCallback" };
+}
+
+
+

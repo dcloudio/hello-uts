@@ -52,6 +52,53 @@
                             function: "testClearInterval"
                         }]
                     },
+					{
+					    name: "资源加载示例",
+					    open: false,
+					    pages: [{
+					        name: "图片加载示例",
+					        url: "resource/resource"
+					    },{
+					        name: "文件读取示例",
+					        url: "resource/fileRead"
+					    }]
+					},
+					{
+					    name: "组件开发示例",
+					    open: false,
+					    pages: [{
+					        name: "Hello UTS Component",
+					        url: "component/helloView"
+					    }]
+					},
+					{
+					    name: "android平台示例",
+					    open: false,
+					    pages: [{
+					        name: "activity生命周期监听",
+					        url: "lifecycle/lifecycle"
+					    }, {
+					        name: "播放asset音频(需自定义基座)",
+					        url: "advance/android/assetaudio"
+					    }, {
+					        name: "操作DecorView",
+					        url: "advance/android/decorview"
+					    }, {
+					        name: "读取meta配置",
+					        function: "testMetaRead"
+					    }, {
+					        name: "退出当前应用",
+					        function: "testQuitApp"
+					    }]
+					},
+					{
+					    name: "iOS平台示例",
+					    open: false,
+					    pages: [{
+					        name: "资源路径获取示例",
+					        url: "advance/iOS/getResourcePath"
+					    }]
+					},
                     {
                         name: "语法示例",
                         open: false,
@@ -85,8 +132,6 @@
                             url: "SyntaxCase/utsiOS"
                         }]
                     },
-					
-					
                 ],
                 arrowUpIcon: '/static/icons/arrow-up.png',
                 arrowDownIcon: '/static/icons/arrow-down.png',
