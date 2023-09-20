@@ -239,6 +239,22 @@ export function testJSON() : Result {
 			expect(JSON.stringify(params)).toEqual('{"args":[{"url":"/pages/index/index"}],"method":"reLaunch"}')
 			
 			
+			class Stage {
+				$m: string    
+				$p: Array<any>    
+				constructor(){      
+					this.$m = 'test'      
+					this.$p = ['type']    
+				}  
+			}  
+			
+			const obj22 = {    
+				data: [new Stage()] as Array<any>  
+			} as UTSJSONObject    
+			
+			expect(JSON.stringify(obj22)).toEqual('{"data":[{"$m":"test","$p":["type"]}]}')
+			
+			
         })
 	
 		test('invalidField', () => {
