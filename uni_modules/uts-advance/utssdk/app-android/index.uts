@@ -397,7 +397,8 @@ export type ParamOptions = {
 
 export function inputParam(option : ParamOptions) : boolean {
 	let inputStr = JSON.stringify(option)
-	if ('{"array":[1,2,3],"title":"hello"}' == inputStr) {
+	console.log(inputStr)
+	if ('{"array":["1","2","3"],"title":"hello"}' == inputStr) {
 		return true
 	}
 	return false
@@ -438,6 +439,7 @@ export function callbackParam(callback : ParamCallback) {
 export function logStrTest() {
 	console.log("logStrTest 字符串打印测试")
 }
+
 
 export function logFloatTest() {
 	console.log(3.1415926)

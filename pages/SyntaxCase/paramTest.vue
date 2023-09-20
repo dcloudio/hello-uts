@@ -47,6 +47,7 @@
 			},
 			returnArrayTest() {
 				let ret = returnArray()
+				console.log( JSON.stringify(ret))
 				if ('["1","2","3"]' == JSON.stringify(ret)) {
 					uni.showToast({
 						title: '测试通过'
