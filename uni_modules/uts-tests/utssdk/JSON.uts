@@ -1,4 +1,4 @@
-import { describe, test, expect, Result } from './tests.uts'
+import { describe, test, expect,expectNumber, Result } from './tests.uts'
 
 
 
@@ -254,6 +254,15 @@ export function testJSON() : Result {
 			
 			expect(JSON.stringify(obj22)).toEqual('{"data":[{"$m":"test","$p":["type"]}]}')
 			
+			type A = {
+				inserted: number  
+			}
+			const str = '{"inserted": 2}'
+			const obj33 = JSON.parse<A>(str)!
+			console.log('-------------------------');
+			console.log(obj33.inserted);
+			expectNumber(obj33.inserted).toEqualDouble(2.0)
+			expect(JSON.stringify(obj33.inserted)).toEqual("2")
 			
         })
 	
