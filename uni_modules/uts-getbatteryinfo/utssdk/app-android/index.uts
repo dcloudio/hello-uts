@@ -1,6 +1,8 @@
 import Context from "android.content.Context";
 import BatteryManager from "android.os.BatteryManager";
 import { UTSAndroid } from "io.dcloud.uts";
+import IntentFilter from 'android.content.IntentFilter';
+import Intent from 'android.content.Intent';
 
 
 export type GetBatteryInfoOptions = {
@@ -19,12 +21,19 @@ export function getBatteryInfo(options: GetBatteryInfoOptions) {
         const level = manager.getIntProperty(
             BatteryManager.BATTERY_PROPERTY_CAPACITY
         );
+		
+		let ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+		let batteryStatus = context.registerReceiver(null, ifilter);
+		let status = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+		let isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
+		
+		
         const res = {
             errCode: 0,
             errSubject: "uni-getBatteryInfo",
             errMsg: "getBatteryInfo:ok",
             level,
-            isCharging: manager.isCharging()
+            isCharging: isCharging
         }
         options.success?.(res)
         options.complete?.(res)
