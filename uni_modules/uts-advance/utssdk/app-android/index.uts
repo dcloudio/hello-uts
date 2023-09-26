@@ -507,6 +507,23 @@ export class User {
 
 
 export function arrayConvert():boolean{
+	
+	// kotlin.collections.List 转换 Array
+	let kotlinList = mutableListOf("hello","world")
+	let utsArr1 = Array.fromNative(kotlinList) 
+	
+	if(!(utsArr1 instanceof UTSArray<string>)){
+		return false
+	}
+	
+	// kotlin.Array 转换 Array
+	let kotlinArray = arrayOf("hello","world")
+	let utsArr2 = Array.fromNative(kotlinArray)
+	
+	if(!(utsArr2 instanceof UTSArray<string>)){
+		return false
+	}
+	
 	let b1 = byteArrayOf(-1,2,0,3,4,5)
 	let c1 = Array.fromNative(b1)
 	if(!(c1 instanceof UTSArray<Number>)){
@@ -532,6 +549,7 @@ export function arrayConvert():boolean{
 	if(!(c4 instanceof UTSArray<Number>)){
 		return false
 	}
+	
 	
 	return true
 }
