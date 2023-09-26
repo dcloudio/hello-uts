@@ -506,4 +506,33 @@ export class User {
 }
 
 
+export function arrayConvert():boolean{
+	let b1 = byteArrayOf(-1,2,0,3,4,5)
+	let c1 = UTSArray.fromNative(b1)
+	if(!(c1 instanceof UTSArray<Number>)){
+		return false
+	}
+	
+	
+	let b2 = longArrayOf(-1,2,0,3,4,5)
+	let c2 = UTSArray.fromNative(b2)
+	if(!(c2 instanceof UTSArray<Number>)){
+		return false
+	}
+	
+	
+	let b3 = shortArrayOf(-1,2,0,3,4,5)
+	let c3 = UTSArray.fromNative(b3)
+	if(!(c3 instanceof UTSArray<Number>)){
+		return false
+	}
+	
+	let b4 = intArrayOf(-1,2,0,3,4,5)
+	let c4 = UTSArray.fromNative(b4)
+	if(!(c4 instanceof UTSArray<Number>)){
+		return false
+	}
+	
+	return true
+}
 

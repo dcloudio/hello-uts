@@ -24,7 +24,8 @@
         clearIntervalTask,
         playAssetAudio,
         getMetaConfig,
-        quitApp
+        quitApp,
+		arrayConvert
     } from "../../uni_modules/uts-advance";
 
     export default {
@@ -89,6 +90,9 @@
 					    }, {
 					        name: "退出当前应用",
 					        function: "testQuitApp"
+					    },{
+					        name: "数组转换测试",
+					        function: "testArrayConvert"
 					    }]
 					},
 					{
@@ -212,6 +216,15 @@
             testQuitApp() {
                 quitApp()
             },
+			testArrayConvert() {
+				let convertRet = arrayConvert()
+				if(convertRet){
+					uni.showToast({
+					    icon: "none",
+					    title: '数组转换成功'
+					});
+				}
+			},
             testMetaRead() {
                 let ret = getMetaConfig();
                 uni.showToast({
