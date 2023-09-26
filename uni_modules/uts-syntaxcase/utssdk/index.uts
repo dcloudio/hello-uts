@@ -8,7 +8,7 @@ export type AsyncOptions = {
 };
 
 export type {
-  SyncOptions
+    SyncOptions
 } from "./interface.uts";
 
 type SyntaxResult = {
@@ -65,6 +65,19 @@ export function testSyncWithCallback(opts : AsyncOptions) : SyntaxResult {
     return res;
     // return { name: "testSyncWithCallback" };
 }
+
+
+
+async function testAwaitPromise(res : SyntaxResult) : Promise<SyntaxResult> {
+    // #ifdef APP-ANDROID
+    return await new Promise(function (resolve : (res : SyntaxResult) => void) {
+        resolve(res)
+    })
+    // #endif
+    // #ifndef APP-ANDROID
+    return res
+    // #endif
+}
 /**
  * 导出一个异步方法
  * @returns
@@ -80,7 +93,7 @@ export async function testAsync(opts : AsyncOptions) : Promise<SyntaxResult> {
     const res : SyntaxResult = {
         name: "testAsync"
     }
-    return res;
+    return await testAwaitPromise(res);
     // return { name: "testAsync" };
 }
 
