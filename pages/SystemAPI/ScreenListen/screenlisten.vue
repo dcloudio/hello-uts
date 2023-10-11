@@ -2,10 +2,8 @@
 	<view>
 		<page-head title="监听系统截屏" accordion></page-head>
 		
-		<uni-list>
-			<uni-list-item @tap="testScreenShotListen" title="监听截屏事件" class="itemButton" :clickable="true"/>
-			<uni-list-item @tap="testScreenShotOff" title="关闭截屏监听" class="itemButton" :clickable="true"/>
-		</uni-list>
+		<button @click="testScreenShotListen">监听截屏事件</button>
+		<button @click="testScreenShotOff">关闭截屏监听</button>
 			
 		<image :src="screenImage" mode="aspectFit" style="margin-top:10px"></image>
 			

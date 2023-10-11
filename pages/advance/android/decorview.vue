@@ -2,10 +2,8 @@
 	<view>
 		<page-head title="DecorView示例" accordion></page-head>
 		
-		<uni-list>
-			<uni-list-item title="添加TextView至视图顶层" :clickable="true" @tap="testAddToDecorView"></uni-list-item> 
-			<uni-list-item title="移除视图顶层的TextView" :clickable="true" @tap="testRemoveToDecorView"></uni-list-item>
-		</uni-list>
+		<button @click="testAddToDecorView">添加TextView至视图顶层</button>
+		<button @click="testRemoveToDecorView">移除视图顶层的TextView</button>
 			
 	</view>
 </template>

@@ -1,195 +1,247 @@
 <template>
-	<view>
-		<page-head :title="title" accordion></page-head>
+    <view class="uni-container">
+        <page-head :title="title"></page-head>
 
-
-		<uni-collapse accordion>
-			<uni-collapse-item title="延迟任务" :border="false">
-				<uni-list>
-					<uni-list-item @tap="testTimer" title="开启延迟任务"  :clickable="true">
-					</uni-list-item>
-				</uni-list>
-			</uni-collapse-item>
-
-			<uni-collapse-item title="定时任务" :border="false">
-
-				<uni-list>
-					<uni-list-item @tap="testInterval" title="开启定时任务"  :clickable="true">
-					</uni-list-item>
-					<uni-list-item @tap="testClearInterval" title="关闭定时任务" :clickable="true">
-					</uni-list-item>
-				</uni-list>
-			</uni-collapse-item>
-			<uni-collapse-item title="语法示例" :border="false">
-				<uni-list>
-					<uni-list-item @tap="testSyntax" title="进阶语法示例" :clickable="true" link>
-					</uni-list-item>
-				</uni-list>
-			</uni-collapse-item>
-			<uni-collapse-item title="资源加载示例" :border="false">
-				<uni-list>
-					<uni-list-item @tap="gotoResourceDemo" title="图片加载示例" :clickable="true" link>
-					</uni-list-item>
-				</uni-list>
-			</uni-collapse-item>
-			<uni-collapse-item title="组件开发示例" :border="false">
-			
-				<uni-list>
-					<uni-list-item @tap="testHelloUTSComponent" title="Hello UTS Component" :clickable="true" link />
-			
-				</uni-list>
-			
-			</uni-collapse-item>
-			
-			<uni-collapse-item title="android平台示例" :border="false">
-
-				<uni-list>
-
-					<uni-list-item @tap="testLifecyle" title="activity生命周期监听" :clickable="true" link />
-					<uni-list-item @tap="testAssetLoad" title="播放asset音频(需自定义基座)" :clickable="true" link/>
-					<uni-list-item @tap="gotoDecorView" title="操作DecorView" :clickable="true" link />
-					<uni-list-item @tap="testMetaRead" title="读取meta配置" :clickable="true" />
-
-				</uni-list>
-
-			</uni-collapse-item>
-			
-			<uni-collapse-item title="iOS平台示例" :border="false">
-				<uni-list>
-					<uni-list-item @tap="testGetResourcePath" title="资源路径获取示例" :clickable="true" link />
-				</uni-list>
-			</uni-collapse-item>
-		</uni-collapse>
-
-
-	</view>
+        <view class="uni-panel" v-for="(item, index) in list" :key="index">
+            <view class="uni-panel-h" :class="item.open ? 'uni-panel-h-on' : ''" @click="triggerCollapse(index, item)">
+                <text class="uni-panel-text">{{item.name}}</text>
+                <image :src="item.pages.length > 0 ? item.open ? arrowUpIcon : arrowDownIcon : arrowRightIcon"
+                    class="uni-icon"></image>
+            </view>
+            <view class="uni-panel-c" v-if="item.open">
+                <view class="uni-navigate-item" v-for="(page,key) in item.pages" :key="key" @click="goDetailPage(page)" hover-class="uni-navigate-item-active">
+                    <text class="uni-navigate-text">{{page.name}}</text>
+                    <image :src="arrowRightIcon" class="uni-icon" v-if="page.url"></image>
+                </view>
+            </view>
+        </view>
+    </view>
 </template>
 <script>
-	import {
-		doTimerTask,
-		doIntervalTask,
-		clearIntervalTask,
-		playAssetAudio,
-		getMetaConfig
-	} from "../../uni_modules/uts-advance";
+    import {
+        doTimerTask,
+        doIntervalTask,
+        clearIntervalTask,
+        playAssetAudio,
+        getMetaConfig,
+        quitApp,
+		arrayConvert
+    } from "../../uni_modules/uts-advance";
 
+    export default {
+        data() {
+            return {
+                title: 'UTS进阶示例',
+                taskId: 0,
 
-	export default {
-		data() {
-			return {
-				title: 'UTS进阶示例',
-				taskId: 0,
-			}
-		},
-
-		methods: {
-
-			/**
-			 * 测试延迟任务
-			 */
-			testTimer: function() {
-				doTimerTask({
-					start: function(response) {
-						uni.showToast({
-							title: response,
-							icon: 'none'
-						});
+                list: [{
+                        name: "延迟任务",
+                        open: false,
+                        pages: [{
+                            name: "开启延迟任务",
+                            function: "testTimer"
+                        }]
+                    },
+                    {
+                        name: "定时任务",
+                        open: false,
+                        pages: [{
+                            name: "开启定时任务",
+                            function: "testInterval"
+                        }, {
+                            name: "关闭定时任务",
+                            function: "testClearInterval"
+                        }]
+                    },
+					{
+					    name: "资源加载示例",
+					    open: false,
+					    pages: [{
+					        name: "图片加载示例",
+					        url: "resource/resource"
+					    },{
+					        name: "文件读取示例",
+					        url: "resource/fileRead"
+					    }]
 					},
-					work: function(response) {
-						uni.showToast({
-							title: response,
-							icon: 'none'
-						});
+					{
+					    name: "组件开发示例",
+					    open: false,
+					    pages: [{
+					        name: "Hello UTS Component",
+					        url: "component/helloView"
+					    }]
 					},
-				});
-			},
-			/**
-			 * 测试周期任务
-			 */
-			testInterval: function() {
-				var ret = doIntervalTask({
-					start: function(response) {
-						uni.showToast({
-							title: response,
-							icon: 'none'
-						});
+					{
+					    name: "android平台示例",
+					    open: false,
+					    pages: [{
+					        name: "activity生命周期监听",
+					        url: "lifecycle/lifecycle"
+					    }, {
+					        name: "播放asset音频(需自定义基座)",
+					        url: "advance/android/assetaudio"
+					    }, {
+					        name: "操作DecorView",
+					        url: "advance/android/decorview"
+					    }, {
+					        name: "读取meta配置",
+					        function: "testMetaRead"
+					    }, {
+					        name: "退出当前应用",
+					        function: "testQuitApp"
+					    },{
+					        name: "数组转换测试",
+					        function: "testArrayConvert"
+					    }]
 					},
-					work: function(response) {
-						uni.showToast({
-							title: response,
-							icon: 'none'
-						});
+					{
+					    name: "iOS平台示例",
+					    open: false,
+					    pages: [{
+					        name: "资源路径获取示例",
+					        url: "advance/iOS/getResourcePath"
+					    }]
 					},
-				});
-				this.taskId = ret.taskId;
-			},
-			/**
-			 * 取消周期任务
-			 */
-			testClearInterval: function() {
-				console.log(this.taskId);
-				clearIntervalTask(this.taskId);
-			},
+                    {
+                        name: "语法示例",
+                        open: false,
+                        pages: [{
+                            name: "进阶语法示例",
+                            url: "SyntaxCase/index"
+                        }, {
+                            name: "参数传递示例",
+                            url: "SyntaxCase/paramTest"
+                        },{
+                            name: "实例测试示例",
+                            url: "SyntaxCase/instanceTest"
+                        }]
+                    },
+					{
+					    name: "日志打印",
+					    open: false,
+					    pages: [{
+					        name: "console示例",
+					        url: "SyntaxCase/consoleTest"
+					    }]
+					},
+                    {
+                        name: "平台代码示例",
+                        open: false,
+                        pages: [{
+                            name: "UTSAndroid",
+                            url: "SyntaxCase/utsAndroid"
+                        }, {
+                            name: "UTSiOS",
+                            url: "SyntaxCase/utsiOS"
+                        }]
+                    },
+                ],
+                arrowUpIcon: '/static/icons/arrow-up.png',
+                arrowDownIcon: '/static/icons/arrow-down.png',
+                arrowRightIcon: '/static/icons/arrow-right.png',
+            }
+        },
+        methods: {
+            triggerCollapse(index) {
+                for (var i = 0; i < this.list.length; ++i) {
+                    if (index == i) {
+                        this.list[i].open = !this.list[i].open;
+                    } else {
+                        this.list[i].open = false;
+                    }
+                }
+            },
+            goDetailPage(e) {
+                if (e.function) {
+                    this[e.function]()
+                    return
+                }
+                uni.navigateTo({
+                    url: `/pages/${e.url}`
+                })
+            },
 
+            /**
+             * 测试延迟任务
+             */
+            testTimer: function() {
+                doTimerTask({
+                    start: function(response) {
+                        uni.showToast({
+                            title: response,
+                            icon: 'none'
+                        });
+                    },
+                    work: function(response) {
+                        uni.showToast({
+                            title: response,
+                            icon: 'none'
+                        });
+                    },
+                });
+            },
+            /**
+             * 测试周期任务
+             */
+            testInterval: function() {
+                var ret = doIntervalTask({
+                    start: function(response) {
+                        uni.showToast({
+                            title: response,
+                            icon: 'none'
+                        });
+                    },
+                    work: function(response) {
+                        uni.showToast({
+                            title: response,
+                            icon: 'none'
+                        });
+                    },
+                });
+                this.taskId = ret.taskId;
+            },
+            /**
+             * 取消周期任务
+             */
+            testClearInterval: function() {
+                console.log(this.taskId);
+                clearIntervalTask(this.taskId);
+            },
+            testInputDialog() {
+                getUserInput(function(res) {
+                    console.log(res);
+                });
+            },
+            testQuitApp() {
+                quitApp()
+            },
+			testArrayConvert() {
+				let convertRet = arrayConvert()
+				if(convertRet){
+					uni.showToast({
+					    icon: "none",
+					    title: '数组转换成功'
+					});
+				}
+			},
+            testMetaRead() {
+                let ret = getMetaConfig();
+                uni.showToast({
+                    icon: "none",
+                    title: '读取成功,注意查看控制台输出'
+                });
+                console.log(ret);
+            }
 
-			/**
-			 * 跳转至资源加载演示界面
-			 */
-			gotoResourceDemo: function() {
-				uni.navigateTo({
-					url: '/pages/resource/resource'
-				})
-			},
-			gotoDecorView: function() {
-				uni.navigateTo({
-					url: '/pages/advance/android/decorview'
-				})
-			},
-			testAssetLoad() {
-				// playAssetAudio();
-				uni.navigateTo({
-					url: '/pages/advance/android/assetaudio'
-				})
-			},
-			testInputDialog() {
-				getUserInput(function(res){
-					console.log(res);
-				});
-			},
-
-			testMetaRead() {
-				let ret = getMetaConfig();
-				uni.showToast({
-					icon:"none",
-					title: '读取成功,注意查看控制台输出'
-				});
-				console.log(ret);
-			},
-			testLifecyle: function() {
-				uni.navigateTo({
-					url: '/pages/lifecycle/lifecycle'
-				})
-			},
-			testHelloUTSComponent: function() {
-				uni.navigateTo({
-					url: '/pages/component/helloView'
-				})
-			},
-			testSyntax: function() {
-				uni.navigateTo({
-					url: '/pages/SyntaxCase/index'
-				})
-			},
-			testGetResourcePath: function() {
-				uni.navigateTo({
-					url: '/pages/advance/iOS/getResourcePath'
-				})
-			}
-
-		}
-	}
+        }
+    }
 </script>
 
 <style>
-	
+    @import '@/common/uni-uvue.css';
+
+    .uni-container {
+        min-height: 100%;
+    }
 </style>

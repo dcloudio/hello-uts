@@ -1,0 +1,214 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+export function testDate() : Result {
+    return describe("Date", () => {
+        test('now', () => {
+            const start = Date.now()
+            setTimeout(() => {
+                const millis = Date.now() - start
+                const secondsElapsed = Math.floor(millis / 1000)
+                expect(secondsElapsed).toEqual(2);
+            }, 2000)
+        })
+		test('valueOf', () => {
+		    const date1 = new Date('December 17, 1995 03:24:00');
+			expect(date1.valueOf()).toEqual(819141840000);
+			const date2 = new Date('1995-12-17T03:24:00');
+			expect(date2.valueOf()).toEqual(819141840000);
+		})
+		test('parse', () => {
+			const unixTimeZero = Date.parse('01 Jan 1970 00:00:00 GMT');
+			const javaScriptRelease = Date.parse('04 Dec 1995 00:12:00 GMT');
+			
+			expect(unixTimeZero).toEqual(0);
+			expect(javaScriptRelease).toEqual(818035920000);
+		})
+		test('toTimeString', () => {
+			const date1 = new Date('01 Jan 1970 00:00:00 GMT');
+			const date2 = new Date('December 17, 1995 03:24:00');
+			
+			// // #ifndef APP-IOS
+			// expect(date1.toTimeString()).toEqual("08:00:00 GMT+0800 (中国标准时间)");
+			// expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800 (中国标准时间)");
+			// // #endif
+			// // #ifndef APP-ANDROID
+			// expect(date1.toTimeString()).toEqual("08:00:00 GMT+0800");
+			// expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800");
+			// // #endif
+		})
+		
+        test('getDate', () => {
+            const birthday = new Date('August 19, 1975 23:15:30');
+            const date1 = birthday.getDate();
+            expect(date1).toEqual(19);
+            // first millisecond
+            expect(new Date(2016, 6, 6).getDate()).toEqual(6);
+            // previous millisecond
+            expect(new Date(2016, 6, 6, 0, 0, 0, -1).getDate()).toEqual(5);
+            // final millisecond
+            expect(new Date(2016, 6, 6, 23, 59, 59, 999).getDate()).toEqual(6);
+            // subsequent millisecond
+            expect(new Date(2016, 6, 6, 23, 59, 59, 1000).getDate()).toEqual(7);
+
+            // first millisecond (month boundary)
+            expect(new Date(2016, 1, 29).getDate()).toEqual(29);
+            // previous millisecond (month boundary)
+            expect(new Date(2016, 1, 29, 0, 0, 0, -1).getDate()).toEqual(28);
+            // final millisecond (month boundary)
+            expect(new Date(2016, 1, 29, 23, 59, 59, 999).getDate()).toEqual(29);
+            // subsequent millisecond (month boundary)
+            expect(new Date(2016, 1, 29, 23, 59, 59, 1000).getDate()).toEqual(1);
+        })
+        test('getDay', () => {
+            const birthday = new Date('August 19, 1975 23:15:30');
+            const day1 = birthday.getDay();
+            expect(day1).toEqual(2);
+            // first millisecond
+            expect(new Date(2016, 6, 6).getDay()).toEqual(3);
+            // previous millisecond
+            expect(new Date(2016, 6, 6, 0, 0, 0, -1).getDay()).toEqual(2);
+            // final millisecond
+            expect(new Date(2016, 6, 6, 23, 59, 59, 999).getDay()).toEqual(3);
+            // subsequent millisecond
+            expect(new Date(2016, 6, 6, 23, 59, 59, 1000).getDay()).toEqual(4);
+
+            // first millisecond (week boundary)
+            expect(new Date(2016, 6, 9).getDay()).toEqual(6);
+            // previous millisecond (week boundary)
+            expect(new Date(2016, 6, 9, 0, 0, 0, -1).getDay()).toEqual(5);
+            // final millisecond (week boundary)
+            expect(new Date(2016, 6, 9, 23, 59, 59, 999).getDay()).toEqual(6);
+            // subsequent millisecond (week boundary)
+            expect(new Date(2016, 6, 9, 23, 59, 59, 1000).getDay()).toEqual(0);
+        })
+        test('getFullYear', () => {
+            const moonLanding = new Date('July 20, 69 00:20:18');
+            expect(moonLanding.getFullYear()).toEqual(1969);
+            // first millisecond
+            expect(new Date(2016, 0).getFullYear()).toEqual(2016);
+            // previous millisecond
+            expect(new Date(2016, 0, 1, 0, 0, 0, -1).getFullYear()).toEqual(2015);
+            // final millisecond
+            expect(new Date(2016, 11, 31, 23, 59, 59, 999).getFullYear()).toEqual(2016);
+            // subsequent millisecond
+            expect(new Date(2016, 11, 31, 23, 59, 59, 1000).getFullYear()).toEqual(2017);
+        })
+        test('getHours', () => {
+            const birthday = new Date('March 13, 08 04:20');
+            expect(birthday.getHours()).toEqual(4);
+            // first millisecond
+            expect(new Date(2016, 6, 6, 13).getHours()).toEqual(13);
+            // previous millisecond
+            expect(new Date(2016, 6, 6, 13, 0, 0, -1).getHours()).toEqual(12);
+            // final millisecond
+            expect(new Date(2016, 6, 6, 13, 59, 59, 999).getHours()).toEqual(13);
+            // subsequent millisecond
+            expect(new Date(2016, 6, 6, 13, 59, 59, 1000).getHours()).toEqual(14);
+        })
+        test('getMilliseconds', () => {
+            const moonLanding = new Date('July 20, 69 00:20:18');
+            moonLanding.setMilliseconds(123);
+            expect(moonLanding.getMilliseconds()).toEqual(123);
+
+            // first millisecond
+            expect(new Date(2016, 6, 6).getMilliseconds()).toEqual(0);
+            // previous millisecond
+            expect(new Date(2016, 6, 6, 0, 0, 0, -1).getMilliseconds()).toEqual(999);
+            // final millisecond
+            expect(new Date(2016, 6, 6, 23, 59, 59, 999).getMilliseconds()).toEqual(999);
+            // subsequent millisecond
+            expect(new Date(2016, 6, 6, 23, 59, 59, 1000).getMilliseconds()).toEqual(0);
+        })
+        test('getMinutes', () => {
+            const birthday = new Date('March 13, 08 04:20');
+            expect(birthday.getMinutes()).toEqual(20);
+            // first millisecond
+            expect(new Date(2016, 6, 6, 14, 6).getMinutes()).toEqual(6);
+            // previous millisecond
+            expect(new Date(2016, 6, 6, 14, 6, 0, -1).getMinutes()).toEqual(5);
+            // final millisecond
+            expect(new Date(2016, 6, 6, 14, 6, 59, 999).getMinutes()).toEqual(6);
+            // subsequent millisecond
+            expect(new Date(2016, 6, 6, 14, 6, 59, 1000).getMinutes()).toEqual(7);
+        })
+        test('getMonth', () => {
+            const moonLanding = new Date('July 20, 69 00:20:18');
+            expect(moonLanding.getMonth()).toEqual(6);
+            // first millisecond
+            expect(new Date(2016, 6).getMonth()).toEqual(6);
+            // previous millisecond
+            expect(new Date(2016, 6, 0, 0, 0, 0, -1).getMonth()).toEqual(5);
+            // final millisecond
+            expect(new Date(2016, 6, 31, 23, 59, 59, 999).getMonth()).toEqual(6);
+            // subsequent millisecond
+            expect(new Date(2016, 6, 31, 23, 59, 59, 1000).getMonth()).toEqual(7);
+        })
+        test('getSeconds', () => {
+            const moonLanding = new Date('July 20, 69 00:20:18');
+            expect(moonLanding.getSeconds()).toEqual(18);
+            // first millisecond
+            expect(new Date(2016, 6, 6, 14, 16, 30).getSeconds()).toEqual(30);
+            // previous millisecond
+            expect(new Date(2016, 6, 6, 14, 16, 30, -1).getSeconds()).toEqual(29);
+            // final millisecond
+            expect(new Date(2016, 6, 6, 14, 16, 30, 999).getSeconds()).toEqual(30);
+            // subsequent millisecond
+            expect(new Date(2016, 6, 6, 14, 16, 30, 1000).getSeconds()).toEqual(31);
+        })
+        test('getTime', () => {
+            const moonLanding = new Date('July 20, 69 20:17:40 GMT+00:00');
+            expect(moonLanding.getTime()).toEqual(-14182940000);
+            expect(new Date(0).getTime()).toEqual(0);
+            expect(new Date(1).getTime()).toEqual(1);
+        })
+        test('setDate', () => {
+            const event = new Date('August 19, 1975 23:15:30');
+            event.setDate(24);
+            expect(event.getDate()).toEqual(24);
+            event.setDate(32);
+            expect(event.getDate()).toEqual(1);
+
+            // var date = new Date(2016, 6);
+            // let returnValue = date.setDate(6);
+            // let expected = new Date(2016, 6, 6).getTime();
+            // expect(returnValue).toEqual(expected);
+        })
+        test('setFullYear', () => {
+            const event = new Date('August 19, 1975 23:15:30');
+            event.setFullYear(1969);
+            expect(event.getFullYear()).toEqual(1969);
+        })
+        test('setHours', () => {
+            const event = new Date('August 19, 1975 23:15:30');
+            event.setHours(20);
+            expect(event.getHours()).toEqual(20);
+        })
+        test('setMilliseconds', () => {
+            const event = new Date('August 19, 1975 23:15:30');
+            expect(event.getMilliseconds()).toEqual(0);
+            event.setMilliseconds(456);
+            expect(event.getMilliseconds()).toEqual(456);
+        })
+        test('setMinutes', () => {
+            const event = new Date('August 19, 1975 23:15:30');
+            event.setMinutes(45);
+            expect(event.getMinutes()).toEqual(45);
+        })
+        test('setMonth', () => {
+            const event = new Date('August 19, 1975 23:15:30');
+            event.setMonth(3);
+            expect(event.getMonth()).toEqual(3);
+        })
+        test('setSeconds', () => {
+            const event = new Date('August 19, 1975 23:15:30');
+            event.setSeconds(42);
+            expect(event.getSeconds()).toEqual(42);
+        })
+        test('setTime', () => {
+            const launchDate = new Date('July 1, 1999, 12:00:00');
+            const futureDate = new Date();
+            futureDate.setTime(launchDate.getTime());
+            expect(futureDate.getTime()).toEqual(launchDate.getTime());
+        })
+    })
+}

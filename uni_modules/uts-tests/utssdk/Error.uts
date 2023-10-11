@@ -1,0 +1,17 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+export function testError(): Result {
+    return describe("Error", () => {
+        test('message', () => {
+            try {
+              throw new Error('Whoops!')
+            } catch (e) {
+              expect(e.message).toEqual("Whoops!");
+            }
+        })
+        // test('name', () => {
+        //     const e = new Error("Malformed input"); // e.name is 'Error'
+        //     e.name = "ParseError";
+        // })
+    })
+}

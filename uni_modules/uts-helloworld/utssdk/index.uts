@@ -1,18 +1,18 @@
 /**
  * json参数格式定义
  */
-type inputJSON = {
+export type inputJSON = {
 	inputText: string,
 	errCode: number
 }
 /**
  * json入参格式
  */
-type JsonParamOptions = {
+export type JsonParamOptions = {
 	input: inputJSON;
 	success: (res: inputJSON) => void;
-	fail: (res: string) => void;
-	complete: (res: string) => void;
+	fail?: (res: string) => void;
+	complete?: (res: string) => void;
 };
 
 /**

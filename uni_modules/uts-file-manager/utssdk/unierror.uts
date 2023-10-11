@@ -1,0 +1,18 @@
+/**
+ * 错误主题
+ */
+export const UniErrorSubject = 'uni-file-manager';
+
+
+/**
+ * 错误码
+ * @UniError
+ */
+export const UniErrors:Map<number, string> = new Map([
+
+	[1200002, 'type error. only support base64 / utf-8'],
+	[1300002, 'no such file or directory'],
+	[1301003, 'illegal operation on a directory'],
+	[1300202, 'the maximum size of the file storage limit is exceeded'],
+	
+]);

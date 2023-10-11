@@ -19,10 +19,7 @@ import Toast from 'android.widget.Toast';
 
 import Service from 'android.app.Service';
 import System from 'java.lang.System';
-import Looper from 'android.os.Looper';
-import Class from 'java.lang.Class';
 import Exception from 'java.lang.Exception';
-import PackageManager from 'android.content.pm.PackageManager';
 import ResolveInfo from 'android.content.pm.ResolveInfo';
 import RecyclerView from 'androidx.recyclerview.widget.RecyclerView';
 import TextView from 'android.widget.TextView';
@@ -191,9 +188,10 @@ class CustomThread extends Thread{
 class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
 	
 	
-	mFruitList: Array<String>
+	mFruitList: Array<String> = []
 	
 	constructor(param:Array<String>){
+		super()
 		mFruitList = param
 	}
 	
@@ -236,24 +234,25 @@ class DemoActivity  extends Activity{
 		super.onCreate(savedInstanceState)
 		this.setContentView(R.layout.demo_activity);
 		
-		 let btn_start_service_front = findViewById<Button>(R.id.btn_start_service_front);
+		 let btn_start_service_front = this.findViewById<Button>(R.id.btn_start_service_front);
 		 btn_start_service_front.setOnClickListener(new StartServiceListener());
 		 
-		 let btn_start_screen_listen = findViewById<Button>(R.id.btn_start_screen_listen);
+		 let btn_start_screen_listen = this.findViewById<Button>(R.id.btn_start_screen_listen);
 		 btn_start_screen_listen.setOnClickListener(new StartBroadcastListener());
 		 
-		 let btn_start_thread = findViewById<Button>(R.id.btn_start_thread);
+		 let btn_start_thread = this.findViewById<Button>(R.id.btn_start_thread);
 		 btn_start_thread.setOnClickListener(new StartThreadListener());
 		 
-		 let btn_finish_activity = findViewById<Button>(R.id.btn_finish_activity);
+		 let btn_finish_activity = this.findViewById<Button>(R.id.btn_finish_activity);
 		 btn_finish_activity.setOnClickListener(new ActivityFinishListener(this));
 		 
 		 
 		 
-		 let recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-		 let layoutManager = LinearLayoutManager(this);
+		 let recyclerView = this.findViewById<RecyclerView>(R.id.recycler_view)
+		 let layoutManager = new LinearLayoutManager(this);
 		 recyclerView.setLayoutManager(layoutManager);
-		 let fruitAdapter = FruitAdapter(utsArrayOf("香蕉","苹果","大鸭梨"));
+
+		 let fruitAdapter = new FruitAdapter(utsArrayOf("香蕉","苹果","大鸭梨"));
 		 recyclerView.setAdapter(fruitAdapter);
 	}
 	
@@ -269,7 +268,7 @@ class IntentRunable extends Runnable{
 }
 
 @Suppress("DEPRECATION")
-export default function gotoDemoActivity():boolean {
+export function gotoDemoActivity():boolean {
 	// 这里的逻辑是为了判断 当前的自定义activity 是否注册了，并以此为条件判断是否是自定义基座
 	let hasXActivityIntegration =  true
 	try{

@@ -1,0 +1,96 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+class User{
+	name:string = "";
+	age:number = 0
+}
+
+export function testKeyWord(): Result {
+    return describe("KeyWord", () => {
+		
+		test('encodeURI', () => {
+		   expect(encodeURI("你好")).toEqual('%E4%BD%A0%E5%A5%BD')
+		   expect(encodeURI("你好+22")).toEqual('%E4%BD%A0%E5%A5%BD+22')
+		   expect(encodeURI("你;/=好+22")).toEqual('%E4%BD%A0;/=%E5%A5%BD+22')
+		   expect(encodeURI("https://demo.dcloud.net.cn/mock/最新/12")).toEqual('https://demo.dcloud.net.cn/mock/%E6%9C%80%E6%96%B0/12')
+		})
+		
+		test('decodeURI', () => {
+		   expect(decodeURI('%E4%BD%A0%E5%A5%BD')).toEqual('你好')
+		   expect(decodeURI("%E4%BD%A0%E5%A5%BD+22")).toEqual('你好+22')
+		   expect(decodeURI("%E4%BD%A0;/=%E5%A5%BD+22")).toEqual('你;/=好+22')
+		   expect(decodeURI("https://demo.dcloud.net.cn/mock/%E6%9C%80%E6%96%B0/12")).toEqual('https://demo.dcloud.net.cn/mock/最新/12')
+		})
+		
+		test('encodeURIComponent', () => {
+		   expect(encodeURIComponent("你好")).toEqual('%E4%BD%A0%E5%A5%BD')
+		   expect(encodeURIComponent("你好+22")).toEqual('%E4%BD%A0%E5%A5%BD%2B22')
+		   expect(encodeURIComponent("你;/=好+22")).toEqual('%E4%BD%A0%3B%2F%3D%E5%A5%BD%2B22')
+		   expect(encodeURIComponent("https://demo.dcloud.net.cn/mock/最新/12")).toEqual('https%3A%2F%2Fdemo.dcloud.net.cn%2Fmock%2F%E6%9C%80%E6%96%B0%2F12')
+		})
+		
+		test('decodeURIComponent', () => {
+		   expect(decodeURIComponent('%E4%BD%A0%E5%A5%BD')).toEqual('你好')
+		   expect(decodeURIComponent('%E4%BD%A0%E5%A5%BD%2B22')).toEqual('你好+22')
+		   expect(decodeURIComponent('%E4%BD%A0%3B%2F%3D%E5%A5%BD%2B22')).toEqual('你;/=好+22')
+		   expect(decodeURIComponent("https://demo.dcloud.net.cn/mock/%E6%9C%80%E6%96%B0/12")).toEqual('https://demo.dcloud.net.cn/mock/最新/12')
+		})
+		
+		
+        test('new', () => {
+           let new1 = new User()
+		   // expect(JSON.stringify(new1)).toEqual('{"age":0,"name":""}')
+		   console.log(JSON.stringify(new1))
+		   
+		   new1.age = 10
+		   new1.name = "job"
+		   console.log(JSON.stringify(new1))
+		   // expect(JSON.stringify(new1)).toEqual('{"age":10,"name":"job"}')
+		   
+        })
+		
+		test('typeof', () => {
+			let new1 = new User()
+			expect(typeof(new1)).toEqual('object')
+			expect(typeof(123456.789)).toEqual('Double')
+			//expect(typeof(789778979798797987979)).toEqual('number')
+			expect(typeof(0.0)).toEqual('Double')
+
+			expect(typeof("hello world")).toEqual('string')
+			expect(typeof([1,2,3])).toEqual('object')
+			expect(typeof(new Array<any>())).toEqual('object')
+			expect(typeof(new Set<any>())).toEqual('object')
+			// expect(typeof(new Map<any,any>())).toEqual('object')
+			expect(typeof(new Date())).toEqual('object')
+			expect(typeof("hello world")).toEqual('string')
+			// 原生对象  
+			// #ifndef APP-IOS
+			expect(typeof(UTSAndroid.getUniActivity())).toEqual('object')
+			// #endif
+			   
+		   
+		})
+        
+		
+		test('instanceof', () => {
+			let user1:any = new User()
+			let instanceRet1 = user1 instanceof User
+			expect(instanceRet1).toEqual(true)
+			let instanceRet2 = (typeof user1) == "string"
+			expect(instanceRet2).toEqual(false)
+			let num1:any = 3.1415926 
+			let instanceRet3 = (typeof num1) == "string" 
+			expect(instanceRet3).toEqual(false)
+			let instanceRet4 = (typeof num1) == "number"
+			expect(instanceRet4).toEqual(false)
+		})
+		
+		test('isArray', () => {
+			let user1:any = new User()
+			expect(Array.isArray(user1)).toEqual(false)
+			expect(Array.isArray([1,2,3])).toEqual(true)
+		})
+		
+		
+    })
+}

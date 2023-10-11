@@ -5,7 +5,7 @@ import { Int } from 'Swift';
 /**
  * 定义 接口参数
  */
-type GetBatteryInfoOptions = {
+export type GetBatteryInfoOptions = {
     success?: (res: object) => void;
     fail?: (res: object) => void;
     complete?: (res: object) => void;
@@ -14,7 +14,7 @@ type GetBatteryInfoOptions = {
 /**
  * 导出 获取电量方法 
  */
-export default function getBatteryInfo(options: GetBatteryInfoOptions) {
+export function getBatteryInfo(options: GetBatteryInfoOptions) {
 	
 	// 开启电量检测
 	UIDevice.current.isBatteryMonitoringEnabled = true

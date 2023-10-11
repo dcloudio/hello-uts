@@ -1,6 +1,8 @@
 import { UIImageView , UIImage , UIScreen } from 'UIKit';
 import { DispatchQueue } from 'Dispatch';
-import { CGFloat } from 'CoreFoundation';
+
+import { UTSiOS } from "DCloudUTSFoundation";
+
 export function addViewToDecorView() { }
 export function removeViewToDecorView() { }
 export function initAppLifecycle() { }
@@ -10,7 +12,7 @@ export function playAssetAudio(){}
 /**
  * 定时任务参数封装
  */
-type TimerOptions = {
+export type TimerOptions = {
 	/**
 	 * 定时任务开始的回调
 	 * @res 回调参数
@@ -23,39 +25,57 @@ type TimerOptions = {
 	work: (res: string) => void;
 };
 
+export type TimerResult = {
+	name : string;
+	taskId ?: number;
+};
+
 
 /**
  * 执行延时任务
  */
-export function doTimerTask(opts:TimerOptions) {
+export function doTimerTask(opts:TimerOptions): TimerResult {
 	opts.start('doTimerTask start');
 	setTimeout(function() {
 		opts.work("doTimerTask work");
 	}, 2000);
   
-  return { name: "doTimerTask" };
+  const result: TimerResult = { 
+    name: "doTimerTask" 
+  }
+
+	return result
 }
 
 /**
  * 执行周期任务
  */
-export function doIntervalTask(opts:TimerOptions) {
+export function doIntervalTask(opts:TimerOptions): TimerResult {
 	
 	let taskRet = setInterval(function() {
 		opts.work("doIntervalTask work");
 	}, 2000);
 	opts.start('doIntervalTask start');
   
-  return { name: "doIntervalTask",taskId:taskRet};
+  const result: TimerResult = { 
+    name: "doIntervalTask",
+    taskId: taskRet
+  }
+
+	return result
 }
 
 /**
  * 清除周期任务
  */
-export function clearIntervalTask(taskId:number) {
+export function clearIntervalTask(taskId:number):TimerResult {
 	
 	clearInterval(taskId);
-	return { name: "clearIntervalTask"};
+  const result: TimerResult = { 
+    name: "clearIntervalTask" 
+  }
+
+	return result
 }
 
 /* 
@@ -102,4 +122,96 @@ export function removeExampleImageView() {
 			AdvanceModuleGloabInfo.imageView = null
 		}
 	})
+}
+
+/**
+ * add since 2023-06-19 
+ * 新增传参测试用例
+ */
+export function inputArray(input : Array<string>) : boolean {
+
+	let inputStr = JSON.stringify(input)
+
+	if ('["a","b","c"]' == inputStr) {
+		return true
+	}
+	return false
+
+}
+
+export type ParamOptions = {
+	title : string,
+	array : Array<string>
+}
+
+
+export function inputParam(option : ParamOptions) : boolean {
+	console.log(option, "传入的参数")
+	let inputStr = JSON.stringify(option)
+	console.log(inputStr, 'stringify option')
+	if ('{"array":[1,2,3],"title":"hello"}' == inputStr) {
+		return true
+	}
+	return false
+}
+
+export function returnArray() : Array<string> {
+	return ['1', '2', '3']
+}
+
+export function returnParam() : ParamOptions {
+
+	let ret : ParamOptions = {
+		title: "returnParam",
+		array: ['1', '2', '3']
+	}
+	return ret
+
+}
+
+export type ParamCallback = (res : ParamOptions) => void
+export type ArrayCallback = (res : Array<string>) => void
+
+export function callbackArray(callback : ArrayCallback) {
+	callback(['8', '8', '8'])
+}
+
+
+export function callbackParam(callback : ParamCallback) {
+	let ret : ParamOptions = {
+		title: "callbackParam",
+		array: ['4', '5', '6']
+	}
+	callback(ret)   
+}
+
+/**
+ * 打印测试方法
+ */
+export function logStrTest() {
+	console.log("logStrTest 字符串打印测试")
+}
+
+export function logFloatTest() {
+	console.log(3.1415926)
+}
+export function logIntTest() {
+	console.log(2023)
+}
+
+export function logObjectTest(){
+	let ret : ParamOptions = {
+		title: "logObjectTest",
+		array: ['1', '2', '3']
+	}
+	console.log(ret)
+}
+
+
+export function logFunctionTest(){
+	
+	let testFun = function(){
+		console.log("testFun")
+	}
+	console.log(testFun)
 }
