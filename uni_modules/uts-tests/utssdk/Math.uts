@@ -123,14 +123,14 @@ export function testMath(): Result {
         test('cosh', () => {
             // 解决精度问题
             expect(Math.cosh(0)).toEqual(1.0);
-            expect(Math.cosh(1)).toEqual(1.5430806348152437);
-            expect(Math.cosh(-1)).toEqual(1.5430806348152437);
+            expectNumber(Math.cosh(1)).toEqualDouble(1.5430806348152437);
+            expectNumber(Math.cosh(-1)).toEqualDouble(1.5430806348152437);
         })
         test('exp', () => {
-            expect(Math.exp(-1)).toEqual(0.36787944117144233);
+            expectNumber(Math.exp(-1)).toEqualDouble(0.36787944117144233);
             // 解决精度问题
             expect(Math.exp(0)).toEqual(1.0);
-            expect(Math.exp(1)).toEqual(2.718281828459045);
+            expectNumber(Math.exp(1)).toEqualDouble(2.718281828459045);
         })
         test('expm1', () => {
             expectNumber(Math.expm1(1)).toEqualDouble(1.718281828459045);
