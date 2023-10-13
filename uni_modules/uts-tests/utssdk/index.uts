@@ -11,6 +11,7 @@ import { testOperators } from './Operators.uts'
 import { testMath } from './Math.uts'
 import { testRegExp } from './RegExp.uts'
 import { testForLoop } from './ForLoop.uts'
+import { testGlobal } from './Global.uts'
 export { Result } from './tests.uts'
 
 // Promise、Proxy、Reflect、Weakmap、WeakSet 不支持
@@ -28,6 +29,7 @@ export function runTests() : UTSJSONObject {
   const RegExpRes = testRegExp();
   const KeyWordRes = testKeyWord();
   const ForLoopRes = testForLoop();
+  const GlobalRes = testGlobal();
 
   return {
     Array: ArrayRes,
@@ -43,5 +45,6 @@ export function runTests() : UTSJSONObject {
     RegExp: RegExpRes,
     KeyWord: KeyWordRes,
     ForLoop: ForLoopRes,
+	Global: GlobalRes,
   }
 }
