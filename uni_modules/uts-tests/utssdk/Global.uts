@@ -47,8 +47,8 @@ export function testGlobal(): Result {
 			expect(parseFloat("314e-2")).toEqual(3.14);
 			expect(parseFloat("0.0314E+2")).toEqual(3.14);
 			expect(parseFloat("3.14some non-digit characters")).toEqual(3.14);
-			expect(parseFloat("100") / 50).toEqual(2.0);
-			
+			expect(parseFloat("100") / 50).toEqual(2);
+			expect(parseFloat("105") / 50).toEqual(2.1);
 		})
 		
 		test('encodeURI', () => {
