@@ -48,6 +48,11 @@ class Parent {
 }
 
 class ChildrenTest extends Parent {
+	
+	constructor(weight: number) {
+		super(weight)
+	}
+	
 	override eat(): string {
 		super.eat()
 		return "children instance method"

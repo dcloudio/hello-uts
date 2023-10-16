@@ -35,6 +35,9 @@ export function testGlobal(): Result {
 			expect(parseInt("9223372036854775807")).toEqual(9.223372036854778e+18)
 			expect(parseInt("9223372036854775807000")).toEqual(9.223372036854777e+21)
 			expect(parseInt("922337203685477580700099999999999999999999999999999999999999999999999999999999999999999")).toEqual(9.223372036854776e+86)
+			expect(parseInt("50") / 100).toEqual(0.5);
+			expect(parseInt("500") / 100).toEqual(5);
+			
 		})
 		
 		test('parseFloat', () => {
@@ -44,6 +47,8 @@ export function testGlobal(): Result {
 			expect(parseFloat("314e-2")).toEqual(3.14);
 			expect(parseFloat("0.0314E+2")).toEqual(3.14);
 			expect(parseFloat("3.14some non-digit characters")).toEqual(3.14);
+			expect(parseFloat("100") / 50).toEqual(2.0);
+			
 		})
 		
 		test('encodeURI', () => {
