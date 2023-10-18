@@ -73,20 +73,23 @@ export function getAppTempPathTest() : boolean {
  * UTSAndroid.typeof 测试示例
  */
 export function typeofClickTest() : boolean {
+	
 
-	if (UTSAndroid.typeof('hello wrold') != 'string') {
+	if ((typeof 'hello wrold') != 'string') {
 		return false
 	}
-	if (UTSAndroid.typeof(3.1415926) != 'number') {
+	
+	if ((typeof 3.1415) != 'Double') {
 		return false
 	}
-	if (UTSAndroid.typeof(false) != 'boolean') {
+	
+	if ((typeof false) != 'boolean') {
 		return false
 	}
-	if (UTSAndroid.typeof(true) != 'boolean') {
+	if ((typeof true) != 'boolean') {
 		return false
 	}
-	if (UTSAndroid.typeof(new Date()) != 'object') {
+	if ((typeof new Date()) != 'object') {
 		return false
 	}
 
