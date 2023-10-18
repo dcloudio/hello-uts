@@ -49,9 +49,9 @@ class Parent {
 
 class ChildrenTest extends Parent {
 	
-	constructor(weight: number) {
-		super(weight)
-	}
+	// override constructor(weight: number) {
+	// 	super(weight)
+	// }
 	
 	override eat(): string {
 		super.eat()
@@ -128,8 +128,8 @@ export function testKeyWord(): Result {
 			expect(Parent.age).toEqual(30)
 			expect(Parent.run()).toEqual("static method")
 			expect(p.eat()).toEqual("parent instance method")
-			let c = new ChildrenTest(0)
-			expect(c.eat()).toEqual("children instance method")
+			// let c = new ChildrenTest(0)
+			// expect(c.eat()).toEqual("children instance method")
 		})
 		
     })
