@@ -63,9 +63,16 @@ export function privacyStateTest(callback : (ret : boolean, desc : string) => vo
  * UTSAndroid.getAppTempPath 测试示例
  */
 export function getAppTempPathTest() : boolean {
+	console.log(UTSAndroid.getAppTempPath())
+	// 1.0 的路径
 	if (UTSAndroid.getAppTempPath()!.contains("data/io.dcloud.HBuilder/apps/HBuilder/temp")) {
 		return true
 	}
+	// 2.0的路径
+	if (UTSAndroid.getAppTempPath()!.contains("cache/temp")) {
+		return true
+	}
+	
 	return false
 }
 
@@ -261,13 +268,24 @@ export function unRegLifecycle() {
  */
 export function arrayPermissionFlowTest(callback : (ret : boolean, desc : string) => void) {
 
+
+	if("io.dcloud.uniappx" != UTSAndroid.getAppContext()?.packageName && "io.dcloud.HBuilder" != UTSAndroid.getAppContext()?.packageName){
+		/**
+		 * 说明是自定义基座，不支持权限测试
+		 */
+		uni.showToast({
+			title:'自定义基座不支持当前测试'
+		})
+		return 
+	}
+	
 	/**
 	 * 同时申请日历和联系人权限
 	 */
-	let permissionNeed = utsArrayOf("android.permission.READ_CALENDAR", "android.permission.WRITE_CALENDAR", "android.permission.READ_CONTACTS", "android.permission.WRITE_CONTACTS", "android.permission.GET_ACCOUNTS")
+	let permissionNeed = utsArrayOf("android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.ACCESS_FINE_LOCATION", "android.permission.READ_PHONE_STATE")
 	
 	if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
-		callback(false, "已具备 日历/联系人权限")
+		callback(false, "已具备请求权限")
 		return;
 	}
 
@@ -302,23 +320,23 @@ export function getDeviceInfoTest():string {
 	let info = ''
 	info += 'isUniMp: '+UTSAndroid.isUniMp() + "\n ";
 	info += 'getAppDarkMode: '+UTSAndroid.getAppDarkMode() + "\n ";
-	info += 'getLanguageInfo: '+UTSAndroid.getLanguageInfo(UTSAndroid.getAppContext()!!) + "\n ";
-	info += 'getWebViewInfo: '+UTSAndroid.getWebViewInfo(UTSAndroid.getAppContext()!!) + "\n ";
+	info += 'getLanguageInfo: '+ JSON.stringify(UTSAndroid.getLanguageInfo(UTSAndroid.getAppContext()!!)) + "\n ";
+	info += 'getWebViewInfo: '+ JSON.stringify(UTSAndroid.getWebViewInfo(UTSAndroid.getAppContext()!!)) + "\n ";
 	info += 'getDeviceID: '+UTSAndroid.getDeviceID(UTSAndroid.getAppContext()!!) + "\n ";
 	info += 'getOAID: '+UTSAndroid.getOAID() + "\n ";
 	info += 'getInnerVersion: '+UTSAndroid.getInnerVersion() + "\n ";
 	info += 'getUniCompileVersion: '+UTSAndroid.getUniCompileVersion() + "\n ";
 	info += 'getUniRuntimeVersion: '+UTSAndroid.getUniRuntimeVersion() + "\n ";
 	info += 'getAppId: '+UTSAndroid.getAppId() + "\n ";
-	info += 'getAppVersion: '+UTSAndroid.getAppVersion() + "\n ";
+	info += 'getAppVersion: '+JSON.stringify(UTSAndroid.getAppVersion()) + "\n ";
 	info += 'getAppName: '+UTSAndroid.getAppName() + "\n ";
 	info += 'getOsTheme: '+UTSAndroid.getOsTheme() + "\n ";
-	info += 'getScreenInfo: '+UTSAndroid.getScreenInfo() + "\n ";
+	info += 'getScreenInfo: '+JSON.stringify(UTSAndroid.getScreenInfo()) + "\n ";
 	info += 'getStatusBarHeight: '+UTSAndroid.getStatusBarHeight() + "\n ";
 	info += 'isTitleNViewShow: '+UTSAndroid.isTitleNViewShow() + "\n ";
 	info += 'isTabBarShow: '+UTSAndroid.isTabBarShow() + "\n ";
 	info += 'getWindowHeight: '+UTSAndroid.getWindowHeight() + "\n ";
-	info += 'getSafeAreaInsets: '+UTSAndroid.getSafeAreaInsets() + "\n ";
+	info += 'getSafeAreaInsets: '+JSON.stringify(UTSAndroid.getSafeAreaInsets()) + "\n ";
 	info += 'isUniAppX: '+UTSAndroid.isUniAppX() + "\n ";
 	
 	return info
@@ -370,10 +388,18 @@ export function convert2AbsFullPathTest() : boolean {
 		return false;
 	}
 
-	if (!resourcePath.contains("Android/data/io.dcloud")) {
-		console.log("路径转换结果错误")
-		return false;
+
+	if("io.dcloud.uniappx" == UTSAndroid.getAppContext()?.packageName || "io.dcloud.HBuilder" == UTSAndroid.getAppContext()?.packageName){
+		/**
+		 * 只有标准基座，校验这个选项
+		 */
+		if (!resourcePath.contains("Android/data/io.dcloud")) {
+			console.log("路径转换结果错误")
+			return false;
+		}
 	}
+	
+	
 
 	let sdcardPath = UTSAndroid.convert2AbsFullPath(resourcePath)
 	console.log(sdcardPath)
@@ -392,19 +418,27 @@ export function convert2AbsFullPathTest() : boolean {
  * 单个权限，申请流程测试
  */
 export function singlePermissionFlowTest(callback : (ret : boolean, desc : string) => void) {
+	
+	if("io.dcloud.uniappx" != UTSAndroid.getAppContext()?.packageName && "io.dcloud.HBuilder" != UTSAndroid.getAppContext()?.packageName){
+		/**
+		 * 说明是自定义基座，不支持权限测试
+		 */
+		uni.showToast({
+			title:'自定义基座不支持当前测试'
+		})
+		return 
+	}
 
-	let permissionNeed = utsArrayOf("android.permission.RECORD_AUDIO")
+	let permissionNeed = utsArrayOf("android.permission.READ_PHONE_STATE")
 	if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
-		callback(false, "预期当前不具备 录音的权限")
+		callback(false, "已具备权限")
 		return;
 	}
 
 	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight : boolean, _grantedList : string[]) {
 		if (allRight) {
-			// 交给目前的location 引擎，真实执行
 			// 测试权限api 返回值
 			if (!UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
-				// 预期当前基座具备了读写日历的权限
 				callback(false, "权限请求完成,getSystemPermissionDenied 失败")
 				return;
 			}
