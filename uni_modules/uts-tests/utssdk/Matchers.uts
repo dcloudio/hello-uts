@@ -17,9 +17,14 @@ export class Matchers<T> {
     }
 	
 	toEqualNumber(expected: T) {
-		if (expected == this.actual) {
-		    return
-		}
+		// #ifndef APP-IOS
+			if (expected == this.actual) {
+				return
+			}
+		// #endif
+		// #ifdef APP-IOS
+			this.toEqual(expected)
+		// #endif
 	}
 }
 /**
