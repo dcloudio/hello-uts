@@ -110,6 +110,11 @@ export function testOperators(): Result {
             // web 返回 Infinity
             // todo 统一处理
             // expect(divide(1, 0)).toEqual();
+			expect(divide(16788990011, 5)).toEqual(3357798002.2);
+			expect(divide(16788990015, 5)).toEqual(3357798003);
+			expectNumber(divide(16788990015, 10088990000)).toEqualDouble(1.6640902622561822);
+			
+			 
         })
         test('/=', () => {
             let a:Number = 3;
