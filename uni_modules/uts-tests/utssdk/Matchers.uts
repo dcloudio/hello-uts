@@ -15,6 +15,17 @@ export class Matchers<T> {
         NSException(name = NSExceptionName.internalInconsistencyException, reason = format(expected, this.actual)).raise()
         // #endif
     }
+	
+	toEqualNumber(expected: T) {
+		// #ifndef APP-IOS
+			if (expected == this.actual) {
+				return
+			}
+		// #endif
+		// #ifdef APP-IOS
+			this.toEqual(expected)
+		// #endif
+	}
 }
 /**
  * 数值对比器

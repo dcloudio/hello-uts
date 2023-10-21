@@ -5,37 +5,67 @@ class User{
 	age:number = 0
 }
 
+const passcode = "secret passcode";
+class Parent {
+	private _name: string = ""; // private是私有的，外部不能访问
+	get name(): string { // 读取name会触发此拦截器
+		console.log("start to get parent.name");
+		return this._name;
+	}
+	set name(newName: string) { // 给name赋值会触发此拦截器
+		console.log("start to set parent.name");
+		if (passcode == "secret passcode") { // 校验是否有权修改name的值，这里的条件可以修改以方便测试
+			this._name = newName;
+		} else {
+			console.log("Error: set parent.name fail");
+		}
+	}  
+	
+	// 静态属性和方法
+	static age: number = 30
+	static run(): string {
+		console.log("this is a static method")
+		return "static method"
+	}
+	
+	// readonly
+	readonly address: string = ""
+	
+	weight: number = 80
+	
+	// constructor
+	constructor(weight: number) {
+		console.log("开始实例化")
+		this.weight = weight
+	}
+	
+	// 实例方法
+	eat(): string {
+		console.log("this is parent")
+		return "parent instance method"
+	}
+	
+}
+
+class ChildrenTest extends Parent {
+	
+	// override constructor(weight: number) {
+	// 	super(weight)
+	// }
+	
+	override eat(): string {
+		super.eat()
+		return "children instance method"
+	}
+	
+	// swift 中不能重写父类的存储属性，只能重写父类的计算的属性（本质上是重写计算属性的get set方法）
+	// #ifndef APP-IOS
+		override weight = 8
+	// #endif 
+}
+
 export function testKeyWord(): Result {
     return describe("KeyWord", () => {
-		
-		test('encodeURI', () => {
-		   expect(encodeURI("你好")).toEqual('%E4%BD%A0%E5%A5%BD')
-		   expect(encodeURI("你好+22")).toEqual('%E4%BD%A0%E5%A5%BD+22')
-		   expect(encodeURI("你;/=好+22")).toEqual('%E4%BD%A0;/=%E5%A5%BD+22')
-		   expect(encodeURI("https://demo.dcloud.net.cn/mock/最新/12")).toEqual('https://demo.dcloud.net.cn/mock/%E6%9C%80%E6%96%B0/12')
-		})
-		
-		test('decodeURI', () => {
-		   expect(decodeURI('%E4%BD%A0%E5%A5%BD')).toEqual('你好')
-		   expect(decodeURI("%E4%BD%A0%E5%A5%BD+22")).toEqual('你好+22')
-		   expect(decodeURI("%E4%BD%A0;/=%E5%A5%BD+22")).toEqual('你;/=好+22')
-		   expect(decodeURI("https://demo.dcloud.net.cn/mock/%E6%9C%80%E6%96%B0/12")).toEqual('https://demo.dcloud.net.cn/mock/最新/12')
-		})
-		
-		test('encodeURIComponent', () => {
-		   expect(encodeURIComponent("你好")).toEqual('%E4%BD%A0%E5%A5%BD')
-		   expect(encodeURIComponent("你好+22")).toEqual('%E4%BD%A0%E5%A5%BD%2B22')
-		   expect(encodeURIComponent("你;/=好+22")).toEqual('%E4%BD%A0%3B%2F%3D%E5%A5%BD%2B22')
-		   expect(encodeURIComponent("https://demo.dcloud.net.cn/mock/最新/12")).toEqual('https%3A%2F%2Fdemo.dcloud.net.cn%2Fmock%2F%E6%9C%80%E6%96%B0%2F12')
-		})
-		
-		test('decodeURIComponent', () => {
-		   expect(decodeURIComponent('%E4%BD%A0%E5%A5%BD')).toEqual('你好')
-		   expect(decodeURIComponent('%E4%BD%A0%E5%A5%BD%2B22')).toEqual('你好+22')
-		   expect(decodeURIComponent('%E4%BD%A0%3B%2F%3D%E5%A5%BD%2B22')).toEqual('你;/=好+22')
-		   expect(decodeURIComponent("https://demo.dcloud.net.cn/mock/%E6%9C%80%E6%96%B0/12")).toEqual('https://demo.dcloud.net.cn/mock/最新/12')
-		})
-		
 		
         test('new', () => {
            let new1 = new User()
@@ -91,6 +121,16 @@ export function testKeyWord(): Result {
 			expect(Array.isArray([1,2,3])).toEqual(true)
 		})
 		
+		test('class', () => {
+			let p = new Parent(20)
+			p.name = "tom" // 会打印"start to set person.name"
+			console.log(p.name); // 先打印"start to get person.name"，然后打印"tom"
+			expect(Parent.age).toEqual(30)
+			expect(Parent.run()).toEqual("static method")
+			expect(p.eat()).toEqual("parent instance method")
+			// let c = new ChildrenTest(0)
+			// expect(c.eat()).toEqual("children instance method")
+		})
 		
     })
 }

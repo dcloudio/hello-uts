@@ -206,6 +206,10 @@ export function testString(): Result {
             expect(str6).toEqual("The morning is upon us.");
             
             expect("".slice()).toEqual("");
+			
+			expect("abcdefg".slice(-1)).toEqual("g");
+			expect("abcdefg".slice(-1,-2)).toEqual("");
+			
         })
         test('split', () => {
             const str = 'The quick brown fox jumps over the lazy dog.';

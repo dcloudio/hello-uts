@@ -67,29 +67,14 @@
                 })
             },
             gotoLottie: function () {
-                // if (checkHasLottieIntegration()) {
-                //     uni.navigateTo({
-                //         url: '/pages/SDKIntegration/Lottie/index'
-                //     })
-                // } else {
-                //     uni.showToast({
-                //         icon: 'none',
-                //         title: '需要在自定义基座中运行'
-                //     })
-                // }
+				uni.showToast({
+					title:'暂时不支持uni-appx'
+				})
             },
             gotoTencentLocation: function () {
-                // let ret = checkHasIntegration();
-                // if (!ret) {
-                //     uni.showToast({
-                //         icon: 'none',
-                //         title: '需要在自定义基座中运行'
-                //     })
-                // } else {
-                //     uni.navigateTo({
-                //         url: '/pages/SDKIntegration/TencentLocation/TencentLocation'
-                //     })
-                // }
+				uni.showToast({
+					title:'暂时不支持uni-appx'
+				})
             },
             gotoTencentMap: function () {
                 uni.navigateTo({

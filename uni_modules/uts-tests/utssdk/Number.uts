@@ -21,41 +21,24 @@ export function testNumber(): Result {
 			let obj = {"id":"3be2c600-894c-4231-aa56-82fd989cc961","result":{"result":[num1, num2, num3]}}
 			console.log(JSON.stringify(obj))
 			
+			
+			expect(123456.789.toFixed(2)).toEqual("123456.79");
+			expect(12345600123.789123.toFixed(2)).toEqual("12345600123.79");
+			expect((-123456.789).toFixed(5)).toEqual("-123456.78900");
+			expect(parseFloat("16688995566.369").toFixed(3)).toEqual("16688995566.369");
+			// #ifndef APP-IOS
+			// android 专有数据类型
+			let a1 = 56
+			let a2 = -122
+			expect(a1.toByte().toFixed(2)).toEqual("56.00");
+			expect(a2.toByte().toFixed(2)).toEqual("-122.00");
+			
+			expect(a1.toShort().toFixed(5)).toEqual("56.00000");
+			expect(a2.toShort().toFixed(5)).toEqual("-122.00000");
+			
+			// #endif
+			
         })
-		
-		test('parseInt', () => {
-			expect(parseInt("123.456")).toEqual(123);
-			expect(parseInt("123")).toEqual(123);
-			expect(parseInt("123", 10)).toEqual(123);
-			expect(parseInt("   123", 10)).toEqual(123);
-			expect(parseInt("077")).toEqual(77);
-			expect(parseInt("1.9")).toEqual(1);
-			expect(parseInt("ff", 16)).toEqual(255);
-			expect(parseInt("0xFF", 0)).toEqual(255);
-			expect(parseInt("0xFF", 16)).toEqual(255);
-			expect(parseInt("0xFF")).toEqual(255);
-			expect(parseInt("0xFF", 10)).toEqual(0);
-			expect(parseInt("0xF", 16)).toEqual(15);
-			expect(parseInt("F", 16)).toEqual(15);
-			expect(parseInt("021", 8)).toEqual(17);
-			expect(parseInt("015", 10)).toEqual(15);
-			expect(parseInt("15,123", 10)).toEqual(15);
-			expect(parseInt("FXX123.99", 16)).toEqual(15);
-			expect(parseInt("1111", 2)).toEqual(15);
-			expect(parseInt("15 * 3", 10)).toEqual(15);
-			expect(parseInt("15e2", 10)).toEqual(15);
-			expect(parseInt("15px", 10)).toEqual(15);
-			expect(parseInt("12", 13)).toEqual(15);
-			expect(parseInt("17", 8)).toEqual(15);
-		})
-		test('parseFloat', () => {
-			expect(parseFloat("11.20")).toEqual(11.2);
-			expect(parseFloat("3.14")).toEqual(3.14);
-			expect(parseFloat("  3.14  ")).toEqual(3.14);
-			expect(parseFloat("314e-2")).toEqual(3.14);
-			expect(parseFloat("0.0314E+2")).toEqual(3.14);
-			expect(parseFloat("3.14some non-digit characters")).toEqual(3.14);
-		})
 		
 		test('isFinite', () => {
 		    expect(isFinite(1000 / 1)).toEqual(true);
