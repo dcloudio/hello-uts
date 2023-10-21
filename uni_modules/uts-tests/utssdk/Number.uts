@@ -22,12 +22,13 @@ export function testNumber(): Result {
 			console.log(JSON.stringify(obj))
 			
 			
+
+			// #ifndef APP-IOS
+			// android 专有数据类型
 			expect(123456.789.toFixed(2)).toEqual("123456.79");
 			expect(12345600123.789123.toFixed(2)).toEqual("12345600123.79");
 			expect((-123456.789).toFixed(5)).toEqual("-123456.78900");
 			expect(parseFloat("16688995566.369").toFixed(3)).toEqual("16688995566.369");
-			// #ifndef APP-IOS
-			// android 专有数据类型
 			let a1 = 56
 			let a2 = -122
 			expect(a1.toByte().toFixed(2)).toEqual("56.00");
