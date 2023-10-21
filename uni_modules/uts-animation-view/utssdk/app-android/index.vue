@@ -20,17 +20,17 @@
                 this.comp = com
             }
 
-        override onAnimationStart(animation: Animator | null) {}
+        override onAnimationStart(animation: Animator) {}
 
-        override onAnimationEnd(animation: Animator | null, isReverse: Boolean) {
+        override onAnimationEnd(animation: Animator, isReverse: Boolean) {
             this.comp.$emit("bindended")
         }
 
-        override onAnimationEnd(animation: Animator | null) {}
+        override onAnimationEnd(animation: Animator) {}
 
-        override onAnimationCancel(animation: Animator | null) {}
+        override onAnimationCancel(animation: Animator) {}
 
-        override onAnimationRepeat(animation: Animator | null) {}
+        override onAnimationRepeat(animation: Animator) {}
     }
 
     //原生提供以下属性或方法的实现  
