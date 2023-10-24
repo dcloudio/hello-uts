@@ -13,6 +13,7 @@
 		
 		NVLoad(): LinearLayout {
 			let contentLayout = new LinearLayout($androidContext)
+			contentLayout.orientation = LinearLayout.VERTICAL;
 			return contentLayout
 		}
 		

@@ -1,0 +1,106 @@
+
+export type ReadFileSuccessResult = {
+  data: string
+}
+
+
+export type ReadFileSuccessCallback = (res: ReadFileSuccessResult) => void
+
+export type ReadFileFailCallback = (res: UniError) => void
+
+export type ReadFileCompleteCallback = (res: any) => void
+
+
+
+export type ReadFileOptions = {
+  /**
+   * base64 / utf-8
+   */
+  encoding: string,
+  /**
+   * 文件路径，支持相对地址和绝对地址
+   */
+  filePath: string,
+  /**
+   * 接口调用的回调函数
+   */
+  success?: ReadFileSuccessCallback | null,
+  /**
+   * 接口调用失败的回调函数
+   */
+  fail?: ReadFileFailCallback | null,
+  /**
+   * 接口调用结束的回调函数（调用成功、失败都会执行）
+   */
+  complete?: ReadFileCompleteCallback | null
+}
+
+
+export type WriteFileSuccessResult = {
+  filePath: string,
+}
+
+
+export type WriteFileSuccessCallback = (res: WriteFileSuccessResult) => void
+
+export type WriteFileFailCallback = (res: UniError) => void
+
+export type WriteFileCompleteCallback = (res: any) => void
+
+
+export type WriteFileOptions = {
+  /**
+   * 文件路径，只支持绝对地址
+   */
+  filePath: string,
+  /**
+   * 写入的文本内容
+   */
+  data: string,
+  /**
+   * 接口调用的回调函数
+   */
+  success?: WriteFileSuccessCallback | null,
+  /**
+   * 接口调用失败的回调函数
+   */
+  fail?: WriteFileFailCallback | null,
+  /**
+   * 接口调用结束的回调函数（调用成功、失败都会执行）
+   */
+  complete?: WriteFileCompleteCallback | null
+}
+
+
+export interface FileSystemManager {
+  readFile(config: ReadFileOptions): void;
+  writeFile(config: WriteFileOptions): void;
+}
+
+
+export type GetFileSystemManager = () => FileSystemManager;
+
+
+export interface Uni {
+  /**
+   * 获取文件管理器
+   * @uniPlatform {
+   *    "app": {
+   *        "android": {
+   *            "osVer": "4.4.4",
+   *            "uniVer": "√",
+   *            "unixVer": "3.9.0"
+   *        },
+   *        "ios": {
+   *            "osVer": "x",
+   *            "uniVer": "x",
+   *            "unixVer": "x"
+   *   	  }
+   *    }
+   * }
+   * @uniVueVersion 2,3  //支持的vue版本
+   */
+  getFileSystemManager: GetFileSystemManager
+}
+
+

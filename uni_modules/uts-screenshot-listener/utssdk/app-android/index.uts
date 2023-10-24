@@ -1,9 +1,5 @@
 
 
-import {
-	UTSAndroid
-} from "io.dcloud.uts";
-
 import { OnUserCaptureScreen, OffUserCaptureScreen, UserCaptureScreenCallback, OnUserCaptureScreenResult } from "../interface.uts"
 
 

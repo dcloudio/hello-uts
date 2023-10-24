@@ -1,0 +1,27 @@
+<template>
+	<view>
+		<page-head :title="title"></page-head>
+		
+	</view>
+</template>
+<script>
+	
+	export default {
+		
+		data() {
+			return {
+				title: '文件读取示例-todo',
+			}
+		},
+
+		methods: {
+			
+			
+		}
+	}
+</script>
+
+<style>
+
+  
+</style>

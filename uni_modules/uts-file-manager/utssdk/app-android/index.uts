@@ -1,0 +1,125 @@
+import { ReadFileSuccessResult, ReadFile,ReadFileOptions } from "../interface.uts"
+import { WriteFileSuccessResult, WriteFile,WriteFileOptions } from "../interface.uts"
+import { GetFileSystemManager,FileSystemManager} from "../interface.uts"
+import { UniErrorSubject, UniErrors } from "../unierror.uts"
+
+import File from "java.io.File" 
+import UTSAndroid from 'io.dcloud.uts.UTSAndroid';
+import Base64 from "android.util.Base64"
+
+export { ReadFileOptions, WriteFileOptions } from "../interface.uts"
+
+
+class AndroidFileSystemManager implements FileSystemManager{
+	
+	public readFile(options : ReadFileOptions) {
+		
+		// 判断type 是否合法
+		if(options.encoding != 'base64' && options.encoding != 'utf-8'){
+			let err = new UniError(UniErrorSubject, 1200002, UniErrors.get(1200002)!);
+			options.fail?.(err)
+			options.complete?.(err)
+			return
+		}
+		
+		let filePath = UTSAndroid.convert2AbsFullPath(options.filePath)
+		let targetFile = new File(filePath)
+		if (!targetFile.exists()) {
+			let err = new UniError(UniErrorSubject, 1300002, UniErrors.get(1300002)! + filePath);
+			options.fail?.(err)
+			options.complete?.(err)
+			return
+		}
+		
+		if (targetFile.isDirectory()) {
+			let err = new UniError(UniErrorSubject,1301003,UniErrors.get(1301003)!);
+			options.fail?.(err)
+			options.complete?.(err)
+			return
+		}
+		
+		/**
+		 * 文件超过16M，会超过应用内存  
+		 */
+		if (targetFile.length() > 16 * 1024 * 1024) {
+			let err = new UniError(UniErrorSubject,1300202,UniErrors.get(1300202)!);
+			options.fail?.(err)
+			options.complete?.(err)
+			return
+		}
+		
+		let currentDispatcher = UTSAndroid.getDispatcher()
+		/**
+		 * 执行真正的加载行为，为了避免阻塞分发到 io任务序列
+		 */
+		UTSAndroid.dispatchAsync('io',function(_){
+			
+			let ret : ReadFileSuccessResult = {
+				data : ""
+			}
+			
+			if(options.encoding == 'base64'){
+				// base64
+				let byteArray = targetFile.readBytes()
+				let base64Content = Base64.encodeToString(byteArray,Base64.NO_WRAP)
+				ret.data = base64Content
+				
+			}else{
+				// text
+				let text = targetFile.readText()
+				ret.data = text
+			}
+			
+			currentDispatcher.async(function(_){
+				options.success?.(ret)
+				options.complete?.(ret)
+			})
+			
+		},null)
+		
+	}
+	
+	
+	public writeFile(options : WriteFileOptions) {
+		// 判断type 是否合法
+		let nextFile = new File(UTSAndroid.getAppContext()?.getFilesDir(),options.filePath)
+		if(nextFile.exists() && nextFile.isDirectory()){
+			// 出错了，目标文件已存在，并且是个目录
+			let err = new UniError(UniErrorSubject,1301003,UniErrors.get(1301003)!);
+			options.fail?.(err)
+			options.complete?.(err)
+			return
+		}
+		
+		
+		let currentDispatcher = UTSAndroid.getDispatcher()
+		UTSAndroid.dispatchAsync('io',function(_){
+			
+			/**
+			 * 如果上一级目录不存在，创建之
+			 */
+			if(!nextFile.parentFile.exists()){
+				nextFile.parentFile.mkdirs()
+			}
+			
+			if(!nextFile.exists()){
+				nextFile.createNewFile()
+			}
+			// 写入文本，暂时只支持覆盖写入
+			nextFile.writeText(options.data)
+			
+			let ret : WriteFileSuccessResult = {
+				filePath: nextFile.getPath()
+			}
+			
+			currentDispatcher.async(function(_){
+				options.success?.(ret)
+				options.complete?.(ret)
+			})
+		},null)
+	}
+}
+
+export const getFileSystemManager:GetFileSystemManager = function ():FileSystemManager {
+	return new AndroidFileSystemManager()
+};

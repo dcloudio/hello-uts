@@ -2,10 +2,8 @@
 	<view>
 		<page-head title="asset 音频播放示例" accordion></page-head>
 		
-		<uni-list>
-			<uni-list-item title="播放asset音频" :clickable="true" @tap="testStart"></uni-list-item> 
-			<uni-list-item title="停止播放asset音频" :clickable="true" @tap="testStop"></uni-list-item>
-		</uni-list>
+		<button @click="testStart">播放asset音频</button>
+		<button @click="testStop">停止播放asset音频</button>
 			
 	</view>
 </template>

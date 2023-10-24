@@ -1,0 +1,362 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+export function testString(): Result {
+    return describe("String", () => {
+        test('length', () => {
+            const x = "Mozilla";
+            expect(x.length).toEqual(7);
+            // expect(x[0]).toEqual('M');
+            const empty = "";
+            expect(empty.length).toEqual(0);
+            // const adlam = "𞤲𞥋𞤣𞤫";
+            // expect(adlam.length).toEqual(8);
+            // const formula = "∀𝑥∈ℝ,𝑥²≥0";
+            // expect(formula.length).toEqual(11);
+            
+            // 1. web: 最大长度和js引擎有关，在v8中为 2^29 - 24
+            // 超出边界报错: RangeError: Invalid string length
+            // 2. kotlin: 最大长度 2^31-1
+            // 超出边界报错:  Error: targetMethod error::java.lang.OutOfMemoryError: char[] of length
+            // 3. swift: 最大长度和内存有关
+            // 超出边界没有返回信息
+            // const length = Math.pow(2, 29) - 24
+            // const str = 'x'.repeat(length);
+            // expect(str.length).toEqual(11);
+        })
+        test('at', () => {
+            const sentence = 'The quick brown fox jumps over the lazy dog.';
+            let index = 5;
+            expect(sentence.at(index)).toEqual("u");
+            index = -4;
+            expect(sentence.at(index)).toEqual("d");
+            expect(sentence.at(999)).toEqual(null);
+            
+            let invoiceRef = 'myinvoice01';
+            expect(invoiceRef.at(-1)).toEqual("1");
+            invoiceRef = 'myinvoice02';
+            expect(invoiceRef.at(-1)).toEqual("2");
+            expect(invoiceRef.at(-999)).toEqual(null);
+            
+            const empty = "";
+            expect(empty.at(0)).toEqual(null);
+        })
+        test('charAt', () => {
+            const anyString = "Brave new world";
+            expect(anyString.charAt(0)).toEqual("B");
+            expect(anyString.charAt(1)).toEqual("r");
+            expect(anyString.charAt(2)).toEqual("a");
+            expect(anyString.charAt(3)).toEqual("v");
+            expect(anyString.charAt(4)).toEqual("e");
+            expect(anyString.charAt(999)).toEqual("");
+            expect(anyString.charAt(-1)).toEqual("");
+            expect(anyString.charAt(-2)).toEqual("");
+            expect(anyString.charAt(-999)).toEqual("");
+            
+            const empty = "";
+            expect(empty.charAt(0)).toEqual("");
+        })
+        test('charCodeAt', () => {
+            const sentence = 'The quick brown fox jumps over the lazy dog.';
+            const index = 4;
+            expect(sentence.charCodeAt(index)).toEqual(113);
+            
+            expect("ABC".charCodeAt(0)).toEqual(65);
+            expect("ABC".charCodeAt(1)).toEqual(66);
+            expect("ABC".charCodeAt(2)).toEqual(67);
+            expect("ABC".charCodeAt(3)).toEqual(null);
+            
+            const empty = "";
+            expect(empty.charCodeAt(0)).toEqual(null);
+        })
+        test('concat', () => {
+            let hello = 'Hello, '
+            expect(hello.concat('Kevin', '. Have a nice day.')).toEqual("Hello, Kevin. Have a nice day.");
+            expect("".concat('abc')).toEqual("abc");
+        })
+        test('endsWith', () => {
+            const str1 = 'Cats are the best!';
+            expect(str1.endsWith('best!')).toEqual(true);
+            expect(str1.endsWith('best', 17)).toEqual(true);
+            const str2 = 'Is this a question?';
+            expect(str2.endsWith('question')).toEqual(false);
+            
+            expect("".includes("test")).toEqual(false);
+        })
+        test('includes', () => {
+            const sentence = 'The quick brown fox jumps over the lazy dog.';
+            const word = 'fox';
+            expect(sentence.includes(word)).toEqual(true);
+            
+            expect("Blue Whale".includes("blue")).toEqual(false);
+            expect("Blue Whale".toLowerCase().includes("blue")).toEqual(true);
+            
+            expect("".includes("test")).toEqual(false);
+        })
+        test('indexOf', () => {
+            const paragraph = 'The quick brown fox jumps over the lazy dog. If the dog barked, was it really lazy?';
+            const searchTerm = 'dog';
+            const indexOfFirst = paragraph.indexOf(searchTerm);
+            expect(indexOfFirst).toEqual(40);
+            expect(paragraph.indexOf(searchTerm, (indexOfFirst + 1))).toEqual(52);
+            
+            expect('Blue Whale'.indexOf('Blue')).toEqual(0);
+            expect('Blue Whale'.indexOf('Blute')).toEqual(-1);
+            expect('Blue Whale'.indexOf('Whale', 0)).toEqual(5);
+            expect('Blue Whale'.indexOf('Whale', 5)).toEqual(5);
+            expect('Blue Whale'.indexOf('Whale', 7)).toEqual(-1);
+            
+            expect("".indexOf("test")).toEqual(-1);
+        })
+        // test('match', () => {
+        //     const str = 'The quick brown fox jumps over the lazy dog. It barked.';
+        //     const result = str.match(new RegExp('[A-Z]', 'g'));
+        //     expect(result).toEqual(["T", "I"]);
+            
+        //     const str1 = 'For more information, see Chapter 3.4.5.1';
+        //     const result1 = str1.match(/see (chapter \d+(\.\d)*)/i);
+        //     expect(result1[0]).toEqual("see Chapter 3.4.5.1");
+        //     expect(result1[1]).toEqual("Chapter 3.4.5.1");
+        //     expect(result1[2]).toEqual(".1");
+        //     expect(result1.index).toEqual(22);
+        //     expect(result1.input).toEqual(str1);
+            
+        //     const str2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        //     const result2 = str2.match(/[A-E]/gi);
+        //     expect(result2).toEqual(['A', 'B', 'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e']);
+            
+        //     const str3 = 'Nothing will come of nothing.';
+        //     const result3 = str3.match();
+        //     expect(result3).toEqual([""]);
+        // })
+        test('padEnd', () => {
+            const str1 = 'Breaded Mushrooms';
+            expect(str1.padEnd(25, '.')).toEqual("Breaded Mushrooms........");
+            const str2 = '200';
+            expect(str2.padEnd(5)).toEqual("200  ");
+            
+            expect('abc'.padEnd(10)).toEqual("abc       ");
+            expect('abc'.padEnd(10, "foo")).toEqual("abcfoofoof");
+            expect('abc'.padEnd(6, "123456")).toEqual("abc123");
+            expect('abc'.padEnd(1)).toEqual("abc");
+        })
+        test('padStart', () => {
+            const str1 = '5';
+            expect(str1.padStart(2, '0')).toEqual("05");
+            
+            expect('abc'.padStart(10)).toEqual("       abc");
+            expect('abc'.padStart(10, "foo")).toEqual("foofoofabc");
+            expect('abc'.padStart(6, "123456")).toEqual("123abc");
+            expect('abc'.padStart(8, "0")).toEqual("00000abc");
+            expect('abc'.padStart(1)).toEqual("abc");
+        })
+        test('repeat', () => {
+            const str1 = 'abc';
+            expect(str1.repeat(0)).toEqual("");
+            expect(str1.repeat(1)).toEqual("abc");
+            expect(str1.repeat(2)).toEqual("abcabc");
+            expect(str1.repeat(3.5)).toEqual("abcabcabc");
+            
+            expect("".repeat(1)).toEqual("");
+        })
+        test('replace', () => {
+            const p = 'The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?';
+            expect(p.replace('dog', 'monkey')).toEqual("The quick brown fox jumps over the lazy monkey. If the dog reacted, was it really lazy?");
+            const regex = /Dog/i;
+            expect(p.replace(regex, 'ferret')).toEqual("The quick brown fox jumps over the lazy ferret. If the dog reacted, was it really lazy?");
+            const str = 'abc12345#$*%';
+            const replacer = (match:string, p: string[], offset:number, string:string): string => {
+              // p1 is nondigits, p2 digits, and p3 non-alphanumerics
+              expect(offset).toEqual(0);
+              expect(match).toEqual(str);
+              expect(string).toEqual(str);
+              return p.join(' - ');
+            }
+            // var newString = str.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
+            // expect(newString).toEqual("abc - 12345 - #$*%");
+            // const str1 = 'hello, world';
+            // const newString1 = str1.replace(/world/, (match: string, offset:number):string => `JavaScript (${offset})`);
+            // expect(newString1).toEqual('hello, JavaScript (7)');
+        })
+        test('search', () => {
+            const paragraph = 'The quick brown fox jumps over the lazy dog. If the dog barked, was it really lazy?';
+            const regex = /[^\w\s]/g;
+            expect(paragraph.search(regex)).toEqual(43);
+            
+            var str = "hey JudE";
+            var re = /[A-Z]/g;
+            var re2 = /[.]/g;
+            expect(str.search(re)).toEqual(4);
+            expect(str.search(re2)).toEqual(-1);
+            expect("".search(re2)).toEqual(-1);
+        })
+        test('slice', () => {
+            const str = 'The quick brown fox jumps over the lazy dog.';
+            expect(str.slice(31)).toEqual("the lazy dog.");
+            
+            let str1 = 'The morning is upon us.', // str1 的长度 length 是 23。
+                str2 = str1.slice(1, 8),
+                str3 = str1.slice(4, -2),
+                str4 = str1.slice(12),
+                str5 = str1.slice(30),
+                str6 = str1.slice();
+            expect(str2).toEqual("he morn");
+            expect(str3).toEqual("morning is upon u");
+            expect(str4).toEqual("is upon us.");
+            expect(str5).toEqual("");
+            expect(str6).toEqual("The morning is upon us.");
+            
+            expect("".slice()).toEqual("");
+			
+			expect("abcdefg".slice(-1)).toEqual("g");
+			expect("abcdefg".slice(-1,-2)).toEqual("");
+			
+        })
+        test('split', () => {
+            const str = 'The quick brown fox jumps over the lazy dog.';
+            const words = str.split(' ');
+            expect(words[3]).toEqual("fox");
+            const chars = str.split('');
+            expect(chars[8]).toEqual("k");
+            
+            var myString = "Hello World. How are you doing?";
+            var splits = myString.split(" ", 3);
+            var splits1 = myString.split(" ", 10);
+            expect(splits).toEqual(["Hello", "World.", "How"]);
+            expect(splits1).toEqual(['Hello', 'World.', 'How', 'are', 'you', 'doing?']);
+            
+            expect(''.split('')).toEqual([])
+            expect('abc'.split('b')).toEqual(["a", "c"])
+            expect('abc'.split('d')).toEqual(["abc"])
+            
+            var str1 = "Harry Trump ;Fred Barney; Helen Rigby ; Bill Abel ;Chris Hand ";
+            var re1 = /\s*(?:;|$)\s*/;
+            expect(str1.split(re1)).toEqual([ "Harry Trump", "Fred Barney", "Helen Rigby", "Bill Abel", "Chris Hand", "" ])
+            
+            var str2 = "a, b, c, d,    e";
+            var re2 = /,\s*/g;
+            expect(str2.split(re2)).toEqual(["a", "b", "c", "d", "e"]);
+            
+            var str3 = "foo-bar_baz(qux-quux)_corge";
+            var re3 = new RegExp("[_-](?![^(]*\\))", "g");
+            expect(str3.split(re3)).toEqual(["foo", "bar", "baz(qux-quux)", "corge"]);
+            
+            var str4 = "a, b, {c, d, e}, f, g, h";
+            var re4 = /,(?![^{]*\})/;
+            expect(str4.split(re4)).toEqual(["a", " b", " {c, d, e}", " f", " g", " h"]);
+        })
+        test('toLowerCase', () => {
+            const str1 = '中文简体 zh-CN || zh-Hans';
+            expect(str1.toLowerCase()).toEqual("中文简体 zh-cn || zh-hans");
+            const str2 = 'ALPHABET';
+            expect(str2.toLowerCase()).toEqual("alphabet");
+        })
+        test('toUpperCase', () => {
+            const sentence = 'The quick brown fox jumps over the lazy dog.';
+            expect(sentence.toUpperCase()).toEqual("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.");
+        })
+        
+        test("lastIndexOf", () => {
+            expect('canal'.lastIndexOf('a')).toEqual(3);
+            expect('canal'.lastIndexOf('a', 2)).toEqual(1);
+            expect('canal'.lastIndexOf('a', 0)).toEqual(-1);
+            expect('canal'.lastIndexOf('')).toEqual(5);
+            expect('canal'.lastIndexOf('', 2)).toEqual(2);
+            expect("Blue Whale, Killer Whale".lastIndexOf("Whale")).toEqual(19);
+            expect("Blue Whale, Killer Whale".lastIndexOf("blue")).toEqual(-1);
+        })
+        test("substring", () => {
+            var str1 = "Mozilla";
+            expect(str1.substring(0, 3)).toEqual("Moz");
+            expect(str1.substring(3, 0)).toEqual("Moz");
+            expect(str1.substring(3, -3)).toEqual("Moz");
+            
+            var str2 = "hello world";
+            // expect(str2.substring()).toEqual("hello world");
+            expect(str2.substring(6)).toEqual("world");
+            expect(str2.substring(0)).toEqual("hello world");
+            expect(str2.substring(0, 5)).toEqual("hello");
+            expect(str2.substring(6, 11)).toEqual("world");
+            expect(str2.substring(3, 8)).toEqual("lo wo");
+            expect(str2.substring(0, -1)).toEqual("");
+            expect(str2.substring(0, 20)).toEqual("hello world");
+			
+			var str3 = "aaa";
+			expect(str3.substring(10, 1)).toEqual("aa");
+        })
+        test("trim", () => {
+            const greeting = '   Hello world!   ';
+            expect(greeting).toEqual("   Hello world!   ");
+            expect(greeting.trim()).toEqual("Hello world!");
+            const orig:string = '   foo  ';
+            expect(orig.trim()).toEqual("foo");
+            const str = '\t\t\tworld\t\t\t';
+            expect(str.trim()).toEqual('world');
+            const str1 = '\n\n\nhello\n\n\n';
+            expect(str1.trim()).toEqual('hello');
+            const str2 = '';
+            expect(str2.trim()).toEqual('');
+        })
+        test("trimStart", () => {
+            const str = '    Hello World   ';
+            expect(str.trimStart()).toEqual('Hello World   ');
+            const str1 = 'Hello World';
+            expect(str1.trimStart()).toEqual(str1);
+            const str2 = '   \t  \n   ';
+            expect(str2.trimStart()).toEqual('');
+        })
+        test("trimEnd", () => {
+            const str = '    Hello World   ';
+            expect(str.trimEnd()).toEqual('    Hello World');
+            const str1 = 'Hello World';
+            expect(str1.trimEnd()).toEqual(str1);
+            const str2 = '   \t  \n   ';
+            expect(str2.trimEnd()).toEqual('');
+        })
+        test("startsWith", () => {
+            const str = 'hello world';
+            expect(str.startsWith('hello')).toEqual(true);
+            expect(str.startsWith('h')).toEqual(true);
+            expect(str.startsWith('HELLO')).toEqual(false);
+            expect(str.startsWith('o')).toEqual(false);
+            
+            const str1:string = "To be, or not to be, that is the question.";
+            expect(str1.startsWith("To be")).toEqual(true);
+            expect(str1.startsWith("not to be")).toEqual(false);
+            expect(str1.startsWith("not to be", 10)).toEqual(true);
+            expect(str1.startsWith("not to be", 8)).toEqual(false);
+        })
+        test("matchAll", () => {
+            // const reg = /t(e)(st(\d?))/g;
+            // const str = 'test1test2';
+            // const result = [...str.matchAll(reg)];
+            // expect(result[0]).toEqual(["test1", "e", "st1", "1"]);
+            // expect(result[1]).toEqual(["test2", "e", "st2", "2"]);
+            
+            // const reg1 =  /[A-Z]/g;
+            // const str1 = 'The quick brown fox jumps over the lazy dog';
+            // const result1 = [...str1.matchAll(reg1)];
+            // expect(result1[0]).toEqual(["T"]);
+        })
+        test("replaceAll", () => {
+            // const p = 'The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?';
+            // expect(p.replaceAll('dog', 'monkey')).toEqual("The quick brown fox jumps over the lazy monkey. If the monkey reacted, was it really lazy?");
+            // const regex = /Dog/ig;
+            // expect(p.replaceAll(regex, 'ferret')).toEqual( "The quick brown fox jumps over the lazy ferret. If the ferret reacted, was it really lazy?");
+            
+            // const reg = /[aeiou]/g;
+            // const str = 'The quick brown fox jumps over the lazy dog';
+            // const result = str.replaceAll(reg, '!');
+            // expect(result).toEqual("Th! q!!ck br!wn f!x j!mps !v!r th! l!zy d!g");
+            
+            // const reg1 = /o/g;
+            // const str1 = 'Hello World!';
+            // const result1 = str1.replaceAll(reg1, (match, offset, original) => {
+            //     expect(match).toEqual('o');
+            //     expect(original[offset]).toEqual('o');
+            //     expect(original).toEqual(str1);
+            //     return `x`;
+            // });
+            // expect(result1).toEqual("Hellx Wxrld!");
+        })
+    })
+}

@@ -1,0 +1,38 @@
+import { Matchers,NumberMatchers } from './Matchers.uts'
+
+export const describes = new Map<string, Result>()
+
+export class Result {
+    total = 0
+    passed: string[] = []
+    failed: string[] = []
+}
+
+let result: Result = new Result()
+
+export function describe(name: string, fn: () => void): Result {
+    result = new Result()
+    describes.set(name, result)
+    fn()
+    return result
+}
+
+export function test(name: string, fn: () => void) {
+    try {
+        fn()
+        // console.log('push....',name)
+        result.passed.push(name)
+        // console.log('push....',result.passed.length)
+    } catch (e) {
+        result.failed.push(`${name}:\n${e.message}`)
+    }
+    result.total++
+}
+
+export function expect<T>(value: T): Matchers<T> {
+    return new Matchers(value);
+}
+
+export function expectNumber(value: number): NumberMatchers {
+    return new NumberMatchers(value);
+}

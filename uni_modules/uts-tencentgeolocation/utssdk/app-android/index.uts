@@ -1,6 +1,4 @@
-import {
-    UTSAndroid
-} from "io.dcloud.uts";
+
 
 import ActivityCompat from "androidx.core.app.ActivityCompat";
 import Manifest from "android.Manifest";
@@ -23,26 +21,20 @@ export function requestPremission() {
 	 */
 	TencentLocationManager.setUserAgreePrivacy(true);
 	
-	// 注册一个请求回调
-	UTSAndroid.onAppActivityRequestPermissionsResult((requestCode: number,
-                                                     permissions: MutableList<string>,
-                                                     grantResults: MutableList<number>) => {
-		/**
-		 * 0 已同意
-		 * -1 已拒绝
-		 */
-		console.log(grantResults);
-		console.log(permissions);
-		console.log(requestCode);
-	});
-	
-	// 发起权限申请
-	ActivityCompat.requestPermissions(
-	            UTSAndroid.getUniActivity()!,
-	            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION), 1001);
+	/**
+	 * 准备权限
+	 */
+	let permissionNeed = [Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION];
+
+	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight:boolean,_:string[]) {
+		console.log("用户同意了权限",allRight)
+	}, function (_:boolean,_:string[]) {
+		console.log("用户拒绝了部分权限:")
+	})
 	
   // 请求权限
   return { name: "requestPremission"};
+  
 }
 
 

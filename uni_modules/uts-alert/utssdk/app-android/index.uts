@@ -1,7 +1,4 @@
 
-import {
-	UTSAndroid
-} from "io.dcloud.uts";
 
 import Toast from 'android.widget.Toast';
 import AlertDialog from 'android.app.AlertDialog';

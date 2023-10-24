@@ -1,0 +1,236 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+export function testRegExp(): Result {
+    return describe("RegExp", () => {
+        test("dotAll", () => {
+            const regex1 = new RegExp('foo', 's');
+            expect(regex1.dotAll).toEqual(true);
+            const regex2 = new RegExp('bar');
+            expect(regex2.dotAll).toEqual(false);
+        })
+        test("flags", () => {
+            const regex1 = new RegExp('foo', 'ig');
+            expect(regex1.flags).toEqual("gi");
+            const regex2 = new RegExp('bar', 'myu');
+            expect(regex2.flags).toEqual("muy");
+            const regex3 = new RegExp('bar');
+            expect(regex3.flags).toEqual("");
+        })
+        test("global", () => {
+            const regex1 = new RegExp('foo', 'g');
+            expect(regex1.global).toEqual(true);
+            const regex2 = new RegExp('bar');
+            expect(regex2.global).toEqual(false);
+        })
+        test("hasIndices", () => {
+            const regex1 = new RegExp('foo', 'd');
+            expect(regex1.hasIndices).toEqual(true);
+            const regex2 = new RegExp('bar');
+            expect(regex2.hasIndices).toEqual(false);
+        })
+        test("ignoreCase", () => {
+            const regex1 = new RegExp('foo', 'i');
+            expect(regex1.ignoreCase).toEqual(true);
+            const regex2 = new RegExp('bar');
+            expect(regex2.ignoreCase).toEqual(false);
+        })
+        test("lastIndex", () => {
+            const regex = /ab/g;
+            const str = 'ab ab ab';
+            const result1 = regex.exec(str)!;
+            expect(result1.index).toEqual(0);
+            expect(regex.lastIndex).toEqual(2);
+        
+            const result2 = regex.exec(str)!;
+            expect(result2.index).toEqual(3);
+            expect(regex.lastIndex).toEqual(5);
+        
+            const result3 = regex.exec(str)!;
+            expect(result3.index).toEqual(6);
+            expect(regex.lastIndex).toEqual(8);
+        })
+        test("multiline", () => {
+            const regex1 = new RegExp('foo', 'm');
+            expect(regex1.multiline).toEqual(true);
+            const regex2 = new RegExp('bar');
+            expect(regex2.multiline).toEqual(false);
+        })
+        test("source", () => {
+            const regex1 = new RegExp('foo', 'ig');
+            expect(regex1.source).toEqual("foo");
+            const regex2 = new RegExp('bar');
+            expect(regex2.source).toEqual("bar");
+            const regex3 = /\w+/gi;
+            expect(regex3.source).toEqual("\\w+");
+            const regex4 = new RegExp('\\d+', 'ig');;
+            expect(regex4.source).toEqual("\\d+");
+        })
+        test("sticky", () => {
+            const str1 = 'table football';
+            const regex1 = new RegExp('foo', 'y');
+            regex1.lastIndex = 6;
+            expect(regex1.sticky).toEqual(true);
+            expect(regex1.test(str1)).toEqual(true);
+            expect(regex1.test(str1)).toEqual(false);
+        })
+		// android 暂时不支持 unicode
+        // test("unicode", () => {
+        //     const regex1 = new RegExp('foo', 'u');
+        //     expect(regex1.unicode).toEqual(true);
+        //     const regex2 = new RegExp('bar');
+        //     expect(regex2.unicode).toEqual(false);
+        // })
+        
+        test('test', () => {
+            const str = 'table football';
+            const regex = new RegExp('foo*');
+            const globalRegex = new RegExp('foo*', 'g');
+            expect(regex.test(str)).toEqual(true);
+            expect(globalRegex.lastIndex).toEqual(0);
+            expect(globalRegex.test(str)).toEqual(true);
+            expect(globalRegex.lastIndex).toEqual(9);
+            expect(globalRegex.test(str)).toEqual(false);
+            
+            const re = new RegExp('hello', 'g');
+            const str1 = 'hello world';
+            const str2 = 'hello there';
+            expect(re.test(str1)).toEqual(true);
+            expect(re.lastIndex).toEqual(5);
+            expect(re.test(str2)).toEqual(false);
+            expect(re.lastIndex).toEqual(0);
+            
+            const re1 = new RegExp('(\\d{3})-(\\d{2})-(\\d{4})');
+            expect(re1.test('123-45-6789')).toEqual(true);
+            expect(re1.test('123-45-678')).toEqual(false);
+            
+            const re2 = /^(http|https):\/\/[\w\-]+(\.[\w\-]+)*(:\d+)?(\/[\w\-./?%&=]*)?$/;
+            expect(re2.test('https://www.example.com')).toEqual(true);
+            expect(re2.test('http://127.0.0.1:8080')).toEqual(true);
+            expect(re2.test('www.example.com')).toEqual(false);
+            expect(re2.test('https:/www.example.com')).toEqual(false);
+            expect(re2.test('https:/www.example.com@foo')).toEqual(false);
+            expect(re2.test('123')).toEqual(false);
+            
+            const re3 = /^1[3-9]\d{9}$/;
+            expect(re3.test('13912345678')).toEqual(true);
+            expect(re3.test('15812345678')).toEqual(true);
+            expect(re3.test('12912345678')).toEqual(false);
+            expect(re3.test('1391234')).toEqual(false);
+            expect(re3.test('1581234567a')).toEqual(false);
+            
+            const re4 = /[\u4E00-\u9FA5]/;
+            expect(re4.test('测试')).toEqual(true);
+            expect(re4.test('123')).toEqual(false);
+            expect(re4.test('abc')).toEqual(false);
+            
+            const re5 = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+            expect(re5.test('#b8b8b8')).toEqual(true);
+            expect(re5.test('#b8b')).toEqual(true);
+            expect(re5.test('#b8b8b81')).toEqual(false);
+            expect(re5.test('#b8b8b')).toEqual(false);
+            expect(re5.test('b8b8b')).toEqual(false);
+            
+            const re6 = new RegExp('hello', 'i');
+            expect(re6.test('Hello')).toEqual(true);
+            
+            const re7 = new RegExp('^Hello', 'm');
+            expect(re7.test('Hello\nWorld')).toEqual(true);
+            
+            // const re8 = new RegExp('\\u{1F602}', 'u');
+            // expect(re8.test('😂')).toEqual(true);
+            // expect(re8.test('😊')).toEqual(false);
+            
+            const re9 = new RegExp('a\\d', 'y');
+            expect(re9.test('a1a2a3')).toEqual(true);
+            expect(re9.test('a1a2a3')).toEqual(true);
+            expect(re9.test('a1a2a3')).toEqual(true);
+            expect(re9.test('a1a2a3')).toEqual(false);
+            
+            const re10 = new RegExp('^foo.bar$', 's');
+            expect(re10.test('foo\nbar')).toEqual(true);
+            
+            // const re11 = /(?=a)?b/;
+            // expect(re11.test("b")).toEqual(true);
+            
+            const isValidIdentifierName = (str: string): boolean => {
+              const reg =
+                /^(?!(?:break|case|catch)$)[$_\p{ID_Start}][$\u200c\u200d\p{ID_Continue}]*$/u;
+              return reg.test(str);
+            }
+            expect(isValidIdentifierName("break")).toEqual(false);
+            expect(isValidIdentifierName("foo")).toEqual(true);
+            expect(isValidIdentifierName("cases")).toEqual(true);
+            
+            const isASCIIIDPart = (char: string): boolean => {
+               return /^(?=\p{ASCII}$)\p{ID_Start}$/u.test(char);
+            }
+            expect(isASCIIIDPart("a")).toEqual(true);
+            expect(isASCIIIDPart("α")).toEqual(false);
+            expect(isASCIIIDPart(":")).toEqual(false);
+        })
+        test('exec', () => {
+            const pattern = new RegExp('hello');
+            const result = pattern.exec('hi there');
+            expect(result).toEqual(null);
+            
+            const pattern1 = new RegExp('hello');
+            const result1 = pattern1.exec('hello world')!;
+            expect(result1[0]).toEqual('hello');
+            expect(result1.index).toEqual(0);
+            expect(result1.input).toEqual("hello world");
+            
+            const pattern2 = /quick\s(?<color>brown).+?(jumps)/igd;
+            const result2 = pattern2.exec('The Quick Brown Fox Jumps Over The Lazy Dog')!;
+            expect(result2[0]).toEqual("Quick Brown Fox Jumps");
+            expect(result2[1]).toEqual("Brown");
+            expect(result2[2]).toEqual("Jumps");
+            expect(result2.index).toEqual(4);
+            expect(result2.input).toEqual("The Quick Brown Fox Jumps Over The Lazy Dog");
+            // expect(result2.groups).toEqual({color: "Brown"});
+            
+            const pattern3 = /(\d{4})-(\d{2})-(\d{2})/g;
+            const result3 = pattern3.exec("2023-02-01")!;
+            expect(result3[0]).toEqual("2023-02-01");
+            expect(result3[1]).toEqual("2023");
+            expect(result3[2]).toEqual("02");
+            expect(result3[3]).toEqual("01");
+            expect(result3.index).toEqual(0);
+            expect(result3.input).toEqual("2023-02-01");
+            
+            const pattern4 = /(?=(a+))a*b\1/;
+            const result4 = pattern4.exec("baabac")!;
+            expect(result4[0]).toEqual("aba");
+            expect(result4[1]).toEqual("a");
+            expect(result4.index).toEqual(2);
+            expect(result4.input).toEqual("baabac");
+            
+            const pattern5 = /(.*?)a(?!(a+)b\1c)\1(.*)/;
+            const result5 = pattern5.exec("baaabaac")!;
+            expect(result5[0]).toEqual("baaabaac");
+            expect(result5[1]).toEqual("baa");
+            expect(result5[3]).toEqual("c");
+            expect(result5.index).toEqual(0);
+            
+            const pattern6 = /^.*?(?=[,.])/;
+            const result6 = pattern6.exec("Hello, world!")!;
+            expect(result6[0]).toEqual("Hello");
+            
+            const pattern7 = /\d{4}-(?=\d{2}-\d{2})\d{2}-\d{2}/;
+            const result7 = pattern7.exec('2023/05-26');
+            expect(result7).toEqual(null);
+            
+			
+            const pattern8 = /https:\/\/(?!\w+\.(com|net))\w+\.\w+/;
+            const result8 = pattern8.exec('https://example.org')!;
+            expect(result8[0]).toEqual('https://example.org');
+            
+            const pattern9 = /(?<=@)\w+/;
+            const result9 = pattern9.exec('Email: john@example.com')!;
+            expect(result9[0]).toEqual('example');
+            
+            const pattern10 = /(?<!@)\w+/;
+            const result10 = pattern10.exec('Username: john')!;
+            expect(result10[0]).toEqual('Username');
+        })
+    })
+}

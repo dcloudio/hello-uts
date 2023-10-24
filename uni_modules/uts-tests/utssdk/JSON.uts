@@ -1,0 +1,285 @@
+import { describe, test, expect,expectNumber, Result } from './tests.uts'
+
+
+
+type UserJSON={
+	id:string;
+	name:string|null;
+}
+
+type PersonJSON = {
+	/**
+	* @JSON_FIELD "a+b"
+	*/
+	a_b: string;
+	/**
+	* @JSON_FIELD "a-b"
+	*/
+	a_b_: number;
+	/**
+	* @JSON_FIELD "class"
+	*/
+	_class: boolean;
+}
+
+
+
+
+export function testJSON() : Result {
+    return describe("JSON", () => {
+        test('parse', () => {
+            const json = `{"result":true, "count":42}`;
+            const obj = JSON.parse(json) as UTSJSONObject;
+            expect(obj["count"]).toEqual(42);
+            expect(obj["result"] as boolean).toEqual(true);
+
+            const json1 = `{
+                "name": "John",
+                "age": 30,
+                "city": "New York"
+              }`;
+            const obj1 = JSON.parse(json1);
+            // expect(obj1).toEqual({
+            //     name: 'John',
+            //     age: 30,
+            //     city: 'New York',
+            // });
+			expect((obj1! as UTSJSONObject).getString('name')).toEqual("John")
+			
+			
+            const json2 = '{"string":"Hello","number":42,"boolean":true,"nullValue":null,"array":[1,2,3],"object":{"nestedKey":"nestedValue"}}';
+            const obj2 = JSON.parse<UTSJSONObject>(json2)!;
+            // expect(obj2).toEqual({
+            //     string: 'Hello',
+            //     number: 42,
+            //     boolean: true,
+            //     nullValue: null,
+            //     array: [1, 2, 3],
+            //     object: {
+            //         nestedKey: 'nestedValue',
+            //     },
+            // });
+            expect(obj2['object']).toEqual({
+                nestedKey: 'nestedValue',
+            })
+			expect(obj2.getString("object.nestedKey")).toEqual('nestedValue')
+	
+	
+			let json3 = `{"id":"216776999999","name":"小王","grade":1.0,"list":[1,2,3],"address":{"province":"beijing","city":"haidian","streat":"taipingzhuang","other":2},"anyValue":[[null,null]],"obj":{"a":1,"b":false,"c":null},"customClass":{"name":"lisi","age":30},"numList":[1,2,3,null],"list2":[1,2,3,4],"dic":{"1":{"c":[null]}},"dicArr":[{"a":{"c":[null]}},{"b":{"c":1}}]}`
+			let obj3 = JSON.parse(json3)! as UTSJSONObject;
+			let obj3Address = obj3.getAny("address")!
+			console.log(obj3Address)
+			expect(obj3Address instanceof UTSJSONObject).toEqual(true)
+			let obj3DicArr = obj3.getArray("dicArr")!
+			let obj3DicArrFirst = obj3DicArr[0] as UTSJSONObject
+			let obj3DicArrFirstA = obj3DicArrFirst['a']
+			console.log(obj3DicArrFirstA instanceof UTSJSONObject)
+			expect(obj3DicArrFirstA instanceof UTSJSONObject).toEqual(true)
+			// 目前仅android 支持，暂不放开
+			// let obj3 = JSON.parse<User>(json1);
+			// console.log(obj3)
+			
+            // const json3 = '["apple","banana","cherry"]';
+            // const obj3 = JSON.parse(json3)!;
+            // TODO JSON.parse 后数组的类型 无法强转
+            // expect(obj3).toEqual(['apple', 'banana', 'cherry']);
+
+            // const json4 = '[1, "two", true, null, {"key": "value"}, ["nested"]]';
+            // const obj4 = JSON.parse(json4)!;
+            // expect(obj4).toEqual([1, 'two', true, null, { key: 'value' }, ['nested']]);
+
+            // TODO 暂不支持多个参数
+            // const json5 = '{"p": 5}';
+            // const obj5 = JSON.parse(json5, function (k : string, v : number) : number {
+            //     if (k === '') return v;
+            //     return v * 2;
+            // })!;
+            // expect(obj5).toEqual({
+            //     p: 10,
+            // });
+
+
+            expect(JSON.parse('{}')!).toEqual({});
+		
+            // TODO 不支持boolean、string，js端需抹平
+            // expect(JSON.parse('true')!).toEqual(true);
+            // expect(JSON.parse('"foo"')!).toEqual("foo");
+            // expect(JSON.parse('null')!).toEqual(null);
+			
+			const json4 = '{"data":[{"a":"1"},{"a":2},[{"b":true},{"b":"test"}],[1, 2, 3]]}';
+			const obj4 = JSON.parseObject(json4);
+			expect(obj4?.getString('data[0].a')).toEqual("1")
+			expect(obj4?.getNumber('data[1].a')).toEqual(2)
+			expect(obj4?.getBoolean('data[2][0].b')).toEqual(true)
+			expect(obj4?.getAny('data[1].a')).toEqual(2)
+			expect(obj4?.getJSON('data[2][1]')).toEqual({"b":"test"})   
+			expect(obj4?.getArray('data[3]')).toEqual([1, 2, 3])
+
+        })
+		test('parseObject', () => {
+		    const json = `{"result":true, "count":42}`;
+		    const obj = JSON.parseObject(json);
+		    expect(obj!["count"]).toEqual(42);
+		    expect(obj!["result"] as boolean).toEqual(true);
+		
+		    expect(JSON.parseObject('{}')!).toEqual({});
+			
+			const json1 = `{
+			    "name": "John",
+			    "id": "30"
+			  }`;
+			let obj2 = JSON.parseObject<UserJSON>(json1);
+			expect(obj2!.id).toEqual("30");
+			
+			const json2 = `{
+			    "id": "30"
+			  }`;
+			let obj3 = JSON.parseObject<UserJSON>(json2);
+			expect(obj3!.id).toEqual("30");
+			const json3 = `{
+			    "name": "John"
+			  }`;
+			 let obj4 = JSON.parseObject<UserJSON>(json3);
+			expect(obj4).toEqual(null);
+		})
+		test('parseArray', () => {
+		    const json1 = `[1,2,3]`;
+		    const array1 = JSON.parseArray(json1);
+			expect(array1).toEqual([1,2,3]);
+			
+			const json2 = `[1,"hello world",3]`;
+			const array2 = JSON.parseArray(json2);
+			expect(array2).toEqual([1,"hello world",3]);
+			
+			
+			const json3 = `[{"name":"John","id":"30"},{"name":"jack","id":"21"}]`;
+			const array3 = JSON.parseArray<UTSJSONObject>(json3);
+			// expect((array3![0])["name"]).toEqual("John");
+			
+		})
+        test('stringify', () => {     
+            const obj = { name: 'John', age: 30 };
+            const json = JSON.stringify(obj);
+            // expect(json).toEqual('{"name":"John","age":30}');
+
+            const obj1 = { name: 'John', age: 30, address: { city: 'New York', country: 'USA' } };
+            const json1 = JSON.stringify(obj1);
+            // expect(json1).toEqual('{"address":{"country":"USA","city":"New York"},"name":"John","age":30}');
+
+            const obj2 = ['apple', 'banana', 'cherry'];
+            const json2 = JSON.stringify(obj2);
+            expect(json2).toEqual('["apple","banana","cherry"]');
+
+            // TODO 暂不支持多个参数
+            // const obj3 = { name: 'John', age: '30' };
+            // const replacer = (key : string, value : string) : string => (key === 'name' ? value.toUpperCase() : value);
+            // const json3 = JSON.stringify(obj3, replacer);
+            // expect(json3).toEqual('{"name":"JOHN","age":"30"}');
+
+            // const obj4 = { name: 'John', age: 30 };
+            // const json4 = JSON.stringify(obj4, null, 4);
+//             expect(json4).toEqual(`{
+//     "name": "John",
+//     "age": 30
+// }`);
+            // expect(JSON.stringify({ x: 5, y: 6 })).toEqual(`{"x":5,"y":6}`);
+            expect(JSON.stringify([3, 'false', false])).toEqual(`[3,"false",false]`);
+            expect(JSON.stringify({})).toEqual('{}');
+			expect(JSON.stringify(1002)).toEqual('1002');
+			expect(JSON.stringify(1002.202)).toEqual('1002.202');
+			expect(JSON.stringify(null)).toEqual('null');
+			// expect(JSON.stringify(100/0.0)).toEqual('null');
+            expect(JSON.stringify(true)).toEqual('true');
+			expect(JSON.stringify(false)).toEqual('false');
+			//console.log(JSON.stringify('foo'))
+            //expect(JSON.stringify('foo')).toEqual('foo');
+			expect(JSON.stringify(Math.PI)).toEqual('3.141592653589793');
+			expect(JSON.stringify(Math.E)).toEqual('2.718281828459045');
+			
+			/**
+			 * add since 2023-09-23
+			 * 部分出错过的示例场景
+			 */
+			const arr = [{
+				"$method": "collection",
+				"$param": ["type"] as Array<any>,
+			  }, {
+				"$method": "add",
+				"$param": [
+				  [{
+					"num": 2,
+					"tag": "default-tag",
+				  } as UTSJSONObject, {
+					"num": 3,
+					"tag": "default-tag",
+				  } as UTSJSONObject] as Array<UTSJSONObject>,
+				] as Array<any>,
+			  }] as Array<UTSJSONObject>
+			  let ret = JSON.stringify({
+				$db: arr
+			  })
+			  // expect(ret).toEqual('{"$db":[{"$method":"collection","$param":["type"]},{"$method":"add","$param":[[{"num":2,"tag":"default-tag"},{"num":3,"tag":"default-tag"}]]}]}')
+				  
+			type Msg = {	
+				id: string,	
+				method: string,	
+				params: any
+			}
+			// type CallUniMethodParams = {	
+			// 	method : string	
+			// 	args : com.alibaba.fastjson.JSONArray
+			// }
+			const msg = `{"id":"6fd6ca73-c313-48ac-ad30-87ff4eba2be8","method":"App.callUniMethod","params":{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}}`
+			const jsonRet2 = JSON.parse<Msg>(msg)!
+			
+			const paramsStr = JSON.stringify(jsonRet2.params)
+			console.log(paramsStr)
+			//expect(paramsStr).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
+			// const params = JSON.parse<CallUniMethodParams>(paramsStr)!
+			//console.warn('params', JSON.stringify(params))
+			//expect(JSON.stringify(params)).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
+			
+			
+			class Stage {
+				$m: string    
+				$p: Array<any>    
+				constructor(){      
+					this.$m = 'test'      
+					this.$p = ['type']    
+				}  
+			}  
+			
+			const obj22 = {
+				data: [new Stage()] as Array<any>  
+			} as UTSJSONObject    
+			
+			console.log(JSON.stringify(obj22))
+			// expect(JSON.stringify(obj22)).toEqual('{"data":[{}]}')
+			
+			type A = {
+				inserted: number  
+			}
+			const str = '{"inserted": 2}'
+			const obj33 = JSON.parse<A>(str)!
+			console.log('-------------------------');
+			console.log(obj33.inserted);
+			expectNumber(obj33.inserted).toEqualDouble(2.0)
+			expect(JSON.stringify(obj33.inserted)).toEqual("2")
+			
+        })
+	
+		test('invalidField', () => {
+			let str = "{\"a+b\":\"test1\",\"a-b\":2,\"class\":true}"
+			let p = JSON.parseObject<PersonJSON>(str)
+			expect(p?._class).toEqual(true)
+			expect(p?.a_b).toEqual("test1")
+			
+			
+			let retStr = JSON.stringify(p)
+			console.log(retStr)    
+		})
+		
+    })
+	
+	
+}
