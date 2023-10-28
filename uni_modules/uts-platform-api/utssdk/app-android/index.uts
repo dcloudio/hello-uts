@@ -119,7 +119,7 @@ export function gotoSystemPermissionActivityTest() {
  */
 export function gotoCameraTake(imageDone : (event : string) => void) : boolean {
 
-	let permissionNeed = utsArrayOf("android.permission.CAMERA")
+	let permissionNeed = ["android.permission.CAMERA"]
 
 	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight : boolean, _grantedList : string[]) {
 		if (allRight) {
@@ -282,7 +282,7 @@ export function arrayPermissionFlowTest(callback : (ret : boolean, desc : string
 	/**
 	 * 同时申请日历和联系人权限
 	 */
-	let permissionNeed = utsArrayOf("android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.ACCESS_FINE_LOCATION", "android.permission.READ_PHONE_STATE")
+	let permissionNeed = ["android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.ACCESS_FINE_LOCATION", "android.permission.READ_PHONE_STATE"]
 	
 	if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
 		callback(false, "已具备请求权限")
@@ -429,7 +429,7 @@ export function singlePermissionFlowTest(callback : (ret : boolean, desc : strin
 		return 
 	}
 
-	let permissionNeed = utsArrayOf("android.permission.READ_PHONE_STATE")
+	let permissionNeed = ["android.permission.READ_PHONE_STATE"]
 	if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
 		callback(false, "已具备权限")
 		return;
