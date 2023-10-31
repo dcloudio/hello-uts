@@ -1,8 +1,4 @@
-import {
-    UTSAndroid
-} from "io.dcloud.uts";
 
-import ActivityCompat from "androidx.core.app.ActivityCompat";
 import Manifest from "android.Manifest";
 import Looper from "android.os.Looper";
 import TencentLocationManager from "com.tencent.map.geolocation.TencentLocationManager";
@@ -10,8 +6,6 @@ import TencentLocationListener from "com.tencent.map.geolocation.TencentLocation
 import TencentLocation from "com.tencent.map.geolocation.TencentLocation";
 import TencentLocationRequest from "com.tencent.map.geolocation.TencentLocationRequest";
 import PackageManager from "android.content.pm.PackageManager";
-import Class from 'java.lang.Class';
-import Exception from 'java.lang.Exception';
 
 
 

@@ -10,7 +10,6 @@
     import LottieAnimationView from 'com.airbnb.lottie.LottieAnimationView'
     import LottieDrawable from 'com.airbnb.lottie.LottieDrawable'
 	import FileInputStream from 'java.io.FileInputStream'
-	import { UTSAndroid } from "io.dcloud.uts";
 
     class CustomAnimListener extends Animator.AnimatorListener {
 

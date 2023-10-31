@@ -1,12 +1,7 @@
-import {
-	UTSAndroid
-} from "io.dcloud.uts";
 
 import XToast from "com.hjq.xtoast.XToast";
 import R from "io.dcloud.uni_modules.uts_toast.R";
-import Runnable from 'java.lang.Runnable';
-import Class from 'java.lang.Class';
-import Exception from 'java.lang.Exception';
+
 
 class UIRunnable extends Runnable {
 

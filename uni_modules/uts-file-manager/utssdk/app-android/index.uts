@@ -1,10 +1,9 @@
-import { ReadFileSuccessResult, ReadFile,ReadFileOptions } from "../interface.uts"
-import { WriteFileSuccessResult, WriteFile,WriteFileOptions } from "../interface.uts"
+import { ReadFileSuccessResult, ReadFileOptions } from "../interface.uts"
+import { WriteFileSuccessResult, WriteFileOptions } from "../interface.uts"
 import { GetFileSystemManager,FileSystemManager} from "../interface.uts"
 import { UniErrorSubject, UniErrors } from "../unierror.uts"
 
 import File from "java.io.File" 
-import UTSAndroid from 'io.dcloud.uts.UTSAndroid';
 import Base64 from "android.util.Base64"
 
 export { ReadFileOptions, WriteFileOptions } from "../interface.uts"
