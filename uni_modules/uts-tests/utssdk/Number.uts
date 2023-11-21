@@ -38,6 +38,21 @@ export function testNumber(): Result {
 			expect(a2.toShort().toFixed(5)).toEqual("-122.00000");
 			
 			// #endif
+			/**
+			 * add since 2023-11-21
+			 * 发现部分场景在android 6 以下与web有差异，新增以下示例
+			 */
+			let r = 2.449999999999999999;
+			let t1 = r.toFixed(1);
+			expect(t1).toEqual("2.5");
+			
+			let r2 = 2.4499999999999999;
+			let t2 = r2.toFixed(1);
+			expect(t2).toEqual("2.4");
+			
+			let r3 = -9007199254740991;
+			let t3 = r3.toFixed(15);
+			expect(t3).toEqual("-9007199254740991.000000000000000");
 			
         })
 		

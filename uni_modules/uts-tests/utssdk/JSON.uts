@@ -279,6 +279,19 @@ export function testJSON() : Result {
 			console.log(retStr)    
 		})
 		
+		test('UTSJSONOject', () => {
+			//var t1 = "1"
+			//const a = {
+			//	test(){
+			//		t1 = "2"
+			//		console.log("test")
+			//	}
+			//}
+			//(a['test'] as ()=>void)()
+			//console.log(a['test'])
+			//expect(t1).toEqual("2")
+		})
+		
     })
 	
 	
