@@ -27,6 +27,23 @@ import ViewGroup from 'android.view.ViewGroup';
 import LayoutInflater from 'android.view.LayoutInflater';
 import LinearLayoutManager from 'androidx.recyclerview.widget.LinearLayoutManager';
 export {DoAppWidget} from "./DoAppWidget.uts"
+import Application from 'android.app.Application';
+import File from 'java.io.File';
+import Uri from 'android.net.Uri';
+
+
+export class AppHookProxy implements UTSAndroidHookProxy {
+  override onCreate(application: Application) {
+	//当前应用是否 取得用户同意隐私协议
+	android.util.Log.d("AppHookProxy", "AppHookProxy--onCreate---")
+	if(UTSAndroid.isPrivacyAgree()) {
+		//onCreate 初始化三方SDK
+		android.util.Log.d("AppHookProxy", "AppHookProxy--onCreate---isPrivacyAgree")
+	}
+  }
+}
+
+
 
 class ForeService extends Service {
 
@@ -293,4 +310,16 @@ export function gotoDemoActivity():boolean {
  
 }
 
+
+
+export function openFileWithProvider(url:String){
+	let file = new File(UTSAndroid.getResourcePath("static/logo.png"))
+	// 这里的 io.dcloud.hellouts.uts_nativepage.fileprovider 应该是你唯一的fileprovider 标识
+	const uri = androidx.core.content.FileProvider.getUriForFile(UTSAndroid.getUniActivity()!,"io.dcloud.hellouts.uts_nativepage.fileprovider",file)
+	console.log("uri",uri.toString())
+	const intent = new Intent(Intent.ACTION_VIEW, uri)
+	intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // 添加权限标志 
+	const context = UTSAndroid.getUniActivity()!;
+	context.startActivity(intent);
+}
 

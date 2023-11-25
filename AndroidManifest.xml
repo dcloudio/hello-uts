@@ -2,9 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" 
   package="io.dcloud.hellouts">
    
-    <application>
+    <application android:networkSecurityConfig="@xml/custom_network_security_config"
+>
         <!--meta-data-->
         <meta-data android:name="TencentMapSDK" android:value="您申请的腾讯定位App Key" />
-		
+		<!--fileprovider注册,请注意authorities 需要替换为自己的唯一标识-->
+		 <provider
+			   android:name="androidx.core.content.FileProvider"
+			   android:authorities="io.dcloud.hellouts.uts_nativepage.fileprovider"
+			   android:grantUriPermissions="true"
+			   android:exported="false">
+			   <meta-data
+				   android:name="android.support.FILE_PROVIDER_PATHS"
+				   android:resource="@xml/filepaths" />
+		</provider>
     </application>
 </manifest>

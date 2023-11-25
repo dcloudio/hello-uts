@@ -27,6 +27,8 @@
         quitApp,
 		arrayConvert
     } from "../../uni_modules/uts-advance";
+	
+	import {openFileWithProvider} from '../../uni_modules/uts-nativepage'
 
     export default {
         data() {
@@ -81,7 +83,12 @@
 					    }, {
 					        name: "播放asset音频(需自定义基座)",
 					        url: "advance/android/assetaudio"
-					    }, {
+					    }, 
+						{
+						    name: "使用三方应用打开项目文件(需自定义基座)",
+						    function: "testOpenFileWithProvider"
+						},
+						{
 					        name: "操作DecorView",
 					        url: "advance/android/decorview"
 					    }, {
@@ -215,6 +222,9 @@
             },
             testQuitApp() {
                 quitApp()
+            },
+			testOpenFileWithProvider() {
+                openFileWithProvider("apps/__UNI__70BE9D0/www/static/logo.png")
             },
 			testArrayConvert() {
 				let convertRet = arrayConvert()
