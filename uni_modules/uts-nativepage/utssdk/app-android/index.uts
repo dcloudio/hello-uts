@@ -184,6 +184,21 @@ class ActivityFinishListener extends OnClickListener{
     }
 }
 
+class RootActivityStartListener extends OnClickListener{
+	
+	host:Activity
+	
+	constructor(activity:Activity){
+		super()
+		this.host = activity
+	}
+	
+    override onClick(v?: View):void{
+		let intent = Intent("uni.UNI70BE9D0.RootPackageActivity")
+		host.startActivity(intent)
+    }
+}
+
 /**
  * 自定义异步线程
  */
@@ -262,6 +277,8 @@ class DemoActivity  extends Activity{
 		 let btn_finish_activity = this.findViewById<Button>(R.id.btn_finish_activity);
 		 btn_finish_activity.setOnClickListener(new ActivityFinishListener(this));
 		 
+		 let btn_start_root_activity = this.findViewById<Button>(R.id.btn_start_root_activity);
+		 btn_start_root_activity.setOnClickListener(new RootActivityStartListener(this));
 		 
 		 
 		 let recyclerView = this.findViewById<RecyclerView>(R.id.recycler_view)

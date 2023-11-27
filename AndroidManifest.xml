@@ -16,5 +16,14 @@
 				   android:name="android.support.FILE_PROVIDER_PATHS"
 				   android:resource="@xml/filepaths" />
 		</provider>
+		
+		<activity android:name="uni.UNI70BE9D0.RootPackageActivity"
+			android:launchMode="singleTask"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="uni.UNI70BE9D0.RootPackageActivity" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
     </application>
 </manifest>
