@@ -27,7 +27,7 @@ export function testNumber() : Result {
       expect(12345600123.789123.toFixed(2)).toEqual("12345600123.79");
       expect((-123456.789).toFixed(5)).toEqual("-123456.78900");
       expect(parseFloat("16688995566.369").toFixed(3)).toEqual("16688995566.369");
-      // #ifndef APP-ANDROID
+      // #ifdef APP-ANDROID
       // android 专有数据类型
       let a1 = 56
       let a2 = -122
@@ -93,12 +93,14 @@ export function testNumber() : Result {
       expect((0xf).valueOf()).toEqual(15);
     })
 
+    // #ifdef APP-ANDROID
     // 数据转换操作示例
     test('toX', () => {
       let num = 10.123
       expect(num.toInt()).toEqual(10);
       expect(num.toDouble()).toEqual(10.123);
     })
+    // #endif
 
     test('numberEquals', () => {
       let a1 = 10.123
