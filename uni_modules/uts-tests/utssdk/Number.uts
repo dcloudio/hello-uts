@@ -1,169 +1,168 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-export function testNumber(): Result {
-    return describe("Number", () => {
-		
-        test('toFixed', () => {
-            function financial(x: Number): String {
-              return x.toFixed(2);
-            }
-            expect(financial(123.456)).toEqual('123.46');
-            expect(financial(0.004)).toEqual("0.00");
-            expect(financial(0)).toEqual("0.00");
-            expect(financial(1)).toEqual("1.00");
-			
-			let num1: number = -1.1 / 0.1
-			let num2: number = -1.1 / 0.1
-			let num3: number = -1.1 / -0.1
-			console.warn(num1)
-			console.warn(num2)
-			console.warn(num3)
-			let obj = {"id":"3be2c600-894c-4231-aa56-82fd989cc961","result":{"result":[num1, num2, num3]}}
-			console.log(JSON.stringify(obj))
-			
-			
+export function testNumber() : Result {
+  return describe("Number", () => {
 
-			// #ifndef APP-IOS
-			// android 专有数据类型
-			expect(123456.789.toFixed(2)).toEqual("123456.79");
-			expect(12345600123.789123.toFixed(2)).toEqual("12345600123.79");
-			expect((-123456.789).toFixed(5)).toEqual("-123456.78900");
-			expect(parseFloat("16688995566.369").toFixed(3)).toEqual("16688995566.369");
-			let a1 = 56
-			let a2 = -122
-			expect(a1.toByte().toFixed(2)).toEqual("56.00");
-			expect(a2.toByte().toFixed(2)).toEqual("-122.00");
-			
-			expect(a1.toShort().toFixed(5)).toEqual("56.00000");
-			expect(a2.toShort().toFixed(5)).toEqual("-122.00000");
-			
-			// #endif
-			/**
-			 * add since 2023-11-21
-			 * 发现部分场景在android 6 以下与web有差异，新增以下示例
-			 */
-			let r = 2.449999999999999999;
-			let t1 = r.toFixed(1);
-			expect(t1).toEqual("2.5");
-			
-			let r2 = 2.4499999999999999;
-			let t2 = r2.toFixed(1);
-			expect(t2).toEqual("2.4");
-			
-			let r3 = -9007199254740991;
-			let t3 = r3.toFixed(15);
-			expect(t3).toEqual("-9007199254740991.000000000000000");
-			
-        })
-		
-		test('isFinite', () => {
-		    expect(isFinite(1000 / 1)).toEqual(true);
-			expect(isFinite(910)).toEqual(true);
-			expect(isFinite(0)).toEqual(true);
-		})
-		test('isInteger', () => {
-		    expect(Number.isInteger(12)).toEqual(true);
-			expect(Number.isInteger(12.01)).toEqual(false);
-			expect(Number.isInteger(-213123112.01)).toEqual(false);
-			expect(Number.isInteger(-213123112)).toEqual(true);
-		})
-		
-		test('isNaN', () => {
-			expect(isNaN(0)).toEqual(false);
-		})
-		
-		test('toPrecision', () => {
-			expect(123.456.toPrecision(4)).toEqual("123.5");
-			expect(0.004.toPrecision(4)).toEqual("0.004000");
-			// expect(1.23e5.toPrecision(4)).toEqual("1.230e+5");
-		})
-		
-		test('toString', () => {
-			expect((10).toString()).toEqual("10");
-			expect((17).toString()).toEqual("17");
-			expect((17.2).toString()).toEqual("17.2");
-			expect((6).toString(2)).toEqual("110");
-			expect((254).toString(16)).toEqual("fe");
-			expect((-10).toString(2)).toEqual("-1010");
-			expect((-0xff).toString(2)).toEqual("-11111111");
-		})
-		
-		test('valueOf', () => {
-			expect((10).valueOf()).toEqual(10);
-			expect((-10.2).valueOf()).toEqual(-10.2);
-			expect((0xf).valueOf()).toEqual(15);
-		})
-		
-		// 数据转换操作示例
-		test('toX', () => {
-			let num = 10.123
-			expect(num.toInt()).toEqual(10);
-			expect(num.toDouble()).toEqual(10.123);
-		})
-		
-		test('numberEquals', () => {
-			let a1 = 10.123
-			let b1 = 10.12300
-			let c1 = 10.12300002
-			expect(a1 == b1).toEqual(true);
-			expect(a1 === b1).toEqual(true);
-			expect(a1 !== 10.123001).toEqual(true);
-			expect(a1 != c1).toEqual(true);
-			
-			let a2 = 0
-			let b2 = 0.0
-			expect(a2 == b2).toEqual(true);
-			expect(a2 === b2).toEqual(true);
-			
-			let a3 = -1000
-			let b3 = -1000.0
-			expect(a3 == b3).toEqual(true);
-			expect(a3 === b3).toEqual(true);
-			
-			let a4 = 123456789123456
-			let b4 = 123456789123456.0
-			expect(a4 == b4).toEqual(true);
-			expect(a4 === b4 * 1.0).toEqual(true);
-			
-			
-			let a5 = -123456789123456
-			let b5 = -123456789123456.01
-			expect(a5 != b5).toEqual(true);
-			expect(a5 !== b5).toEqual(true);
-			
-			
-			let a6 = 246.0 / 123 * 1.0
-			let b6 = 2
-			let c6 = 2.0
-			expect(a6 == b6).toEqual(true);
-			expect(b6 === c6).toEqual(true);
-			expect(b6 !== c6 * 1.001).toEqual(true);
-			expect(b6 != c6 * 1.001).toEqual(true);
-			
-			let a7 = -10 * 123.2
-			let b7 = - 1232
-			expect(a7 == b7).toEqual(true);
-			expect(a7 != b7 * -1).toEqual(true);
-			
-			let a8 = -101 * 123.201
-			expect(a8 == -12443.301).toEqual(true);
-			expect(a8 === -12443.301).toEqual(true);
-			expect(a8 !== -12443.301 * 0.999).toEqual(true);
-			expect(a8 != -12443.301 * 0.999999).toEqual(true);
-			
-			let a9 = -0.02 * -123456
-			expect(a9 == 2469.12).toEqual(true);
-			expect(a9 === 2469.12).toEqual(true);
-			expect(a9 != 2469.1201).toEqual(true);
-			
-			let a10 = 123456789123456.123456789123456
-			let b10 = 123456789123456.123456789123456000000
-			expect(a10 == b10).toEqual(true);
-			expect(a10 === b10).toEqual(true);
-			
-			
-		})
-		
-		
+    test('toFixed', () => {
+      function financial(x : Number) : String {
+        return x.toFixed(2);
+      }
+      expect(financial(123.456)).toEqual('123.46');
+      expect(financial(0.004)).toEqual("0.00");
+      expect(financial(0)).toEqual("0.00");
+      expect(financial(1)).toEqual("1.00");
+
+      let num1 : number = -1.1 / 0.1
+      let num2 : number = -1.1 / 0.1
+      let num3 : number = -1.1 / -0.1
+      console.warn(num1)
+      console.warn(num2)
+      console.warn(num3)
+      let obj = { "id": "3be2c600-894c-4231-aa56-82fd989cc961", "result": { "result": [num1, num2, num3] } }
+      console.log(JSON.stringify(obj))
+
+
+
+      expect(123456.789.toFixed(2)).toEqual("123456.79");
+      expect(12345600123.789123.toFixed(2)).toEqual("12345600123.79");
+      expect((-123456.789).toFixed(5)).toEqual("-123456.78900");
+      expect(parseFloat("16688995566.369").toFixed(3)).toEqual("16688995566.369");
+      // #ifndef APP-ANDROID
+      // android 专有数据类型
+      let a1 = 56
+      let a2 = -122
+      expect(a1.toByte().toFixed(2)).toEqual("56.00");
+      expect(a2.toByte().toFixed(2)).toEqual("-122.00");
+
+      expect(a1.toShort().toFixed(5)).toEqual("56.00000");
+      expect(a2.toShort().toFixed(5)).toEqual("-122.00000");
+      // #endif
+      /**
+       * add since 2023-11-21
+       * 发现部分场景在android 6 以下与web有差异，新增以下示例
+       */
+      let r = 2.449999999999999999;
+      let t1 = r.toFixed(1);
+      expect(t1).toEqual("2.5");
+
+      let r2 = 2.4499999999999999;
+      let t2 = r2.toFixed(1);
+      expect(t2).toEqual("2.4");
+
+      let r3 = -9007199254740991;
+      let t3 = r3.toFixed(15);
+      expect(t3).toEqual("-9007199254740991.000000000000000");
+
     })
+
+    test('isFinite', () => {
+      expect(isFinite(1000 / 1)).toEqual(true);
+      expect(isFinite(910)).toEqual(true);
+      expect(isFinite(0)).toEqual(true);
+    })
+    test('isInteger', () => {
+      expect(Number.isInteger(12)).toEqual(true);
+      expect(Number.isInteger(12.01)).toEqual(false);
+      expect(Number.isInteger(-213123112.01)).toEqual(false);
+      expect(Number.isInteger(-213123112)).toEqual(true);
+    })
+
+    test('isNaN', () => {
+      expect(isNaN(0)).toEqual(false);
+    })
+
+    test('toPrecision', () => {
+      expect(123.456.toPrecision(4)).toEqual("123.5");
+      expect(0.004.toPrecision(4)).toEqual("0.004000");
+      // expect(1.23e5.toPrecision(4)).toEqual("1.230e+5");
+    })
+
+    test('toString', () => {
+      expect((10).toString()).toEqual("10");
+      expect((17).toString()).toEqual("17");
+      expect((17.2).toString()).toEqual("17.2");
+      expect((6).toString(2)).toEqual("110");
+      expect((254).toString(16)).toEqual("fe");
+      expect((-10).toString(2)).toEqual("-1010");
+      expect((-0xff).toString(2)).toEqual("-11111111");
+    })
+
+    test('valueOf', () => {
+      expect((10).valueOf()).toEqual(10);
+      expect((-10.2).valueOf()).toEqual(-10.2);
+      expect((0xf).valueOf()).toEqual(15);
+    })
+
+    // 数据转换操作示例
+    test('toX', () => {
+      let num = 10.123
+      expect(num.toInt()).toEqual(10);
+      expect(num.toDouble()).toEqual(10.123);
+    })
+
+    test('numberEquals', () => {
+      let a1 = 10.123
+      let b1 = 10.12300
+      let c1 = 10.12300002
+      expect(a1 == b1).toEqual(true);
+      expect(a1 === b1).toEqual(true);
+      expect(a1 !== 10.123001).toEqual(true);
+      expect(a1 != c1).toEqual(true);
+
+      let a2 = 0
+      let b2 = 0.0
+      expect(a2 == b2).toEqual(true);
+      expect(a2 === b2).toEqual(true);
+
+      let a3 = -1000
+      let b3 = -1000.0
+      expect(a3 == b3).toEqual(true);
+      expect(a3 === b3).toEqual(true);
+
+      let a4 = 123456789123456
+      let b4 = 123456789123456.0
+      expect(a4 == b4).toEqual(true);
+      expect(a4 === b4 * 1.0).toEqual(true);
+
+
+      let a5 = -123456789123456
+      let b5 = -123456789123456.01
+      expect(a5 != b5).toEqual(true);
+      expect(a5 !== b5).toEqual(true);
+
+
+      let a6 = 246.0 / 123 * 1.0
+      let b6 = 2
+      let c6 = 2.0
+      expect(a6 == b6).toEqual(true);
+      expect(b6 === c6).toEqual(true);
+      expect(b6 !== c6 * 1.001).toEqual(true);
+      expect(b6 != c6 * 1.001).toEqual(true);
+
+      let a7 = -10 * 123.2
+      let b7 = - 1232
+      expect(a7 == b7).toEqual(true);
+      expect(a7 != b7 * -1).toEqual(true);
+
+      let a8 = -101 * 123.201
+      expect(a8 == -12443.301).toEqual(true);
+      expect(a8 === -12443.301).toEqual(true);
+      expect(a8 !== -12443.301 * 0.999).toEqual(true);
+      expect(a8 != -12443.301 * 0.999999).toEqual(true);
+
+      let a9 = -0.02 * -123456
+      expect(a9 == 2469.12).toEqual(true);
+      expect(a9 === 2469.12).toEqual(true);
+      expect(a9 != 2469.1201).toEqual(true);
+
+      let a10 = 123456789123456.123456789123456
+      let b10 = 123456789123456.123456789123456000000
+      expect(a10 == b10).toEqual(true);
+      expect(a10 === b10).toEqual(true);
+
+
+    })
+
+
+  })
 }
