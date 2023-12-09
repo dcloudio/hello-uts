@@ -28,7 +28,7 @@
 		arrayConvert
     } from "../../uni_modules/uts-advance";
 	
-	import {openFileWithProvider} from '../../uni_modules/uts-nativepage'
+	import {openFileWithProvider} from '../../uni_modules/uts-advance'
 
     export default {
         data() {
