@@ -51,7 +51,7 @@ class AndroidFileSystemManager implements FileSystemManager{
 		/**
 		 * 执行真正的加载行为，为了避免阻塞分发到 io任务序列
 		 */
-		UTSAndroid.dispatchAsync('io',function(_){
+		UTSAndroid.getDispatcher('io').async(function(_){
 			
 			let ret : ReadFileSuccessResult = {
 				data : ""
@@ -92,13 +92,13 @@ class AndroidFileSystemManager implements FileSystemManager{
 		
 		
 		let currentDispatcher = UTSAndroid.getDispatcher()
-		UTSAndroid.dispatchAsync('io',function(_){
+		UTSAndroid.getDispatcher('io').async(function(_){
 			
 			/**
 			 * 如果上一级目录不存在，创建之
 			 */
-			if(!nextFile.parentFile.exists()){
-				nextFile.parentFile.mkdirs()
+			if(!nextFile.parentFile!.exists()){
+				nextFile.parentFile!.mkdirs()
 			}
 			
 			if(!nextFile.exists()){

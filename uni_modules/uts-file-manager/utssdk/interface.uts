@@ -73,8 +73,8 @@ export type WriteFileOptions = {
 
 
 export interface FileSystemManager {
-  readFile(config: ReadFileOptions): void;
-  writeFile(config: WriteFileOptions): void;
+  readFile(options: ReadFileOptions): void;
+  writeFile(options: WriteFileOptions): void;
 }
 
 
