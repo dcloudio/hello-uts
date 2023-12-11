@@ -85,7 +85,7 @@
 					        url: "advance/android/assetaudio"
 					    }, 
 						{
-						    name: "使用三方应用打开项目文件(需自定义基座)",
+						    name: "使用三方应用打开项目文件",
 						    function: "testOpenFileWithProvider"
 						},
 						{
