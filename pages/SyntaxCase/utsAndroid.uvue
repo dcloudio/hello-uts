@@ -63,7 +63,7 @@ import {
   getDeviceInfoTest,
   privacyStateTest,
 } from '@/uni_modules/uts-platform-api'
-
+import File from 'java.io.File';
 import Intent from 'android.content.Intent';
 
 /**
@@ -161,7 +161,7 @@ export default {
       }
     },
     getFileProviderUriClick() {
-      let file = new java.io.File(UTSAndroid.getResourcePath("static/logo.png"))
+      let file = new File(UTSAndroid.getResourcePath("static/logo.png"))
       const uri = UTSAndroid.getFileProviderUri(file)
       console.log("uri",uri.toString())
       const intent = new Intent(Intent.ACTION_VIEW, uri)
