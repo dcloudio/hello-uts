@@ -61,9 +61,6 @@
 					    pages: [{
 					        name: "图片加载示例",
 					        url: "resource/resource"
-					    },{
-					        name: "文件读取示例",
-					        url: "resource/fileRead"
 					    }]
 					},
 					{
