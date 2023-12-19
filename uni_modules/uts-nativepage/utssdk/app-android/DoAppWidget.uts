@@ -2,7 +2,6 @@ import AppWidgetProvider from 'android.appwidget.AppWidgetProvider';
 import Context from 'android.content.Context';
 import AppWidgetManager from 'android.appwidget.AppWidgetManager';
 import RemoteViews from 'android.widget.RemoteViews';
-import Handler from 'android.os.Handler';
 import R from 'io.dcloud.uni_modules.uts_nativepage.R';
 
 export class DoAppWidget extends AppWidgetProvider {

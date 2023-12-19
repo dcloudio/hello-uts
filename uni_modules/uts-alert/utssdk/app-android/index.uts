@@ -1,5 +1,3 @@
-
-
 import Toast from 'android.widget.Toast';
 import AlertDialog from 'android.app.AlertDialog';
 import DialogInterface from 'android.content.DialogInterface';

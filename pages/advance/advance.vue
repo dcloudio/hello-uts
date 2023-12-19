@@ -28,7 +28,7 @@
 		arrayConvert
     } from "../../uni_modules/uts-advance";
 	
-	import {openFileWithProvider} from '../../uni_modules/uts-nativepage'
+	import {openFileWithProvider} from '../../uni_modules/uts-advance'
 
     export default {
         data() {
@@ -61,9 +61,6 @@
 					    pages: [{
 					        name: "图片加载示例",
 					        url: "resource/resource"
-					    },{
-					        name: "文件读取示例",
-					        url: "resource/fileRead"
 					    }]
 					},
 					{
@@ -85,7 +82,7 @@
 					        url: "advance/android/assetaudio"
 					    }, 
 						{
-						    name: "使用三方应用打开项目文件(需自定义基座)",
+						    name: "使用三方应用打开项目文件",
 						    function: "testOpenFileWithProvider"
 						},
 						{

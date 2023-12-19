@@ -554,3 +554,13 @@ export function arrayConvert():boolean{
 	return true
 }
 
+
+export function openFileWithProvider(url:String){
+	let file = new File(UTSAndroid.getResourcePath("static/logo.png"))
+  const uri = UTSAndroid.getFileProviderUri(file)
+	console.log("uri",uri.toString())
+	const intent = new Intent(Intent.ACTION_VIEW, uri)
+	intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // 添加权限标志 
+	const context = UTSAndroid.getUniActivity()!;
+	context.startActivity(intent);
+}
