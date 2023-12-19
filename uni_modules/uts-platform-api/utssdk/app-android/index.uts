@@ -71,10 +71,14 @@ export function privacyStateTest(callback : (ret : boolean, desc : string) => vo
  * UTSAndroid.getAppTempPath 测试示例
  */
 export function getAppTempPathTest() : boolean {
-	// 1.0 的路径
+	// 1.0 标准基座的情况
 	if (UTSAndroid.getAppCachePath()!.contains("data/io.dcloud.HBuilder/apps/HBuilder/temp")) {
 		return true
 	}
+  // 1.0 自定义基座的情况
+  if (UTSAndroid.getAppCachePath()!.contains("uni.UNI70BE9D0/apps/__UNI__70BE9D0/temp")) {
+  	return true
+  }
 	// 2.0的路径
 	if (UTSAndroid.getAppCachePath()!.contains("cache/temp")) {
 		return true
