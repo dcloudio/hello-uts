@@ -12,6 +12,7 @@ export default {
     console.log('App Hide')
   },
   onLastPageBackPress: function () {
+    // #ifdef UNI-APP-X && APP-ANDROID
     console.log('App LastPageBackPress')
     if (firstBackTime == 0) {
       uni.showToast({
@@ -26,6 +27,7 @@ export default {
       firstBackTime = Date.now()
       uni.exit()
     }
+    // #endif
   },
   onExit() {
     console.log('App Exit')
