@@ -84,6 +84,7 @@ export function testNumber() : Result {
       expect((6).toString(2)).toEqual("110");
       expect((254).toString(16)).toEqual("fe");
       expect((-10).toString(2)).toEqual("-1010");
+      
       expect((-0xff).toString(2)).toEqual("-11111111");
     })
 

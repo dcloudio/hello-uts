@@ -10,6 +10,15 @@ export function testDate() : Result {
                 expect(secondsElapsed).toEqual(2);
             }, 2000)
         })
+        test('new Date', () => {
+            let date1 = new Date('1992-02-02');
+            console.log("1111",date1.getTime())
+            expect(date1.getTime()).toEqual(696988800000);
+            let date2 = new Date('1992-2-02');
+            console.log("2222",date2.getTime())
+            expect(date2.getTime()).toEqual(696960000000);
+        })
+        
 		test('valueOf', () => {
 		    const date1 = new Date('December 17, 1995 03:24:00');
 			expect(date1.valueOf()).toEqual(819141840000);
@@ -105,6 +114,7 @@ export function testDate() : Result {
             // subsequent millisecond
             expect(new Date(2016, 6, 6, 13, 59, 59, 1000).getHours()).toEqual(14);
         })
+        
         test('getMilliseconds', () => {
             const moonLanding = new Date('July 20, 69 00:20:18');
             moonLanding.setMilliseconds(123);
