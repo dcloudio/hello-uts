@@ -88,6 +88,12 @@ export function testNumber() : Result {
       expect((-10.22).toString(8)).toEqual("-12.16050753412172704");
       expect((123456789987654).toString(16)).toEqual("7048861cc146");
       expect((-0xff).toString(2)).toEqual("-11111111");
+      const a = 1e38
+      expect(a.toString(16)).toEqual("4b3b4ca85a86c4000000000000000000");
+      expect(a.toString(2)).toEqual("1001011001110110100110010101000010110101000011011000100000000000000000000000000000000000000000000000000000000000000000000000000")
+      const b = 1e22
+      expect(b.toString(12)).toEqual("27373a86ba1a194a65054");
+      
     })
 
     test('valueOf', () => {
