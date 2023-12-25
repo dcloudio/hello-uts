@@ -10,14 +10,14 @@ export function testString(): Result {
             expect(empty.length).toEqual(0);
             // const adlam = "𞤲𞥋𞤣𞤫";
             // expect(adlam.length).toEqual(8);
-            // const formula = "∀𝑥∈ℝ,𝑥²≥0";
+            // const formula = "��𝑥∈ℝ,𝑥²��";
             // expect(formula.length).toEqual(11);
             
-            // 1. web: 最大长度和js引擎有关，在v8中为 2^29 - 24
+            // 1. web: ��大长度和js引擎有关，在v8中为 2^29 - 24
             // 超出边界报错: RangeError: Invalid string length
-            // 2. kotlin: 最大长度 2^31-1
+            // 2. kotlin: ��大长��2^31-1
             // 超出边界报错:  Error: targetMethod error::java.lang.OutOfMemoryError: char[] of length
-            // 3. swift: 最大长度和内存有关
+            // 3. swift: ��大长度和内存有关
             // 超出边界没有返回信息
             // const length = Math.pow(2, 29) - 24
             // const str = 'x'.repeat(length);
@@ -67,6 +67,11 @@ export function testString(): Result {
             
             const empty = "";
             expect(empty.charCodeAt(0)).toEqual(null);
+        })
+        test('fromCharCode', () => {
+            expect(String.fromCharCode(65, 66, 67)).toEqual("ABC");
+            expect(String.fromCharCode(0x12014)).toEqual("—");
+            expect(String.fromCharCode(0xd834, 0xdf06, 0x61, 0xd834, 0xdf07)).toEqual("𝌆a𝌇");
         })
         test('concat', () => {
             let hello = 'Hello, '
@@ -193,7 +198,7 @@ export function testString(): Result {
             const str = 'The quick brown fox jumps over the lazy dog.';
             expect(str.slice(31)).toEqual("the lazy dog.");
             
-            let str1 = 'The morning is upon us.', // str1 的长度 length 是 23。
+            let str1 = 'The morning is upon us.', // str1 的长��length ��23��
                 str2 = str1.slice(1, 8),
                 str3 = str1.slice(4, -2),
                 str4 = str1.slice(12),
@@ -245,8 +250,8 @@ export function testString(): Result {
             expect(str4.split(re4)).toEqual(["a", " b", " {c, d, e}", " f", " g", " h"]);
         })
         test('toLowerCase', () => {
-            const str1 = '中文简体 zh-CN || zh-Hans';
-            expect(str1.toLowerCase()).toEqual("中文简体 zh-cn || zh-hans");
+            const str1 = '中文����zh-CN || zh-Hans';
+            expect(str1.toLowerCase()).toEqual("中文����zh-cn || zh-hans");
             const str2 = 'ALPHABET';
             expect(str2.toLowerCase()).toEqual("alphabet");
         })
