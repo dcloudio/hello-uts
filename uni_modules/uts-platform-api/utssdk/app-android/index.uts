@@ -2,7 +2,6 @@ import MediaStore from "android.provider.MediaStore";
 import Activity from "android.app.Activity";
 import Bitmap from "android.graphics.Bitmap";
 import FileOutputStream from "java.io.FileOutputStream";
-import File from "java.io.File";
 import Intent from 'android.content.Intent';
 
 /**
@@ -47,7 +46,7 @@ export function privacyStateTest(callback : (ret : boolean, desc : string) => vo
 	}
 	
 	UTSAndroid.setPrivacyAgree(true)
-	UTSAndroid.dispatchAsync("io",function(res){
+  UTSAndroid.getDispatcher("io").async(function(_){
 		if (UTSAndroid.isPrivacyAgree() == false) {
 			// 重置没有生效
 			callback(false,"setPrivacyAgree error")
@@ -55,6 +54,15 @@ export function privacyStateTest(callback : (ret : boolean, desc : string) => vo
 		}
 		callback(true,"pass")
 	},null)
+  
+	// UTSAndroid.dispatchAsync("io",function(res){
+	// 	if (UTSAndroid.isPrivacyAgree() == false) {
+	// 		// 重置没有生效
+	// 		callback(false,"setPrivacyAgree error")
+	// 		console.log("setPrivacyAgree error")
+	// 	}
+	// 	callback(true,"pass")
+	// },null)
 	
 }
 
@@ -63,13 +71,16 @@ export function privacyStateTest(callback : (ret : boolean, desc : string) => vo
  * UTSAndroid.getAppTempPath 测试示例
  */
 export function getAppTempPathTest() : boolean {
-	console.log(UTSAndroid.getAppTempPath())
-	// 1.0 的路径
-	if (UTSAndroid.getAppTempPath()!.contains("data/io.dcloud.HBuilder/apps/HBuilder/temp")) {
+	// 1.0 标准基座的情况
+	if (UTSAndroid.getAppCachePath()!.contains("data/io.dcloud.HBuilder/apps/HBuilder/temp")) {
 		return true
 	}
+  // 1.0 自定义基座的情况
+  if (UTSAndroid.getAppCachePath()!.contains("uni.UNI70BE9D0/apps/__UNI__70BE9D0/temp")) {
+  	return true
+  }
 	// 2.0的路径
-	if (UTSAndroid.getAppTempPath()!.contains("cache/temp")) {
+	if (UTSAndroid.getAppCachePath()!.contains("cache/temp")) {
 		return true
 	}
 	
@@ -121,7 +132,7 @@ export function gotoCameraTake(imageDone : (event : string) => void) : boolean {
 
 	let permissionNeed = ["android.permission.CAMERA"]
 
-	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight : boolean, _grantedList : string[]) {
+	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight : boolean, _ : string[]) {
 		if (allRight) {
 			// 交给目前的location 引擎，真实执行
 			UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ?: Intent) => {
@@ -149,7 +160,7 @@ export function gotoCameraTake(imageDone : (event : string) => void) : boolean {
 		} else {
 			//callback(false,"用户拒绝了部分权限")
 		}
-	}, function (_doNotAskAgain : boolean, _grantedList : string[]) {
+	}, function (_ : boolean, _ : string[]) {
 		//callback(false,"用户拒绝了部分权限")
 	})
 
@@ -289,7 +300,7 @@ export function arrayPermissionFlowTest(callback : (ret : boolean, desc : string
 		return;
 	}
 
-	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight : boolean, _grantedList : string[]) {
+	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight : boolean, _ : string[]) {
 		if (allRight) {
 			// 交给目前的location 引擎，真实执行
 			// 测试权限api 返回值
@@ -306,7 +317,7 @@ export function arrayPermissionFlowTest(callback : (ret : boolean, desc : string
 		} else {
 			callback(false, "用户拒绝了部分权限")
 		}
-	}, function (_doNotAskAgain : boolean, _grantedList : string[]) {
+	}, function (_ : boolean, _ : string[]) {
 		callback(false, "用户拒绝了部分权限")
 	})
 
@@ -320,9 +331,9 @@ export function getDeviceInfoTest():string {
 	let info = ''
 	info += 'isUniMp: '+UTSAndroid.isUniMp() + "\n ";
 	info += 'getAppDarkMode: '+UTSAndroid.getAppDarkMode() + "\n ";
-	info += 'getLanguageInfo: '+ JSON.stringify(UTSAndroid.getLanguageInfo(UTSAndroid.getAppContext()!!)) + "\n ";
-	info += 'getWebViewInfo: '+ JSON.stringify(UTSAndroid.getWebViewInfo(UTSAndroid.getAppContext()!!)) + "\n ";
-	info += 'getDeviceID: '+UTSAndroid.getDeviceID(UTSAndroid.getAppContext()!!) + "\n ";
+	info += 'getLanguageInfo: '+ JSON.stringify(UTSAndroid.getLanguageInfo(UTSAndroid.getAppContext()!)) + "\n ";
+	info += 'getWebViewInfo: '+ JSON.stringify(UTSAndroid.getWebViewInfo(UTSAndroid.getAppContext()!)) + "\n ";
+	info += 'getDeviceID: '+UTSAndroid.getDeviceID(UTSAndroid.getAppContext()!) + "\n ";
 	info += 'getOAID: '+UTSAndroid.getOAID() + "\n ";
 	info += 'getInnerVersion: '+UTSAndroid.getInnerVersion() + "\n ";
 	info += 'getUniCompileVersion: '+UTSAndroid.getUniCompileVersion() + "\n ";
@@ -345,12 +356,12 @@ export function getDeviceInfoTest():string {
  * 任务分发测试
  */
 export function dispatchAsyncTest(callback : (ret : boolean, desc : string) => void) {
-	UTSAndroid.dispatchAsync("main",function(res){
+  UTSAndroid.getDispatcher("main").async(function(_){
 		if(Thread.currentThread().name != 'main'){
 			callback(false,"main thread error")
 			return
 		}
-		UTSAndroid.dispatchAsync("dom",function(res){
+		UTSAndroid.getDispatcher("dom").async(function(_){
 			/**
 			 * dom 参数，只在2.0生效，1.0会自动切换到main线程
 			 */
@@ -358,7 +369,7 @@ export function dispatchAsyncTest(callback : (ret : boolean, desc : string) => v
 				callback(false,"dom thread error")
 				return
 			}
-			UTSAndroid.dispatchAsync("io",function(res){
+			UTSAndroid.getDispatcher("io").async(function(_){
 				/**
 				 * dom 参数，只在2.0生效，1.0会自动切换到main线程
 				 */
@@ -371,6 +382,7 @@ export function dispatchAsyncTest(callback : (ret : boolean, desc : string) => v
 			
 		},null)
 	},null)
+  
 
 }
 
@@ -435,7 +447,7 @@ export function singlePermissionFlowTest(callback : (ret : boolean, desc : strin
 		return;
 	}
 
-	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight : boolean, _grantedList : string[]) {
+	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight : boolean, _ : string[]) {
 		if (allRight) {
 			// 测试权限api 返回值
 			if (!UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
@@ -450,7 +462,7 @@ export function singlePermissionFlowTest(callback : (ret : boolean, desc : strin
 		} else {
 			callback(false, "用户拒绝了部分权限")
 		}
-	}, function (_doNotAskAgain : boolean, _grantedList : string[]) {
+	}, function (_ : boolean, _ : string[]) {
 		callback(false, "用户拒绝了部分权限")
 	})
 

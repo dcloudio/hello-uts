@@ -1,6 +1,6 @@
 
 
-import { OnUserCaptureScreen, OffUserCaptureScreen, UserCaptureScreenCallback, OnUserCaptureScreenResult } from "../interface.uts"
+import { UserCaptureScreenCallback, OnUserCaptureScreenResult } from "../interface.uts"
 
 
 import ActivityCompat from "androidx.core.app.ActivityCompat";
@@ -10,7 +10,6 @@ import Build from "android.os.Build";
 import FileObserver from "android.os.FileObserver";
 import File from "java.io.File";
 import Environment from "android.os.Environment";
-import System from 'java.lang.System';
 
 
 

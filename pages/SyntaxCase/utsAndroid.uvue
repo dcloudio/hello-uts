@@ -39,6 +39,7 @@
         <view class="uni-hello-text"> 获取设备信息，观察是否符合预期 </view>
       </view>
       <button @tap="getDeviceInfoClick">获取设备基础信息</button>
+      <button @tap="getFileProviderUriClick">使用外部应用访问私有文件</button>
     </view>
     <!-- #ifdef APP -->
   </scroll-view>
@@ -62,6 +63,8 @@ import {
   getDeviceInfoTest,
   privacyStateTest,
 } from '@/uni_modules/uts-platform-api'
+import File from 'java.io.File';
+import Intent from 'android.content.Intent';
 
 /**
  * 测试在页面生命周期之外，使用api
@@ -156,6 +159,15 @@ export default {
           title: '测试失败',
         })
       }
+    },
+    getFileProviderUriClick() {
+      let file = new File(UTSAndroid.getResourcePath("static/logo.png"))
+      const uri = UTSAndroid.getFileProviderUri(file)
+      console.log("uri",uri.toString())
+      const intent = new Intent(Intent.ACTION_VIEW, uri)
+      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // 添加权限标志 
+      const context = UTSAndroid.getUniActivity()!;
+      context.startActivity(intent);
     },
     getAppTempPathClick() {
       if (getAppTempPathTest()) {
