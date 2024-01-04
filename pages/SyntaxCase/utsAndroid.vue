@@ -8,6 +8,7 @@
 		
 		<button @click="getAppContextClick">getAppContext</button>
 		<button @click="getUniActivityClick">getUniActivity</button>
+    <button @click="getJavaClassClick">getJavaClass</button>
 		<button @click="getAppTempPathClick">getAppTempPath</button>
 		<button @click="typeofClick">typeof</button>
 		<button @click="arrayPermissionFlowClick">组权限申请流程测试</button>
@@ -45,6 +46,7 @@
 	import {
 		getAppContextTest,
 		getUniActivityTest,
+    getJavaClassTest,
 		getAppTempPathTest,
 		typeofClickTest,
 		gotoSystemPermissionActivityTest,
@@ -114,6 +116,18 @@
 				// 取消注册生命周期
 				unRegLifecycle();
 			},
+      getJavaClassClick() {
+        if (getJavaClassTest()) {
+        	uni.showToast({
+        		title: '测试通过'
+        	})
+        } else {
+        	uni.showToast({
+        		icon: 'error',
+        		title: '测试失败'
+        	})
+        }
+      },
 			getAppContextClick() {
 				if (getAppContextTest()) {
 					uni.showToast({

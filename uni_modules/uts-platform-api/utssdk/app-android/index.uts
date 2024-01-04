@@ -23,6 +23,20 @@ export function getAppContextTest() : boolean {
 	return true
 }
 
+
+export function getJavaClassTest() : boolean {
+	let classObj1 = UTSAndroid.getJavaClass(UTSAndroid.getDispatcher())
+  if("io.dcloud.uts.task.UTSTaskDispatcher" == classObj1.name){
+    return true
+  }
+  let classObj2 = UTSAndroid.getJavaClass(UTSAndroid.getAppContext()!)
+  if("io.dcloud.uniapp.UniApplication" == classObj2.name){
+    return true
+  }
+	return false
+}
+
+
 /**
  * UTSAndroid.getUniActivity 测试示例
  * https://uniapp.dcloud.net.cn/plugin/uts-for-android.html#_4-2-1-getuniactivity
