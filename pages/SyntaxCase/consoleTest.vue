@@ -1,12 +1,14 @@
 <template>
-	<button @click="logStr">打印字符串</button>
-	<button @click="logFloat">打印浮点数</button>
-	<button @click="logInt">打印整数</button>
-	<button @click="logObject">打印对象</button>
-	<button @click="logFunction">打印函数</button>
-	<button @click="logFile">打印文件</button>
-	<button @click="logDate">打印日期</button>
-	<button @click="logDateCombine">组合打印日期</button>
+  <div>
+    <button @click="logStr">打印字符串</button>
+    <button @click="logFloat">打印浮点数</button>
+    <button @click="logInt">打印整数</button>
+    <button @click="logObject">打印对象</button>
+    <button @click="logFunction">打印函数</button>
+    <button @click="logFile">打印文件</button>
+    <button @click="logDate">打印日期</button>
+    <button @click="logDateCombine">组合打印日期</button>
+  </div>
 </template>
 
 <script>

@@ -1,6 +1,8 @@
 <template>
-	{{ret}}
-	<button @click="instanceCreate">多实例创建测试</button>
+  <div>
+    {{ret}}
+    <button @click="instanceCreate">多实例创建测试</button>
+  </div>
 	
 </template>
 
