@@ -89,6 +89,8 @@ export function testKeyWord() : Result {
       expect(typeof (0.0)).toEqual('Double')
       // #endif
 
+      expect(typeof (NaN)).toEqual('number')
+      expect(typeof (Infinity)).toEqual('number')
       expect(typeof ("hello world")).toEqual('string')
       expect(typeof ([1, 2, 3])).toEqual('object')
       expect(typeof (new Array<any>())).toEqual('object')
