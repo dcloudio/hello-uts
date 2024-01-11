@@ -11,11 +11,12 @@
 </template>
 
 <script>
+  // #ifndef H5
 	import {
 		onUserCaptureScreen,
 		offUserCaptureScreen
 	} from "@/uni_modules/uts-screenshot-listener";
-	
+	// #endif
 	export default {
 		data() {
 			return {

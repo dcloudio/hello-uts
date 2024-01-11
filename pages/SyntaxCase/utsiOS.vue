@@ -33,7 +33,7 @@
 </template>
 
 <script>
-	
+	// #ifdef APP-IOS
 	import {
 		getCurrentVCTest,
 		getKeyWindowTest,
@@ -45,7 +45,7 @@
 		tepeofTest,
 		dataConvertTest,
 	} from "@/uni_modules/uts-platform-api"
-	
+	// #endif
 	export default {
 		data() {
 			return {

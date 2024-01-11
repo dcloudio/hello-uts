@@ -16,8 +16,9 @@
 </template>
 
 <script>
+  // #ifdef APP-ANDROID
 	import { showToast } from '@/uni_modules/uts-toast'
-	
+	// #endif
 	
 	export default {
 		

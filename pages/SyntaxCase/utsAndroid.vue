@@ -1,5 +1,6 @@
 <template>
 	<view>
+    
 		<view class="uni-padding-wrap uni-common-mt">
 			<view class="uni-hello-text">
 				逐一点击执行，观察测试反馈
@@ -39,10 +40,12 @@
 			</view>
 		</view>
 		<button @tap="getDeviceInfoClick">获取设备基础信息</button>
+    
 	</view>
 </template>
 
 <script>
+  // #ifdef APP-ANDROID
 	import {
 		getAppContextTest,
 		getUniActivityTest,
@@ -60,7 +63,7 @@
 		getDeviceInfoTest,
 		privacyStateTest
 	} from '@/uni_modules/uts-platform-api'
-
+  // #endif
 	/**
 	 * 测试在页面生命周期之外，使用api
 	 */
