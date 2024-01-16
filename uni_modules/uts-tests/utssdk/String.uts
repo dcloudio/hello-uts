@@ -63,10 +63,10 @@ export function testString(): Result {
             expect("ABC".charCodeAt(0)).toEqual(65);
             expect("ABC".charCodeAt(1)).toEqual(66);
             expect("ABC".charCodeAt(2)).toEqual(67);
-            expect("ABC".charCodeAt(3)).toEqual(null);
+            expect("ABC".charCodeAt(3)).toEqual(NaN);
             
             const empty = "";
-            expect(empty.charCodeAt(0)).toEqual(null);
+            expect(empty.charCodeAt(0)).toEqual(NaN);
         })
         test('fromCharCode', () => {
             expect(String.fromCharCode(65, 66, 67)).toEqual("ABC");
