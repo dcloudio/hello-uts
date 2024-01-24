@@ -11,13 +11,15 @@
     </view>
 </template>
 <script>
+    // #ifndef H5
     import {
         checkHasIntegration
     } from "@/uni_modules/uts-tencentgeolocation";
-
     import {
         checkHasLottieIntegration
     } from "@/uni_modules/uts-animation-view";
+    // #endif
+    
 
     export default {
         data() {
@@ -51,16 +53,19 @@
                 })
             },
             gotoLottie: function(e) {
-                if (checkHasLottieIntegration()) {
-                    uni.navigateTo({
-                        url: '/pages/SDKIntegration/Lottie/index'
-                    })
-                } else {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '需要在自定义基座中运行'
-                    })
-                }
+              // #ifndef H5
+              if (checkHasLottieIntegration()) {
+                  uni.navigateTo({
+                      url: '/pages/SDKIntegration/Lottie/index'
+                  })
+              } else {
+                  uni.showToast({
+                      icon: 'none',
+                      title: '需要在自定义基座中运行'
+                  })
+              }
+              // #endif
+                
 
             },
             gotoTencentLocation: function(e) {

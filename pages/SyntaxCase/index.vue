@@ -50,6 +50,7 @@
     </view>
 </template>
 <script>
+    // #ifndef H5
     import {
         MAX,
         testSync,
@@ -58,7 +59,7 @@
         Test,
         request,
     } from "../../uni_modules/uts-syntaxcase";
-
+    // #endif
     let test
     let id = 0
     export default {

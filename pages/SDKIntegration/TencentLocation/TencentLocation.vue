@@ -22,6 +22,7 @@
 </template>
 
 <script>
+  // #ifndef H5
 	import {
 		checkHasIntegration,
 		requestPremission,
@@ -29,7 +30,7 @@
 		watchPosition,
 		clearWatch
 	} from "@/uni_modules/uts-tencentgeolocation";
-
+  // #endif
 	export default {
 		data() {
 			return {

@@ -18,7 +18,9 @@
     </view>
 </template>·
 <script>
+    // #ifdef APP-ANDROID
     import { gotoDemoActivity } from "@/uni_modules/uts-nativepage";
+    // #endif
     import { getBatteryInfo } from "@/uni_modules/uts-getbatteryinfo";
 
     export default {
@@ -96,6 +98,7 @@
                 })
             },
             testGotoDemoActivity() {
+                // #ifdef APP-ANDROID
                 let ret = gotoDemoActivity();
                 if (!ret) {
                     uni.showToast({
@@ -103,6 +106,7 @@
                         title: '需要在自定义基座中运行'
                     })
                 }
+                // #endif
             }
         }
     }

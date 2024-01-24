@@ -6,14 +6,15 @@
 >
         <!--meta-data-->
         <meta-data android:name="TencentMapSDK" android:value="您申请的腾讯定位App Key" />
-		
-		<activity android:name="uni.UNI70BE9D0.RootPackageActivity"
-			android:launchMode="singleTask"
-			android:exported="true">
-			<intent-filter>
-				<action android:name="uni.UNI70BE9D0.RootPackageActivity" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
+        <!--需要替换成开发者自己的包名-->
+        <activity android:name="uni.UNI70BE9D0.RootPackageActivity"
+            android:launchMode="singleTask"
+            android:exported="true">
+            <intent-filter>
+              <!--需要替换成开发者自己的包名-->
+              <action android:name="uni.UNI70BE9D0.RootPackageActivity" />
+              <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

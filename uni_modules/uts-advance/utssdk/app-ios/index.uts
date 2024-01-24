@@ -215,3 +215,20 @@ export function logFunctionTest(){
 	}
 	console.log(testFun)
 }
+
+
+export class User {  
+
+    private name : string;  
+    private age : Int;  
+
+    constructor(hostP : string, port : Int) {  
+        this.name = hostP;  
+        this.age = port;  
+    }  
+	
+	describeSelf():string{
+		let text = "name = " + this.name + ";age = " + `${this.age}`
+		return text
+	}
+}

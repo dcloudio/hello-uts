@@ -33,19 +33,21 @@
 </template>
 
 <script>
-	
-	import {
-		getCurrentVCTest,
-		getKeyWindowTest,
-		colorWithStringTest,
-		getResourcePathTest,
-		getDeviceInfoTest,
-		getAppInfoTest,
-		getSystemSettingTest,
-		tepeofTest,
-		dataConvertTest,
-	} from "@/uni_modules/uts-platform-api"
-	
+  // #ifndef APP-ANDROID
+ import {
+   getCurrentVCTest,
+   getKeyWindowTest,
+   colorWithStringTest,
+   getResourcePathTest,
+   getDeviceInfoTest,
+   getAppInfoTest,
+   getSystemSettingTest,
+   tepeofTest,   
+   dataConvertTest,
+ } from "@/uni_modules/uts-platform-api"
+  // #endif
+
+
 	export default {
 		data() {
 			return {

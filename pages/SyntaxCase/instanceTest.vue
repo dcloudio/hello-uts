@@ -1,6 +1,8 @@
 <template>
-	{{ret}}
-	<button @click="instanceCreate">多实例创建测试</button>
+  <div>
+    {{ret}}
+    <button @click="instanceCreate">多实例创建测试</button>
+  </div>
 	
 </template>
 
@@ -22,12 +24,11 @@
 			instanceCreate() {
 				
 				const user1 = new User("张三", 20);
-				let userText1 = user1.describeSelf() 
-								
 				const user2 = new User("李四", 30);  
-				let userText2 = user2.describeSelf()   
-								
 				const user3 = new User("王五", 40);  
+				
+				let userText1 = user1.describeSelf() 
+				let userText2 = user2.describeSelf()   
 				let userText3 = user3.describeSelf()  
 
 				
