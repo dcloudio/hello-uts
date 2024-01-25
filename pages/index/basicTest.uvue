@@ -20,9 +20,7 @@
   <!-- #endif -->
 </template>
 <script lang="ts">
-// #ifdef APP
 import { runTests, Result } from '../../uni_modules/uts-tests'
-// #endif
 export default {
   data() {
     return {

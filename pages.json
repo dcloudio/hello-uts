@@ -14,7 +14,9 @@
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
-		},
+		}
+    // #ifndef WEB
+    ,
 		{
 			"path": "pages/advance/advance",
 			"style": {
@@ -171,6 +173,7 @@
 			}
 
 		}
+    // #endif
 
 	],
 	"tabBar": {

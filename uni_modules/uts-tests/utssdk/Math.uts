@@ -113,7 +113,7 @@ export function testMath(): Result {
         test('clz32', () => {
             expect(Math.clz32(1)).toEqual(31);
             expect(Math.clz32(1000)).toEqual(22);
-            expect(Math.clz32()).toEqual(32);
+            expect(Math.clz32(0)).toEqual(32);
             expect(Math.clz32(3.5)).toEqual(30);
         })
         test('cos', () => {
