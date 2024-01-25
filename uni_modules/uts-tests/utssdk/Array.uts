@@ -16,12 +16,12 @@ export function testArray(): Result {
 		// swift 中字面量创建数组，仅支持同一类型的元素
 		// #ifndef APP-IOS
 			expect(a3).toEqual(new Array(1,2,3));
-			let a4 = new Array(1,'2',3);
-			expect(a4).toEqual(new Array(1,'2',3));
+			let a4 = new Array<any>(1,'2',3);
+			expect(a4).toEqual(new Array<any>(1,'2',3));
 			let a5 = Array(1,2,3);
 			expect(a5).toEqual(Array(1,2,3));
-			let a6 = Array(1,'2','3')
-			expect(a6).toEqual(Array(1,'2','3'));
+			let a6 = Array<any>(1,'2','3')
+			expect(a6).toEqual(Array<any>(1,'2','3'));
 		// #endif
 
 		})

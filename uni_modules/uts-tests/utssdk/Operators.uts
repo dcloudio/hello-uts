@@ -125,7 +125,7 @@ export function testOperators(): Result {
 			 
         })
         test('/=', () => {
-            let a:Number = 3;
+            let a:number = 3;
             a /= 2;
             expect(a).toEqual(1.5);
         })
