@@ -45,7 +45,6 @@
 </template>
 
 <script>
-  // #ifdef APP-ANDROID
 	import {
 		getAppContextTest,
 		getUniActivityTest,
@@ -63,7 +62,6 @@
 		getDeviceInfoTest,
 		privacyStateTest
 	} from '@/uni_modules/uts-platform-api'
-  // #endif
 	/**
 	 * 测试在页面生命周期之外，使用api
 	 */
