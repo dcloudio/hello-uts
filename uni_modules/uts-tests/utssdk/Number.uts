@@ -98,7 +98,13 @@ export function testNumber() : Result {
       expect(a.toString(2).substring(0,32)).toEqual("10010110011101101001100101010000");
       expect(a.toString(2).substring(100)).toEqual("000000000000000000000000000");
       const b = 1e22
-      expect(b.toString(12)).toEqual("27373a86ba1a194a65054");
+      const bStr12 = b.toString(12)
+      /**
+       * 移动端： 27373a86ba1a194a65054
+       * 浏览器端:27373a86ba1a195400000
+       */
+      expect(bStr12.length).toEqual(21);
+      expect(bStr12.substring(0,14)).toEqual("27373a86ba1a19");
       
     })
 

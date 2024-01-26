@@ -32,9 +32,9 @@ export function testGlobal(): Result {
 			expect(isNaN(parseInt("345", 2))).toEqual(true)
 			expect(isNaN(parseInt("hello"))).toEqual(true)
 			expect(parseInt("6.022e23")).toEqual(6)
-			expect(parseInt("9223372036854775807")).toEqual(9.223372036854778e+18)
-			expect(parseInt("9223372036854775807000")).toEqual(9.223372036854777e+21)
-			expect(parseInt("922337203685477580700099999999999999999999999999999999999999999999999999999999999999999")).toEqual(9.223372036854776e+86)
+			expect(parseInt("9223372036854775807")).toEqualNumber(9.223372036854778e+18)
+			expect(parseInt("9223372036854775807000")).toEqualNumber(9.223372036854777e+21)
+			expect(parseInt("922337203685477580700099999999999999999999999999999999999999999999999999999999999999999")).toEqualNumber(9.223372036854776e+86)
 			expect(parseInt("50") / 100).toEqualNumber(0.5);
 			expect(parseInt("500") / 100).toEqualNumber(5);
 			
