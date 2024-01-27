@@ -11,14 +11,12 @@
     </view>
 </template>
 <script>
-    // #ifndef H5
     import {
         checkHasIntegration
     } from "@/uni_modules/uts-tencentgeolocation";
     import {
         checkHasLottieIntegration
     } from "@/uni_modules/uts-animation-view";
-    // #endif
     
 
     export default {
@@ -53,7 +51,6 @@
                 })
             },
             gotoLottie: function(e) {
-              // #ifndef H5
               if (checkHasLottieIntegration()) {
                   uni.navigateTo({
                       url: '/pages/SDKIntegration/Lottie/index'
@@ -64,8 +61,6 @@
                       title: '需要在自定义基座中运行'
                   })
               }
-              // #endif
-                
 
             },
             gotoTencentLocation: function(e) {

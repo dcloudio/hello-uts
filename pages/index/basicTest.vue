@@ -17,11 +17,9 @@
     </view>
 </template>
 <script>
-    // #ifdef APP
     import {
         runTests
     } from '../../uni_modules/uts-tests'
-    // #endif
     export default {
         data() {
             return {

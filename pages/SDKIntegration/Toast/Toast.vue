@@ -19,7 +19,6 @@
 
 	import { showToast } from '@/uni_modules/uts-toast'
 
-	
 	export default {
 		
 		data() {
