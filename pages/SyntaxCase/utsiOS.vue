@@ -33,7 +33,6 @@
 </template>
 
 <script>
-  // #ifndef APP-ANDROID
  import {
    getCurrentVCTest,
    getKeyWindowTest,
@@ -45,7 +44,6 @@
    tepeofTest,   
    dataConvertTest,
  } from "@/uni_modules/uts-platform-api"
-  // #endif
 
 
 	export default {

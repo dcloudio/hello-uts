@@ -93,10 +93,15 @@ export function getAppTempPathTest() : boolean {
   if (UTSAndroid.getAppCachePath()!.contains("uni.UNI70BE9D0/apps/__UNI__70BE9D0/temp")) {
   	return true
   }
+  let cachePath = UTSAndroid.getAppCachePath()!
 	// 2.0的路径
-	if (UTSAndroid.getAppCachePath()!.contains("cache/temp")) {
+	if (cachePath.contains("io.dcloud.uniappx/cache")) {
 		return true
 	}
+  // 2.0 自定义基座的情况
+  if (cachePath.contains("uni.UNI70BE9D0/cache")) {
+  	return true
+  }
 	
 	return false
 }

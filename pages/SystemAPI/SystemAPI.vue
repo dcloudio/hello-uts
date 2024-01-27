@@ -18,9 +18,7 @@
     </view>
 </template>·
 <script>
-    // #ifdef APP-ANDROID
     import { gotoDemoActivity } from "@/uni_modules/uts-nativepage";
-    // #endif
     import { getBatteryInfo } from "@/uni_modules/uts-getbatteryinfo";
 
     export default {
@@ -89,7 +87,7 @@
             testGetBatteryCapacity() {
                 getBatteryInfo({
                     success(res) {
-						console.log(res)
+                        console.log(res)
                         uni.showToast({
                             title: "当前电量：" + res.level + '%',
                             icon: 'none'
@@ -98,7 +96,6 @@
                 })
             },
             testGotoDemoActivity() {
-                // #ifdef APP-ANDROID
                 let ret = gotoDemoActivity();
                 if (!ret) {
                     uni.showToast({
@@ -106,7 +103,6 @@
                         title: '需要在自定义基座中运行'
                     })
                 }
-                // #endif
             }
         }
     }
