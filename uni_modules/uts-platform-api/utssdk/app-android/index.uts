@@ -25,12 +25,12 @@ export function getAppContextTest() : boolean {
 
 
 export function getJavaClassTest() : boolean {
-	let classObj1 = UTSAndroid.getJavaClass(UTSAndroid.getDispatcher())
-  if("io.dcloud.uts.task.UTSTaskDispatcher" == classObj1.name){
+	let dispatcherClass = UTSAndroid.getJavaClass(UTSAndroid.getDispatcher())
+  if("io.dcloud.uts.task.UTSTaskDispatcher" == dispatcherClass.name){
     return true
   }
-  let classObj2 = UTSAndroid.getJavaClass(UTSAndroid.getAppContext()!)
-  if("io.dcloud.uniapp.UniApplication" == classObj2.name){
+  let applicationClass = UTSAndroid.getJavaClass(UTSAndroid.getAppContext()!)
+  if("io.dcloud.uniapp.UniApplication" == applicationClass.name){
     return true
   }
 	return false
