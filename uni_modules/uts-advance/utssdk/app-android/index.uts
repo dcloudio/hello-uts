@@ -433,53 +433,6 @@ export function callbackParam(callback : ParamCallback) {
 	}
 	callback(ret)
 }
-/**
- * 打印测试方法
- */
-export function logStrTest() {
-	console.log("logStrTest 字符串打印测试")
-}
-
-
-export function logFloatTest() {
-	console.log(3.1415926)
-}
-export function logIntTest() {
-	console.log(2023)
-	console.log(2023.0)
-	console.log(2023.002)
-}
-
-export function logObjectTest(){
-	let ret : ParamOptions = {
-		title: "logObjectTest",
-		array: ['1', '2', '3']
-	}
-	console.log(ret)
-}
-
-
-export function logFunctionTest(){
-	
-	let testFun = function(){
-		console.log("testFun")
-	}
-	console.log(testFun)
-}
-
-
-
-export function logFileTest(){
-	console.log(new File("/sdcard/temp/1.txt"))
-}
-
-export function logDateTest(){
-	console.log(new Date())
-}
-
-export function logDateCombineTest(){
-	console.log("现在的日期是",new Date()," 以上是日期信息")
-}
 
 
 /**
