@@ -1,0 +1,20 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+export function testType() : Result {
+  return describe("Type", () => {
+    test("Object literal to type instance", () => {
+      type Person = {
+        age: number
+      }
+      const a: Person = {
+        age: 1
+      }
+      const b = {
+        age: 2
+      } as Person
+      
+      expect(a instanceof Person).toEqual(true);
+      expect(b instanceof Person).toEqual(true);
+    })
+  })
+}
