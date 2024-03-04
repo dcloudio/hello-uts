@@ -30,7 +30,8 @@
           return;
         }
         
-        if(getLog(2023) != '{"type":"number","value":"2023"}'){
+        
+        if(getLog(2023) != '{"subType":"number","type":"Int","value":"2023"}'){
           this.testRet = "测试失败"
           return;
         }
@@ -39,12 +40,10 @@
         //   this.testRet = "测试失败"
         //   return;
         // }
-        
-        if(getLog(2023.002) != '{"type":"number","value":"2023.002"}'){
+        if(getLog(2023.002) != '{"subType":"number","type":"Double","value":"2023.002"}'){
           this.testRet = "测试失败"
           return;
         }
-        
         
         if(logObjectTest() != '{"className":"uts.sdk.modules.utsApiTest.ParamOptions","subType":"object","__$originalPosition":"","type":"object","value":{"methods":[],"properties":[{"name":"array","subType":"array","className":"io.dcloud.uts.UTSArray","type":"object","value":{"properties":[{"name":0,"type":"string","value":"1"},{"name":1,"type":"string","value":"2"},{"name":2,"type":"string","value":"3"}]}},{"name":"title","type":"string","value":"logObjectTest"}]}}'){
           this.testRet = "测试失败"
