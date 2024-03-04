@@ -29,9 +29,7 @@
           this.testRet = "测试失败"
           return;
         }
-        
-        
-        if(getLog(2023) != '{"subType":"number","type":"Int","value":"2023"}'){
+        if(getLog(2023) != '{"subType":"number","type":"number","value":"2023"}'){
           this.testRet = "测试失败"
           return;
         }
@@ -40,7 +38,7 @@
         //   this.testRet = "测试失败"
         //   return;
         // }
-        if(getLog(2023.002) != '{"subType":"number","type":"Double","value":"2023.002"}'){
+        if(getLog(2023.002 as number) != '{"subType":"number","type":"number","value":"2023.002"}'){
           this.testRet = "测试失败"
           return;
         }
