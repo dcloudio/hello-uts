@@ -7,7 +7,7 @@
 
 <script>
 
-  import { getLog,logObjectTest,logClassTest,logFunctionTest,logFileTest,logDateTest } from '../../uni_modules/uts-api-test'
+  import { getLog,logObjectTest,logClassTest,logFunctionTest,logFileTest,logDateTest,logUTSJSONObjectTest } from '../../uni_modules/uts-api-test'
  
 
 	export default {

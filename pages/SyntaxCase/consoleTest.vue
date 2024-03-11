@@ -7,7 +7,7 @@
 
 <script>
 
-  import { getLog,logObjectTest,logClassTest,logFunctionTest,logFileTest,logDateTest } from '../../uni_modules/uts-api-test'
+  import { getLog,logObjectTest,logClassTest,logFunctionTest,logFileTest,logDateTest,frequentlyObjectTest } from '../../uni_modules/uts-api-test'
  
 
 	export default {
@@ -69,6 +69,10 @@
           return;
         }
         
+        if(!frequentlyObjectTest()){
+          this.testRet = "测试失败"
+          return;
+        }
         this.testRet = "测试完成"
         
 			}
