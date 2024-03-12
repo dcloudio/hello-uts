@@ -136,6 +136,13 @@ export function testString(): Result {
             expect(result4!![0]).toEqual("rgb(255, 0, 0)");
             expect(result4!![1]).toEqual("255");
             expect(result4!![2]).toEqual("0");
+            
+            
+            const url = '';
+            const urlRegex = /^(\w+):\/\/([^\/?#]+)([^?#]*)(\?[^#]*)?(#.*)?$/;
+            const match = url.match(urlRegex);
+            expect(match).toEqual(null);
+            
         })
         test('padEnd', () => {
             const str1 = 'Breaded Mushrooms';
