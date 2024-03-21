@@ -29,7 +29,7 @@ export {DoAppWidget} from "./DoAppWidget.uts"
 import Application from 'android.app.Application';
 import File from 'java.io.File';
 import Uri from 'android.net.Uri';
-
+export * from './CustomAccessibilityService.uts'
 
 export class AppHookProxy implements UTSAndroidHookProxy {
   override onCreate(application: Application) {
