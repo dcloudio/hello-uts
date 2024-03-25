@@ -14,6 +14,10 @@
         <view>测试return：{{ format(testUtsAsyncResult.return) }}</view>
         <view>测试success：{{ format(testUtsAsyncResult.success) }}</view>
         <view>测试complete：{{ format(testUtsAsyncResult.complete) }}</view>
+        <button @click="testUtsAsyncMulitParam">点击测试uts异步方法-多参数</button>
+        <view>测试return：{{ format(testUtsAsyncMulitParamResult.return) }}</view>
+        <view>测试success：{{ format(testUtsAsyncMulitParamResult.success) }}</view>
+        <view>测试complete：{{ format(testUtsAsyncMulitParamResult.complete) }}</view>
         <button @click="testUtsClassConstructor">点击测试uts class构造函数</button>
         <view>测试callback：{{ format(testUtsClassConstructorResult.callback) }}</view>
         <button @click="testUtsClassStaticProp">点击测试uts class静态属性</button>
@@ -50,15 +54,17 @@
     </view>
 </template>
 <script>
+    // #ifndef H5
     import {
         MAX,
         testSync,
         testSyncWithCallback,
         testAsync,
+        testAsyncParam3,
         Test,
         request,
     } from "../../uni_modules/uts-syntaxcase";
-
+    // #endif
     let test
     let id = 0
     export default {
@@ -72,6 +78,12 @@
                     complete: null,
                 },
                 testUtsAsyncResult: {
+                    return: null,
+                    success: null,
+                    fail: null,
+                    complete: null,
+                },
+                testUtsAsyncMulitParamResult: {
                     return: null,
                     success: null,
                     fail: null,
@@ -124,6 +136,7 @@
                 this.testUtsSync();
                 this.testUtsSyncWithCallback();
                 this.testUtsAsync();
+                this.testUtsAsyncMulitParam()
                 this.testUtsClassConstructor();
                 this.testUtsClassStaticProp();
                 this.testUtsClassStaticSyncWithCallback();
@@ -192,6 +205,31 @@
                     });
                     if (res.name === "testAsync") {
                         this.testUtsAsyncResult.return = true;
+                    }
+                } catch (e) {}
+            },
+            async testUtsAsyncMulitParam() {
+                this.testUtsAsyncMulitParamResult.return = false;
+                this.testUtsAsyncMulitParamResult.success = false;
+                // testUtsAsyncResult.fail = false;
+                this.testUtsAsyncMulitParamResult.complete = false;
+                try {
+                    const res = await testAsyncParam3(100,"hello",{
+                        type: "success",
+                        success: (res) => {
+                            console.log("testUtsAsyncMulitParam.success.callback", res);
+                            this.testUtsAsyncMulitParamResult.success = true;
+                        },
+                        fail: (res) => {
+                            console.log("testUtsAsyncMulitParam.fail.callback", res);
+                        },
+                        complete: (res) => {
+                            console.log("testUtsAsyncMulitParam.complete.callback", res);
+                            this.testUtsAsyncMulitParamResult.complete = true;
+                        },
+                    });
+                    if (res.name === "testUtsAsyncMulitParam") {
+                        this.testUtsAsyncMulitParamResult.return = true;
                     }
                 } catch (e) {}
             },

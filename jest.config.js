@@ -43,6 +43,7 @@ module.exports = {
     reporters: [
         'default'
     ],
+    setupFiles: ['./jest.global.js'],
     globals: {
         describes: parseDescribes()
     },

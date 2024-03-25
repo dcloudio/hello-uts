@@ -1,10 +1,12 @@
 <template>
-	<button @click="inputArrayTest">传入数组参数</button>
-	<button @click="inputParamTest">传入复杂对象参数</button>
-	<button @click="returnArrayTest">返回数组参数</button>
-	<button @click="returnParamTest">返回复杂对象参数</button>
-	<button @click="callbackArrayTest">异步返回数组</button>
-	<button @click="callbackParamTest">异步返回复杂对象</button>
+  <div>
+    <button @click="inputArrayTest">传入数组参数</button>
+    <button @click="inputParamTest">传入复杂对象参数</button>
+    <button @click="returnArrayTest">返回数组参数</button>
+    <button @click="returnParamTest">返回复杂对象参数</button>
+    <button @click="callbackArrayTest">异步返回数组</button>
+    <button @click="callbackParamTest">异步返回复杂对象</button>
+  </div>
 </template>
 
 <script>

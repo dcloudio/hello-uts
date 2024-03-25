@@ -97,6 +97,24 @@ export async function testAsync(opts : AsyncOptions) : Promise<SyntaxResult> {
     // return { name: "testAsync" };
 }
 
+
+export async function testAsyncParam3(id:number,name:string,opts : AsyncOptions) : Promise<SyntaxResult> {
+    console.log("id",id,"name",name)
+    if (opts.type == "success") {
+        opts.success("success");
+    } else {
+        opts.fail("fail");
+    }
+    opts.complete("complete");
+
+    const res : SyntaxResult = {
+        name: "testUtsAsyncMulitParam"
+    }
+    return await testAwaitPromise(res);
+    // return { name: "testAsync" };
+}
+
+
 export type TestOptions = {
     name : string;
     callback : (res : string) => void;

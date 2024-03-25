@@ -87,7 +87,7 @@
             testGetBatteryCapacity() {
                 getBatteryInfo({
                     success(res) {
-						console.log(res)
+                        console.log(res)
                         uni.showToast({
                             title: "当前电量：" + res.level + '%',
                             icon: 'none'

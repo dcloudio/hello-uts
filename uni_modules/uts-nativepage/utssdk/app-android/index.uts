@@ -194,8 +194,9 @@ class RootActivityStartListener extends OnClickListener{
 	}
 	
     override onClick(v?: View):void{
-		let intent = Intent("uni.UNI70BE9D0.RootPackageActivity")
-		host.startActivity(intent)
+      // 需要开发者替换成自己的包名，并且与AndroidManifest.xml 中保持一致
+      let intent = Intent("uni.UNI70BE9D0.RootPackageActivity")
+      host.startActivity(intent)
     }
 }
 

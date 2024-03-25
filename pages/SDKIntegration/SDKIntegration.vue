@@ -14,10 +14,10 @@
     import {
         checkHasIntegration
     } from "@/uni_modules/uts-tencentgeolocation";
-
     import {
         checkHasLottieIntegration
     } from "@/uni_modules/uts-animation-view";
+    
 
     export default {
         data() {
@@ -51,16 +51,16 @@
                 })
             },
             gotoLottie: function(e) {
-                if (checkHasLottieIntegration()) {
-                    uni.navigateTo({
-                        url: '/pages/SDKIntegration/Lottie/index'
-                    })
-                } else {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '需要在自定义基座中运行'
-                    })
-                }
+              if (checkHasLottieIntegration()) {
+                  uni.navigateTo({
+                      url: '/pages/SDKIntegration/Lottie/index'
+                  })
+              } else {
+                  uni.showToast({
+                      icon: 'none',
+                      title: '需要在自定义基座中运行'
+                  })
+              }
 
             },
             gotoTencentLocation: function(e) {

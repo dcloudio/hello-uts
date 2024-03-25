@@ -6,7 +6,7 @@ export function testError(): Result {
             try {
               throw new Error('Whoops!')
             } catch (e) {
-              expect(e.message).toEqual("Whoops!");
+              expect((e as Error).message).toEqual("Whoops!");
             }
         })
         // test('name', () => {

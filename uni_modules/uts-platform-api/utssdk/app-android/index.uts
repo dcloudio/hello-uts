@@ -23,6 +23,20 @@ export function getAppContextTest() : boolean {
 	return true
 }
 
+
+export function getJavaClassTest() : boolean {
+	let dispatcherClass = UTSAndroid.getJavaClass(UTSAndroid.getDispatcher())
+  if("io.dcloud.uts.task.UTSTaskDispatcher" == dispatcherClass.name){
+    return true
+  }
+  let applicationClass = UTSAndroid.getJavaClass(UTSAndroid.getAppContext()!)
+  if("io.dcloud.uniapp.UniApplication" == applicationClass.name){
+    return true
+  }
+	return false
+}
+
+
 /**
  * UTSAndroid.getUniActivity 测试示例
  * https://uniapp.dcloud.net.cn/plugin/uts-for-android.html#_4-2-1-getuniactivity
@@ -79,10 +93,15 @@ export function getAppTempPathTest() : boolean {
   if (UTSAndroid.getAppCachePath()!.contains("uni.UNI70BE9D0/apps/__UNI__70BE9D0/temp")) {
   	return true
   }
+  let cachePath = UTSAndroid.getAppCachePath()!
 	// 2.0的路径
-	if (UTSAndroid.getAppCachePath()!.contains("cache/temp")) {
+	if (cachePath.contains("io.dcloud.uniappx/cache")) {
 		return true
 	}
+  // 2.0 自定义基座的情况
+  if (cachePath.contains("uni.UNI70BE9D0/cache")) {
+  	return true
+  }
 	
 	return false
 }

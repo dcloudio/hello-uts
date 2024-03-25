@@ -33,19 +33,19 @@
 </template>
 
 <script>
-	
-	import {
-		getCurrentVCTest,
-		getKeyWindowTest,
-		colorWithStringTest,
-		getResourcePathTest,
-		getDeviceInfoTest,
-		getAppInfoTest,
-		getSystemSettingTest,
-		tepeofTest,
-		dataConvertTest,
-	} from "@/uni_modules/uts-platform-api"
-	
+ import {
+   getCurrentVCTest,
+   getKeyWindowTest,
+   colorWithStringTest,
+   getResourcePathTest,
+   getDeviceInfoTest,
+   getAppInfoTest,
+   getSystemSettingTest,
+   tepeofTest,   
+   dataConvertTest,
+ } from "@/uni_modules/uts-platform-api"
+
+
 	export default {
 		data() {
 			return {

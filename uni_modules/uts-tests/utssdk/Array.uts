@@ -1,5 +1,7 @@
 import { describe, test, expect, Result } from './tests.uts'
 
+
+            
 export function testArray(): Result {
     return describe("Array", () => {
 		
@@ -14,12 +16,12 @@ export function testArray(): Result {
 		// swift 中字面量创建数组，仅支持同一类型的元素
 		// #ifndef APP-IOS
 			expect(a3).toEqual(new Array(1,2,3));
-			let a4 = new Array(1,'2',3);
-			expect(a4).toEqual(new Array(1,'2',3));
+			let a4 = new Array<any>(1,'2',3);
+			expect(a4).toEqual(new Array<any>(1,'2',3));
 			let a5 = Array(1,2,3);
 			expect(a5).toEqual(Array(1,2,3));
-			let a6 = Array(1,'2','3')
-			expect(a6).toEqual(Array(1,'2','3'));
+			let a6 = Array<any>(1,'2','3')
+			expect(a6).toEqual(Array<any>(1,'2','3'));
 		// #endif
 
 		})
@@ -177,6 +179,24 @@ export function testArray(): Result {
             const array2: string[] = ['a', 'b', 'c'];
             expect(array2.includes('c', 3)).toEqual(false);
             expect(array2.includes('c', 100)).toEqual(false);
+            
+            type P = {
+              x : number
+              y : number
+            }
+            // #ifndef APP-IOS
+            	const s = JSON.parse<P[]>(JSON.stringify([{ x: 0, y: 0 }])) as P[]
+            	s[0].x += 0;
+            	const clearList = s.map((v : P, _, _a) : number => v.x)
+            	expect(clearList.includes(0)).toEqual(true);
+            // #endif
+            // #ifdef APP-IOS
+            	const s = JSON.parse<P[]>(JSON.stringify([{ x: 0, y: 0 }])!) as P[]
+            	s[0].x += 0;
+            	const clearList = s.map((v : P, index: number, _a) : number => v.x)
+            	expect(clearList.includes(0)).toEqual(true);
+            // #endif
+ 
         })
         test("indexOf", () => {
 			

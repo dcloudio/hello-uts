@@ -13,7 +13,7 @@
 
 3. 打包自定义基座
 
-目前UTS只支持云端打包
+注意将`uts-tencentgeolocation/utssdk/app-android/libs/androix-core-1.0.0.jar`先移到其他目录。
 
 4. 运行自定义基座
 
