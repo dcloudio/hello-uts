@@ -188,6 +188,14 @@ export function testString(): Result {
               expect(string).toEqual(str);
               return p.join(' - ');
             }
+            
+            const REGEX_FORMAT = /[YMDHhms]o|\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a{1,2}|A{1,2}|m{1,2}|s{1,2}|Z{1,2}|SSS/g
+            const formatStr = 'This is a [sample] text with [another] capture group.'
+            const nextStr = formatStr.replace(REGEX_FORMAT, (match:string, p1: string|null, offset: number, string: string):string =>{
+            	console.log('123', p1, match)
+            	return p1 ?? match ?? ''
+            })
+            expect(nextStr).toEqual('This is a sample text with another capture group.');
             // var newString = str.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
             // expect(newString).toEqual("abc - 12345 - #$*%");
             // const str1 = 'hello, world';
