@@ -4,24 +4,24 @@ export function testType() : Result {
   return describe("Type", () => {
     test("Object literal to type instance", () => {
       type Person = {
-        age: number
+        age : number
       }
-      const a: Person = {
+      const a : Person = {
         age: 1
       }
       const b = {
         age: 2
       } as Person
-      
+
       expect(a instanceof Person).toEqual(true);
       expect(b instanceof Person).toEqual(true);
     })
     test("Type with any[]", () => {
       type Person = {
-        age: number,
-        friends: any[]
+        age : number,
+        friends : any[]
       }
-      const a: Person = {
+      const a : Person = {
         age: 1,
         friends: ['b']
       }
@@ -29,9 +29,28 @@ export function testType() : Result {
         age: 2,
         friends: ['a']
       } as Person
-      
+
       expect(a instanceof Person).toEqual(true);
       expect(b instanceof Person).toEqual(true);
+    })
+    test("destructure default value should override null", () => {
+      type Options = {
+        name : string
+        age ?: number
+        gender ?: number
+      }
+      const options = {
+        name: 'Tom'
+      } as Options
+      const {
+        name = 'testName',
+        age = 20,
+        gender
+      } = options;
+
+      expect(name).toEqual('Tom');
+      expect(age).toEqual(20);
+      expect(gender).toEqual(null);
     })
   })
 }
