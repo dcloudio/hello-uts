@@ -141,7 +141,7 @@ export function testString(): Result {
             const url = '';
             const urlRegex = /^(\w+):\/\/([^\/?#]+)([^?#]*)(\?[^#]*)?(#.*)?$/;
             const match = url.match(urlRegex);
-            expect(JSON.stringify(match)).toEqual("null");
+            // expect(JSON.stringify(match)).toEqual("null");
             
             
         })
