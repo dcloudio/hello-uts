@@ -36,11 +36,16 @@ export default {
   methods: {
     test() {
       this.result = runTests()
-      const resultMap = this.result.toMap()
-      resultMap.forEach((res, name) => {
-        this.names.push(name)
-        this.resultArray.push(res as Result)
-      })
+      // const resultMap = this.result.toMap()
+      // resultMap.forEach((res, name) => {
+      //   this.names.push(name)
+      //   this.resultArray.push(res as Result)
+      // })
+      const resultMap = this.result
+      for (const key in resultMap) {
+        this.names.push(key)
+        this.resultArray.push(resultMap[key] as Result)
+      }
     },
   },
 }
