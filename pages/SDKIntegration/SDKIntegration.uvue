@@ -2,7 +2,7 @@
     <view class="uni-container">
         <page-head :title="title"></page-head>
         <view class="uni-panel" v-for="(item, index) in list" :key="index">
-            <view class="uni-panel-h" :class="item.open ? 'uni-panel-h-on' : ''" @click="goDetailPage(item)"
+            <view class="uni-panel-h" :class="item.open == true ? 'uni-panel-h-on' : ''" @click="goDetailPage(item)"
                 hover-class="uni-navigate-item-active">
                 <text class="uni-panel-text">{{item.name}}</text>
                 <image :src="arrowRightIcon" class="uni-icon"></image>
