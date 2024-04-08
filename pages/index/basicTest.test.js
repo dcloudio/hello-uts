@@ -36,9 +36,11 @@ describes.forEach(d => {
   })
 })
 
-if (process.env.uniTestPlatformInfo.startsWith('ios')) {
-  describe('testTypeFromAppJs', async () => {
-    const res = await page.callMethod('jest_testTypeFromAppJs')
-    expect(res).toEqual(true)
+if (process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios')) {
+  describe('testTypeFromAppJs',  () => {
+    it("jest_testTypeFromAppJs", async () => {
+      const res = await page.callMethod('jest_testTypeFromAppJs')
+      expect(res).toEqual(true)
+    })
   })
 }
