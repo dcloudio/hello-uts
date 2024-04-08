@@ -21,6 +21,9 @@
 </template>
 <script lang="ts">
 import { runTests, Result } from '../../uni_modules/uts-tests'
+// #ifdef APP-IOS
+import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests'
+// #endif
 export default {
   data() {
     return {
@@ -47,6 +50,13 @@ export default {
         this.resultArray.push(resultMap[key] as Result)
       }
     },
+    // #ifdef APP-IOS
+    jest_testTypeFromAppJs() {
+      return testTypeFromAppJs({
+        num: 1
+      } as Options)
+    }
+    // #endif
   },
 }
 </script>
