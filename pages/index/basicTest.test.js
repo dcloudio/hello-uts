@@ -37,7 +37,7 @@ describes.forEach(d => {
 })
 
 if (process.env.uniTestPlatformInfo.startsWith('ios')) {
-  describe('testTypeFromAppJs', () => {
+  describe('testTypeFromAppJs', async () => {
     const res = await page.callMethod('jest_testTypeFromAppJs')
     expect(res).toEqual(true)
   })
