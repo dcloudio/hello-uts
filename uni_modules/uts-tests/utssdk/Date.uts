@@ -62,8 +62,8 @@ export function testDate() : Result {
       expect(event2.toTimeString()).toEqual("2014-01-09T14:00:00.000Z");
       // #endif
       expect(event2.toISOString()).toEqual("2014-01-09T14:00:00.000Z");
-      expect(event2.toJSON()).toEqual("Thu Jan 09 2014");
-      expect(event2.toDateString()).toEqual("22:00:00 GMT+0800");
+      expect(event2.toJSON()).toEqual("2014-01-09T14:00:00.000Z");
+      expect(event2.toDateString()).toEqual("Thu Jan 09 2014");
       
     })
     
