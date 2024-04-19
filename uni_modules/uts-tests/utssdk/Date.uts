@@ -49,19 +49,15 @@ export function testDate() : Result {
     test('toXString', () => {
       // #ifdef APP-ANDROID
     	const event = new Date('1995-12-17T03:24:00');
-      // #ifndef APP-ANDROID
       expect(event.toString()).toEqual("Sun Dec 17 1995 03:24:00 GMT+0800");
       expect(event.toTimeString()).toEqual("03:24:00 GMT+0800");
-      // #endif
       expect(event.toISOString()).toEqual("1995-12-16T19:24:00.000Z");
       expect(event.toJSON()).toEqual("1995-12-16T19:24:00.000Z");
       expect(event.toDateString()).toEqual("Sun Dec 17 1995");
       
       const event2 = new Date('2014-01-09 22:00:00');
-      // #ifndef APP-ANDROID
       expect(event2.toString()).toEqual("Thu Jan 09 2014 22:00:00 GMT+0800");
       expect(event2.toTimeString()).toEqual("2014-01-09T14:00:00.000Z");
-      // #endif
       expect(event2.toISOString()).toEqual("2014-01-09T14:00:00.000Z");
       expect(event2.toJSON()).toEqual("Thu Jan 09 2014");
       expect(event2.toDateString()).toEqual("22:00:00 GMT+0800");
