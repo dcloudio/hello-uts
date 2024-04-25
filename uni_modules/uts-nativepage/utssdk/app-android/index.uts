@@ -16,6 +16,10 @@ import Build from 'android.os.Build';
 import IBinder from 'android.os.IBinder';
 import Toast from 'android.widget.Toast';
 
+import ShortcutInfoCompat from 'androidx.core.content.pm.ShortcutInfoCompat'
+import ShortcutManagerCompat from 'androidx.core.content.pm.ShortcutManagerCompat'
+import IconCompat from 'androidx.core.graphics.drawable.IconCompat'
+
 
 import Service from 'android.app.Service';
 import System from 'java.lang.System';
@@ -35,12 +39,14 @@ export * from './CustomAccessibilityService.uts'
 
 export class AppHookProxy implements UTSAndroidHookProxy {
   override onCreate(application: Application) {
-	//当前应用是否 取得用户同意隐私协议
-	Log.d("AppHookProxy", "AppHookProxy--onCreate---")
-	if(UTSAndroid.isPrivacyAgree()) {
-		//onCreate 初始化三方SDK
-		Log.d("AppHookProxy", "AppHookProxy--onCreate---isPrivacyAgree")
-	}
+    //当前应用是否 取得用户同意隐私协议
+    Log.d("AppHookProxy", "AppHookProxy--onCreate---")
+    // 初始化快捷方式
+    initShortCut()
+    if(UTSAndroid.isPrivacyAgree()) {
+      //onCreate 初始化三方SDK
+      Log.d("AppHookProxy", "AppHookProxy--onCreate---isPrivacyAgree")
+    }
   }
 }
 
@@ -52,19 +58,19 @@ class ForeService extends Service {
 		super();
 	}
 
-    override onCreate():void {
-        super.onCreate();
+  override onCreate():void {
+    super.onCreate();
 		console.log("onCreate");
-    }
+  }
 	
 
 	override onBind(_intent?: Intent): IBinder|null{
 		return null;
-    }
+  }
 	
-    override onStartCommand(intent:Intent ,flags:Int ,startId:Int ):Int {
+  override onStartCommand(intent:Intent ,flags:Int ,startId:Int ):Int {
 
-        let mBuilder = new NotificationCompat.Builder(this,"uts-test");
+    let mBuilder = new NotificationCompat.Builder(this,"uts-test");
 		
 		// 点击后让通知将消失
 		mBuilder.setAutoCancel(true) 
@@ -322,6 +328,43 @@ class IntentRunable extends Runnable{
 		let intent = new Intent(UTSAndroid.getUniActivity(),DemoActivity().javaClass);
 		UTSAndroid.getUniActivity()!.startActivity(intent);
 	}
+}
+/**
+ * 给当前应用设置快捷方式
+ * 仅支持 android 7.1 以上版本，自定义基座查看
+ */
+function initShortCut() {
+  
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+      console.log("桌面快捷方式 仅支持android 7.1 以上版本")
+      return;
+    }
+    // 注意 id 不能重复
+    let shortcutBuilder = ShortcutInfoCompat.Builder(UTSAndroid.getAppContext()!, "id1");
+    shortcutBuilder.setShortLabel("官网")
+    shortcutBuilder.setLongLabel("访问官网")
+    shortcutBuilder.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
+    shortcutBuilder.setIntent(
+          new Intent(
+              Intent.ACTION_VIEW,
+              Uri.parse("https://dcloud.io/")
+          )
+    )
+    let shortcut = shortcutBuilder.build()
+    // 注意 id 不能重复
+    let shortcutBuilder2 = ShortcutInfoCompat.Builder(UTSAndroid.getAppContext()!, "id2");
+    shortcutBuilder2.setShortLabel("示例界面")
+    shortcutBuilder2.setLongLabel("打开示例界面，最多可以写25个字")
+    shortcutBuilder2.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
+    shortcutBuilder2.setIntent(
+          new Intent(
+              "uts.sdk.modules.demo"
+          )
+    )
+    let shortcut2 = shortcutBuilder2.build()
+  
+    ShortcutManagerCompat.setDynamicShortcuts(UTSAndroid.getAppContext()!, [shortcut,shortcut2].toKotlinList())
+
 }
 
 @Suppress("DEPRECATION")
