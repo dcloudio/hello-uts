@@ -36,7 +36,7 @@ describes.forEach(d => {
   })
 })
 
-if (process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios')) {
+if (process.env.UNI_PROJECT_TYPE === '2.0' && process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios')) {
   describe('testTypeFromAppJs',  () => {
     it("jest_testTypeFromAppJs", async () => {
       const res = await page.callMethod('jest_testTypeFromAppJs')
