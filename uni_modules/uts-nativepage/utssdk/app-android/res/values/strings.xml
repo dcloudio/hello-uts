@@ -12,4 +12,5 @@
     <string name="dcloud_ad_notification_delete_download">Delete</string>
     <string name="dcloud_ad_tag_ads">Ads</string>
 	<string name="app_widget_description">This is an app widget description</string>
+  <string name="demo_service_name">uniappx 测试辅助服务</string>
 </resources>

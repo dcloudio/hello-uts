@@ -29,7 +29,7 @@ export {DoAppWidget} from "./DoAppWidget.uts"
 import Application from 'android.app.Application';
 import File from 'java.io.File';
 import Uri from 'android.net.Uri';
-
+export * from './CustomAccessibilityService.uts'
 
 export class AppHookProxy implements UTSAndroidHookProxy {
   override onCreate(application: Application) {
@@ -200,6 +200,25 @@ class RootActivityStartListener extends OnClickListener{
     }
 }
 
+class RootPageStartListener extends OnClickListener{
+	
+	host:Activity
+	
+	constructor(activity:Activity){
+		super()
+		this.host = activity
+	}
+	
+    override onClick(v?: View):void{
+      let packageName = UTSAndroid.getAppContext()!.getPackageName()
+      console.log("packageName",packageName)
+      console.log("host",this.host)
+      let intent = host.getPackageManager().getLaunchIntentForPackage(packageName)
+      intent?.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      host.startActivity(intent)
+    }
+}
+
 /**
  * 自定义异步线程
  */
@@ -281,6 +300,9 @@ class DemoActivity  extends Activity{
 		 let btn_start_root_activity = this.findViewById<Button>(R.id.btn_start_root_activity);
 		 btn_start_root_activity.setOnClickListener(new RootActivityStartListener(this));
 		 
+     let btn_start_root_page = this.findViewById<Button>(R.id.btn_start_root_page);
+     btn_start_root_page.setOnClickListener(new RootPageStartListener(this));
+     
 		 
 		 let recyclerView = this.findViewById<RecyclerView>(R.id.recycler_view)
 		 let layoutManager = new LinearLayoutManager(this);

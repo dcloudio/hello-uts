@@ -17,7 +17,7 @@ export const getLog : GetLog = function (param : Any|null) : string {
   let jsonLog = allLog
   jsonLog = jsonLog.replace("---BEGIN:CONSOLE---", "")
   jsonLog = jsonLog.replace("---END:CONSOLE---", "")
-  let jsonArrayObj = JSON.parse<UTSArray<UTSJSONObject>>(jsonLog)
+  let jsonArrayObj = JSON.parse<Array<UTSJSONObject>>(jsonLog)
   return jsonArrayObj![0].toJSONString()
 }
 
@@ -35,6 +35,28 @@ class C {
     console.log("sayHello",word)
   }
 }
+
+/**
+ * 高频对象测试，主要是系统组件对象
+ */
+export function frequentlyObjectTest():boolean{
+	
+  let typeLogRet = getLog(UTSAndroid.getUniActivity())
+  console.log(typeLogRet)
+  let typeLogObj = JSON.parseObject(typeLogRet)!
+  
+  // let typeLogObjPos = typeLogObj.getJSON("__$originalPosition")!
+  // if("ParamOptions" != typeLogObjPos['name']){
+  //   return false
+  // }
+  // /**
+  //  * 编译出来的位置信息可能有差异，排除单独验证后，排除掉这个字段
+  //  */
+  // typeLogObj.set("__$originalPosition","")
+  // console.log(typeLogObj.toJSONString())
+  return true
+}
+
 
 export function logObjectTest():string{
 	let ret : ParamOptions = {
@@ -70,6 +92,27 @@ export function logFileTest():string{
 
 export function logDateTest():string{
   return getLog(new Date('1998-08-08'))
+}
+
+export function logUTSJSONObjectTest():string{
+  
+
+  let classLogRet = getLog({a:1})
+  let classLogObj = JSON.parseObject(classLogRet)!
+  
+  let classLogObjPos = classLogObj.getJSON("__$originalPosition")
+  
+  if(classLogObjPos == null){
+    return ""
+  }
+  
+  if("UTSJSONObject" != classLogObjPos['name']){
+    return ""
+  }
+  
+  classLogObj.set("__$originalPosition","")
+  return classLogObj.toJSONString()
+  
 }
 
 export function logClassTest():string{

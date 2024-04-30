@@ -1,4 +1,5 @@
 <template>
+  <!-- #ifdef APP-ANDROID -->
   <!-- #ifdef APP -->
   <scroll-view style="flex: 1">
     <!-- #endif -->
@@ -45,9 +46,11 @@
     <!-- #ifdef APP -->
   </scroll-view>
   <!-- #endif -->
+  <!-- #endif -->
 </template>
 
 <script>
+  <!-- #ifdef APP-ANDROID -->
 import {
   getAppContextTest,
   getUniActivityTest,
@@ -257,6 +260,7 @@ export default {
     },
   },
 }
+<!-- #endif -->
 </script>
 
 <style>
