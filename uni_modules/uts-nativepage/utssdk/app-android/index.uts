@@ -362,8 +362,13 @@ function initShortCut() {
           )
     )
     let shortcut2 = shortcutBuilder2.build()
-  
-    ShortcutManagerCompat.setDynamicShortcuts(UTSAndroid.getAppContext()!, [shortcut,shortcut2].toKotlinList())
+    
+    // #ifdef UNI-APP-X
+      ShortcutManagerCompat.setDynamicShortcuts(UTSAndroid.getAppContext()!, [shortcut,shortcut2].toKotlinList())
+    // #endif
+    // #ifndef UNI-APP-X
+      console.log("当前示例仅支持uni-app x环境")
+    // #endif
 
 }
 
