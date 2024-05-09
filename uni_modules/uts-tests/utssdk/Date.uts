@@ -67,7 +67,6 @@ export function testDate() : Result {
     
     test('newDateTest', () => {
       // #ifdef APP-ANDROID
-      console.log(new Date("2024/5/1").toString())
       expect(new Date("2024/5/1").toString()).toEqual("Wed May 01 2024 00:00:00 GMT+0800");
       expect(new Date("2024/5/1 10:00:00").toString()).toEqual("Wed May 01 2024 10:00:00 GMT+0800");
       expect(new Date("2024-05-01 10:00:00").toString()).toEqual("Wed May 01 2024 10:00:00 GMT+0800");
