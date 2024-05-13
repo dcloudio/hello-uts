@@ -109,6 +109,8 @@ export function testMath(): Result {
             expect(Math.ceil(4)).toEqual(4);
             expect(Math.ceil(7.004)).toEqual(8);
             expect(Math.ceil(-7.004)).toEqual(-7);
+            expect(Math.ceil(37110233000.223)).toEqual(37110233001);
+            expect(Math.ceil(-37110233000.223)).toEqual(-37110233000);
         })
         test('clz32', () => {
             expect(Math.clz32(1)).toEqual(31);
@@ -141,6 +143,8 @@ export function testMath(): Result {
             expect(Math.floor(5.05)).toEqual(5);
             expect(Math.floor(5)).toEqual(5);
             expect(Math.floor(-5.05)).toEqual(-6);
+            expect(Math.floor(37110233000.223)).toEqual(37110233000);
+            expect(Math.floor(-37110233000.223)).toEqual(-37110233001);
         })
         test('fround', () => {
             expect(Math.fround(1.5)).toEqual(1.5);
@@ -236,10 +240,12 @@ export function testMath(): Result {
             expect(Math.trunc(42.84)).toEqual(42);
             expect(Math.trunc(0.123)).toEqual(0);
         })
-		test('round', () => {
-		    expect(Math.round(0.9)).toEqual(1);
-		    expect(Math.round(5.95)).toEqual(6);
-		    expect(Math.round(-5.05)).toEqual(-5);
-		})
+      test('round', () => {
+          expect(Math.round(0.9)).toEqual(1);
+          expect(Math.round(5.95)).toEqual(6);
+          expect(Math.round(-5.05)).toEqual(-5);
+          expect(Math.round(37110233000.223)).toEqual(37110233000);
+          expect(Math.round(-37110233000.223)).toEqual(-37110233000);
+      })
     })
 }
