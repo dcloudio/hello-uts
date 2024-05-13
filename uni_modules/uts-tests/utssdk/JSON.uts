@@ -321,5 +321,14 @@ export function testJSON() : Result {
       expect(map.get('a')).toEqual(1)
     })
 
+    test('parse Map', () => {
+      type A = {
+        num: number,
+      }
+      const map = JSON.parse<Map<string, A>>(`{"a": {"num": 1}}`)
+      expect(map instanceof Map).toEqual(true)
+      expect(map?.get('a')?.num).toEqual(1)
+    })
+
   })
 }
