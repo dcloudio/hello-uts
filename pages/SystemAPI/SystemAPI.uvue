@@ -18,7 +18,7 @@
     </view>
 </template>
 <script lang="ts">
-    import { gotoDemoActivity } from "@/uni_modules/uts-nativepage";
+    import { gotoDemoActivity,sayHelloFromJar } from "@/uni_modules/uts-nativepage";
     import { getBatteryInfo, GetBatteryInfoOptions } from "@/uni_modules/uts-getbatteryinfo";
     
     type Page = {
@@ -66,6 +66,9 @@
                         pages: [{
                             name: "自定义activity(需自定义基座)",
                             function: "testGotoDemoActivity"
+                        },{
+                            name: "调用jar中的方法",
+                            function: "testNativeJar"
                         }] as Page[]
                     }
                 ] as ListItem[],
@@ -93,6 +96,8 @@
                             break
                         case 'testGotoDemoActivity':
                             this.testGotoDemoActivity()
+                        case 'testNativeJar':
+                            this.testNativeJar()
                             break
                     }
                     return
@@ -111,6 +116,13 @@
                         });
                     }
                 } as GetBatteryInfoOptions)
+            },
+            testNativeJar() {
+                let ret = sayHelloFromJar();
+                uni.showToast({
+                    icon: 'none',
+                    title: '来自jar中的返回值:' + ret
+                })
             },
             testGotoDemoActivity() {
                 let ret = gotoDemoActivity();

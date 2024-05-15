@@ -36,6 +36,30 @@ import Log from 'android.util.Log';
 import File from 'java.io.File';
 import Uri from 'android.net.Uri';
 export * from './CustomAccessibilityService.uts'
+import SayHelloTest from 'com.test.sayhello.SayHelloTest'
+
+export function sayHelloFromJar(): string {
+  // 这里的逻辑是为了判断 当前的自定义activity 是否注册了，并以此为条件判断是否是自定义基座
+  let hasXActivityIntegration =  true
+  try{
+  	let packageManager = UTSAndroid.getUniActivity()!.getPackageManager();
+  	let intent = new Intent(UTSAndroid.getUniActivity(),DemoActivity().javaClass);
+  	let resolveInfo = packageManager.queryIntentActivities(intent,0);
+  	console.log(resolveInfo.size)
+  	if(resolveInfo.size == 0){
+  		hasXActivityIntegration = false;
+  	}
+  }catch(e:Exception){
+  	console.log(e);
+  	hasXActivityIntegration = false;
+  }
+  
+  if(!hasXActivityIntegration){
+  	return "需要在自定义基座运行";
+  }
+	return SayHelloTest().say()
+}
+
 
 export class AppHookProxy implements UTSAndroidHookProxy {
   override onCreate(application: Application) {
