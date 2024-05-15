@@ -44,6 +44,22 @@
       </view>
       <button @tap="getDeviceInfoClick">获取设备基础信息</button>
       <button @tap="getFileProviderUriClick">使用外部应用访问私有文件</button>
+      <!-- #ifdef APP-ANDROID -->
+        <button @tap="activityCallback">注册activity 回调方法</button>
+        <view class="uni-padding-wrap uni-common-mt">
+          <view class="uni-hello-text">
+            点击注册activity 回调方法后，可以手动切换其他APP再返回，可在控制台和界面观察事件日志
+          </view>
+        </view>
+        <view class="uni-padding-wrap uni-common-mt">
+          <view class="text-box" scroll-y="true">
+            <text>{{ cbText }}</text>
+          </view>
+        </view>
+        <button @tap="unRegActivityCallback">取消注册activity 回调方法</button>
+
+      <!-- #endif -->
+     
     </view>
     <!-- #ifdef APP -->
   </scroll-view>
@@ -71,6 +87,18 @@ import {
   privacyStateTest,
   privacyStateCallBackTest
 } from '@/uni_modules/uts-platform-api'
+// #ifdef APP-ANDROID
+import {
+    UTSAcvitiyLifeCycleCallback,
+    UTSAcvitiyKeyEventCallback,
+    UTSActivityWindowCallback,
+    UTSActivityCallback,
+    UTSActivityComponentCallback,
+    onCallbackChange
+} from '@/uni_modules/uts-syntaxcase/utssdk/app-android/index.uts'
+// #endif
+
+
 import File from 'java.io.File';
 import Intent from 'android.content.Intent';
 
@@ -81,8 +109,16 @@ export default {
   data() {
     return {
       text: '',
+      cbText:'',
       selectImage: '',
+      callbackIds: [] as string[]
     }
+  },
+  unmounted() {
+    // #ifdef APP-ANDROID
+    this.unRegActivityCallback()
+    // #endif
+    
   },
   onLoad: function () {
     let that = this
@@ -275,6 +311,35 @@ export default {
         }
       })
     },
+    // #ifdef APP-ANDROID
+    activityCallback(){
+      var that = this
+      onCallbackChange(function (eventLog:string) {
+        // 展示捕捉到的声明周期日志
+        let nextLine = that.cbText + eventLog
+        that.cbText = nextLine
+        let nextLineFlag = that.cbText + '\n'
+        that.cbText = nextLineFlag
+      })
+      let reg1= UTSAndroid.registerActivityCallback( new UTSAcvitiyLifeCycleCallback())
+      let reg2=UTSAndroid.registerActivityCallback(new UTSActivityWindowCallback())
+      let reg3=UTSAndroid.registerActivityCallback(new UTSAcvitiyKeyEventCallback())
+      let reg4= UTSAndroid.registerActivityCallback(new UTSActivityCallback())
+      let reg5= UTSAndroid.registerActivityCallback(new UTSActivityComponentCallback())
+      this.callbackIds.push(reg1)
+      this.callbackIds.push(reg2)
+      this.callbackIds.push(reg3)
+      this.callbackIds.push(reg4)
+      this.callbackIds.push(reg5)
+    },
+    unRegActivityCallback(){
+       this.callbackIds.forEach((value)=>{
+         console.log(value)
+         UTSAndroid.unRegisterActivityCallback(value)
+       })
+    }
+    // #endif
+
   },
 }
 <!-- #endif -->
