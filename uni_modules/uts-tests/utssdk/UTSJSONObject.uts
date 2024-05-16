@@ -1,0 +1,44 @@
+import { describe, test, expect, expectNumber, Result } from './tests.uts'
+
+
+
+export function testUTSJSONObject() : Result {
+  return describe("utsjsonobject", () => {
+    test('keys', () => {
+      // #ifdef APP-ANDROID
+        let obj = {
+          name:"zhangsan",
+          age:11
+        }
+        expect(UTSJSONObject.keys(obj).size).toEqual(2);
+        console.log(UTSJSONObject.keys(obj))
+      // #endif
+    })
+    
+    test('assign-notype', () => {
+      // #ifdef APP-ANDROID
+        const target = { a: 1, b: 2 };
+        const source = { b: 4, c: 5 };
+        const returnedTarget = UTSJSONObject.assign(target, source);
+        
+        expect(returnedTarget!.toMap().size).toEqual(3);
+        console.log(returnedTarget)
+      // #endif
+    })
+    
+    test('assign-withtype', () => {
+      // #ifdef APP-ANDROID
+        type User = {
+          a:number
+          b:number
+        }
+        const target = { a: 1, b: 2 };
+        const source = { b: 4, c: 5 };
+        const returnedTarget = UTSJSONObject.assign<User>(target, source);
+        
+        expect(returnedTarget!.a).toEqual(1);
+        console.log(returnedTarget)
+      // #endif
+    })
+  })
+}

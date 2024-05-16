@@ -5,6 +5,7 @@ import { testError } from './Error.uts'
 import { testKeyWord } from './KeyWord.uts'
 import { testJSON } from './JSON.uts'
 import { testJSONLarge } from './JSON_large.uts'
+import { testUTSJSONObject } from './UTSJSONObject.uts'
 import { testConsole } from './console.uts'
 import { testNumber } from './Number.uts'
 import { testMap } from './Map.uts'
@@ -36,6 +37,7 @@ export function runTests() : UTSJSONObject {
   const TypeRes = testType();
   const JSONLargeRes = testJSONLarge();
   const consoleRes = testConsole();
+  const UTSJSONObjectRes = testUTSJSONObject();
   return {
     Array: ArrayRes,
     Date: DateRes,
@@ -53,6 +55,7 @@ export function runTests() : UTSJSONObject {
     ForLoop: ForLoopRes,
     Global: GlobalRes,
     Type: TypeRes,
-    console:consoleRes
+    console:consoleRes,
+    UTSJSONObject:UTSJSONObjectRes
   }
 }
