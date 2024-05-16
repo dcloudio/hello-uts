@@ -97,7 +97,7 @@ import {
     onCallbackChange,
     registerCallbacks,
     unRegisterCallbacks
-} from '@/uni_modules/uts-syntaxcase/utssdk/app-android/index.uts'
+} from '@/uni_modules/uts-syntaxcase'
 // #endif
 
 
