@@ -6,12 +6,14 @@ import KeyboardShortcutGroup from 'android.view.KeyboardShortcutGroup';
 import WindowManager from 'android.view.WindowManager';
 import ActionMode from 'android.view.ActionMode';
 // export let onCallBackChange: (event: string) => void = (res) => {};
+ // #ifdef UNI-APP-X
 let callback : (eventLog : string) => void = (res) => { };
 let callbackIds : string[] = [];
 export function onCallbackChange(fn : (eventLog : string) => void) {
   callback = fn
 }
 export function registerCallbacks() {
+ 
   let reg1 = UTSAndroid.registerActivityCallback(new UTSAcvitiyLifeCycleCallback())
   let reg2 = UTSAndroid.registerActivityCallback(new UTSActivityWindowCallback())
   let reg3 = UTSAndroid.registerActivityCallback(new UTSAcvitiyKeyEventCallback())
@@ -22,6 +24,7 @@ export function registerCallbacks() {
   callbackIds.push(reg3)
   callbackIds.push(reg4)
   callbackIds.push(reg5)
+
 }
 
 export function unRegisterCallbacks() {
@@ -31,7 +34,7 @@ export function unRegisterCallbacks() {
   })
 }
 
-
+ 
 export class UTSAcvitiyLifeCycleCallback extends UniActivityLifeCycleCallback {
   constructor() {
     super()
@@ -158,3 +161,4 @@ export class UTSActivityComponentCallback extends UniActivityComponentCallback {
     callback('onPreConfigurationChanged')
   }
 }
+  // #endif
