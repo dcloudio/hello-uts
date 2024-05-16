@@ -94,7 +94,9 @@ import {
     UTSActivityWindowCallback,
     UTSActivityCallback,
     UTSActivityComponentCallback,
-    onCallbackChange
+    onCallbackChange,
+    registerCallbacks,
+    unRegisterCallbacks
 } from '@/uni_modules/uts-syntaxcase/utssdk/app-android/index.uts'
 // #endif
 
@@ -321,22 +323,10 @@ export default {
         let nextLineFlag = that.cbText + '\n'
         that.cbText = nextLineFlag
       })
-      let reg1= UTSAndroid.registerActivityCallback( new UTSAcvitiyLifeCycleCallback())
-      let reg2=UTSAndroid.registerActivityCallback(new UTSActivityWindowCallback())
-      let reg3=UTSAndroid.registerActivityCallback(new UTSAcvitiyKeyEventCallback())
-      let reg4= UTSAndroid.registerActivityCallback(new UTSActivityCallback())
-      let reg5= UTSAndroid.registerActivityCallback(new UTSActivityComponentCallback())
-      this.callbackIds.push(reg1)
-      this.callbackIds.push(reg2)
-      this.callbackIds.push(reg3)
-      this.callbackIds.push(reg4)
-      this.callbackIds.push(reg5)
+      registerCallbacks()
     },
     unRegActivityCallback(){
-       this.callbackIds.forEach((value)=>{
-         console.log(value)
-         UTSAndroid.unRegisterActivityCallback(value)
-       })
+      unRegisterCallbacks()
     }
     // #endif
 

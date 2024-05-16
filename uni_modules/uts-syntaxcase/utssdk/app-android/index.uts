@@ -6,10 +6,29 @@ import KeyboardShortcutGroup from 'android.view.KeyboardShortcutGroup';
 import WindowManager from 'android.view.WindowManager';
 import ActionMode from 'android.view.ActionMode';
 // export let onCallBackChange: (event: string) => void = (res) => {};
-let callback : (eventLog : string) => void= (res) => {};
-
+let callback : (eventLog : string) => void = (res) => { };
+let callbackIds : string[] = [];
 export function onCallbackChange(fn : (eventLog : string) => void) {
   callback = fn
+}
+export function registerCallbacks() {
+  let reg1 = UTSAndroid.registerActivityCallback(new UTSAcvitiyLifeCycleCallback())
+  let reg2 = UTSAndroid.registerActivityCallback(new UTSActivityWindowCallback())
+  let reg3 = UTSAndroid.registerActivityCallback(new UTSAcvitiyKeyEventCallback())
+  let reg4 = UTSAndroid.registerActivityCallback(new UTSActivityCallback())
+  let reg5 = UTSAndroid.registerActivityCallback(new UTSActivityComponentCallback())
+  callbackIds.push(reg1)
+  callbackIds.push(reg2)
+  callbackIds.push(reg3)
+  callbackIds.push(reg4)
+  callbackIds.push(reg5)
+}
+
+export function unRegisterCallbacks() {
+  callbackIds.forEach((value) => {
+    console.log(value)
+    UTSAndroid.unRegisterActivityCallback(value)
+  })
 }
 
 
