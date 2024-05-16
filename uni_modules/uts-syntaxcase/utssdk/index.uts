@@ -166,3 +166,170 @@ class RequestTaskImpl implements RequestTask {
 export function request(url : string) : RequestTask | null {
     return new RequestTaskImpl(url)
 }
+
+
+ // #ifdef UNI-APP-X
+import KeyEvent from 'android.view.KeyEvent';
+import Configuration from 'android.content.res.Configuration';
+import Bundle from 'android.os.Bundle';
+import Menu from 'android.view.Menu';
+import KeyboardShortcutGroup from 'android.view.KeyboardShortcutGroup';
+import WindowManager from 'android.view.WindowManager';
+import ActionMode from 'android.view.ActionMode';
+// export let onCallBackChange: (event: string) => void = (res) => {};
+
+let callback : (eventLog : string) => void = (res) => { };
+let callbackIds : string[] = [];
+export function onCallbackChange(fn : (eventLog : string) => void) {
+  callback = fn
+}
+export function registerCallbacks() {
+ 
+  let reg1 = UTSAndroid.registerActivityCallback(new UTSAcvitiyLifeCycleCallback())
+  let reg2 = UTSAndroid.registerActivityCallback(new UTSActivityWindowCallback())
+  let reg3 = UTSAndroid.registerActivityCallback(new UTSAcvitiyKeyEventCallback())
+  let reg4 = UTSAndroid.registerActivityCallback(new UTSActivityCallback())
+  let reg5 = UTSAndroid.registerActivityCallback(new UTSActivityComponentCallback())
+  callbackIds.push(reg1)
+  callbackIds.push(reg2)
+  callbackIds.push(reg3)
+  callbackIds.push(reg4)
+  callbackIds.push(reg5)
+
+}
+
+export function unRegisterCallbacks() {
+  callbackIds.forEach((value) => {
+    console.log(value)
+    UTSAndroid.unRegisterActivityCallback(value)
+  })
+}
+
+ 
+export class UTSAcvitiyLifeCycleCallback extends UniActivityLifeCycleCallback {
+  constructor() {
+    super()
+  }
+  override onCreate(params : UniActivityParams, savedInstanceState : Bundle | null) {
+    console.log('UTSAcvitiyLifeCycle', 'onCreate', savedInstanceState)
+    callback('onCreate')
+  }
+
+  override onResume(params : UniActivityParams) {
+    console.log('UTSAcvitiyLifeCycle', 'onResume', params)
+    callback('onResume')
+  }
+  override onPreResume(params : UniActivityParams) {
+    console.log('UTSAcvitiyLifeCycle', 'onPreResume', params)
+    callback('onPreResume')
+  }
+  override onStart(params : UniActivityParams) {
+    console.log('UTSAcvitiyLifeCycle', 'onStart', params)
+    callback('onStart')
+  }
+  override onPreStart(params : UniActivityParams) {
+    console.log('UTSAcvitiyLifeCycle', 'onPreStart', params)
+    callback('onPreStart')
+  }
+}
+export class UTSAcvitiyKeyEventCallback extends UniActivityKeyEventCallback {
+  constructor() {
+    super()
+  }
+  override onKeyDown(params : UniActivityParams, keyCode : Int, event : KeyEvent | null) {
+    console.log('UTSAcvitiyKeyEvent', 'onKeyDown', params, keyCode, '' + event)
+    callback('onKeyDown')
+  }
+  override onPreKeyDown(params : UniActivityParams, keyCode : Int, event : KeyEvent | null) {
+    console.log('UTSAcvitiyKeyEvent', 'onPreKeyDown', params, keyCode, '' + event)
+    callback('onPreKeyDown')
+  }
+  override onKeyLongPress(params : UniActivityParams, keyCode : Int, event : KeyEvent | null) {
+    console.log('UTSAcvitiyKeyEvent', 'onKeyLongPress', params, keyCode, '' + event)
+    callback('onKeyLongPress')
+  }
+  override onPreKeyLongPress(params : UniActivityParams, keyCode : Int, event : KeyEvent | null) {
+    console.log('UTSAcvitiyKeyEvent', 'onPreKeyLongPress', params, keyCode, '' + event)
+    callback('onPreKeyLongPress')
+  }
+}
+
+export class UTSActivityWindowCallback extends UniActivityWindowCallback {
+  constructor() {
+    super()
+  }
+  override dispatchPreKeyEvent(params : UniActivityParams, event : KeyEvent | null) {
+    console.log('UTSActivityWindowCallback', 'dispatchPreKeyEvent', params, '' + event)
+    callback('dispatchPreKeyEvent')
+  }
+  override dispatchKeyEvent(params : UniActivityParams, event : KeyEvent | null) {
+    console.log('UTSActivityWindowCallback', 'dispatchKeyEvent', params, '' + event)
+    callback('dispatchKeyEvent')
+  }
+  override  onWindowAttributesChanged(params : UniActivityParams, attrs : WindowManager.LayoutParams) {
+    console.log('UTSActivityWindowCallback', 'onWindowAttributesChanged', '' + attrs)
+    callback('onWindowAttributesChanged')
+
+  }
+  override onAttachedToWindow(params : UniActivityParams) {
+    console.log('UTSActivityWindowCallback', 'onAttachedToWindow', params)
+    callback('onAttachedToWindow')
+
+  }
+  override onPanelClosed(params : UniActivityParams, featureId : Int, menu : Menu) {
+    console.log('UTSActivityWindowCallback', 'onPanelClosed', featureId, menu)
+    callback('onPanelClosed')
+
+  }
+  override onWindowStartingActionMode(params : UniActivityParams, callback : ActionMode.Callback | null) {
+    console.log('UTSActivityWindowCallback', 'onWindowStartingActionMode', callback)
+    callback('onWindowStartingActionMode')
+  }
+  override onProvideKeyboardShortcuts(params : UniActivityParams, data : MutableList<KeyboardShortcutGroup> | null, menu : Menu | null, deviceId : Int) {
+    console.log('UTSActivityWindowCallback', 'onProvideKeyboardShortcuts', data, menu)
+    callback('onProvideKeyboardShortcuts')
+  }
+  override  onPreWindowAttributesChanged(params : UniActivityParams, attrs : WindowManager.LayoutParams) {
+    console.log('UTSActivityWindowCallback', 'onPreWindowAttributesChanged', attrs)
+    callback('onPreWindowAttributesChanged')
+  }
+  override  onPrePanelClosed(params : UniActivityParams, featureId : Int, menu : Menu) {
+    console.log('UTSActivityWindowCallback', 'onPrePanelClosed', featureId, menu)
+    callback('onPrePanelClosed')
+  }
+}
+
+export class UTSActivityCallback extends UniActivityCallback {
+  constructor() {
+    super()
+  }
+  override onBackPressed(params : UniActivityParams) {
+    console.log('UTSActivityCallback', 'onBackPressed', params)
+    callback('onBackPressed')
+  }
+  override onPreBackPressed(params : UniActivityParams) {
+    console.log('UTSActivityCallback', 'onPreBackPressed', params)
+    callback('onPreBackPressed')
+  }
+
+  override onRequestPermissionsResult(params : UniActivityParams, requestCode : Int, permissions : MutableList<String>, grantResults : IntArray) {
+    console.log('UTSActivityCallback', 'onRequestPermissionsResult', params)
+    callback('onRequestPermissionsResult')
+  }
+
+}
+
+export class UTSActivityComponentCallback extends UniActivityComponentCallback {
+  constructor() {
+    super()
+  }
+  override onConfigurationChanged(params : UniActivityParams, newConfig : Configuration) {
+    console.log('UTSActivityComponentCallback', 'onConfigurationChanged', params, '' + newConfig)
+    callback('onConfigurationChanged')
+  }
+  override onPreConfigurationChanged(params : UniActivityParams, newConfig : Configuration) {
+    console.log('UTSActivityComponentCallback', 'onPreConfigurationChanged', params, '' + newConfig)
+    callback('onPreConfigurationChanged')
+  }
+}
+  // #endif
