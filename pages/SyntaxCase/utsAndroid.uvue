@@ -1,8 +1,6 @@
 <template>
   <!-- #ifdef APP-ANDROID -->
-  <!-- #ifdef APP -->
   <scroll-view style="flex: 1">
-    <!-- #endif -->
     <view>
       <view class="uni-padding-wrap uni-common-mt">
         <view class="uni-hello-text"> 逐一点击执行，观察测试反馈 </view>
@@ -18,7 +16,6 @@
       <button @click="dispatchAsyncClick">任务分发测试</button>
       <button @click="pathTestClick">路径转换测试</button>
       <button @click="privacyStateClick">隐私协议状态测试</button>
-      <button @click="privacyStateCallBackClick">隐私协议回调测试</button>
       <button @click="privacyStateCallBackClick">隐私协议回调测试</button>
       <view class="uni-padding-wrap uni-common-mt">
         <view class="uni-hello-text">
@@ -44,299 +41,343 @@
       </view>
       <button @tap="getDeviceInfoClick">获取设备基础信息</button>
       <button @tap="getFileProviderUriClick">使用外部应用访问私有文件</button>
-      <!-- #ifdef APP-ANDROID -->
-        <button @tap="activityCallback">注册activity 回调方法</button>
-        <view class="uni-padding-wrap uni-common-mt">
-          <view class="uni-hello-text">
-            点击注册activity 回调方法后，可以手动切换其他APP再返回，可在控制台和界面观察事件日志
-          </view>
-        </view>
-        <view class="uni-padding-wrap uni-common-mt">
-          <view class="text-box" scroll-y="true">
-            <text>{{ cbText }}</text>
-          </view>
-        </view>
-        <button @tap="unRegActivityCallback">取消注册activity 回调方法</button>
 
-      <!-- #endif -->
-     
+      <button @tap="activityCallback">注册activity 回调方法</button>
+      <view class="uni-padding-wrap uni-common-mt">
+        <view class="uni-hello-text">
+          点击注册activity 回调方法后，可以手动切换其他APP再返回，可在控制台和界面观察事件日志
+        </view>
+      </view>
+      <view class="uni-padding-wrap uni-common-mt">
+        <view class="text-box" scroll-y="true">
+          <text>{{ cbText }}</text>
+        </view>
+      </view>
+      <button @tap="unRegActivityCallback">取消注册activity 回调方法</button>
     </view>
-    <!-- #ifdef APP -->
   </scroll-view>
-  <!-- #endif -->
   <!-- #endif -->
 </template>
 
 <script>
-  <!-- #ifdef APP-ANDROID -->
-import {
-  getAppContextTest,
-  getUniActivityTest,
-  getJavaClassTest,
-  getAppTempPathTest,
-  typeofClickTest,
-  gotoSystemPermissionActivityTest,
-  arrayPermissionFlowTest,
-  singlePermissionFlowTest,
-  dispatchAsyncTest,
-  convert2AbsFullPathTest,
-  unRegLifecycle,
-  initAppLifecycle,
-  gotoCameraTake,
-  getDeviceInfoTest,
-  privacyStateTest,
-  privacyStateCallBackTest
-} from '@/uni_modules/uts-platform-api'
-// #ifdef APP-ANDROID
-import {
+  import {
+    getAppContextTest,
+    getUniActivityTest,
+    getJavaClassTest,
+    getAppTempPathTest,
+    typeofClickTest,
+    gotoSystemPermissionActivityTest,
+    arrayPermissionFlowTest,
+    singlePermissionFlowTest,
+    dispatchAsyncTest,
+    convert2AbsFullPathTest,
+    unRegLifecycle,
+    initAppLifecycle,
+    gotoCameraTake,
+    getDeviceInfoTest,
+    privacyStateTest
+  } from '@/uni_modules/uts-platform-api'
+  // #ifdef APP-ANDROID
+  import {
     UTSAcvitiyLifeCycleCallback,
     UTSAcvitiyKeyEventCallback,
     UTSActivityWindowCallback,
     UTSActivityCallback,
     UTSActivityComponentCallback,
-    onCallbackChange,
-    registerCallbacks,
-    unRegisterCallbacks
-} from '@/uni_modules/uts-syntaxcase'
-// #endif
+    onCallbackChange
+  } from '@/uni_modules/uts-syntaxcase'
+  // #endif
 
 
-import File from 'java.io.File';
-import Intent from 'android.content.Intent';
+  import File from 'java.io.File';
+  import Intent from 'android.content.Intent';
 
-/**
- * 测试在页面生命周期之外，使用api
- */
-export default {
-  data() {
-    return {
-      text: '',
-      cbText:'',
-      selectImage: '',
-      callbackIds: [] as string[]
-    }
-  },
-  unmounted() {
-    // #ifdef APP-ANDROID
-    this.unRegActivityCallback()
-    // #endif
-    
-  },
-  onLoad: function () {
-    let that = this
-    initAppLifecycle(function (eventLog) {
-      // 展示捕捉到的声明周期日志
-      let nextLine = that.text + eventLog
-      that.text = nextLine
-      let nextLineFlag = that.text + '\n'
-      that.text = nextLineFlag
-    })
-  },
-  methods: {
-    privacyStateClick() {
-      privacyStateTest(function (ret, desc) {
-        if (ret) {
-          uni.showToast({
-            title: '测试通过',
-          })
-        } else {
-          uni.showToast({
-            icon: 'none',
-            title: '失败：' + desc,
-          })
-        }
+  /**
+   * 测试在页面生命周期之外，使用api
+   */
+  export default {
+    data() {
+      return {
+        text: '',
+        cbText: '',
+        selectImage: '',
+        callback: [] as Any[]
+      }
+    },
+    unmounted() {
+      // #ifdef APP-ANDROID
+      this.unRegActivityCallback()
+      // #endif
+
+    },
+    onLoad: function () {
+      let that = this
+      initAppLifecycle(function (eventLog) {
+        // 展示捕捉到的声明周期日志
+        let nextLine = that.text + eventLog
+        that.text = nextLine
+        let nextLineFlag = that.text + '\n'
+        that.text = nextLineFlag
       })
     },
-    privacyStateCallBackClick() {
-      privacyStateCallBackTest(function(ret, desc) {
-        if (ret) {
+    methods: {
+      privacyStateClick() {
+        privacyStateTest(function (ret, desc) {
+          if (ret) {
+            uni.showToast({
+              title: '测试通过',
+            })
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: '失败：' + desc,
+            })
+          }
+        })
+      },
+      privacyStateCallBackClick() {
+ 
+        let isAgree : boolean = true
+        
+        const cb = (ret : PrivacyOption) => {
+          console.log('privacyStateCallBackTest->' + ret.isAgree)
+          if (ret.isAgree==isAgree) {
+            uni.showToast({
+              title: '测试通过'
+            })
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: '失败'
+            })
+          }
+        }
+        // 先重置用户同意状态
+        UTSAndroid.onPrivacyAgreeChange(cb)
+        UTSAndroid.setPrivacyAgree(isAgree)
+        UTSAndroid.offPrivacyAgreeChange(cb)
+        setTimeout(function () {
+          console.log('privacyStateCallBackTest->false' )
+          
+          UTSAndroid.setPrivacyAgree(false)
+        }, 5000);
+      },
+      getDeviceInfoClick() {
+        this.text = getDeviceInfoTest()
+      },
+      testGoOtherActivity() {
+        var that = this
+        let ret = gotoCameraTake(function (file) {
+          // 展示捕捉到的声明周期日志
+          console.log(file)
+          that.selectImage = 'file://' + file
+        })
+
+        if (!ret) {
+          uni.showToast({
+            icon: 'none',
+            title: '测试失败',
+          })
+        }
+      },
+      testUnRegLifecycle() {
+        // 取消注册生命周期
+        unRegLifecycle()
+      },
+      getJavaClassClick() {
+        if (getJavaClassTest()) {
           uni.showToast({
             title: '测试通过'
           })
         } else {
           uni.showToast({
-            icon: 'none',
-            title: '失败：' + desc
+            icon: 'error',
+            title: '测试失败'
           })
         }
-      })
-    },
-    getDeviceInfoClick() {
-      this.text = getDeviceInfoTest()
-    },
-    testGoOtherActivity() {
-      var that = this
-      let ret = gotoCameraTake(function (file) {
-        // 展示捕捉到的声明周期日志
-        console.log(file)
-        that.selectImage = 'file://' + file
-      })
-
-      if (!ret) {
-        uni.showToast({
-          icon: 'none',
-          title: '测试失败',
-        })
-      }
-    },
-    testUnRegLifecycle() {
-      // 取消注册生命周期
-      unRegLifecycle()
-    },
-    getJavaClassClick() {
-      if (getJavaClassTest()) {
-      	uni.showToast({
-      		title: '测试通过'
-      	})
-      } else {
-      	uni.showToast({
-      		icon: 'error',
-      		title: '测试失败'
-      	})
-      }
-    },
-    getAppContextClick() {
-      if (getAppContextTest()) {
-        uni.showToast({
-          title: '测试通过',
-        })
-      } else {
-        uni.showToast({
-          icon: 'error',
-          title: '测试失败',
-        })
-      }
-    },
-
-    getUniActivityClick() {
-      if (getUniActivityTest()) {
-        uni.showToast({
-          title: '测试通过',
-        })
-      } else {
-        uni.showToast({
-          icon: 'error',
-          title: '测试失败',
-        })
-      }
-    },
-    pathTestClick() {
-      if (convert2AbsFullPathTest()) {
-        uni.showToast({
-          title: '测试通过',
-        })
-      } else {
-        uni.showToast({
-          icon: 'error',
-          title: '测试失败',
-        })
-      }
-    },
-    getFileProviderUriClick() {
-      let file = new File(UTSAndroid.getResourcePath("static/logo.png"))
-      const uri = UTSAndroid.getFileProviderUri(file)
-      console.log("uri",uri.toString())
-      const intent = new Intent(Intent.ACTION_VIEW, uri)
-      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // 添加权限标志 
-      const context = UTSAndroid.getUniActivity()!;
-      context.startActivity(intent);
-    },
-    getAppTempPathClick() {
-      if (getAppTempPathTest()) {
-        uni.showToast({
-          title: '测试通过',
-        })
-      } else {
-        uni.showToast({
-          icon: 'error',
-          title: '测试失败',
-        })
-      }
-    },
-    dispatchAsyncClick() {
-      dispatchAsyncTest(function (ret, desc) {
-        if (ret) {
+      },
+      getAppContextClick() {
+        if (getAppContextTest()) {
           uni.showToast({
             title: '测试通过',
           })
         } else {
           uni.showToast({
-            icon: 'none',
-            title: '失败：' + desc,
+            icon: 'error',
+            title: '测试失败',
           })
         }
-      })
-    },
-    typeofClick() {
-      if (typeofClickTest()) {
-        uni.showToast({
-          title: '测试通过',
+      },
+
+      getUniActivityClick() {
+        if (getUniActivityTest()) {
+          uni.showToast({
+            title: '测试通过',
+          })
+        } else {
+          uni.showToast({
+            icon: 'error',
+            title: '测试失败',
+          })
+        }
+      },
+      pathTestClick() {
+        if (convert2AbsFullPathTest()) {
+          uni.showToast({
+            title: '测试通过',
+          })
+        } else {
+          uni.showToast({
+            icon: 'error',
+            title: '测试失败',
+          })
+        }
+      },
+      getFileProviderUriClick() {
+        let file = new File(UTSAndroid.getResourcePath("static/logo.png"))
+        const uri = UTSAndroid.getFileProviderUri(file)
+        console.log("uri", uri.toString())
+        const intent = new Intent(Intent.ACTION_VIEW, uri)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // 添加权限标志 
+        const context = UTSAndroid.getUniActivity()!;
+        context.startActivity(intent);
+      },
+      getAppTempPathClick() {
+        if (getAppTempPathTest()) {
+          uni.showToast({
+            title: '测试通过',
+          })
+        } else {
+          uni.showToast({
+            icon: 'error',
+            title: '测试失败',
+          })
+        }
+      },
+      dispatchAsyncClick() {
+        dispatchAsyncTest(function (ret, desc) {
+          if (ret) {
+            uni.showToast({
+              title: '测试通过',
+            })
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: '失败：' + desc,
+            })
+          }
         })
-      } else {
-        uni.showToast({
-          icon: 'error',
-          title: '测试失败',
+      },
+      typeofClick() {
+        if (typeofClickTest()) {
+          uni.showToast({
+            title: '测试通过',
+          })
+        } else {
+          uni.showToast({
+            icon: 'error',
+            title: '测试失败',
+          })
+        }
+      },
+
+      gotoSystemPermissionActivityClick() {
+        gotoSystemPermissionActivityTest()
+      },
+      arrayPermissionFlowClick() {
+        arrayPermissionFlowTest(function (ret, desc) {
+          if (ret) {
+            uni.showToast({
+              icon: 'none',
+              title: '测试通过',
+            })
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: '失败：' + desc,
+            })
+          }
+        })
+      },
+      singlePermissionFlowClick() {
+        singlePermissionFlowTest(function (ret, desc) {
+          if (ret) {
+            uni.showToast({
+              icon: 'none',
+              title: '测试通过',
+            })
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: '失败：' + desc,
+            })
+          }
+        })
+      },
+      // #ifdef APP-ANDROID
+      // #ifdef UNI-APP-X
+      activityCallback() {
+        var that = this
+        onCallbackChange(function (eventLog : string) {
+          // 展示捕捉到的声明周期日志
+          let nextLine = that.cbText + eventLog
+          that.cbText = nextLine
+          let nextLineFlag = that.cbText + '\n'
+          that.cbText = nextLineFlag
+        })
+        this.callback.push(new UTSAcvitiyLifeCycleCallback())
+        this.callback.push(new UTSActivityWindowCallback())
+        this.callback.push(new UTSAcvitiyKeyEventCallback())
+        this.callback.push(new UTSActivityCallback())
+        this.callback.push(new UTSActivityComponentCallback())
+        this.callback.forEach((value) => {
+          if (value instanceof UTSAcvitiyLifeCycleCallback) {
+            UTSAndroid.onActivityCallback(value)
+          }
+          if (value instanceof UTSActivityWindowCallback) {
+            UTSAndroid.onActivityCallback(value)
+          }
+          if (value instanceof UTSAcvitiyKeyEventCallback) {
+            UTSAndroid.onActivityCallback(value)
+          }
+          if (value instanceof UTSActivityCallback) {
+            UTSAndroid.onActivityCallback(value)
+          }
+          if (value instanceof UTSActivityComponentCallback) {
+            UTSAndroid.onActivityCallback(value)
+          }
+
+        })
+      },
+      unRegActivityCallback() {
+        this.callback.forEach((value) => {
+
+          if (value instanceof UTSAcvitiyLifeCycleCallback) {
+            UTSAndroid.offActivityCallback(value)
+          }
+          if (value instanceof UTSActivityWindowCallback) {
+            UTSAndroid.offActivityCallback(value)
+          }
+          if (value instanceof UTSAcvitiyKeyEventCallback) {
+            UTSAndroid.offActivityCallback(value)
+          }
+          if (value instanceof UTSActivityCallback) {
+            UTSAndroid.offActivityCallback(value)
+          }
+          if (value instanceof UTSActivityComponentCallback) {
+            UTSAndroid.offActivityCallback(value)
+          }
         })
       }
-    },
+      // #endif
+      // #endif
 
-    gotoSystemPermissionActivityClick() {
-      gotoSystemPermissionActivityTest()
     },
-    arrayPermissionFlowClick() {
-      arrayPermissionFlowTest(function (ret, desc) {
-        if (ret) {
-          uni.showToast({
-            icon: 'none',
-            title: '测试通过',
-          })
-        } else {
-          uni.showToast({
-            icon: 'none',
-            title: '失败：' + desc,
-          })
-        }
-      })
-    },
-    singlePermissionFlowClick() {
-      singlePermissionFlowTest(function (ret, desc) {
-        if (ret) {
-          uni.showToast({
-            icon: 'none',
-            title: '测试通过',
-          })
-        } else {
-          uni.showToast({
-            icon: 'none',
-            title: '失败：' + desc,
-          })
-        }
-      })
-    },
-    // #ifdef APP-ANDROID
-    activityCallback(){
-      var that = this
-      onCallbackChange(function (eventLog:string) {
-        // 展示捕捉到的声明周期日志
-        let nextLine = that.cbText + eventLog
-        that.cbText = nextLine
-        let nextLineFlag = that.cbText + '\n'
-        that.cbText = nextLineFlag
-      })
-      registerCallbacks()
-    },
-    unRegActivityCallback(){
-      unRegisterCallbacks()
-    }
-    // #endif
-
-  },
-}
-<!-- #endif -->
+  }
 </script>
 
 <style>
-.testButton {
-  width: 100%;
-}
+  .testButton {
+    width: 100%;
+  }
 </style>
