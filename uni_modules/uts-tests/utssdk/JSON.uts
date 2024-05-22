@@ -157,6 +157,29 @@ export function testJSON() : Result {
       // expect((array3![0])["name"]).toEqual("John");
 
     })
+    
+    test('merge-test-1', () => {
+      // #ifdef APP-ANDROID
+        const data1 = {
+        		name: 'Tom1',
+        		age: 21
+        	};
+        
+        const data2 = {
+        	aa: {
+        		name: 'Tom2',
+        		age: 22,
+        		bb: {
+        			name: 'Tom3',
+        			age: 23
+        		}
+        	}
+        }
+        const obj = Object.assign(JSON.parse<UTSJSONObject>(JSON.stringify(data2))!, JSON.parse<UTSJSONObject>(JSON.stringify(data1))!) as UTSJSONObject; 
+        const innerObj = obj.getJSON("aa.bb")
+        expect(innerObj instanceof UTSJSONObject).toEqual(true);
+      // #endif
+    })
     test('stringify', () => {
       const obj = { name: 'John', age: 30 };
       const json = JSON.stringify(obj);
@@ -296,6 +319,15 @@ export function testJSON() : Result {
         a: 1
       }.toMap()
       expect(map.get('a')).toEqual(1)
+    })
+
+    test('parse Map', () => {
+      type A = {
+        num: number,
+      }
+      const map = JSON.parse<Map<string, A>>(`{"a": {"num": 1}}`)
+      expect(map instanceof Map).toEqual(true)
+      expect(map?.get('a')?.num).toEqual(1)
     })
 
   })
