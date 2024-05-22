@@ -1,0 +1,21 @@
+import { describe, test, expect, expectNumber, Result } from './tests.uts'
+
+
+function obtainInnerObject(obj:Any | null):UTSJSONObject{
+  let jsonStr = console.getLogV2(obj).slice(19,-17)
+  let a = JSON.parseArray(jsonStr)![0]
+  return a as UTSJSONObject
+}
+
+export function testConsole() : Result {
+  return describe("log", () => {
+    test('log-native-obj', () => {
+      // #ifdef APP-ANDROID
+        expect(obtainInnerObject(0.9).get("type")).toEqual("Double");
+        expect(obtainInnerObject(0.9).get("subType")).toEqual("number");
+        expect(obtainInnerObject(0.9).get("value")).toEqual("0.9");
+      // #endif
+    }
+	)
+  })
+}

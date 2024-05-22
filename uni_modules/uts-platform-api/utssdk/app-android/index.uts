@@ -81,6 +81,27 @@ export function privacyStateTest(callback : (ret : boolean, desc : string) => vo
 }
 
 
+export function privacyStateCallBackTest(callback : (ret : boolean, desc : string) => void) {
+  let isAgree : boolean = true
+  const cb = (ret : PrivacyOption) => {
+    console.log('privacyStateCallBackTest->' + ret.isAgree)
+    if (ret.isAgree == isAgree) {
+      callback(true, "pass")
+    } else {
+      callback(false, "callback error")
+    }
+  }
+  // 先重置用户同意状态
+  UTSAndroid.onPrivacyAgreeChange(cb)
+  UTSAndroid.setPrivacyAgree(isAgree)
+  UTSAndroid.offPrivacyAgreeChange(cb)
+  setTimeout(function () {
+    console.log('privacyStateCallBackTest->false')
+
+    UTSAndroid.setPrivacyAgree(false)
+  }, 5000);
+}
+
 /**
  * UTSAndroid.getAppTempPath 测试示例
  */

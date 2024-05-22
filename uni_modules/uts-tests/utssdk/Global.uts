@@ -3,6 +3,22 @@ import { describe, test, expect, Result } from './tests.uts'
 export function testGlobal(): Result {
     return describe("Global", () => {
 		
+    
+    test('setInterval', () => {
+      
+      // #ifdef APP-ANDROID
+      let aCount = 0
+      let taskId = setInterval(function(){
+      	aCount += 1
+      },0)
+      setTimeout(function(){
+          console.log(aCount)
+          console.log(taskId)
+          clearInterval(taskId)
+          expect(aCount > 10).toEqual(true);
+      },200)
+      // #endif
+    })
 		test('parseInt', () => {
 			expect(parseInt("123.456")).toEqual(123);
 			expect(parseInt("123")).toEqual(123);

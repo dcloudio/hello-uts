@@ -18,8 +18,13 @@
             android:resource="@xml/custom_accessibility_service_config" />
     </service>
     
-	   <service android:name="uts.sdk.modules.utsNativepage.ForeService"  />
-       <activity android:name="uts.sdk.modules.utsNativepage.DemoActivity"></activity>
+	   <service android:name="uts.sdk.modules.utsNativepage.ForeService"  android:exported="true"/>
+     <activity android:name="uts.sdk.modules.utsNativepage.DemoActivity" android:exported="true">
+        <intent-filter>
+            <action android:name="uts.sdk.modules.demo" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+     </activity>
 	   <!--桌面widget组件注册-->
 	   <receiver
 		   android:name="uts.sdk.modules.utsNativepage.DoAppWidget"
