@@ -136,12 +136,12 @@
         })
       },
       privacyStateCallBackClick() {
- 
+
         let isAgree : boolean = true
-        
+
         const cb = (ret : PrivacyOption) => {
           console.log('privacyStateCallBackTest->' + ret.isAgree)
-          if (ret.isAgree==isAgree) {
+          if (ret.isAgree == isAgree) {
             uni.showToast({
               title: '测试通过'
             })
@@ -157,8 +157,8 @@
         UTSAndroid.setPrivacyAgree(isAgree)
         UTSAndroid.offPrivacyAgreeChange(cb)
         setTimeout(function () {
-          console.log('privacyStateCallBackTest->false' )
-          
+          console.log('privacyStateCallBackTest->false')
+
           UTSAndroid.setPrivacyAgree(false)
         }, 5000);
       },
@@ -325,14 +325,17 @@
           let nextLineFlag = that.cbText + '\n'
           that.cbText = nextLineFlag
         })
+        let index = getCurrentPages().length - 1
+        let page = getCurrentPages()[index]
+        console.log('page route=' + page.route)
         this.callback.push(new UTSAcvitiyLifeCycleCallback())
         this.callback.push(new UTSActivityWindowCallback())
         this.callback.push(new UTSAcvitiyKeyEventCallback())
-        this.callback.push(new UTSActivityCallback())
+        this.callback.push(new UTSActivityCallback(), page.route)
         this.callback.push(new UTSActivityComponentCallback())
         this.callback.forEach((value) => {
           if (value instanceof UTSAcvitiyLifeCycleCallback) {
-            UTSAndroid.onActivityCallback(value)
+            UTSAndroid.onActivityCallback(value,page.route)
           }
           if (value instanceof UTSActivityWindowCallback) {
             UTSAndroid.onActivityCallback(value)
