@@ -96,7 +96,7 @@
                     // 正式打包会放在asset中，需要特殊处理
                     let realJsonPath = UTSAndroid.getResourcePath(newPath)
                     if(realJsonPath.startsWith("/android_asset")){
-                      lottieAnimationView.setAnimation(realJsonPath!.substring(15))
+                      lottieAnimationView.setAnimation(realJsonPath.substring(15))
                     }else{
                       lottieAnimationView.setAnimation(new FileInputStream(realJsonPath),newPath)
                     }
