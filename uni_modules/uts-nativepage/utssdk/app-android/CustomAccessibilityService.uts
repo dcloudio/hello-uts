@@ -15,13 +15,10 @@ export class CustomAccessibilityService extends AccessibilityService  {
 
   override onAccessibilityEvent(event:AccessibilityEvent ):void {
     
-    if(event == null){
-      return ;
-    }
-    console.log("packagename",event!.getPackageName())
-    if("io.dcloud.uniappx" == event!.getPackageName()){
+    console.log("packagename",event.getPackageName())
+    if("io.dcloud.uniappx" == event.getPackageName()){
         console.log("辅助服务消息:uniappx 基座打开")
-    }else if("io.dcloud.HBuilder" == event!.getPackageName()){
+    }else if("io.dcloud.HBuilder" == event.getPackageName()){
         console.log("辅助服务消息:HBuilder 基座被打开")
     }
   }
