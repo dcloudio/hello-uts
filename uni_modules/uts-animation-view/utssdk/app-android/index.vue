@@ -93,9 +93,13 @@
 						    if (newPath.startsWith("http://") || newPath.startsWith("https://")) {
 						        lottieAnimationView.setAnimationFromUrl(newPath)
 						    } else {
-						        // 默认是static了
-								var realJsonPath = UTSAndroid.getResourcePath(newPath)
-						        lottieAnimationView.setAnimation(new FileInputStream(realJsonPath),newPath)
+                    // 正式打包会放在asset中，需要特殊处理
+                    let realJsonPath = UTSAndroid.getResourcePath(newPath)
+                    if(realJsonPath.startsWith("/android_asset")){
+                      lottieAnimationView.setAnimation(realJsonPath!.substring(15))
+                    }else{
+                      lottieAnimationView.setAnimation(new FileInputStream(realJsonPath),newPath)
+                    }
 						    }
 						}
 						if (this.autoplay) {
