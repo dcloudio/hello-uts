@@ -22,9 +22,9 @@ import AlertDialog from 'android.app.AlertDialog';
 import DialogInterface from 'android.content.DialogInterface';
 import EditText from 'android.widget.EditText';
 
+
 import array from 'android.R.array';
 import File from 'java.io.File';
-
 
 
 /**

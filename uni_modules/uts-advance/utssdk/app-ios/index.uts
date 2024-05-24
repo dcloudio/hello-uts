@@ -1,5 +1,6 @@
 import { UIImageView , UIImage , UIScreen } from 'UIKit';
 import { DispatchQueue } from 'Dispatch';
+
 import { UTSiOS } from "DCloudUTSFoundation";
 
 export function addViewToDecorView() { }
