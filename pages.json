@@ -156,7 +156,10 @@
 				"enablePullDownRefresh": false
 			}
 
-		},
+		}
+    // #endif
+    // #ifdef APP-Android
+    ,
 		{
 			"path": "pages/SyntaxCase/utsAndroid",
 			"style": {
@@ -164,14 +167,16 @@
 				"enablePullDownRefresh": false
 			}
 
-		},
+		}
+    // #endif
+    // #ifdef APP-iOS
+    ,
 		{
 			"path": "pages/SyntaxCase/utsiOS",
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
-
 		}
     // #endif
 
