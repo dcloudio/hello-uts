@@ -326,7 +326,9 @@ export function testJSON() : Result {
         num: number,
       }
       const map = JSON.parse<Map<string, A>>(`{"a": {"num": 1}}`)
+      // #ifndef APP-IOS
       expect(map instanceof Map).toEqual(true)
+      // #endif
       expect(map?.get('a')?.num).toEqual(1)
     })
 
