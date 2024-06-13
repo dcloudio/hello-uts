@@ -76,6 +76,13 @@ export function testNumber() : Result {
       expect(aj?.a == ki).toEqual(true);
       expect(aj?.a == kd).toEqual(true);
       expect(aj?.a == kf).toEqual(true);
+      // 对比JSON.parse 和 new 得到的对象属性
+      let newA = A(1)
+      expect(aj?.a == newA.a).toEqual(true);
+      newA.a = 1.0
+      expect(aj?.a == newA.a).toEqual(true);
+      newA.a = 1.1
+      expect(aj?.a == newA.a).toEqual(false);
       
     })
     
