@@ -60,6 +60,25 @@ export function testNumber() : Result {
       expect(isFinite(910)).toEqual(true);
       expect(isFinite(0)).toEqual(true);
     })
+    
+    test('number-from-json-parse', () => {
+      type A = {
+      	a:number
+      }
+      let aj = JSON.parse<A>('{"a":1}');
+      expect(aj?.a == 1).toEqual(true);
+      expect(aj?.a == 1 as number).toEqual(true);
+      expect(aj?.a == 1.0).toEqual(true);
+      expect(aj?.a == 1.0 as number).toEqual(true);
+      let ki:Int = 1;
+      let kd:Double = 1.0;
+      let kf:Float = (1.0).toFloat();  
+      expect(aj?.a == ki).toEqual(true);
+      expect(aj?.a == kd).toEqual(true);
+      expect(aj?.a == kf).toEqual(true);
+      
+    })
+    
     test('isInteger', () => {
       expect(Number.isInteger(12)).toEqual(true);
       expect(Number.isInteger(12.01)).toEqual(false);

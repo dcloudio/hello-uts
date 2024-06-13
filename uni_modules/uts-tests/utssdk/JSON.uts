@@ -319,6 +319,12 @@ export function testJSON() : Result {
         a: 1
       }.toMap()
       expect(map.get('a')).toEqual(1)
+      
+      const json = `{"result":true, "count":42}`;
+      const obj = JSON.parse(json) as UTSJSONObject;
+      let retStr = JSON.stringify(obj)
+      expect(retStr).toEqual('{"result":true,"count":42}')
+      
     })
 
     test('parse Map', () => {

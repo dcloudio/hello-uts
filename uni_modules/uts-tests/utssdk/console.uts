@@ -21,7 +21,21 @@ export function testConsole() : Result {
         expect(obtainInnerObject(pageInstance).get("className")).toEqual("io.dcloud.uniapp.vue.ComponentInternalInstance");
         expect(obtainInnerObject(pageInstance).get("type")).toEqual("object");
       // #endif
-    }
-	)
+    })
+    
+    test('console-number-from-JSON-parse', () => {
+      // #ifdef APP-ANDROID
+      
+      let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
+      console.log(aj2!['a'])
+      
+      expect(obtainInnerObject(aj2!['a']).get("type")).toEqual("number");
+      expect(obtainInnerObject(aj2!['a']).get("subType")).toEqual("number");
+      
+      // #endif
+      
+    })
+    
   })
+  
 }
