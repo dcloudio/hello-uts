@@ -70,21 +70,31 @@ export function testNumber() : Result {
       expect(aj?.a == 1 as number).toEqual(true);
       expect(aj?.a == 1.0).toEqual(true);
       expect(aj?.a == 1.0 as number).toEqual(true);
+      expect(aj?.a === 1).toEqual(true);
+      expect(aj?.a === 1 as number).toEqual(true);
+      expect(aj?.a === 1.0).toEqual(true);
+      expect(aj?.a === 1.0 as number).toEqual(true);
       let ki:Int = 1;
       let kd:Double = 1.0;
       let kf:Float = (1.0).toFloat();  
       expect(aj?.a == ki).toEqual(true);
       expect(aj?.a == kd).toEqual(true);
       expect(aj?.a == kf).toEqual(true);
+      expect(aj?.a === ki).toEqual(true);
+      expect(aj?.a === kd).toEqual(true);
+      expect(aj?.a === kf).toEqual(true);
       // 对比JSON.parse 和 new 得到的对象属性
       let newA = A(1)
       expect(aj?.a == newA.a).toEqual(true);
+      expect(aj?.a === newA.a).toEqual(true);
       newA.a = 1.0
       expect(aj?.a == newA.a).toEqual(true);
+      expect(aj?.a === newA.a).toEqual(true);
       newA.a = 1.1
       expect(aj?.a == newA.a).toEqual(false);
-      
+      expect(aj?.a === newA.a).toEqual(false);
     })
+    
     
     test('isInteger', () => {
       expect(Number.isInteger(12)).toEqual(true);
