@@ -93,6 +93,15 @@ export function testNumber() : Result {
       newA.a = 1.1
       expect(aj?.a == newA.a).toEqual(false);
       expect(aj?.a === newA.a).toEqual(false);
+      
+      let a10 = JSON.parse("10")
+      let b10 = JSON.parse("10")
+      let c10 = JSON.parse("10.0")
+      expect(a10 == b10).toEqual(true);
+      expect(a10 == c10).toEqual(true);
+      let aj2 = JSON.parse<A>('{"a":1}');
+      expect(aj?.a == aj2?.a).toEqual(true);
+      
     })
     
     
