@@ -59,6 +59,14 @@ export function testNumber() : Result {
       expect(isFinite(1000 / 1)).toEqual(true);
       expect(isFinite(910)).toEqual(true);
       expect(isFinite(0)).toEqual(true);
+      
+      let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
+      let aNumber = aj2['a'] as UTSNumber
+      expect(isFinite(aNumber)).toEqual(true);
+      expect(UTSNumber.isFinite(aNumber)).toEqual(true);
+      expect(UTSNumber.isFinite(11.00)).toEqual(true);
+      expect(UTSNumber.isFinite(Double.POSITIVE_INFINITY)).toEqual(false);
+      
     })
     
     test('number-from-json-parse', () => {
