@@ -17,6 +17,7 @@
 		<button @click="dispatchAsyncClick">任务分发测试</button>
 		<button @click="pathTestClick">路径转换测试</button>
 		<button @click="privacyStateClick">隐私协议状态测试</button>
+    <button @click="privacyStateCallBackClick">隐私协议回调测试</button>
 		<view class="uni-padding-wrap uni-common-mt">
 			<view class="uni-hello-text">
 				1. 当前页面已通过initAppLifecycle函数注册了生命周期监听。
@@ -60,7 +61,8 @@
 		initAppLifecycle,
 		gotoCameraTake,
 		getDeviceInfoTest,
-		privacyStateTest
+		privacyStateTest,
+    privacyStateCallBackTest
 	} from '@/uni_modules/uts-platform-api'
 	/**
 	 * 测试在页面生命周期之外，使用api
@@ -95,6 +97,20 @@
 					}
 				})
 			},
+      privacyStateCallBackClick() {
+        privacyStateCallBackTest(function(ret, desc) {
+          if (ret) {
+            uni.showToast({
+              title: '测试通过'
+            })
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: '失败：' + desc
+            })
+          }
+        })
+      },
 			getDeviceInfoClick(){
 				this.text = getDeviceInfoTest()
 			},

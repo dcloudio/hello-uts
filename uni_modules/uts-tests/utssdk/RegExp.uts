@@ -224,6 +224,8 @@ export function testRegExp(): Result {
             const result8 = pattern8.exec('https://example.org')!;
             expect(result8[0]).toEqual('https://example.org');
             
+            // #ifndef WEB
+            // 目前的测试环境safari版本为15，不支持?<
             const pattern9 = /(?<=@)\w+/;
             const result9 = pattern9.exec('Email: john@example.com')!;
             expect(result9[0]).toEqual('example');
@@ -231,6 +233,7 @@ export function testRegExp(): Result {
             const pattern10 = /(?<!@)\w+/;
             const result10 = pattern10.exec('Username: john')!;
             expect(result10[0]).toEqual('Username');
+            // #endif
             
             
             const CHUNK_REGEXP =

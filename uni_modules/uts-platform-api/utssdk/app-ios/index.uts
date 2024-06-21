@@ -397,10 +397,10 @@ function convertBoolTest(): UTSiOSTestResult {
 
 /* 将数据转换为 NSNumber */
 function convertNumberTest(): UTSiOSTestResult {
-	let ret: NSNumber = UTSiOS.convertNumber(1000)
-	let res: UTSiOSTestResult = {
+	let ret: NSNumber | null = UTSiOS.convertNumber(1000)
+	let res: UTSiOSTestResult = {  
 		key: "1000 转成number",
-		value: `${ret.intValue}`,
+		value: `${ret?.intValue}`,
 		passed: true
 	}
 	return res;
