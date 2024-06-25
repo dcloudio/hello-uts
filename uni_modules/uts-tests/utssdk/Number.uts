@@ -59,7 +59,63 @@ export function testNumber() : Result {
       expect(isFinite(1000 / 1)).toEqual(true);
       expect(isFinite(910)).toEqual(true);
       expect(isFinite(0)).toEqual(true);
+       // #ifdef APP-ANDROID
+      let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
+      let aNumber = aj2['a'] as UTSNumber
+      expect(isFinite(aNumber)).toEqual(true);
+      expect(UTSNumber.isFinite(aNumber)).toEqual(true);
+      expect(UTSNumber.isFinite(11.00)).toEqual(true);
+      expect(UTSNumber.isFinite(Double.POSITIVE_INFINITY)).toEqual(false);
+      // #endif
     })
+    
+    test('number-from-json-parse', () => {
+      type A = {
+      	a:number
+      }
+      let aj = JSON.parse<A>('{"a":1}');
+      expect(aj?.a == 1).toEqual(true);
+      expect(aj?.a == 1 as number).toEqual(true);
+      expect(aj?.a == 1.0).toEqual(true);
+      expect(aj?.a == 1.0 as number).toEqual(true);
+      // #ifdef APP-ANDROID
+      expect(aj?.a === 1).toEqual(true);
+      expect(aj?.a === 1 as number).toEqual(true);
+      expect(aj?.a === 1.0).toEqual(true);
+      expect(aj?.a === 1.0 as number).toEqual(true);
+      let ki:Int = 1;
+      let kd:Double = 1.0;
+      let kf:Float = (1.0).toFloat();  
+      expect(aj?.a == ki).toEqual(true);
+      expect(aj?.a == kd).toEqual(true);
+      expect(aj?.a == kf).toEqual(true);
+      expect(aj?.a === ki).toEqual(true);
+      expect(aj?.a === kd).toEqual(true);
+      expect(aj?.a === kf).toEqual(true);
+      // 对比JSON.parse 和 new 得到的对象属性
+      let newA = A(1)
+      expect(aj?.a == newA.a).toEqual(true);
+      expect(aj?.a === newA.a).toEqual(true);
+      newA.a = 1.0
+      expect(aj?.a == newA.a).toEqual(true);
+      expect(aj?.a === newA.a).toEqual(true);
+      newA.a = 1.1
+      expect(aj?.a == newA.a).toEqual(false);
+      expect(aj?.a === newA.a).toEqual(false);
+      
+      let a10 = JSON.parse("10")
+      let b10 = JSON.parse("10")
+      let c10 = JSON.parse("10.0")
+      expect(a10 == b10).toEqual(true);
+      expect(a10 == c10).toEqual(true);
+      let aj2 = JSON.parse<A>('{"a":1}');
+      expect(aj?.a == aj2?.a).toEqual(true);
+      
+      // #endif
+      
+    })
+    
+    
     test('isInteger', () => {
       expect(Number.isInteger(12)).toEqual(true);
       expect(Number.isInteger(12.01)).toEqual(false);
@@ -69,6 +125,15 @@ export function testNumber() : Result {
 
     test('isNaN', () => {
       expect(isNaN(0)).toEqual(false);
+      // #ifdef APP-ANDROID
+      let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
+      let aNumber = aj2['a'] as UTSNumber
+      expect(isNaN(aNumber)).toEqual(false);
+      expect(UTSNumber.isNaN(aNumber)).toEqual(false);
+      expect(UTSNumber.isNaN(11)).toEqual(false);
+      expect(UTSNumber.isNaN(null)).toEqual(false);
+      expect(UTSNumber.isNaN(1 / 0)).toEqual(false);
+      // #endif
     })
 
     test('toPrecision', () => {

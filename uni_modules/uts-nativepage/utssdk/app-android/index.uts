@@ -382,7 +382,8 @@ function initShortCut() {
     shortcutBuilder2.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
     shortcutBuilder2.setIntent(
           new Intent(
-              "uts.sdk.modules.demo"
+              Intent.ACTION_VIEW,
+              Uri.parse("appuniappx://market/111")
           )
     )
     let shortcut2 = shortcutBuilder2.build()
