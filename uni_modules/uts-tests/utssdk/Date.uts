@@ -36,14 +36,14 @@ export function testDate() : Result {
 			const date1 = new Date('01 Jan 1970 00:00:00 GMT');
 			const date2 = new Date('December 17, 1995 03:24:00');
 			
-			// // #ifndef APP-IOS
-			// expect(date1.toTimeString()).toEqual("08:00:00 GMT+0800 (中国标准时间)");
-			// expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800 (中国标准时间)");
-			// // #endif
-			// // #ifndef APP-ANDROID
-			// expect(date1.toTimeString()).toEqual("08:00:00 GMT+0800");
-			// expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800");
-			// // #endif
+			// #ifndef APP-IOS
+			expect(date1.toTimeString()).toEqual("08:00:00 GMT+0800 (中国标准时间)");
+			expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800 (中国标准时间)");
+			// #endif
+			// #ifndef APP-ANDROID
+			expect(date1.toTimeString()).toEqual("08:00:00 GMT+0800");
+			expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800");
+			// #endif
 		})
     
     test('toXString', () => {
