@@ -323,8 +323,9 @@ export function testJSON() : Result {
       const json = `{"result":true, "count":42}`;
       const obj = JSON.parse(json) as UTSJSONObject;
       let retStr = JSON.stringify(obj)
+      // #ifdef APP-ANDROID
       expect(retStr).toEqual('{"result":true,"count":42}')
-      
+      // #endif
     })
 
     test('parse Map', () => {

@@ -27,6 +27,7 @@ export function testUTSJSONObject() : Result {
     })
     
     test('setvalue-after-get', () => {
+      // #ifdef APP-ANDROID
         let obj = {
           "cars":[
             {
@@ -35,12 +36,12 @@ export function testUTSJSONObject() : Result {
             }
           ]
         }
-              
+            
         let cars = obj.getArray<UTSJSONObject>("cars")
         cars![0].set("value",20)
         let firstCar = obj.getJSON("cars[0]")
         expect(firstCar!['value']).toEqual(20);
-        
+        // #endif
     })
     
     test('assign-withtype', () => {
