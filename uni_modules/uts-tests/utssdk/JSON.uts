@@ -181,6 +181,49 @@ export function testJSON() : Result {
         expect(innerObj instanceof UTSJSONObject).toEqual(true);
       // #endif
     })
+    test('stringify-with-replacer', () => {
+      // #ifdef APP-ANDROID
+      let a = JSON.stringify({"x":111,"y":"aaa"})
+      expect(a).toEqual('{"x":111,"y":"aaa"}');
+      let a1 = JSON.stringify({"x":111,"y":"aaa"},function(key:any,value:any|null):any|null{
+          if(key == "x"){
+            return "x"
+          }
+          return value
+      })
+      expect(a1).toEqual('{"x":"x","y":"aaa"}');
+      let a2 = JSON.stringify({"x":111,"y":"aaa"},function(key:any,value:any|null):any|null{
+          if(key == "x"){
+            return "x"
+          }
+          return value
+      },6)
+      expect(a2.length).toEqual(36);
+      let a3 = JSON.stringify({"x":111,"y":"aaa"},function(key:any,value:any|null):any|null{
+          if(key == "x"){
+            return "x"
+          }
+          return value
+      },11)
+      expect(a3.length).toEqual(44);
+      
+      let a4 = JSON.stringify({"x":111,"y":"aaa"},function(key:any,value:any|null):any|null{
+          if(key == "x"){
+            return "x"
+          }
+          return value
+      },-11)
+      expect(a4.length).toEqual(19);
+      
+      let a5 = JSON.stringify({"x":111,"y":"aaa","z":{"x":123}},["x",'z'])
+      expect(a5).toEqual('{"x":111,"z":{"x":123}}');
+      
+      let a6 = JSON.stringify({"x":111,"y":"aaa","z":{"x":123}},["x",'y','z'])
+      expect(a6).toEqual('{"x":111,"y":"aaa","z":{"x":123}}');
+      let a7 = JSON.stringify({"x":111,"y":"aaa","z":{"x":123}},["x",'y','z'])
+      expect(a7.length).toEqual(91);
+      // #endif
+    })
     test('stringify', () => {
       // #ifdef APP-ANDROID
 
