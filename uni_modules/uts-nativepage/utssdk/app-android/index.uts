@@ -75,7 +75,7 @@ export class AppHookProxy implements UTSAndroidHookProxy {
 }
 
 
-
+@Suppress("DEPRECATION")
 class ForeService extends Service {
 
 	constructor (){
@@ -130,6 +130,7 @@ class ForeService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    
     override onDestroy():void {
         super.onDestroy();
         this.stopForeground(true);// 停止前台服务--参数：表示是否移除之前的通知
