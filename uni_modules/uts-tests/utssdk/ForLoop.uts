@@ -1,5 +1,6 @@
 import { describe, test, expect, Result } from './tests.uts'
 
+@Suppress("IMPLICIT_BOXING_IN_IDENTITY_EQUALS")
 export function testForLoop(): Result {
   return describe('ForLoop', () => {
     test('syntax', () => {

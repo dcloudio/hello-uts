@@ -164,8 +164,7 @@
   	text-align: left;
   	padding-left: 20px;
   	padding-right: 20px;
-  	max-width: 100%;
-  	overflow: auto;
-  	overflow-wrap: normal;
+  	max-width: 750rpx;
+  	overflow: visible;
   }
 </style>

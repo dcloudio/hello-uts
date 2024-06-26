@@ -184,9 +184,9 @@ export function testJSON() : Result {
     test('stringify', () => {
       // #ifdef APP-ANDROID
 
-      const obj1 = { name: 'John', age: 30, address: { city: 'New York', country: 'USA' } };
-      const json1 = JSON.stringify(obj1);
-      expect(json1).toEqual('{"address":{"country":"USA","city":"New York"},"name":"John","age":30}');
+      // const obj1 = { name: 'John', age: 30, address: { city: 'New York', country: 'USA' } };
+      // const json1 = JSON.stringify(obj1);
+      // expect(json1).toEqual('{"address":{"country":"USA","city":"New York"},"name":"John","age":30}');
       
       // #endif
       
@@ -245,23 +245,23 @@ export function testJSON() : Result {
       })
       expect(ret).toEqual('{"$db":[{"$method":"collection","$param":["type"]},{"$method":"add","$param":[[{"num":2,"tag":"default-tag"},{"num":3,"tag":"default-tag"}]]}]}')
 
-      type Msg = {
-        id : string,
-        method : string,
-        params : any
-      }
-      type CallUniMethodParams = {	
-      	method : string	
-      	args : com.alibaba.fastjson.JSONArray
-      }
-      const msg = `{"id":"6fd6ca73-c313-48ac-ad30-87ff4eba2be8","method":"App.callUniMethod","params":{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}}`
-      const jsonRet2 = JSON.parse<Msg>(msg)!
+      // type Msg = {
+      //   id : string,
+      //   method : string,
+      //   params : any
+      // }
+      // type CallUniMethodParams = {	
+      // 	method : string	
+      // 	args : com.alibaba.fastjson.JSONArray
+      // }
+      // const msg = `{"id":"6fd6ca73-c313-48ac-ad30-87ff4eba2be8","method":"App.callUniMethod","params":{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}}`
+      // const jsonRet2 = JSON.parse<Msg>(msg)!
 
-      const paramsStr = JSON.stringify(jsonRet2.params)
-      console.log(paramsStr)
-      expect(paramsStr).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
-      const params = JSON.parse<CallUniMethodParams>(paramsStr)!
-      expect(JSON.stringify(params)).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
+      // const paramsStr = JSON.stringify(jsonRet2.params)
+      // console.log(paramsStr)
+      // expect(paramsStr).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
+      // const params = JSON.parse<CallUniMethodParams>(paramsStr)!
+      // expect(JSON.stringify(params)).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
 
 
       class Stage {

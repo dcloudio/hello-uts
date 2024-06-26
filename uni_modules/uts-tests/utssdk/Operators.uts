@@ -320,7 +320,7 @@ export function testOperators(): Result {
             expect(a).toEqual(1);
             let b = -5; // -00000000000000000000000000000101
             b >>>= 2;   //  00111111111111111111111111111110
-            // expect(b).toEqual(1073741822);
+            expect(b).toEqual(1073741822);
         })
     })
 }

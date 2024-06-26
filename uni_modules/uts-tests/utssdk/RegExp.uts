@@ -239,8 +239,8 @@ export function testRegExp(): Result {
             const CHUNK_REGEXP =
                 /^(\S*)?\s*(\d*\.?\d+(?:ms|s)?)?\s*(\S*)?\s*(\d*\.?\d+(?:ms|s)?)?$/
             const match2 = CHUNK_REGEXP.exec('none')
-            expect(match2![0]).toEqual("none");
-            expect(match2![1]).toEqual("none");
+            expect(match2?.[0]).toEqual("none");
+            expect(match2?.[1]).toEqual("none");
             // expect(JSON.stringify(match2![2])).toEqual("null");
             // expect(JSON.stringify(match2![3])).toEqual("null");
             // expect(JSON.stringify(match2![4])).toEqual("null");
