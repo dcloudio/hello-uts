@@ -177,7 +177,7 @@ import WindowManager from 'android.view.WindowManager';
 import ActionMode from 'android.view.ActionMode';
 // export let onCallBackChange: (event: string) => void = (res) => {};
 
-let callback : (eventLog : string) => void = (res) => { };
+let callback : (eventLog : string) => void = (_) => { };
 
 export function onCallbackChange(fn : (eventLog : string) => void) {
   callback = fn

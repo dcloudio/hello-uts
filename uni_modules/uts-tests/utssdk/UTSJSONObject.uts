@@ -21,7 +21,7 @@ export function testUTSJSONObject() : Result {
         const source = { b: 4, c: 5 };
         const returnedTarget = UTSJSONObject.assign(target, source);
         
-        expect(returnedTarget!.toMap().size).toEqual(3);
+        expect(returnedTarget.toMap().size).toEqual(3);
         console.log(returnedTarget)
       // #endif
     })

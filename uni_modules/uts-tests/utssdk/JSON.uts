@@ -119,8 +119,8 @@ export function testJSON() : Result {
     test('parseObject', () => {
       const json = `{"result":true, "count":42}`;
       const obj = JSON.parseObject(json);
-      expect(obj!["count"]).toEqual(42);
-      expect(obj!["result"] as boolean).toEqual(true);
+      expect(obj?.["count"]).toEqual(42);
+      expect(obj?.["result"] as boolean).toEqual(true);
 
       expect(JSON.parseObject('{}')!).toEqual({});
 
@@ -152,10 +152,11 @@ export function testJSON() : Result {
       expect(array2).toEqual([1, "hello world", 3]);
 
 
+      // #ifdef APP-ANDROID
       const json3 = `[{"name":"John","id":"30"},{"name":"jack","id":"21"}]`;
       const array3 = JSON.parseArray<UTSJSONObject>(json3);
-      // expect((array3![0])["name"]).toEqual("John");
-
+      expect((array3![0])["name"]).toEqual("John");
+      // #endif
     })
     
     test('merge-test-1', () => {
@@ -181,14 +182,14 @@ export function testJSON() : Result {
       // #endif
     })
     test('stringify', () => {
-      const obj = { name: 'John', age: 30 };
-      const json = JSON.stringify(obj);
-      // expect(json).toEqual('{"name":"John","age":30}');
+      // #ifdef APP-ANDROID
 
       const obj1 = { name: 'John', age: 30, address: { city: 'New York', country: 'USA' } };
       const json1 = JSON.stringify(obj1);
-      // expect(json1).toEqual('{"address":{"country":"USA","city":"New York"},"name":"John","age":30}');
-
+      expect(json1).toEqual('{"address":{"country":"USA","city":"New York"},"name":"John","age":30}');
+      
+      // #endif
+      
       const obj2 = ['apple', 'banana', 'cherry'];
       const json2 = JSON.stringify(obj2);
       expect(json2).toEqual('["apple","banana","cherry"]');
@@ -223,6 +224,7 @@ export function testJSON() : Result {
        * add since 2023-09-23
        * 部分出错过的示例场景
        */
+      // #ifdef APP-ANDROID
       const arr = [{
         "$method": "collection",
         "$param": ["type"] as Array<any>,
@@ -241,26 +243,25 @@ export function testJSON() : Result {
       let ret = JSON.stringify({
         $db: arr
       })
-      // expect(ret).toEqual('{"$db":[{"$method":"collection","$param":["type"]},{"$method":"add","$param":[[{"num":2,"tag":"default-tag"},{"num":3,"tag":"default-tag"}]]}]}')
+      expect(ret).toEqual('{"$db":[{"$method":"collection","$param":["type"]},{"$method":"add","$param":[[{"num":2,"tag":"default-tag"},{"num":3,"tag":"default-tag"}]]}]}')
 
       type Msg = {
         id : string,
         method : string,
         params : any
       }
-      // type CallUniMethodParams = {	
-      // 	method : string	
-      // 	args : com.alibaba.fastjson.JSONArray
-      // }
+      type CallUniMethodParams = {	
+      	method : string	
+      	args : com.alibaba.fastjson.JSONArray
+      }
       const msg = `{"id":"6fd6ca73-c313-48ac-ad30-87ff4eba2be8","method":"App.callUniMethod","params":{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}}`
       const jsonRet2 = JSON.parse<Msg>(msg)!
 
       const paramsStr = JSON.stringify(jsonRet2.params)
       console.log(paramsStr)
-      //expect(paramsStr).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
-      // const params = JSON.parse<CallUniMethodParams>(paramsStr)!
-      //console.warn('params', JSON.stringify(params))
-      //expect(JSON.stringify(params)).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
+      expect(paramsStr).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
+      const params = JSON.parse<CallUniMethodParams>(paramsStr)!
+      expect(JSON.stringify(params)).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
 
 
       class Stage {
@@ -275,10 +276,10 @@ export function testJSON() : Result {
       const obj22 = {
         data: [new Stage()] as Array<any>
       } as UTSJSONObject
+      expect(JSON.stringify(obj22)).toEqual('{"data":[{}]}')
 
-      console.log(JSON.stringify(obj22))
-      // expect(JSON.stringify(obj22)).toEqual('{"data":[{}]}')
-
+      // #endif
+      
       type A = {
         inserted : number
       }

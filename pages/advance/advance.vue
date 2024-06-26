@@ -220,18 +220,18 @@
             testQuitApp() {
                 quitApp()
             },
-			testOpenFileWithProvider() {
-                openFileWithProvider("apps/__UNI__70BE9D0/www/static/logo.png")
+            testOpenFileWithProvider() {
+                openFileWithProvider()
             },
-			testArrayConvert() {
-				let convertRet = arrayConvert()
-				if(convertRet){
-					uni.showToast({
-					    icon: "none",
-					    title: '数组转换成功'
-					});
-				}
-			},
+            testArrayConvert() {
+              let convertRet = arrayConvert()
+              if(convertRet){
+                uni.showToast({
+                    icon: "none",
+                    title: '数组转换成功'
+                });
+              }
+            },
             testMetaRead() {
                 let ret = getMetaConfig();
                 uni.showToast({

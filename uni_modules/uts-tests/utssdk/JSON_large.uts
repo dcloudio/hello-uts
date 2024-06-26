@@ -22527,7 +22527,7 @@ export function testJSONLarge() : Result {
         let spendTime = System.currentTimeMillis() - startTime
         
         console.log('指定类型转换耗时',spendTime,listdata!.length)
-        expect(listdata!.length).toEqual(33);
+        expect(listdata.length).toEqual(33);
         expect(spendTime < 500).toEqual(true);
         
         startTime = System.currentTimeMillis()
@@ -22535,7 +22535,7 @@ export function testJSONLarge() : Result {
         spendTime = System.currentTimeMillis() - startTime
         expect(listdata2 instanceof Array).toEqual(true);
         let parseArray = listdata2 as Array
-        expect(parseArray!.length).toEqual(33);
+        expect(parseArray.length).toEqual(33);
         expect(spendTime < 300).toEqual(true);
         console.log('不指定类型转换耗时',spendTime,listdata2)
         

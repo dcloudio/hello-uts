@@ -510,7 +510,7 @@ export function arrayConvert():boolean{
 }
 
 
-export function openFileWithProvider(url:String){
+export function openFileWithProvider(){
 	let file = new File(UTSAndroid.getResourcePath("static/logo.png"))
   const uri = UTSAndroid.getFileProviderUri(file)
 	console.log("uri",uri.toString())
