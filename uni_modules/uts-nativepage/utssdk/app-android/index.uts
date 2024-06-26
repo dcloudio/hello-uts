@@ -364,32 +364,33 @@ function initShortCut() {
       console.log("桌面快捷方式 仅支持android 7.1 以上版本")
       return;
     }
-    // 注意 id 不能重复
-    let shortcutBuilder = ShortcutInfoCompat.Builder(UTSAndroid.getAppContext()!, "id1");
-    shortcutBuilder.setShortLabel("官网")
-    shortcutBuilder.setLongLabel("访问官网")
-    shortcutBuilder.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
-    shortcutBuilder.setIntent(
-          new Intent(
-              Intent.ACTION_VIEW,
-              Uri.parse("https://dcloud.io/")
-          )
-    )
-    let shortcut = shortcutBuilder.build()
-    // 注意 id 不能重复
-    let shortcutBuilder2 = ShortcutInfoCompat.Builder(UTSAndroid.getAppContext()!, "id2");
-    shortcutBuilder2.setShortLabel("示例界面")
-    shortcutBuilder2.setLongLabel("打开示例界面，最多可以写25个字")
-    shortcutBuilder2.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
-    shortcutBuilder2.setIntent(
-          new Intent(
-              Intent.ACTION_VIEW,
-              Uri.parse("appuniappx://market/111")
-          )
-    )
-    let shortcut2 = shortcutBuilder2.build()
+
     
     // #ifdef UNI-APP-X
+      // 注意 id 不能重复
+      let shortcutBuilder = ShortcutInfoCompat.Builder(UTSAndroid.getAppContext()!, "id1");
+      shortcutBuilder.setShortLabel("官网")
+      shortcutBuilder.setLongLabel("访问官网")
+      shortcutBuilder.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
+      shortcutBuilder.setIntent(
+            new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://dcloud.io/")
+            )
+      )
+      let shortcut = shortcutBuilder.build()
+      // 注意 id 不能重复
+      let shortcutBuilder2 = ShortcutInfoCompat.Builder(UTSAndroid.getAppContext()!, "id2");
+      shortcutBuilder2.setShortLabel("示例界面")
+      shortcutBuilder2.setLongLabel("打开示例界面，最多可以写25个字")
+      shortcutBuilder2.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
+      shortcutBuilder2.setIntent(
+            new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("appuniappx://market/111")
+            )
+      )
+      let shortcut2 = shortcutBuilder2.build()
       ShortcutManagerCompat.setDynamicShortcuts(UTSAndroid.getAppContext()!, [shortcut,shortcut2].toKotlinList())
     // #endif
     // #ifndef UNI-APP-X
