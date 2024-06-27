@@ -23,6 +23,20 @@ type PersonJSON = {
 }
 
 
+function countOccurrences(str:string, substr:string):number {
+  
+  let count = 0
+  let position = 0
+
+  while (true) {
+      position = str.indexOf(substr, position)
+      if (position == -1) break
+      count++
+      position += substr.length
+  }
+
+  return count;
+}
 
 
 export function testJSON() : Result {
@@ -220,8 +234,15 @@ export function testJSON() : Result {
       
       let a6 = JSON.stringify({"x":111,"y":"aaa","z":{"x":123}},["x",'y','z'])
       expect(a6).toEqual('{"x":111,"y":"aaa","z":{"x":123}}');
-      let a7 = JSON.stringify({"x":111,"y":"aaa","z":{"x":123}},["x",'y','z'])
+      let a7 = JSON.stringify({"x":111,"y":"aaa","z":{"x":123}},["x",'y','z'],8)
       expect(a7.length).toEqual(91);
+      
+      let a8 = JSON.stringify({"x":111,"y":"aaa","z":{"x":123}},["x",'y','z'],"99999")
+      
+      expect(a8.length).toEqual(73);
+      expect(countOccurrences(a8,"99999")).toEqual(6);
+      
+      
       // #endif
     })
     test('stringify', () => {
