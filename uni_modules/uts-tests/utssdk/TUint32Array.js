@@ -1,0 +1,276 @@
+import {
+  describe,
+  test,
+  expect,
+  Result
+} from './tests.uts'
+
+export class TUint32Array {
+  test() {
+    this.testfloat32();
+    this.testConstructor();
+    this.testSet();
+    this.testCopyWith();
+    this.testEvery();
+    this.testFill();
+    this.testFilter();
+    this.find();
+    this.findIndex();
+    this.foreach();
+    this.iterator();
+    this.includes();
+    this.indexOf();
+    this.join();
+    this.keys();
+    this.map();
+    this.reduce();
+    this.reduceRight();
+    this.reverse();
+    this.slice();
+    this.sort();
+    this.subarray();
+    this.values();
+    this.arrayBufferSlice();
+  }
+
+  testfloat32() {
+    let float32 = new Uint32Array(2);
+    float32[0] = 42;
+    expect(float32[0]).toEqual(42);
+    expect(float32.length).toEqual(2);
+    expect(Uint32Array.BYTES_PER_ELEMENT).toEqual(4);
+
+    let x = new Uint32Array([21, 31, 3]);
+    expect(x[1]).toEqual(31);
+
+    let y = new Uint32Array(x);
+    expect(y[0]).toEqual(21);
+
+    let buffer = new ArrayBuffer(16);
+    let z = new Uint32Array(buffer, 2, 4);
+    expect(z.byteOffset).toEqual(2);
+    expect(z.length).toEqual(4);
+  }
+
+  testConstructor() {
+    let buffer = new ArrayBuffer(16);
+    let float32 = new Uint32Array(buffer);
+    float32[1] = 42;
+    expect(float32.toString()).toEqual("0,42,0,0");
+  }
+
+  testSet() {
+    let float32 = new Uint32Array(8);
+    var array = [1, 2, 3]
+    float32.set(array, 1);
+    expect(float32.toString()).toEqual("0,1,2,3,0,0,0,0");
+  }
+
+  testCopyWith() {
+    console.log("testCopyWith 1")
+    let float32 = new Uint32Array(8);
+    float32.set([1, 2, 3], 1);
+    console.log("testCopyWith 1")
+    float32.copyWithin(3, 0, 3);
+    console.log("testCopyWith 1")
+    expect(float32.toString()).toEqual("0,1,2,0,1,2,0,0");
+  }
+
+  testEvery() {
+    // const isBelowThreshold = (currentValue: number, index: number, array:Uint32Array): boolean => currentValue < 40;    
+    let result = new Uint32Array([12, 5, 8, 130, 44]).every((value: number, index: number, array: Uint32Array):
+      boolean => value < 40); // 
+    expect(result).toEqual(false);
+  }
+
+  testFill() {
+    let float32 = new Uint32Array([1, 2, 3]).fill(4);
+    expect(float32.toString()).toEqual("4,4,4");
+
+    float32 = new Uint32Array([1, 2, 3]).fill(4, 1);
+    expect(float32.toString()).toEqual("1,4,4");
+
+    float32 = new Uint32Array([1, 2, 3]).fill(4, 1, 2);
+    expect(float32.toString()).toEqual("1,4,3");
+
+    float32 = new Uint32Array([1, 2, 3]).fill(4, 1, 1);
+    expect(float32.toString()).toEqual("1,2,3");
+
+    float32 = new Uint32Array([1, 2, 3]).fill(4, -3, -2);
+    expect(float32.toString()).toEqual("4,2,3");
+  }
+
+  testFilter() {
+    // const isBelowThreshold = (currentValue: number, index: number, _): boolean => currentValue >= 10;
+
+    let float32 = new Uint32Array([12, 5, 8, 44]).filter((value: number, index: number, array: Uint32Array):
+      boolean => value >= 10);
+    expect(float32.toString()).toEqual("12,44");
+  }
+
+  find() {
+    let float32 = new Uint32Array([4, 5, 8, 12]);
+    let res = float32.find((value: number, index: number, obj: Uint32Array): boolean => value > 5);
+    expect(res).toEqual(8);
+  }
+
+  findIndex() {
+    let float32 = new Uint32Array([4, 6, 8, 12]);
+    let res = float32.findIndex((value: number, index: number, obj: Uint32Array): boolean => value > 100);
+    expect(res).toEqual(-1);
+
+    let ufloat32 = new Uint32Array([4, 6, 7, 120]);
+    res = ufloat32.findIndex((value: number, index: number, obj: Uint32Array): boolean => value > 100);
+    expect(res).toEqual(3);
+  }
+
+  foreach() {
+    new Uint32Array([0, 1, 2, 3]).forEach((value: number, index: number, array: Uint32Array) => {
+      console.log(`a[${index}] = ${value}`);
+    });
+  }
+
+  iterator() {
+    let arr = new Uint32Array([10, 20, 30, 40, 50]);
+    let entries = arr.entries();
+    expect(entries.next().value[1]).toEqual(10);
+
+  }
+
+  includes() {
+    let float32 = new Uint32Array([1, 2, 3]);
+    let res = float32.includes(2);
+    expect(res).toEqual(true);
+
+    res = float32.includes(4);
+    expect(res).toEqual(false);
+
+    res = float32.includes(3, 3);
+    expect(res).toEqual(false);
+  }
+
+  indexOf() {
+    let float32 = new Uint32Array([2, 5, 9]);
+    let res = float32.indexOf(2);
+    expect(res).toEqual(0);
+
+    res = float32.indexOf(7);
+    expect(res).toEqual(-1);
+
+    res = float32.indexOf(9, 2);
+    expect(res).toEqual(2);
+
+    res = float32.indexOf(2, -1);
+    expect(res).toEqual(-1);
+
+    res = float32.indexOf(2, -3);
+    expect(res).toEqual(0);
+  }
+
+  join() {
+    let float32 = new Uint32Array([1, 2, 3]);
+    let res = float32.join();
+    expect(res).toEqual("1,2,3");
+
+    res = float32.join(" / ");
+    expect(res).toEqual("1 / 2 / 3");
+
+    res = float32.join("");
+    expect(res).toEqual("123");
+  }
+
+  keys() {
+    let arr = new Uint32Array([10, 20, 30, 40, 50]);
+    let keys = arr.keys();
+    expect(keys.next().value).toEqual(0);
+  }
+
+  map() {
+    let numbers = new Uint32Array([1, 4, 9]);
+    let doubles = numbers.map((value: number, index: number, array: Uint32Array): number => value * 2);
+    expect(numbers.toString()).toEqual("1,4,9");
+    expect(doubles.toString()).toEqual("2,8,18");
+  }
+
+  reduce() {
+    let total = new Uint32Array([0, 1, 2, 3]);
+    let res = total.reduce((accumulator: number, currentValue: number, currentIndex: number, array: Uint32Array):
+      number => accumulator + currentValue);
+    expect(res).toEqual(6);
+
+    total = new Uint32Array([0, 1, 2, 3]);
+    res = total.reduce((accumulator: number, currentValue: number, currentIndex: number, array: Uint32Array):
+      number => accumulator + currentValue, 8);
+    expect(res).toEqual(14);
+  }
+
+  reduceRight() {
+    let total = new Uint32Array([0, 1, 2, 3]);
+    let res = total.reduceRight((accumulator: number, currentValue: number, currentIndex: number, array: Uint32Array):
+      number => accumulator + currentValue);
+    expect(res).toEqual(6);
+
+    total = new Uint32Array([0, 1, 2, 3]);
+    res = total.reduceRight((accumulator: number, currentValue: number, currentIndex: number, array: Uint32Array):
+      number => accumulator + currentValue, 8);
+    expect(res).toEqual(14);
+  }
+
+  reverse() {
+    let float32 = new Uint32Array([1, 2, 3]);
+    float32.reverse();
+    expect(float32.toString()).toEqual("3,2,1");
+  }
+
+  slice() {
+    let float32 = new Uint32Array([1, 2, 3]);
+    let res = float32.slice(1);
+    expect(res.toString()).toEqual("2,3");
+
+    res = float32.slice(2);
+    expect(res.toString()).toEqual("3");
+
+    res = float32.slice(-2);
+    expect(res.toString()).toEqual("2,3");
+
+    res = float32.slice(0, 1);
+    expect(res.toString()).toEqual("1");
+  }
+
+  sort() {
+    let numbers = new Uint32Array([40, 1, 5]);
+    numbers.sort();
+    expect(numbers.toString()).toEqual("1,5,40");
+
+    numbers.sort((a, b): Number => a - b);
+    expect(numbers.toString()).toEqual("1,5,40");
+  }
+
+  subarray() {
+    let buffer = new ArrayBuffer(16);
+    let float32 = new Uint32Array(buffer);
+    float32.set([1, 2, 3]);
+    expect(float32.toString()).toEqual("1,2,3,0");
+
+    let sub = float32.subarray(0, 4);
+    expect(sub.toString()).toEqual("1,2,3,0");
+  }
+
+  values() {
+    let arr = new Uint32Array([1, 2, 3]);
+    let values = arr.values();
+    expect(values.next().value).toEqual(1);
+
+  }
+
+  arrayBufferSlice() {
+    let buffer = new ArrayBuffer(16);
+    let float32 = new Uint32Array(buffer);
+    float32[3] = 42;
+    expect(float32.toString()).toEqual("0,0,0,42");
+
+    let res = buffer.slice(8);
+    let sliced = new Uint32Array(res);
+    expect(sliced[1]).toEqual(42);
+  }
+}
