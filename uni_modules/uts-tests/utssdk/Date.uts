@@ -3,12 +3,18 @@ import { describe, test, expect, Result } from './tests.uts'
 export function testDate() : Result {
     return describe("Date", () => {
         test('now', () => {
-            const start = Date.now()
-            setTimeout(() => {
-                const millis = Date.now() - start
-                const secondsElapsed = Math.floor(millis / 1000)
-                expect(secondsElapsed).toEqual(2);
-            }, 2000)
+            UTSAndroid.getDispatcher("io").async(function(_){
+              const start = Date.now()
+              setTimeout(() => {
+                  const millis = Date.now() - start
+                  console.log("start",start)
+                  console.log("millis",millis)
+                  console.log("currentThread",Thread.currentThread().getName())
+                  const secondsElapsed = Math.floor(millis / 1000)
+                  expect(secondsElapsed).toEqual(2);
+              }, 2000)
+            },null)
+            
         })
         test('new Date', () => {
             let date1 = new Date('1992-02-02');

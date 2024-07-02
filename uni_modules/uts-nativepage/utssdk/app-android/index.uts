@@ -61,6 +61,9 @@ export function sayHelloFromJar(): string {
 }
 
 
+
+  
+
 export class AppHookProxy implements UTSAndroidHookProxy {
   override onCreate(application: Application) {
     //当前应用是否 取得用户同意隐私协议
@@ -162,13 +165,13 @@ class StartServiceListener extends OnClickListener{
 	
     override onClick(v?: View):void{
 		
-		var intent = new Intent(UTSAndroid.getUniActivity(), ForeService().javaClass);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			UTSAndroid.getAppContext()!.startForegroundService(intent);
-		}
-		else{
-			UTSAndroid.getAppContext()!.startService(intent);
-		}
+      var intent = new Intent(UTSAndroid.getUniActivity(), ForeService().javaClass);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        UTSAndroid.getAppContext()!.startForegroundService(intent);
+      }
+      else{
+        UTSAndroid.getAppContext()!.startService(intent);
+      }
 
     }
 }
@@ -308,40 +311,56 @@ class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
 	
 }
 
+@Suppress("DEPRECATION")
 class DemoActivity  extends Activity{
 	
 	constructor (){
 		super();
 	}
+  // 自定义 handler
+  CustomHandler = class extends android.os.Handler {
+    constructor (){
+    	super();
+    }
+    override handleMessage(msg: android.os.Message) {
+      super.handleMessage(msg)
+      if(msg.what = 111){
+        console.log("handle message received:111")
+      }
+    }
+  }
 	
 	override onCreate(savedInstanceState?: Bundle):void {
 		super.onCreate(savedInstanceState)
 		this.setContentView(R.layout.demo_activity);
 		
-		 let btn_start_service_front = this.findViewById<Button>(R.id.btn_start_service_front);
-		 btn_start_service_front.setOnClickListener(new StartServiceListener());
-		 
-		 let btn_start_screen_listen = this.findViewById<Button>(R.id.btn_start_screen_listen);
-		 btn_start_screen_listen.setOnClickListener(new StartBroadcastListener());
-		 
-		 let btn_start_thread = this.findViewById<Button>(R.id.btn_start_thread);
-		 btn_start_thread.setOnClickListener(new StartThreadListener());
-		 
-		 let btn_finish_activity = this.findViewById<Button>(R.id.btn_finish_activity);
-		 btn_finish_activity.setOnClickListener(new ActivityFinishListener(this));
-		 
-		 let btn_start_root_activity = this.findViewById<Button>(R.id.btn_start_root_activity);
-		 btn_start_root_activity.setOnClickListener(new RootActivityStartListener(this));
-		 
-     let btn_start_root_page = this.findViewById<Button>(R.id.btn_start_root_page);
-     btn_start_root_page.setOnClickListener(new RootPageStartListener(this));
-     
-		 
-		 let recyclerView = this.findViewById<RecyclerView>(R.id.recycler_view)
-		 let layoutManager = new LinearLayoutManager(this);
-		 recyclerView.setLayoutManager(layoutManager);
-		 let fruitAdapter = new FruitAdapter(utsArrayOf("香蕉","苹果","大鸭梨"));
-		 recyclerView.setAdapter(fruitAdapter);
+    new CustomHandler().sendEmptyMessage(111);
+    
+    let btn_start_service_front = this.findViewById<Button>(R.id.btn_start_service_front);
+    btn_start_service_front.setOnClickListener(new StartServiceListener());
+   
+    let btn_start_screen_listen = this.findViewById<Button>(R.id.btn_start_screen_listen);
+    btn_start_screen_listen.setOnClickListener(new StartBroadcastListener());
+   
+    let btn_start_thread = this.findViewById<Button>(R.id.btn_start_thread);
+    btn_start_thread.setOnClickListener(new StartThreadListener());
+   
+    let btn_finish_activity = this.findViewById<Button>(R.id.btn_finish_activity);
+    btn_finish_activity.setOnClickListener(new ActivityFinishListener(this));
+   
+    let btn_start_root_activity = this.findViewById<Button>(R.id.btn_start_root_activity);
+    btn_start_root_activity.setOnClickListener(new RootActivityStartListener(this));
+   
+    let btn_start_root_page = this.findViewById<Button>(R.id.btn_start_root_page);
+    btn_start_root_page.setOnClickListener(new RootPageStartListener(this));
+   
+   
+    let recyclerView = this.findViewById<RecyclerView>(R.id.recycler_view)
+    let layoutManager = new LinearLayoutManager(this);
+    recyclerView.setLayoutManager(layoutManager);
+    let fruitAdapter = new FruitAdapter(utsArrayOf("香蕉","苹果","大鸭梨"));
+    recyclerView.setAdapter(fruitAdapter);
+    
 	}
 	
 }
