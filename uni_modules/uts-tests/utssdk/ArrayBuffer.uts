@@ -75,6 +75,9 @@ export function testArrayBuffer() : Result {
     test('float32_testSet', () => {
       float32.testSet()
     })
+    test('float32_testFrom', () => {
+      float32.from()
+    })
     test('float32_testCopyWith', () => {
       float32.testCopyWith()
     })
@@ -433,6 +436,9 @@ export function testArrayBuffer() : Result {
     //uint8 start
     test('uint8_testConstructor', () => {
       uint8.testConstructor()
+    })
+    test('uint8_from', () => {
+      uint8.from()
     })
     test('uint8_testSet', () => {
       uint8.testSet()
