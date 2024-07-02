@@ -59,7 +59,7 @@ export class TInt16Array {
 
   testEvery() {
     // const isBelowThreshold = (currentValue: number, index: number, array:Int16Array): boolean => currentValue < 40;    
-    let result = new Int16Array([12, 5, 8, 130, 44]).every((value:number,index : number, array : Int16Array): boolean => value< 40); // 
+    let result = new Int16Array([12, 5, 8, 130, 44]).every((value:number,_ : number, _ : Int16Array): boolean => value< 40); // 
     expect(result).toEqual(false);
   }
 
@@ -83,28 +83,28 @@ export class TInt16Array {
   testFilter() {
     // const isBelowThreshold = (currentValue: number, index: number, _): boolean => currentValue >= 10;
       
-    let float32 = new Int16Array([12, 5, 8, 44]).filter((value : number, index : number, array : Int16Array): boolean => value>= 10);
+    let float32 = new Int16Array([12, 5, 8, 44]).filter((value : number, _ : number, _ : Int16Array): boolean => value>= 10);
     expect(float32.toString()).toEqual("12,44");
   }
 
   find() {
     let float32 = new Int16Array([4, 5, 8, 12]);
-    let res = float32.find((value : number, index : number, obj : Int16Array): boolean => value > 5);
+    let res = float32.find((value : number, _ : number, _ : Int16Array): boolean => value > 5);
     expect(res).toEqual(8);
   }
 
   findIndex() {
     let float32 = new Int16Array([4, 6, 8, 12]);
-    let res = float32.findIndex((value : number, index : number, obj : Int16Array): boolean => value > 100);
+    let res = float32.findIndex((value : number, _ : number, _ : Int16Array): boolean => value > 100);
     expect(res).toEqual(-1);
 
     let ufloat32 = new Int16Array([4, 6, 7, 120]);
-    res = ufloat32.findIndex((value : number, index : number, obj : Int16Array): boolean => value > 100);
+    res = ufloat32.findIndex((value : number, _ : number, _ : Int16Array): boolean => value > 100);
     expect(res).toEqual(3);
   }
 
   foreach() {
-    new Int16Array([0, 1, 2, 3]).forEach((value : number, index : number, array : Int16Array) => {
+    new Int16Array([0, 1, 2, 3]).forEach((value : number, index : number, _ : Int16Array) => {
       console.log(`a[${index}] = ${value}`);
     });
   }
@@ -169,28 +169,28 @@ export class TInt16Array {
 
   map() {
     let numbers = new Int16Array([1, 4, 9]);
-    let doubles = numbers.map((value : number, index : number, array : Int16Array): number => value * 2);
+    let doubles = numbers.map((value : number, _ : number, _ : Int16Array): number => value * 2);
     expect(numbers.toString()).toEqual("1,4,9");
     expect(doubles.toString()).toEqual("2,8,18");
   }
 
   reduce() {
     let total = new Int16Array([0, 1, 2, 3]);
-    let res = total.reduce((accumulator : number, currentValue : number, currentIndex : number, array : Int16Array): number => accumulator + currentValue);
+    let res = total.reduce((accumulator : number, currentValue : number, _  : number, _  : Int16Array): number => accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Int16Array([0, 1, 2, 3]);
-    res = total.reduce((accumulator : number, currentValue : number, currentIndex : number, array : Int16Array): number => accumulator + currentValue, 8);
+    res = total.reduce((accumulator : number, currentValue : number, _ : number, _  : Int16Array): number => accumulator + currentValue, 8);
     expect(res).toEqual(14);
   }
 
   reduceRight() {
     let total = new Int16Array([0, 1, 2, 3]);
-    let res = total.reduceRight((accumulator: number, currentValue : number, currentIndex : number, array : Int16Array): number => accumulator + currentValue);
+    let res = total.reduceRight((accumulator: number, currentValue : number, _  : number, _  : Int16Array): number => accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Int16Array([0, 1, 2, 3]);
-    res = total.reduceRight((accumulator: number, currentValue : number, currentIndex : number, array : Int16Array): number => accumulator + currentValue, 8);
+    res = total.reduceRight((accumulator: number, currentValue : number, _  : number, _  : Int16Array): number => accumulator + currentValue, 8);
     expect(res).toEqual(14);
   }
 
