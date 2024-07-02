@@ -1,5 +1,5 @@
 <template>
-  <!-- #ifdef APP-ANDROID -->
+<!--  #ifdef APP-ANDROID -->
   <scroll-view style="flex: 1">
     <view>
       <view class="uni-padding-wrap uni-common-mt">
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+  // #ifdef APP-ANDROID
   import {
     getAppContextTest,
     getUniActivityTest,
@@ -77,6 +78,8 @@
     getDeviceInfoTest,
     privacyStateTest
   } from '@/uni_modules/uts-platform-api'
+  // #endif
+  
   // #ifdef APP-ANDROID
   import {
     UTSAcvitiyLifeCycleCallback,
@@ -86,15 +89,15 @@
     UTSActivityComponentCallback,
     onCallbackChange
   } from '@/uni_modules/uts-syntaxcase'
-  // #endif
 
 
   import File from 'java.io.File';
   import Intent from 'android.content.Intent';
+ // #endif
 
   /**
    * 测试在页面生命周期之外，使用api
-   */
+   */   
   export default {
     data() {
       return {
@@ -111,6 +114,7 @@
 
     },
     onLoad: function () {
+      // #ifdef APP-ANDROID
       let that = this
       initAppLifecycle(function (eventLog) {
         // 展示捕捉到的声明周期日志
@@ -119,8 +123,10 @@
         let nextLineFlag = that.text + '\n'
         that.text = nextLineFlag
       })
+      // #endif
     },
     methods: {
+      // #ifdef APP-ANDROID
       privacyStateClick() {
         privacyStateTest(function (ret, desc) {
           if (ret) {
@@ -314,6 +320,7 @@
           }
         })
       },
+       // #endif
       // #ifdef APP-ANDROID
       // #ifdef UNI-APP-X
       activityCallback() {
