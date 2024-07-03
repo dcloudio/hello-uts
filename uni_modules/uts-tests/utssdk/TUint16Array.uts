@@ -242,7 +242,7 @@ export class TUint16Array {
     numbers.sort();
     expect(numbers.toString()).toEqual("1,5,40");
 
-    numbers.sort((a, b): Number => a - b);
+    numbers.sort((a, b): number => a - b);
     expect(numbers.toString()).toEqual("1,5,40");
   }
 
