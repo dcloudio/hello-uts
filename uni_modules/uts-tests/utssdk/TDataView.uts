@@ -45,7 +45,7 @@ export class TDataView {
     // Create an ArrayBuffer with a size in bytes
     let buffer = new ArrayBuffer(16);
     let view = new DataView(buffer);
-    view.setFloat32(1, Math.PI.toFloat());
+    view.setFloat32(1,3.1415927);
     expect(this.numberEquals(3.1415927, view.getFloat32(1).toFloat())).toEqual(true);
   }
 
@@ -97,7 +97,7 @@ export class TDataView {
     expect(this.numberEquals(255, view.getUint8(1))).toEqual(true);
   }
 
-  numberEquals(a: Number, b: Number): Boolean {
+  numberEquals(a: number, b: number): Boolean {
     return a == b
   }
 
@@ -138,10 +138,10 @@ export class TDataView {
     }
   }
 
-  makeBuffer(size: Int, littleEndian: boolean): ArrayBuffer {
-    var buffer = new ArrayBuffer(size * 14);
+  makeBuffer(size: number, littleEndian: boolean): ArrayBuffer {
+    var buffer = new ArrayBuffer(1000 * 14);
     var view = new DataView(buffer);
-    for (var i = 0; i < size; ++i) {
+    for (var i = 0; i < 1000; ++i) {
       view.setInt8(i * 14, i);
       view.setUint8(i * 14 + 1, i);
       view.setInt16(i * 14 + 2, i * i, littleEndian);
@@ -180,21 +180,21 @@ export class TDataView {
       }
       expect(xor).toEqual(0);
     } else {
-      var reader = new BigEndian(buffer);
+      var reader1 = new BigEndian(buffer);
       for (var i = 0; i < buffer.byteLength; i += 14) {
-        xor ^= reader.getInt8(i);
-        xor ^= reader.getUint8(i + 1);
-        xor ^= reader.getInt16(i + 2);
-        xor ^= reader.getUint16(i + 4);
-        xor ^= reader.getInt32(i + 6);
-        xor ^= reader.getUint32(i + 10);
+        xor ^= reader1.getInt8(i);
+        xor ^= reader1.getUint8(i + 1);
+        xor ^= reader1.getInt16(i + 2);
+        xor ^= reader1.getUint16(i + 4);
+        xor ^= reader1.getInt32(i + 6);
+        xor ^= reader1.getUint32(i + 10);
       }
     }
 
   }
 
   doFloatIterations(dataView: boolean) {
-    var buffer = makeFloatBuffer(1000);
+    var buffer = this.makeFloatBuffer();
     var iterations = 10;
     if (dataView) {
       for (var i = 0; i < iterations; i++)
@@ -205,10 +205,10 @@ export class TDataView {
     }
   }
 
-  makeFloatBuffer(size: Int): ArrayBuffer {
-    var buffer = new ArrayBuffer(size * 16);
+  makeFloatBuffer(): ArrayBuffer {
+    var buffer = new ArrayBuffer(1000 * 16);
     var view = new DataView(buffer);
-    for (var i = 0; i < size; i++) {
+    for (var i = 0; i < 1000; i++) {
       view.setFloat64(i * 16, Math.log10(i + 1));
       view.setFloat32(i * 16 + 8, Math.sqrt(i));
       view.setFloat32(i * 16 + 12, Math.cos(i));
