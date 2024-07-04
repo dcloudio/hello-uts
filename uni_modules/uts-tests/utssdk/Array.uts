@@ -184,16 +184,11 @@ export function testArray(): Result {
               x : number
               y : number
             }
-            // #ifdef WEB
-            	const s = JSON.parse<P[]>(JSON.stringify([{ x: 0, y: 0 }])) as P[]
-            	s[0].x += 0;
-            	const clearList = s.map((v : P, _, a) : number => v.x)
-            	expect(clearList.includes(0)).toEqual(true);
-            // #endif
-            // #ifdef APP-ANDROID
+
+            // #ifndef APP-IOS
             const s = JSON.parse<P[]>(JSON.stringify([{ x: 0, y: 0 }])) as P[]
             s[0].x += 0;
-            const clearList = s.map((v : P, _, _) : number => v.x)
+            const clearList = s.map((v : P, _, _a) : number => v.x)
             expect(clearList.includes(0)).toEqual(true);
             // #endif
             // #ifdef APP-IOS
