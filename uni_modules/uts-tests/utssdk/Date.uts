@@ -3,17 +3,24 @@ import { describe, test, expect, Result } from './tests.uts'
 export function testDate() : Result {
     return describe("Date", () => {
         test('now', () => {
-            UTSAndroid.getDispatcher("io").async(function(_){
+              // #ifdef APP-ANDROID
+              UTSAndroid.getDispatcher("io").async(function(_){
+                const start = Date.now()
+                setTimeout(() => {
+                    const millis = Date.now() - start
+                    const secondsElapsed = Math.floor(millis / 1000)
+                    expect(secondsElapsed).toEqual(2);
+                }, 2000)
+              },null)
+              // #endif
+              // #ifndef APP-ANDROID
               const start = Date.now()
               setTimeout(() => {
                   const millis = Date.now() - start
-                  console.log("start",start)
-                  console.log("millis",millis)
-                  console.log("currentThread",Thread.currentThread().getName())
                   const secondsElapsed = Math.floor(millis / 1000)
                   expect(secondsElapsed).toEqual(2);
               }, 2000)
-            },null)
+              // #endif
             
         })
         test('new Date', () => {
