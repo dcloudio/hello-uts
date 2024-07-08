@@ -1,6 +1,5 @@
 import { describe, test, expect, expectNumber, Result } from './tests.uts'
 
-
 function obtainInnerObject(obj:Any | null):UTSJSONObject{
   let jsonStr = console.getLogV2(obj).slice(19,-17)
   let a = JSON.parseArray(jsonStr)![0]
@@ -14,8 +13,29 @@ export function testConsole() : Result {
         expect(obtainInnerObject(0.9).get("type")).toEqual("Double");
         expect(obtainInnerObject(0.9).get("subType")).toEqual("number");
         expect(obtainInnerObject(0.9).get("value")).toEqual("0.9");
+        
       // #endif
-    }
-	)
+      
+      // #ifdef UNI-APP-X && APP-ANDROID
+        let pageInstance = new io.dcloud.uniapp.vue.ComponentInternalInstance()
+        expect(obtainInnerObject(pageInstance).get("className")).toEqual("io.dcloud.uniapp.vue.ComponentInternalInstance");
+        expect(obtainInnerObject(pageInstance).get("type")).toEqual("object");
+      // #endif
+    })
+    
+    test('console-number-from-JSON-parse', () => {
+      // #ifdef APP-ANDROID
+      
+      let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
+      console.log(aj2!['a'])
+      
+      expect(obtainInnerObject(aj2!['a']).get("type")).toEqual("number");
+      expect(obtainInnerObject(aj2!['a']).get("subType")).toEqual("number");
+      
+      // #endif
+      
+    })
+    
   })
+  
 }

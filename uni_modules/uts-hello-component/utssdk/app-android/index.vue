@@ -125,7 +125,10 @@
 		 * [可选实现]
 		 */
 		NVLoaded() {
-
+      // 组件内可以调用 UTSAndroid 内置方法
+      console.log("UTSAndroid.devicePX2px(1080) : ",UTSAndroid.devicePX2px(1080))
+      console.log("UTSAndroid.rpx2px(1080) : ",UTSAndroid.rpx2px(1080))
+      console.log("UTSAndroid.appJSBundleUrl() : ",UTSAndroid.appJSBundleUrl())
 		},
 		/**
 		 * 原生View布局完成  
