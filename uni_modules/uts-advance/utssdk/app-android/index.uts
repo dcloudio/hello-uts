@@ -228,7 +228,7 @@ export function stopAssetAudio() {
 
 }
 
-@Suppress("DEPRECATION")
+//@UTSAndroid.Suppress("DEPRECATION")
 export function goOtherActivity(imageDone : (event : string) => void) : boolean {
 
 	// 检查相关权限是否已经具备

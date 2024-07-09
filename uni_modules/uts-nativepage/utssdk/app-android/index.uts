@@ -78,7 +78,7 @@ export class AppHookProxy implements UTSAndroidHookProxy {
 }
 
 
-@Suppress("DEPRECATION")
+//@UTSAndroid.Suppress("DEPRECATION")
 class ForeService extends Service {
 
 	constructor (){
@@ -311,7 +311,7 @@ class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
 	
 }
 
-@Suppress("DEPRECATION")
+//@UTSAndroid.Suppress("DEPRECATION")
 class DemoActivity  extends Activity{
 	
 	constructor (){
@@ -365,7 +365,7 @@ class DemoActivity  extends Activity{
 	
 }
 
-@Suppress("DEPRECATION")
+//@UTSAndroid.Suppress("DEPRECATION")
 class IntentRunable extends Runnable{
 	override run(){
 		console.log("IntentRunable = " + Thread.currentThread().getName())
@@ -418,7 +418,7 @@ function initShortCut() {
 
 }
 
-@Suppress("DEPRECATION")
+//@UTSAndroid.Suppress("DEPRECATION")
 export function gotoDemoActivity():boolean {
 	// 这里的逻辑是为了判断 当前的自定义activity 是否注册了，并以此为条件判断是否是自定义基座
 	let hasXActivityIntegration =  true

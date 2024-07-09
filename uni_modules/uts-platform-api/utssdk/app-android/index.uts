@@ -168,7 +168,7 @@ export function gotoSystemPermissionActivityTest() {
 /**
  * 跳转系统拍照界面，并触发相关生命周期测试
  */
-@Suppress("DEPRECATION")
+//@UTSAndroid.Suppress("DEPRECATION")
 export function gotoCameraTake(imageDone : (event : string) => void) : boolean {
 
 	let permissionNeed = ["android.permission.CAMERA"]

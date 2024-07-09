@@ -1,6 +1,6 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-@Suppress("IMPLICIT_BOXING_IN_IDENTITY_EQUALS")
+//@UTSAndroid.Suppress("IMPLICIT_BOXING_IN_IDENTITY_EQUALS")
 export function testNumber() : Result {
   return describe("Number", () => {
 

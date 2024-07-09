@@ -173,38 +173,24 @@
                     this.testUtsSyncWithCallbackResult['return'] = false;
                     this.testUtsSyncWithCallbackResult['success'] = false;
                     this.testUtsSyncWithCallbackResult['complete'] = false;
-                    let option = new AsyncOptions(
-                          "success",
-                          (res:string) => {
-                              console.log("testSyncWithCallback.success.callback", res);
-                              this.testUtsSyncWithCallbackResult['success'] = true;
-                          },
-                          (res:string) => {
-                              console.log("testSyncWithCallback.fail.callback", res);
-                              // testUtsSyncWithCallbackResult.fail = true;
-                          },
-                          (res:string) => {
-                              console.log("testSyncWithCallback.complete.callback", res);
-                              this.testUtsSyncWithCallbackResult['complete'] = true;
-                          },
-                        )
+                  
                     if (
-                        testSyncWithCallback(option)['name'] === "testSyncWithCallback"
-                        // testSyncWithCallback({
-                        //     type: "success",
-                        //     success: (res:any) => {
-                        //         console.log("testSyncWithCallback.success.callback", res);
-                        //         this.testUtsSyncWithCallbackResult['success'] = true;
-                        //     },
-                        //     fail: (res:any) => {
-                        //         console.log("testSyncWithCallback.fail.callback", res);
-                        //         // testUtsSyncWithCallbackResult.fail = true;
-                        //     },
-                        //     complete: (res:any) => {
-                        //         console.log("testSyncWithCallback.complete.callback", res);
-                        //         this.testUtsSyncWithCallbackResult['complete'] = true;
-                        //     },
-                        // }).name === "testSyncWithCallback"
+                        testSyncWithCallback({
+                            type: "success",
+                            success: (res:any) => {
+                                console.log("testSyncWithCallback.success.callback", res);
+                                this.testUtsSyncWithCallbackResult['success'] = true;
+                            },
+                            fail: (res:any) => {
+                                console.log("testSyncWithCallback.fail.callback", res);
+                                // testUtsSyncWithCallbackResult.fail = true;
+                            },
+                            complete: (res:any) => {
+                                console.log("testSyncWithCallback.complete.callback", res);
+                                this.testUtsSyncWithCallbackResult['complete'] = true;
+                            },
+                        } as AsyncOptions)['name'] === "testSyncWithCallback"
+                        
                     ) {
                         this.testUtsSyncWithCallbackResult['return'] = true;
                     }
@@ -215,22 +201,22 @@
                 this.testUtsAsyncResult['success'] = false;
                 // testUtsAsyncResult.fail = false;
                 this.testUtsAsyncResult['complete'] = false;
-                let option = new AsyncOptions(
-                  "success",
-                  (res:any) => {
-                      console.log("testAsync.success.callback", res);
-                      this.testUtsAsyncResult['success'] = true;
-                  },
-                  (res:any) => {
-                      console.log("testAsync.fail.callback", res);
-                  },
-                  (res:any) => {
-                      console.log("testAsync.complete.callback", res);
-                      this.testUtsAsyncResult['complete'] = true;
-                  },
-                )
+                
                 try {
-                    const res = await testAsync(option);
+                    const res = await testAsync({
+                      type:"success",
+                      success:(res:any) => {
+                          console.log("testAsync.success.callback", res);
+                          this.testUtsAsyncResult['success'] = true;
+                      },
+                      fail:(res:any) => {
+                          console.log("testAsync.fail.callback", res);
+                      },
+                      complete:(res:any) => {
+                          console.log("testAsync.complete.callback", res);
+                          this.testUtsAsyncResult['complete'] = true;
+                      },
+                    } as AsyncOptions);
                     if (res.name === "testAsync") {
                         this.testUtsAsyncResult['return'] = true;
                     }
@@ -242,22 +228,22 @@
                 this.testUtsAsyncMulitParamResult['return'] = false;
                 this.testUtsAsyncMulitParamResult['success'] = false;
                 this.testUtsAsyncMulitParamResult['complete'] = false;
-                let option = AsyncOptions(
-                  "success",
-                  (res) => {
-                      console.log("testUtsAsyncMulitParam.success.callback", res);
-                      this.testUtsAsyncMulitParamResult['success'] = true;
-                  },
-                  (res) => {
-                      console.log("testUtsAsyncMulitParam.fail.callback", res);
-                  },
-                  (res) => {
-                      console.log("testUtsAsyncMulitParam.complete.callback", res);
-                      this.testUtsAsyncMulitParamResult['complete'] = true;
-                  },
-                )
+                
                 try {
-                    const res = await testAsyncParam3(100,"hello",option);
+                    const res = await testAsyncParam3(100,"hello",{
+                      type:"success",
+                      success:(res) => {
+                          console.log("testUtsAsyncMulitParam.success.callback", res);
+                          this.testUtsAsyncMulitParamResult['success'] = true;
+                      },
+                      fail:(res) => {
+                          console.log("testUtsAsyncMulitParam.fail.callback", res);
+                      },
+                      complete:(res) => {
+                          console.log("testUtsAsyncMulitParam.complete.callback", res);
+                          this.testUtsAsyncMulitParamResult['complete'] = true;
+                      },
+                    } as AsyncOptions);
                     if (res.name === "testUtsAsyncMulitParam") {
                         this.testUtsAsyncMulitParamResult['return'] = true;
                     }
@@ -288,23 +274,21 @@
                     this.testUtsClassStaticSyncWithCallbackResult['return'] = false;
                     this.testUtsClassStaticSyncWithCallbackResult['success'] = false;
                     this.testUtsClassStaticSyncWithCallbackResult['complete'] = false;
-                    let option = AsyncOptions(
-                      "success",
-                      (res) => {
-                          console.log("testStaticSyncWithCallback.success.callback", res);
-                          this.testUtsClassStaticSyncWithCallbackResult['success'] = true;
-                      },
-                      (res) => {
-                          console.log("testStaticSyncWithCallback.fail.callback", res);
-                          // testUtsClassStaticSyncWithCallbackResult.fail = true;
-                      },
-                      (res) => {
-                          console.log("testStaticSyncWithCallback.complete.callback", res);
-                          this.testUtsClassStaticSyncWithCallbackResult['complete'] = true;
-                      },
-                    )
                     if (
-                        Test.testClassStaticSyncWithCallback(option)['name'] === "testSyncWithCallback"
+                        Test.testClassStaticSyncWithCallback({
+                          type:"success",
+                          success:(res) => {
+                              console.log("testStaticSyncWithCallback.success.callback", res);
+                              this.testUtsClassStaticSyncWithCallbackResult['success'] = true;
+                          },
+                          fail:(res) => {
+                              console.log("testStaticSyncWithCallback.fail.callback", res);
+                          },
+                          complete:(res) => {
+                              console.log("testStaticSyncWithCallback.complete.callback", res);
+                              this.testUtsClassStaticSyncWithCallbackResult['complete'] = true;
+                          },
+                        } as AsyncOptions)['name'] === "testSyncWithCallback"
                     ) {
                         this.testUtsClassStaticSyncWithCallbackResult['return'] = true;
                     }
@@ -314,22 +298,22 @@
                 this.testUtsClassStaticAsyncResult['return'] = false;
                 this.testUtsClassStaticAsyncResult['success'] = false;
                 this.testUtsClassStaticAsyncResult['complete'] = false;
-                let option = new AsyncOptions(
-                    "success",
-                    (res) => {
-                        console.log("testAsync.success.callback", res);
-                        this.testUtsClassStaticAsyncResult['success'] = true;
-                    },
-                    (res) => {
-                        console.log("testAsync.fail.callback", res);
-                    },
-                    (res) => {
-                        console.log("testAsync.complete.callback", res);
-                        this.testUtsClassStaticAsyncResult['complete'] = true;
-                    },
-                )
+                
                 try {
-                    const res = await Test.testClassStaticAsync(option);
+                    const res = await Test.testClassStaticAsync({
+                      type:"success",
+                      success:(res:any) => {
+                          console.log("testAsync.success.callback", res);
+                          this.testUtsClassStaticAsyncResult['success'] = true;
+                      },
+                      fail:(res:any) => {
+                          console.log("testAsync.fail.callback", res);
+                      },
+                      complete:(res:any) => {
+                          console.log("testAsync.complete.callback", res);
+                          this.testUtsClassStaticAsyncResult['complete'] = true;
+                      },
+                    } as AsyncOptions);
                     if (res.name === "testAsync") {
                         this.testUtsClassStaticAsyncResult['return'] = true;
                     }
@@ -383,23 +367,22 @@
                 this.testUtsClassAsyncResult['return'] = false;
                 this.testUtsClassAsyncResult['success'] = false;
                 this.testUtsClassAsyncResult['complete'] = false;
-                let option = AsyncOptions(
-                  "success",
-                  (res) => {
-                      console.log("testAsync.success.callback", res);
-                      this.testUtsClassAsyncResult['success'] = true;
-                  },
-                  (res) => {
-                      console.log("testAsync.fail.callback", res);
-                  },
-                  (res) => {
-                      console.log("testAsync.complete.callback", res);
-                      this.testUtsClassAsyncResult['complete'] = true;
-                  },
-                )
+                
                 try {
-                    const res = await test!.testClassAsync(option);
-                    console.log('res', res)
+                    const res = await test!.testClassAsync({
+                      type:"success",
+                      success:(res) => {
+                          console.log("testAsync.success.callback", res);
+                          this.testUtsClassAsyncResult['success'] = true;
+                      },
+                      fail:(res) => {
+                          console.log("testAsync.fail.callback", res);
+                      },
+                      complete:(res) => {
+                          console.log("testAsync.complete.callback", res);
+                          this.testUtsClassAsyncResult['complete'] = true;
+                      },
+                    } as AsyncOptions);
                     if (res.name === "testAsync") {
                         this.testUtsClassAsyncResult['return'] = true;
                     }
@@ -426,20 +409,19 @@
                         this.testUtsClassInstanceResult['callback'] = true;
                     }
                 })
-                let option = SyncOptions(
-                  (res) => {
+                
+                const res = task.sync({ 
+                  success:(res) => {
                       console.log("task.sync.success.callback", res);
                       this.testUtsClassInstanceResult['success'] = true;
                   },
-                  (res) => {
+                  fail:(res) => {
                       console.log("task.sync.fail.callback", res);
                   },
-                  (res) => {
+                  complete:(res) => {
                       console.log("task.sync.complete.callback", res);
                       this.testUtsClassInstanceResult['complete'] = true;
-                  },
-                )
-                const res = task.sync(option)
+                  }} as SyncOptions)
                 if (res === 'sync') {
                     this.testUtsClassInstanceResult['return'] = true;
                 }
