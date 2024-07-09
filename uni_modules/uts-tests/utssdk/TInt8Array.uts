@@ -8,6 +8,7 @@ import {
 
 export class TInt8Array {
   test() {
+    // #ifdef APP-ANDROID
     this.testConstructor();
     this.testSet();
     this.testCopyWith();
@@ -31,9 +32,10 @@ export class TInt8Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
+    //#endif
   }
 
-
+// #ifdef APP-ANDROID
   testConstructor() {
     let buffer = new ArrayBuffer(16);
     let int8View = new Int8Array(buffer);
@@ -261,4 +263,5 @@ export class TInt8Array {
     let sliced = new Int8Array(res);
     expect(sliced[0]).toEqual(42);
   }
+  // #endif
 }

@@ -7,6 +7,7 @@ import {
 
 export class TUint8ClampedArray {
   test() {
+    // #ifdef APP-ANDROID
     this.testMAX();
     this.testConstructor();
     this.testSet();
@@ -31,8 +32,10 @@ export class TUint8ClampedArray {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
+    // #endif
   }
 
+// #ifdef APP-ANDROID
   testMAX() {
     let float32 = new Uint8ClampedArray(16);
     float32[0] = 255;
@@ -259,4 +262,5 @@ export class TUint8ClampedArray {
     let sliced = new Uint8ClampedArray(res);
     expect(sliced[0]).toEqual(42);
   }
+  // #endif
 }

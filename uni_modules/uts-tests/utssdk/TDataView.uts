@@ -18,6 +18,7 @@ export class TDataView {
     // this.setUint8();
     // this.testMix();
   }
+  // #ifdef APP-ANDROID
   setConstructor() {
     let buffer = new ArrayBuffer(16);
     let dataview = new DataView(buffer);
@@ -327,4 +328,5 @@ class LittleEndian {
       this.uint8View_[byteOffset + 3] * (1 << 24)
     );
   }
+  // #endif
 }

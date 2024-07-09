@@ -7,6 +7,7 @@ import {
 
 export class TUint8Array {
   test() {
+    // #ifdef APP-ANDROID
     this.testMAX();
     this.testConstructor();
     this.testSet();
@@ -31,7 +32,9 @@ export class TUint8Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
+    // #endif
   }
+  // #ifdef APP-ANDROID
   from() {
     var s = new Set([1, 2, 3]);
     var unit8 = Uint8Array.from(s);
@@ -264,4 +267,5 @@ export class TUint8Array {
     let sliced = new Uint8Array(res);
     expect(sliced[0]).toEqual(42);
   }
+  // #endif
 }

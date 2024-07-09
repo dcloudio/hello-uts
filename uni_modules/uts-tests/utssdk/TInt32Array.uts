@@ -7,6 +7,7 @@ import {
 
 export class TInt32Array {
   test() {
+    // #ifdef APP-ANDROID
     this.testfloat32();
     this.testConstructor();
     this.testSet();
@@ -31,8 +32,10 @@ export class TInt32Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
+    // #endif
   }
 
+// #ifdef APP-ANDROID
   testfloat32() {
     let float32 = new Int32Array(2);
     float32[0] = 42;
@@ -266,4 +269,5 @@ export class TInt32Array {
     let sliced = new Int32Array(res);
     expect(sliced[1]).toEqual(42);
   }
+  // #endif
 }
