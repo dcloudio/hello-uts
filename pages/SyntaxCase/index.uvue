@@ -254,14 +254,13 @@
             testUtsClassConstructor() {
                 this.testUtsClassConstructorResult['callback'] = false
                 id++
-                let option = TestOptions(
-                  'name' + id,
-                  (res) => {
+                test = new Test(id, {
+                  name:'name' + id,
+                  callback:(res) => {
                       console.log(res)
                       this.testUtsClassConstructorResult['callback'] = true
                   }
-                )
-                test = new Test(id, option)
+                } as TestOptions)
             },
             testUtsClassStaticProp() {
                 this.testUtsClassStaticPropResult = false
@@ -338,23 +337,23 @@
                     this.testUtsClassSyncWithCallbackResult['return'] = false;
                     this.testUtsClassSyncWithCallbackResult['success'] = false;
                     this.testUtsClassSyncWithCallbackResult['complete'] = false;
-                    let option = new AsyncOptions(
-                      "success",
-                      (res) => {
-                          console.log("testSyncWithCallback.success.callback", res);
-                          this.testUtsClassSyncWithCallbackResult['success'] = true;
-                      },
-                      (res) => {
-                          console.log("testSyncWithCallback.fail.callback", res);
-                          // testUtsClassSyncWithCallbackResult.fail = true;
-                      },
-                      (res) => {
-                          console.log("testSyncWithCallback.complete.callback", res);
-                          this.testUtsClassSyncWithCallbackResult['complete'] = true;
-                      },
-                    )
+                    
                     if (
-                        test!.testClassSyncWithCallback(option).name === "testSyncWithCallback"
+                        test!.testClassSyncWithCallback({
+                          type:"success",
+                          success:(res) => {
+                              console.log("testSyncWithCallback.success.callback", res);
+                              this.testUtsClassSyncWithCallbackResult['success'] = true;
+                          },
+                          fail:(res) => {
+                              console.log("testSyncWithCallback.fail.callback", res);
+                              // testUtsClassSyncWithCallbackResult.fail = true;
+                          },
+                          complete:(res) => {
+                              console.log("testSyncWithCallback.complete.callback", res);
+                              this.testUtsClassSyncWithCallbackResult['complete'] = true;
+                          }
+                        } as AsyncOptions).name === "testSyncWithCallback"
                     ) {
                         this.testUtsClassSyncWithCallbackResult['return'] = true;
                     }
