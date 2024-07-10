@@ -128,7 +128,7 @@ class AddUIRunnable implements Runnable {
  * 实现一个移除view的 Runnable类
  * 用法说明：https://uniapp.dcloud.net.cn/plugin/uts-plugin.html#%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB
  */
-class RemoveUIRunnable extends Runnable {
+class RemoveUIRunnable implements Runnable {
 
 	override run() : void {
 

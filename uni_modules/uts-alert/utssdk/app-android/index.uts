@@ -20,7 +20,7 @@ export function showPrompt(_title : string | null, _message : string | null, _pl
 /**
 	* 用户输入对话框监听器
 	*/
-class DialogListener extends DialogInterface.OnClickListener {
+class DialogListener implements DialogInterface.OnClickListener {
 
 	inputET : EditText
 	callback : (content : string) => void
@@ -45,7 +45,7 @@ class DialogListener extends DialogInterface.OnClickListener {
 /**
 	* Dialog ui任务封装
 	*/
-class DialogUIRunnable extends Runnable {
+class DialogUIRunnable implements Runnable {
 
 	callback ?: (content : string) => void = null
 	title : string

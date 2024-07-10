@@ -366,7 +366,7 @@ class DemoActivity  extends Activity{
 }
 
 //@UTSAndroid.Suppress("DEPRECATION")
-class IntentRunable extends Runnable{
+class IntentRunable implements Runnable{
 	override run(){
 		console.log("IntentRunable = " + Thread.currentThread().getName())
 		let intent = new Intent(UTSAndroid.getUniActivity(),DemoActivity().javaClass);
