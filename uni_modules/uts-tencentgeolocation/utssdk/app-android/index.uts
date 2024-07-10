@@ -84,7 +84,7 @@ class LocationOptionsWapper{
 /**
  * Tencent 定位监听实现类
  */
-class SingleLocationListener extends TencentLocationListener {
+class SingleLocationListener implements TencentLocationListener {
     
 	
 	hostOptionWraper:LocationOptionsWapper;

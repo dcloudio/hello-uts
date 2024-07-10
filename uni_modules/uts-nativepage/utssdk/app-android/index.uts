@@ -161,7 +161,7 @@ class ScreenReceiver extends BroadcastReceiver{
 }
 
 
-class StartServiceListener extends OnClickListener{
+class StartServiceListener implements OnClickListener{
 	
     override onClick(v?: View):void{
 		
@@ -177,7 +177,7 @@ class StartServiceListener extends OnClickListener{
 }
 
 
-class StartBroadcastListener extends OnClickListener{
+class StartBroadcastListener implements OnClickListener{
 	
     override onClick(v?: View):void{
 		
@@ -193,7 +193,7 @@ class StartBroadcastListener extends OnClickListener{
     }
 }
 
-class StartThreadListener extends OnClickListener{
+class StartThreadListener implements OnClickListener{
 	
     override onClick(v?: View):void{
 		new CustomThread().start()
@@ -204,7 +204,7 @@ class StartThreadListener extends OnClickListener{
 }
 
 
-class ActivityFinishListener extends OnClickListener{
+class ActivityFinishListener implements OnClickListener{
 	
 	host:Activity
 	
@@ -220,7 +220,7 @@ class ActivityFinishListener extends OnClickListener{
     }
 }
 
-class RootActivityStartListener extends OnClickListener{
+class RootActivityStartListener implements OnClickListener{
 	
 	host:Activity
 	
@@ -236,7 +236,7 @@ class RootActivityStartListener extends OnClickListener{
     }
 }
 
-class RootPageStartListener extends OnClickListener{
+class RootPageStartListener implements OnClickListener{
 	
 	host:Activity
 	
