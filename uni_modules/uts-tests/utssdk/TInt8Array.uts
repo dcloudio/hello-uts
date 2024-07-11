@@ -42,20 +42,20 @@ export class TInt8Array {
   }
 
   testSet() {
-    let float32 = new Int8Array(8);
+    let int8 = new Int8Array(8);
     var array = [1, 2, 3]
-    float32.set(array, 1);
-    expect(float32.toString()).toEqual("0,1,2,3,0,0,0,0");
+    int8.set(array, 1);
+    expect(int8.toString()).toEqual("0,1,2,3,0,0,0,0");
   }
 
   testCopyWith() {
     console.log("testCopyWith 1")
-    let float32 = new Int8Array(8);
-    float32.set([1, 2, 3], 1);
+    let int8 = new Int8Array(8);
+    int8.set([1, 2, 3], 1);
     console.log("testCopyWith 1")
-    float32.copyWithin(3, 0, 3);
+    int8.copyWithin(3, 0, 3);
     console.log("testCopyWith 1")
-    expect(float32.toString()).toEqual("0,1,2,0,1,2,0,0");
+    expect(int8.toString()).toEqual("0,1,2,0,1,2,0,0");
   }
 
   testEvery() {
@@ -66,43 +66,43 @@ export class TInt8Array {
   }
 
   testFill() {
-    let float32 = new Int8Array([1, 2, 3]).fill(4);
-    expect(float32.toString()).toEqual("4,4,4");
+    let int8 = new Int8Array([1, 2, 3]).fill(4);
+    expect(int8.toString()).toEqual("4,4,4");
 
-    float32 = new Int8Array([1, 2, 3]).fill(4, 1);
-    expect(float32.toString()).toEqual("1,4,4");
+    int8 = new Int8Array([1, 2, 3]).fill(4, 1);
+    expect(int8.toString()).toEqual("1,4,4");
 
-    float32 = new Int8Array([1, 2, 3]).fill(4, 1, 2);
-    expect(float32.toString()).toEqual("1,4,3");
+    int8 = new Int8Array([1, 2, 3]).fill(4, 1, 2);
+    expect(int8.toString()).toEqual("1,4,3");
 
-    float32 = new Int8Array([1, 2, 3]).fill(4, 1, 1);
-    expect(float32.toString()).toEqual("1,2,3");
+    int8 = new Int8Array([1, 2, 3]).fill(4, 1, 1);
+    expect(int8.toString()).toEqual("1,2,3");
 
-    float32 = new Int8Array([1, 2, 3]).fill(4, -3, -2);
-    expect(float32.toString()).toEqual("4,2,3");
+    int8 = new Int8Array([1, 2, 3]).fill(4, -3, -2);
+    expect(int8.toString()).toEqual("4,2,3");
   }
 
   testFilter() {
     // const isBelowThreshold = (currentValue: number, index: number, _): boolean => currentValue >= 10;
 
-    let float32 = new Int8Array([12, 5, 8, 44]).filter((value: number, _: number, _a: Int8Array): boolean =>
+    let int8 = new Int8Array([12, 5, 8, 44]).filter((value: number, _: number, _a: Int8Array): boolean =>
       value >= 10);
-    expect(float32.toString()).toEqual("12,44");
+    expect(int8.toString()).toEqual("12,44");
   }
 
   find() {
-    let float32 = new Int8Array([4, 5, 8, 12]);
-    let res = float32.find((value: number, _: number, _a: Int8Array): boolean => value > 5);
+    let int8 = new Int8Array([4, 5, 8, 12]);
+    let res = int8.find((value: number, _: number, _a: Int8Array): boolean => value > 5);
     expect(res).toEqual(8);
   }
 
   findIndex() {
-    let float32 = new Int8Array([4, 6, 8, 12]);
-    let res = float32.findIndex((value: number, _: number, _a: Int8Array): boolean => value > 100);
+    let int8 = new Int8Array([4, 6, 8, 12]);
+    let res = int8.findIndex((value: number, _: number, _a: Int8Array): boolean => value > 100);
     expect(res).toEqual(-1);
 
-    let ufloat32 = new Int8Array([4, 6, 7, 120]);
-    res = ufloat32.findIndex((value: number, _: number, _a: Int8Array): boolean => value > 100);
+    int8 = new Int8Array([4, 6, 7, 120]);
+    res = int8.findIndex((value: number, _: number, _a: Int8Array): boolean => value > 100);
     expect(res).toEqual(3);
   }
 
@@ -120,44 +120,44 @@ export class TInt8Array {
   }
 
   includes() {
-    let float32 = new Int8Array([1, 2, 3]);
-    let res = float32.includes(2);
+    let int8 = new Int8Array([1, 2, 3]);
+    let res = int8.includes(2);
     expect(res).toEqual(true);
 
-    res = float32.includes(4);
+    res = int8.includes(4);
     expect(res).toEqual(false);
 
-    res = float32.includes(3, 3);
+    res = int8.includes(3, 3);
     expect(res).toEqual(false);
   }
 
   indexOf() {
-    let float32 = new Int8Array([2, 5, 9]);
-    let res = float32.indexOf(2);
+    let int8 = new Int8Array([2, 5, 9]);
+    let res = int8.indexOf(2);
     expect(res).toEqual(0);
 
-    res = float32.indexOf(7);
+    res = int8.indexOf(7);
     expect(res).toEqual(-1);
 
-    res = float32.indexOf(9, 2);
+    res = int8.indexOf(9, 2);
     expect(res).toEqual(2);
 
-    res = float32.indexOf(2, -1);
+    res = int8.indexOf(2, -1);
     expect(res).toEqual(-1);
 
-    res = float32.indexOf(2, -3);
+    res = int8.indexOf(2, -3);
     expect(res).toEqual(0);
   }
 
   join() {
-    let float32 = new Int8Array([1, 2, 3]);
-    let res = float32.join();
+    let int8 = new Int8Array([1, 2, 3]);
+    let res = int8.join();
     expect(res).toEqual("1,2,3");
 
-    res = float32.join(" / ");
+    res = int8.join(" / ");
     expect(res).toEqual("1 / 2 / 3");
 
-    res = float32.join("");
+    res = int8.join("");
     expect(res).toEqual("123");
   }
 
@@ -204,23 +204,23 @@ export class TInt8Array {
   }
 
   reverse() {
-    let float32 = new Int8Array([1, 2, 3]);
-    float32.reverse();
-    expect(float32.toString()).toEqual("3,2,1");
+    let int8 = new Int8Array([1, 2, 3]);
+    int8.reverse();
+    expect(int8.toString()).toEqual("3,2,1");
   }
 
   slice() {
-    let float32 = new Int8Array([1, 2, 3]);
-    let res = float32.slice(1);
+    let int8 = new Int8Array([1, 2, 3]);
+    let res = int8.slice(1);
     expect(res.toString()).toEqual("2,3");
 
-    res = float32.slice(2);
+    res = int8.slice(2);
     expect(res.toString()).toEqual("3");
 
-    res = float32.slice(-2);
+    res = int8.slice(-2);
     expect(res.toString()).toEqual("2,3");
 
-    res = float32.slice(0, 1);
+    res = int8.slice(0, 1);
     expect(res.toString()).toEqual("1");
   }
 
@@ -235,11 +235,11 @@ export class TInt8Array {
 
   subarray() {
     let buffer = new ArrayBuffer(8);
-    let float32 = new Int8Array(buffer);
-    float32.set([1, 2, 3]);
-    expect(float32.toString()).toEqual("1,2,3,0,0,0,0,0");
+    let int8 = new Int8Array(buffer);
+    int8.set([1, 2, 3]);
+    expect(int8.toString()).toEqual("1,2,3,0,0,0,0,0");
 
-    let sub = float32.subarray(0, 4);
+    let sub = int8.subarray(0, 4);
     expect(sub.toString()).toEqual("1,2,3,0");
   }
 
@@ -253,9 +253,9 @@ export class TInt8Array {
 
   arrayBufferSlice() {
     let buffer = new ArrayBuffer(16);
-    let float32 = new Int8Array(buffer);
-    float32[4] = 42;
-    expect(float32.toString()).toEqual("0,0,0,0,42,0,0,0,0,0,0,0,0,0,0,0");
+    let int8 = new Int8Array(buffer);
+    int8[4] = 42;
+    expect(int8.toString()).toEqual("0,0,0,0,42,0,0,0,0,0,0,0,0,0,0,0");
 
     let res = buffer.slice(4, 12);
     let sliced = new Int8Array(res);
