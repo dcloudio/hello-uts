@@ -20,7 +20,20 @@
 <script lang="ts">
     import { gotoDemoActivity,sayHelloFromJar } from "@/uni_modules/uts-nativepage";
     import { getBatteryInfo, GetBatteryInfoOptions } from "@/uni_modules/uts-getbatteryinfo";
+    // #ifdef APP-ANDROID
+     import {
+       UTSAcvitiyLifeCycleCallback,
+       UTSAcvitiyKeyEventCallback,
+       UTSActivityWindowCallback,
+       UTSActivityCallback,
+       UTSActivityComponentCallback,
+       onCallbackChange
+     } from '@/uni_modules/uts-syntaxcase'
     
+    
+     import File from 'java.io.File';
+     import Intent from 'android.content.Intent';
+    // #endif
     type Page = {
         name : string,
         url ?: string
@@ -32,6 +45,11 @@
         pages : Page[],
     }
     export default {
+        unmounted() {
+          // #ifdef APP-ANDROID
+          this.unRegActivityCallback()
+          // #endif
+        },
         data() {
             return {
                 title: '系统API示例',
@@ -42,7 +60,15 @@
                         pages: [{
                             name: "获取电池电量",
                             function: "testGetBatteryCapacity"
-                        }] as Page[]
+                        }
+                        // #ifdef APP-ANDROID
+                        ,
+                        {
+                            name: "注册activity 回调方法",
+                            function: "testActivityCallback"
+                        },
+                         // #endif
+                        ] as Page[]
                     },
                     {
                         name: "系统事件",
@@ -75,6 +101,8 @@
                 arrowUpIcon: '/static/icons/arrow-up.png',
                 arrowDownIcon: '/static/icons/arrow-down.png',
                 arrowRightIcon: '/static/icons/arrow-right.png',
+                callback: [] as Any[],
+                cbText: '',
             }
         },
         methods: {
@@ -93,6 +121,9 @@
                     switch (funName) {
                         case 'testGetBatteryCapacity':
                             this.testGetBatteryCapacity()
+                            break
+                        case 'testActivityCallback':
+                            this.testActivityCallback()
                             break
                         case 'testGotoDemoActivity':
                             this.testGotoDemoActivity()
@@ -117,6 +148,78 @@
                     }
                 } as GetBatteryInfoOptions)
             },
+            
+            
+            // #ifdef APP-ANDROID
+            testActivityCallback(){
+              this.activityCallback()
+            },
+            activityCallback() {
+              uni.showToast({
+                  title: "注册成功，请尝试切换到其他app，在切换回来",
+                  icon: 'none'
+              });
+              var that = this
+              onCallbackChange(function (eventLog : string) {
+                // 展示捕捉到的声明周期日志
+                let nextLine = that.cbText + eventLog
+                that.cbText = nextLine
+                let nextLineFlag = that.cbText + '\n'
+                that.cbText = nextLineFlag
+                console.log(that.cbText)
+                uni.showToast({
+                    title: "activity 回调方法：" +eventLog,
+                    icon: 'none'
+                });
+              })
+              let index = getCurrentPages().length - 1
+              let page = getCurrentPages()[index]
+              this.callback.push(new UTSAcvitiyLifeCycleCallback())
+              this.callback.push(new UTSActivityWindowCallback())
+              this.callback.push(new UTSAcvitiyKeyEventCallback())
+              this.callback.push(new UTSActivityCallback(), page.route)
+              this.callback.push(new UTSActivityComponentCallback())
+              this.callback.forEach((value) => {
+                if (value instanceof UTSAcvitiyLifeCycleCallback) {
+                  UTSAndroid.onActivityCallback(value,'tabBar')
+                }
+                if (value instanceof UTSActivityWindowCallback) {
+                  UTSAndroid.onActivityCallback(value)
+                }
+                if (value instanceof UTSAcvitiyKeyEventCallback) {
+                  UTSAndroid.onActivityCallback(value)
+                }
+                if (value instanceof UTSActivityCallback) {
+                  UTSAndroid.onActivityCallback(value)
+                }
+                if (value instanceof UTSActivityComponentCallback) {
+                  UTSAndroid.onActivityCallback(value)
+                }
+            
+              })
+            },
+            unRegActivityCallback() {
+              this.callback.forEach((value) => {
+            
+                if (value instanceof UTSAcvitiyLifeCycleCallback) {
+                  UTSAndroid.offActivityCallback(value)
+                }
+                if (value instanceof UTSActivityWindowCallback) {
+                  UTSAndroid.offActivityCallback(value)
+                }
+                if (value instanceof UTSAcvitiyKeyEventCallback) {
+                  UTSAndroid.offActivityCallback(value)
+                }
+                if (value instanceof UTSActivityCallback) {
+                  UTSAndroid.offActivityCallback(value)
+                }
+                if (value instanceof UTSActivityComponentCallback) {
+                  UTSAndroid.offActivityCallback(value)
+                }
+              })
+            },
+            // #endif
+            
             testNativeJar() {
                 let ret = sayHelloFromJar();
                 uni.showToast({

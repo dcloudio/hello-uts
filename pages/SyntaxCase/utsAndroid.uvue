@@ -41,19 +41,6 @@
       </view>
       <button @tap="getDeviceInfoClick">获取设备基础信息</button>
       <button @tap="getFileProviderUriClick">使用外部应用访问私有文件</button>
-
-      <button @tap="activityCallback">注册activity 回调方法</button>
-      <view class="uni-padding-wrap uni-common-mt">
-        <view class="uni-hello-text">
-          点击注册activity 回调方法后，可以手动切换其他APP再返回，可在控制台和界面观察事件日志
-        </view>
-      </view>
-      <view class="uni-padding-wrap uni-common-mt">
-        <view class="text-box" scroll-y="true">
-          <text>{{ cbText }}</text>
-        </view>
-      </view>
-      <button @tap="unRegActivityCallback">取消注册activity 回调方法</button>
     </view>
   </scroll-view>
   <!-- #endif -->
@@ -102,16 +89,10 @@
     data() {
       return {
         text: '',
-        cbText: '',
         selectImage: '',
-        callback: [] as Any[]
       }
     },
     unmounted() {
-      // #ifdef APP-ANDROID
-      this.unRegActivityCallback()
-      // #endif
-
     },
     onLoad: function () {
       // #ifdef APP-ANDROID
@@ -321,67 +302,6 @@
         })
       },
        // #endif
-      // #ifdef APP-ANDROID
-      // #ifdef UNI-APP-X
-      activityCallback() {
-        var that = this
-        onCallbackChange(function (eventLog : string) {
-          // 展示捕捉到的声明周期日志
-          let nextLine = that.cbText + eventLog
-          that.cbText = nextLine
-          let nextLineFlag = that.cbText + '\n'
-          that.cbText = nextLineFlag
-        })
-        let index = getCurrentPages().length - 1
-        let page = getCurrentPages()[index]
-        console.log('page route=' + page.route)
-        this.callback.push(new UTSAcvitiyLifeCycleCallback())
-        this.callback.push(new UTSActivityWindowCallback())
-        this.callback.push(new UTSAcvitiyKeyEventCallback())
-        this.callback.push(new UTSActivityCallback(), page.route)
-        this.callback.push(new UTSActivityComponentCallback())
-        this.callback.forEach((value) => {
-          if (value instanceof UTSAcvitiyLifeCycleCallback) {
-            UTSAndroid.onActivityCallback(value,page.route)
-          }
-          if (value instanceof UTSActivityWindowCallback) {
-            UTSAndroid.onActivityCallback(value)
-          }
-          if (value instanceof UTSAcvitiyKeyEventCallback) {
-            UTSAndroid.onActivityCallback(value)
-          }
-          if (value instanceof UTSActivityCallback) {
-            UTSAndroid.onActivityCallback(value)
-          }
-          if (value instanceof UTSActivityComponentCallback) {
-            UTSAndroid.onActivityCallback(value)
-          }
-
-        })
-      },
-      unRegActivityCallback() {
-        this.callback.forEach((value) => {
-
-          if (value instanceof UTSAcvitiyLifeCycleCallback) {
-            UTSAndroid.offActivityCallback(value)
-          }
-          if (value instanceof UTSActivityWindowCallback) {
-            UTSAndroid.offActivityCallback(value)
-          }
-          if (value instanceof UTSAcvitiyKeyEventCallback) {
-            UTSAndroid.offActivityCallback(value)
-          }
-          if (value instanceof UTSActivityCallback) {
-            UTSAndroid.offActivityCallback(value)
-          }
-          if (value instanceof UTSActivityComponentCallback) {
-            UTSAndroid.offActivityCallback(value)
-          }
-        })
-      }
-      // #endif
-      // #endif
-
     },
   }
 </script>
