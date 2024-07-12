@@ -291,7 +291,8 @@ export class TUint8ClampedArray {
   }
 
   arrayBufferSlice() {
-    // #TEST ArrayBuffer.slice with Uint8ClampedArray
+    
+    // #TEST ArrayBuffer.slice
     let buffer = new ArrayBuffer(16);
     let uint8Clamped = new Uint8ClampedArray(buffer);
     uint8Clamped[4] = 42;
