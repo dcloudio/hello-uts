@@ -305,6 +305,7 @@ export class TUint16Array {
   }
 
   arrayBufferSlice() {
+    
     // #TEST Uint16Array.arrayBufferSlice
     let buffer = new ArrayBuffer(16);
     let uint16 = new Uint16Array(buffer);
@@ -315,6 +316,7 @@ export class TUint16Array {
     let sliced = new Uint16Array(res);
     expect(sliced[0]).toEqual(42);
     // #END
+    
   }
 
   // #endif
