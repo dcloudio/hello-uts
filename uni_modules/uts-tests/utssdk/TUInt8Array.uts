@@ -7,6 +7,7 @@ import {
 
 export class TUint8Array {
   test() {
+    // #ifdef APP-ANDROID
     this.testMAX();
     this.testConstructor();
     this.testSet();
@@ -31,7 +32,9 @@ export class TUint8Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
+    // #endif
   }
+  // #ifdef APP-ANDROID
   from() {
     var s = new Set([1, 2, 3]);
     var unit8 = Uint8Array.from(s);
@@ -52,29 +55,36 @@ export class TUint8Array {
   }
 
   testSet() {
+    // #TEST Uint8Array.set
     let uint8 = new Uint8Array(8);
-    var array = [1, 2, 3]
+    var array = [1, 2, 3];
     uint8.set(array, 1);
     expect(uint8.toString()).toEqual("0,1,2,3,0,0,0,0");
+    // #END
   }
 
   testCopyWith() {
-    console.log("testCopyWith 1")
+    // #TEST Uint8Array.copyWithin
+    console.log("testCopyWith 1");
     let uint8 = new Uint8Array(8);
     uint8.set([1, 2, 3], 1);
     uint8.copyWithin(3, 0, 3);
-
     expect(uint8.toString()).toEqual("0,1,2,0,1,2,0,0");
+    // #END
   }
 
   testEvery() {
-    // const isBelowThreshold = (currentValue: number, index: number, array:Uint8Array): boolean => currentValue < 40;    
-    let result = new Uint8Array([12, 5, 8, 130, 44]).every((value: number, _: number, _a: Uint8Array): boolean =>
-      value < 40); // 
+    // #TEST Uint8Array.every
+    // const isBelowThreshold = (currentValue: number, index: number, array: Uint8Array): boolean => currentValue < 40;
+    let result = new Uint8Array([12, 5, 8, 130, 44]).every((value : number, _ : number, _a : Uint8Array) : boolean =>
+      value < 40);
     expect(result).toEqual(false);
+    // #END
   }
 
+
   testFill() {
+    // #TEST Uint8Array.fill
     let uint8 = new Uint8Array([1, 2, 3]).fill(4);
     expect(uint8.toString()).toEqual("4,4,4");
 
@@ -89,46 +99,54 @@ export class TUint8Array {
 
     uint8 = new Uint8Array([1, 2, 3]).fill(4, -3, -2);
     expect(uint8.toString()).toEqual("4,2,3");
+    // #END
   }
 
   testFilter() {
+    // #TEST Uint8Array.filter
     // const isBelowThreshold = (currentValue: number, index: number, _): boolean => currentValue >= 10;
 
-    let uint8 = new Uint8Array([12, 5, 8, 44]).filter((value: number, _: number, _a: Uint8Array): boolean => value >=
-      10);
+    let uint8 = new Uint8Array([12, 5, 8, 44]).filter((value : number, _ : number, _a : Uint8Array) : boolean => value >= 10);
     expect(uint8.toString()).toEqual("12,44");
+    // #END
   }
-
   find() {
+    // #TEST Uint8Array.find
     let uint8 = new Uint8Array([4, 5, 8, 12]);
-    let res = uint8.find((value: number, _: number, _a: Uint8Array): boolean => value > 5);
+    let res = uint8.find((value : number, _ : number, _a : Uint8Array) : boolean => value > 5);
     expect(res).toEqual(8);
+    // #END
   }
 
   findIndex() {
+    // #TEST Uint8Array.findIndex
     let uint8 = new Uint8Array([4, 6, 8, 12]);
-    let res = uint8.findIndex((value: number, _: number, _a: Uint8Array): boolean => value > 100);
+    let res = uint8.findIndex((value : number, _ : number, _a : Uint8Array) : boolean => value > 100);
     expect(res).toEqual(-1);
 
     let uuint8 = new Uint8Array([4, 6, 7, 120]);
-    res = uuint8.findIndex((value: number, _: number, _a: Uint8Array): boolean => value > 100);
+    res = uuint8.findIndex((value : number, _ : number, _a : Uint8Array) : boolean => value > 100);
     expect(res).toEqual(3);
+    // #END
   }
 
   foreach() {
-    new Uint8Array([0, 1, 2, 3]).forEach((value: number, index: number, _: Uint8Array) => {
+    // #TEST Uint8Array.forEach
+    new Uint8Array([0, 1, 2, 3]).forEach((value : number, index : number, _ : Uint8Array) => {
       console.log(`a[${index}] = ${value}`);
     });
+    // #END
   }
-
   iterator() {
+    // #TEST Uint8Array.entries
     let arr = new Uint8Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
     expect(entries.next().value[1]).toEqual(10);
-
+    // #END
   }
 
   includes() {
+    // #TEST Uint8Array.includes
     let uint8 = new Uint8Array([1, 2, 3]);
     let res = uint8.includes(2);
     expect(res).toEqual(true);
@@ -138,9 +156,11 @@ export class TUint8Array {
 
     res = uint8.includes(3, 3);
     expect(res).toEqual(false);
+    // #END
   }
 
   indexOf() {
+    // #TEST Uint8Array.indexOf
     let uint8 = new Uint8Array([2, 5, 9]);
     let res = uint8.indexOf(2);
     expect(res).toEqual(0);
@@ -156,9 +176,11 @@ export class TUint8Array {
 
     res = uint8.indexOf(2, -3);
     expect(res).toEqual(0);
+    // #END
   }
 
   join() {
+    // #TEST Uint8Array.join
     let uint8 = new Uint8Array([1, 2, 3]);
     let res = uint8.join();
     expect(res).toEqual("1,2,3");
@@ -168,52 +190,62 @@ export class TUint8Array {
 
     res = uint8.join("");
     expect(res).toEqual("123");
+    // #END
   }
-
   keys() {
+    // #TEST Uint8Array.keys
     let arr = new Uint8Array([10, 20, 30, 40, 50]);
     let keys = arr.keys();
     expect(keys.next().value).toEqual(0);
+    // #END
   }
 
   map() {
+    // #TEST Uint8Array.map
     let numbers = new Uint8Array([1, 4, 9]);
-    let doubles = numbers.map((value: number, _: number, _a: Uint8Array): number => value * 2);
+    let doubles = numbers.map((value : number, _ : number, _a : Uint8Array) : number => value * 2);
     expect(numbers.toString()).toEqual("1,4,9");
     expect(doubles.toString()).toEqual("2,8,18");
+    // #END
   }
 
   reduce() {
+    // #TEST Uint8Array.reduce
     let total = new Uint8Array([0, 1, 2, 3]);
-    let res = total.reduce((accumulator: number, currentValue: number, _: number, _a: Uint8Array): number =>
+    let res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Uint8Array) : number =>
       accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Uint8Array([0, 1, 2, 3]);
-    res = total.reduce((accumulator: number, currentValue: number, _: number, _a: Uint8Array): number => accumulator +
+    res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Uint8Array) : number => accumulator +
       currentValue, 8);
     expect(res).toEqual(14);
+    // #END
   }
 
   reduceRight() {
+    // #TEST Uint8Array.reduceRight
     let total = new Uint8Array([0, 1, 2, 3]);
-    let res = total.reduceRight((accumulator: number, currentValue: number, _: number, _a: Uint8Array): number =>
+    let res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Uint8Array) : number =>
       accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Uint8Array([0, 1, 2, 3]);
-    res = total.reduceRight((accumulator: number, currentValue: number, _: number, _a: Uint8Array): number =>
+    res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Uint8Array) : number =>
       accumulator + currentValue, 8);
     expect(res).toEqual(14);
+    // #END
   }
-
   reverse() {
+    // #TEST Uint8Array.reverse
     let uint8 = new Uint8Array([1, 2, 3]);
     uint8.reverse();
     expect(uint8.toString()).toEqual("3,2,1");
+    // #END
   }
 
   slice() {
+    // #TEST Uint8Array.slice
     let uint8 = new Uint8Array([1, 2, 3]);
     let res = uint8.slice(1);
     expect(res.toString()).toEqual("2,3");
@@ -226,18 +258,22 @@ export class TUint8Array {
 
     res = uint8.slice(0, 1);
     expect(res.toString()).toEqual("1");
+    // #END
   }
 
   sort() {
+    // #TEST Uint8Array.sort
     let numbers = new Uint8Array([40, 1, 5]);
     numbers.sort();
     expect(numbers.toString()).toEqual("1,5,40");
 
-    numbers.sort((a, b): number => a - b);
+    numbers.sort((a, b) : number => a - b);
     expect(numbers.toString()).toEqual("1,5,40");
+    // #END
   }
 
   subarray() {
+    // #TEST Uint8Array.subarray
     let buffer = new ArrayBuffer(16);
     let uint8 = new Uint8Array(buffer);
     uint8.set([1, 2, 3]);
@@ -245,16 +281,19 @@ export class TUint8Array {
 
     let sub = uint8.subarray(0, 4);
     expect(sub.toString()).toEqual("1,2,3,0");
+    // #END
   }
 
   values() {
+    // #TEST Uint8Array.values
     let arr = new Uint8Array([1, 2, 3]);
     let values = arr.values();
     expect(values.next().value).toEqual(1);
-
+    // #END
   }
 
   arrayBufferSlice() {
+    // #TEST ArrayBuffer.slice with Uint8Array
     let buffer = new ArrayBuffer(16);
     let uint8 = new Uint8Array(buffer);
     uint8[4] = 42;
@@ -263,5 +302,8 @@ export class TUint8Array {
     let res = buffer.slice(4, 12);
     let sliced = new Uint8Array(res);
     expect(sliced[0]).toEqual(42);
+    // #END
   }
+
+  // #endif
 }
