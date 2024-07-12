@@ -34,7 +34,7 @@ export class TUint16Array {
     this.arrayBufferSlice();
     // #endif
   }
-  
+
   // #ifdef APP-ANDROID
   testuint16() {
     let uint16 = new Uint16Array(2);
@@ -63,30 +63,36 @@ export class TUint16Array {
   }
 
   testSet() {
+    // #TEST Uint16Array.set
     let uint16 = new Uint16Array(8);
     var array = [1, 2, 3]
     uint16.set(array, 1);
     expect(uint16.toString()).toEqual("0,1,2,3,0,0,0,0");
+    // #END
   }
 
   testCopyWith() {
+    // #TEST Uint16Array.copyWith
     console.log("testCopyWith 1")
     let uint16 = new Uint16Array(8);
     uint16.set([1, 2, 3], 1);
-    console.log("testCopyWith 1")
+    console.log("testCopyWith 2")
     uint16.copyWithin(3, 0, 3);
-    console.log("testCopyWith 1")
+    console.log("testCopyWith 3")
     expect(uint16.toString()).toEqual("0,1,2,0,1,2,0,0");
+    // #END
   }
-
   testEvery() {
-    // const isBelowThreshold = (currentValue: number, index: number, array:Uint16Array): boolean => currentValue < 40;    
-    let result = new Uint16Array([12, 5, 8, 130, 44]).every((value: number, _: number, _a: Uint16Array):
-      boolean => value < 40); // 
+    // #TEST Uint16Array.every
+    // const isBelowThreshold = (currentValue: number, index: number, array: Uint16Array): boolean => currentValue < 40;    
+    let result = new Uint16Array([12, 5, 8, 130, 44]).every((value : number, _ : number, _a : Uint16Array) :
+      boolean => value < 40);
     expect(result).toEqual(false);
+    // #END
   }
 
   testFill() {
+    // #TEST Uint16Array.fill
     let uint16 = new Uint16Array([1, 2, 3]).fill(4);
     expect(uint16.toString()).toEqual("4,4,4");
 
@@ -101,46 +107,57 @@ export class TUint16Array {
 
     uint16 = new Uint16Array([1, 2, 3]).fill(4, -3, -2);
     expect(uint16.toString()).toEqual("4,2,3");
+    // #END
   }
 
   testFilter() {
+    // #TEST Uint16Array.filter
     // const isBelowThreshold = (currentValue: number, index: number, _): boolean => currentValue >= 10;
-
-    let uint16 = new Uint16Array([12, 5, 8, 44]).filter((value: number, _: number, _a: Uint16Array):
+    let uint16 = new Uint16Array([12, 5, 8, 44]).filter((value : number, _ : number, _a : Uint16Array) :
       boolean => value >= 10);
     expect(uint16.toString()).toEqual("12,44");
+    // #END
   }
 
   find() {
+    // #TEST Uint16Array.find
     let uint16 = new Uint16Array([4, 5, 8, 12]);
-    let res = uint16.find((value: number, _: number, _a: Uint16Array): boolean => value > 5);
+    let res = uint16.find((value : number, _ : number, _a : Uint16Array) : boolean => value > 5);
     expect(res).toEqual(8);
+    // #END
   }
 
+
   findIndex() {
+    // #TEST Uint16Array.findIndex
     let uint16 = new Uint16Array([4, 6, 8, 12]);
-    let res = uint16.findIndex((value: number, _: number, _a: Uint16Array): boolean => value > 100);
+    let res = uint16.findIndex((value : number, _ : number, _a : Uint16Array) : boolean => value > 100);
     expect(res).toEqual(-1);
 
     let uuint16 = new Uint16Array([4, 6, 7, 120]);
-    res = uuint16.findIndex((value: number, _: number, _a: Uint16Array): boolean => value > 100);
+    res = uuint16.findIndex((value : number, _ : number, _a : Uint16Array) : boolean => value > 100);
     expect(res).toEqual(3);
+    // #END
   }
 
   foreach() {
-    new Uint16Array([0, 1, 2, 3]).forEach((value: number, index: number, _a: Uint16Array) => {
+    // #TEST Uint16Array.forEach
+    new Uint16Array([0, 1, 2, 3]).forEach((value : number, index : number, _a : Uint16Array) => {
       console.log(`a[${index}] = ${value}`);
     });
+    // #END
   }
 
   iterator() {
+    // #TEST Uint16Array.entries
     let arr = new Uint16Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
     expect(entries.next().value[1]).toEqual(10);
-
+    // #END
   }
 
   includes() {
+    // #TEST Uint16Array.includes
     let uint16 = new Uint16Array([1, 2, 3]);
     let res = uint16.includes(2);
     expect(res).toEqual(true);
@@ -150,9 +167,10 @@ export class TUint16Array {
 
     res = uint16.includes(3, 3);
     expect(res).toEqual(false);
+    // #END
   }
-
   indexOf() {
+    // #TEST Uint16Array.indexOf
     let uint16 = new Uint16Array([2, 5, 9]);
     let res = uint16.indexOf(2);
     expect(res).toEqual(0);
@@ -168,9 +186,11 @@ export class TUint16Array {
 
     res = uint16.indexOf(2, -3);
     expect(res).toEqual(0);
+    // #END
   }
 
   join() {
+    // #TEST Uint16Array.join
     let uint16 = new Uint16Array([1, 2, 3]);
     let res = uint16.join();
     expect(res).toEqual("1,2,3");
@@ -180,52 +200,65 @@ export class TUint16Array {
 
     res = uint16.join("");
     expect(res).toEqual("123");
+    // #END
   }
 
   keys() {
+    // #TEST Uint16Array.keys
     let arr = new Uint16Array([10, 20, 30, 40, 50]);
     let keys = arr.keys();
     expect(keys.next().value).toEqual(0);
+    // #END
   }
 
   map() {
+    // #TEST Uint16Array.map
     let numbers = new Uint16Array([1, 4, 9]);
-    let doubles = numbers.map((value: number, _: number, _a: Uint16Array): number => value * 2);
+    let doubles = numbers.map((value : number, _ : number, _a : Uint16Array) : number => value * 2);
     expect(numbers.toString()).toEqual("1,4,9");
     expect(doubles.toString()).toEqual("2,8,18");
+    // #END
   }
 
+
   reduce() {
+    // #TEST Uint16Array.reduce
     let total = new Uint16Array([0, 1, 2, 3]);
-    let res = total.reduce((accumulator: number, currentValue: number, _: number, _a: Uint16Array):
-      number => accumulator + currentValue);
+    let res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Uint16Array) : number =>
+      accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Uint16Array([0, 1, 2, 3]);
-    res = total.reduce((accumulator: number, currentValue: number, _: number, _a: Uint16Array):
-      number => accumulator + currentValue, 8);
+    res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Uint16Array) : number =>
+      accumulator + currentValue, 8);
     expect(res).toEqual(14);
+    // #END
   }
 
   reduceRight() {
+    // #TEST Uint16Array.reduceRight
     let total = new Uint16Array([0, 1, 2, 3]);
-    let res = total.reduceRight((accumulator: number, currentValue: number, _: number, _a: Uint16Array):
-      number => accumulator + currentValue);
+    let res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Uint16Array) : number =>
+      accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Uint16Array([0, 1, 2, 3]);
-    res = total.reduceRight((accumulator: number, currentValue: number, _: number, _a: Uint16Array):
-      number => accumulator + currentValue, 8);
+    res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Uint16Array) : number =>
+      accumulator + currentValue, 8);
     expect(res).toEqual(14);
+    // #END
   }
 
   reverse() {
+    // #TEST Uint16Array.reverse
     let uint16 = new Uint16Array([1, 2, 3]);
     uint16.reverse();
     expect(uint16.toString()).toEqual("3,2,1");
+    // #END
   }
 
   slice() {
+    // #TEST Uint16Array.slice
     let uint16 = new Uint16Array([1, 2, 3]);
     let res = uint16.slice(1);
     expect(res.toString()).toEqual("2,3");
@@ -238,18 +271,21 @@ export class TUint16Array {
 
     res = uint16.slice(0, 1);
     expect(res.toString()).toEqual("1");
+    // #END
   }
-
   sort() {
+    // #TEST Uint16Array.sort
     let numbers = new Uint16Array([40, 1, 5]);
     numbers.sort();
     expect(numbers.toString()).toEqual("1,5,40");
 
-    numbers.sort((a, b): number => a - b);
+    numbers.sort((a, b) : number => a - b);
     expect(numbers.toString()).toEqual("1,5,40");
+    // #END
   }
 
   subarray() {
+    // #TEST Uint16Array.subarray
     let buffer = new ArrayBuffer(16);
     let uint16 = new Uint16Array(buffer);
     uint16.set([1, 2, 3]);
@@ -257,16 +293,19 @@ export class TUint16Array {
 
     let sub = uint16.subarray(0, 4);
     expect(sub.toString()).toEqual("1,2,3,0");
+    // #END
   }
 
   values() {
+    // #TEST Uint16Array.values
     let arr = new Uint16Array([1, 2, 3]);
     let values = arr.values();
     expect(values.next().value).toEqual(1);
-
+    // #END
   }
 
   arrayBufferSlice() {
+    // #TEST Uint16Array.arrayBufferSlice
     let buffer = new ArrayBuffer(16);
     let uint16 = new Uint16Array(buffer);
     uint16[4] = 42;
@@ -275,7 +314,9 @@ export class TUint16Array {
     let res = buffer.slice(8);
     let sliced = new Uint16Array(res);
     expect(sliced[0]).toEqual(42);
+    // #END
   }
+
   // #endif
-  
+
 }
