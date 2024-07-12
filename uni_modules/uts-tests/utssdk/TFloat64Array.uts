@@ -304,7 +304,8 @@ export class TFloat64Array {
   }
 
   arrayBufferSlice() {
-    // #TEST Float64Array with ArrayBuffer.slice
+    
+    // #TEST ArrayBuffer.slice
     let buffer = new ArrayBuffer(16);
     let float64 = new Float64Array(buffer);
     float64[1] = 42;
@@ -314,6 +315,7 @@ export class TFloat64Array {
     let sliced = new Float64Array(res);
     expect(sliced[0]).toEqual(42);
     // #END
+    
   }
 
   // #endif

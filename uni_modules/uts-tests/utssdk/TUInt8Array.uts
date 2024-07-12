@@ -293,7 +293,8 @@ export class TUint8Array {
   }
 
   arrayBufferSlice() {
-    // #TEST ArrayBuffer.slice with Uint8Array
+    
+    // #TEST ArrayBuffer.slice
     let buffer = new ArrayBuffer(16);
     let uint8 = new Uint8Array(buffer);
     uint8[4] = 42;
@@ -303,6 +304,7 @@ export class TUint8Array {
     let sliced = new Uint8Array(res);
     expect(sliced[0]).toEqual(42);
     // #END
+    
   }
 
   // #endif
