@@ -34,132 +34,151 @@ export class TInt16Array {
     // #endif
   }
 
-// #ifdef APP-ANDROID
+  // #ifdef APP-ANDROID
   testConstructor() {
     let buffer = new ArrayBuffer(16);
-    let float32 = new Int16Array(buffer);
-    float32[5] = 42;
-    expect(float32.toString()).toEqual("0,0,0,0,0,42,0,0");
+    let int16 = new Int16Array(buffer);
+    int16[5] = 42;
+    expect(int16.toString()).toEqual("0,0,0,0,0,42,0,0");
   }
 
   testSet() {
-    let float32 = new Int16Array(8);
-    var array = [1, 2, 3]
-    float32.set(array, 1);
-    expect(float32.toString()).toEqual("0,1,2,3,0,0,0,0");
+    // #TEST Int16Array.set
+    let int16 = new Int16Array(8);
+    var array = [1, 2, 3];
+    int16.set(array, 1);
+    expect(int16.toString()).toEqual("0,1,2,3,0,0,0,0");
+    // #END
   }
 
   testCopyWith() {
-    console.log("testCopyWith 1")
-    let float32 = new Int16Array(8);
-    float32.set([1, 2, 3], 1);
-    console.log("testCopyWith 1")
-    float32.copyWithin(3, 0, 3);
-    console.log("testCopyWith 1")
-    expect(float32.toString()).toEqual("0,1,2,0,1,2,0,0");
+    // #TEST Int16Array.copyWithin
+    let int16 = new Int16Array(8);
+    int16.set([1, 2, 3], 1);
+    int16.copyWithin(3, 0, 3);
+    expect(int16.toString()).toEqual("0,1,2,0,1,2,0,0");
+    // #END
   }
 
   testEvery() {
-    // const isBelowThreshold = (currentValue: number, index: number, array:Int16Array): boolean => currentValue < 40;    
-    let result = new Int16Array([12, 5, 8, 130, 44]).every((value : number, _ : number, _a : Int16Array) : boolean => value < 40); // 
+    // #TEST Int16Array.every
+    let result = new Int16Array([12, 5, 8, 130, 44]).every((value, _, _a:Int16Array):boolean => value < 40);
     expect(result).toEqual(false);
+    // #END
   }
 
   testFill() {
-    let float32 = new Int16Array([1, 2, 3]).fill(4);
-    expect(float32.toString()).toEqual("4,4,4");
+    // #TEST Int16Array.fill
+    let int16 = new Int16Array([1, 2, 3]).fill(4);
+    expect(int16.toString()).toEqual("4,4,4");
 
-    float32 = new Int16Array([1, 2, 3]).fill(4, 1);
-    expect(float32.toString()).toEqual("1,4,4");
+    int16 = new Int16Array([1, 2, 3]).fill(4, 1);
+    expect(int16.toString()).toEqual("1,4,4");
 
-    float32 = new Int16Array([1, 2, 3]).fill(4, 1, 2);
-    expect(float32.toString()).toEqual("1,4,3");
+    int16 = new Int16Array([1, 2, 3]).fill(4, 1, 2);
+    expect(int16.toString()).toEqual("1,4,3");
 
-    float32 = new Int16Array([1, 2, 3]).fill(4, 1, 1);
-    expect(float32.toString()).toEqual("1,2,3");
+    int16 = new Int16Array([1, 2, 3]).fill(4, 1, 1);
+    expect(int16.toString()).toEqual("1,2,3");
 
-    float32 = new Int16Array([1, 2, 3]).fill(4, -3, -2);
-    expect(float32.toString()).toEqual("4,2,3");
+    int16 = new Int16Array([1, 2, 3]).fill(4, -3, -2);
+    expect(int16.toString()).toEqual("4,2,3");
+    // #END
   }
 
   testFilter() {
-    // const isBelowThreshold = (currentValue: number, index: number, _): boolean => currentValue >= 10;
-
-    let float32 = new Int16Array([12, 5, 8, 44]).filter((value : number, _ : number, _a : Int16Array) : boolean => value >= 10);
-    expect(float32.toString()).toEqual("12,44");
+    // #TEST Int16Array.filter
+    let int16 = new Int16Array([12, 5, 8, 44]).filter((value, _, _a:Int16Array):boolean => value >= 10);
+    expect(int16.toString()).toEqual("12,44");
+    // #END
   }
 
   find() {
-    let float32 = new Int16Array([4, 5, 8, 12]);
-    let res = float32.find((value : number, _ : number, _a : Int16Array) : boolean => value > 5);
+    // #TEST Int16Array.find
+    let int16 = new Int16Array([4, 5, 8, 12]);
+    let res = int16.find((value, _, _a:Int16Array):boolean => value > 5);
     expect(res).toEqual(8);
+    // #END
   }
 
   findIndex() {
-    let float32 = new Int16Array([4, 6, 8, 12]);
-    let res = float32.findIndex((value : number, _ : number, _a : Int16Array) : boolean => value > 100);
+    // #TEST Int16Array.findIndex
+    let int16 = new Int16Array([4, 6, 8, 12]);
+    let res = int16.findIndex((value, _, _a:Int16Array):boolean => value > 100);
     expect(res).toEqual(-1);
 
-    let ufloat32 = new Int16Array([4, 6, 7, 120]);
-    res = ufloat32.findIndex((value : number, _ : number, _a : Int16Array) : boolean => value > 100);
+    int16 = new Int16Array([4, 6, 7, 120]);
+    res = int16.findIndex((value, _, _a:Int16Array):boolean => value > 100);
     expect(res).toEqual(3);
+    // #END
   }
 
   foreach() {
-    new Int16Array([0, 1, 2, 3]).forEach((value : number, index : number, _ : Int16Array) => {
+    // #TEST Int16Array.forEach
+    new Int16Array([0, 1, 2, 3]).forEach((value, index, _:Int16Array) => {
       console.log(`a[${index}] = ${value}`);
     });
+    // #END
   }
 
   iterator() {
+    // #TEST Int16Array.entries
     let arr = new Int16Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
     expect(entries.next().value[1]).toEqual(10);
+    // #END
   }
 
   includes() {
-    let float32 = new Int16Array([1, 2, 3]);
-    let res = float32.includes(2);
+    // #TEST Int16Array.includes
+    let int16 = new Int16Array([1, 2, 3]);
+    let res = int16.includes(2);
     expect(res).toEqual(true);
 
-    res = float32.includes(4);
+    res = int16.includes(4);
     expect(res).toEqual(false);
 
-    res = float32.includes(3, 3);
+    res = int16.includes(3, 3);
     expect(res).toEqual(false);
+    // #END
   }
 
   indexOf() {
-    let float32 = new Int16Array([2, 5, 9]);
-    let res = float32.indexOf(2);
+    // #TEST Int16Array.indexOf
+    let int16 = new Int16Array([2, 5, 9]);
+    let res = int16.indexOf(2);
     expect(res).toEqual(0);
 
-    res = float32.indexOf(7);
+    res = int16.indexOf(7);
     expect(res).toEqual(-1);
 
-    res = float32.indexOf(9, 2);
+    res = int16.indexOf(9, 2);
     expect(res).toEqual(2);
 
-    res = float32.indexOf(2, -1);
+    res = int16.indexOf(2, -1);
     expect(res).toEqual(-1);
 
-    res = float32.indexOf(2, -3);
+    res = int16.indexOf(2, -3);
     expect(res).toEqual(0);
+    // #END
   }
 
   join() {
-    let float32 = new Int16Array([1, 2, 3]);
-    let res = float32.join();
+    // #TEST Int16Array.join
+    let int16 = new Int16Array([1, 2, 3]);
+    let res = int16.join();
     expect(res).toEqual("1,2,3");
 
-    res = float32.join(" / ");
+    res = int16.join(" / ");
     expect(res).toEqual("1 / 2 / 3");
 
-    res = float32.join("");
+    res = int16.join("");
     expect(res).toEqual("123");
+    // #END
   }
 
   keys() {
+    // #TEST Int16Array.keys
     let arr = new Int16Array([10, 20, 30, 40, 50]);
     let keys = arr.keys();
     expect(keys.next().value).toEqual(0);
@@ -167,90 +186,112 @@ export class TInt16Array {
     expect(keys.next().value).toEqual(2);
     expect(keys.next().value).toEqual(3);
     expect(keys.next().value).toEqual(4);
+    // #END
   }
 
   map() {
+    // #TEST Int16Array.map
     let numbers = new Int16Array([1, 4, 9]);
-    let doubles = numbers.map((value : number, _ : number, _a : Int16Array) : number => value * 2);
+    let doubles = numbers.map((value, _, _a:Int16Array):number => value * 2);
     expect(numbers.toString()).toEqual("1,4,9");
     expect(doubles.toString()).toEqual("2,8,18");
+    // #END
   }
 
   reduce() {
+    // #TEST Int16Array.reduce
     let total = new Int16Array([0, 1, 2, 3]);
-    let res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Int16Array) : number => accumulator + currentValue);
+    let res = total.reduce((accumulator, currentValue, _, _a:Int16Array):number => accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Int16Array([0, 1, 2, 3]);
-    res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Int16Array) : number => accumulator + currentValue, 8);
+    res = total.reduce((accumulator, currentValue, _, _a:Int16Array):number => accumulator + currentValue, 8);
     expect(res).toEqual(14);
+    // #END
   }
 
   reduceRight() {
+    // #TEST Int16Array.reduceRight
     let total = new Int16Array([0, 1, 2, 3]);
-    let res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Int16Array) : number => accumulator + currentValue);
+    let res = total.reduceRight((accumulator, currentValue, _, _a:Int16Array):number => accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Int16Array([0, 1, 2, 3]);
-    res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Int16Array) : number => accumulator + currentValue, 8);
+    res = total.reduceRight((accumulator, currentValue, _, _a:Int16Array):number => accumulator + currentValue, 8);
     expect(res).toEqual(14);
+    // #END
   }
 
   reverse() {
-    let float32 = new Int16Array([1, 2, 3]);
-    float32.reverse();
-    expect(float32.toString()).toEqual("3,2,1");
+    // #TEST Int16Array.reverse
+    let int16 = new Int16Array([1, 2, 3]);
+    int16.reverse();
+    expect(int16.toString()).toEqual("3,2,1");
+    // #END
   }
 
   slice() {
-    let float32 = new Int16Array([1, 2, 3]);
-    let res = float32.slice(1);
+    // #TEST Int16Array.slice
+    let int16 = new Int16Array([1, 2, 3]);
+    let res = int16.slice(1);
     expect(res.toString()).toEqual("2,3");
 
-    res = float32.slice(2);
+    res = int16.slice(2);
     expect(res.toString()).toEqual("3");
 
-    res = float32.slice(-2);
+    res = int16.slice(-2);
     expect(res.toString()).toEqual("2,3");
 
-    res = float32.slice(0, 1);
+    res = int16.slice(0, 1);
     expect(res.toString()).toEqual("1");
+    // #END
   }
 
   sort() {
+    // #TEST Int16Array.sort
     let numbers = new Int16Array([40, 1, 5]);
     numbers.sort();
     expect(numbers.toString()).toEqual("1,5,40");
 
-    numbers.sort((a, b) : number => a - b);
+    numbers.sort((a, b):number => a - b);
     expect(numbers.toString()).toEqual("1,5,40");
+    // #END
   }
 
   subarray() {
+    // #TEST Int16Array.subarray
     let buffer = new ArrayBuffer(16);
-    let float32 = new Int16Array(buffer);
-    float32.set([1, 2, 3]);
-    expect(float32.toString()).toEqual("1,2,3,0,0,0,0,0");
+    let int16 = new Int16Array(buffer);
+    int16.set([1, 2, 3]);
+    expect(int16.toString()).toEqual("1,2,3,0,0,0,0,0");
 
-    let sub = float32.subarray(0, 4);
+    let sub = int16.subarray(0, 4);
     expect(sub.toString()).toEqual("1,2,3,0");
+    // #END
   }
 
   values() {
+    // #TEST Int16Array.values
     let arr = new Int16Array([1, 2, 3]);
     let values = arr.values();
     expect(values.next().value).toEqual(1);
+    // #END
   }
 
   arrayBufferSlice() {
+    
+    // #TEST ArrayBuffer.slice with Int16Array
     let buffer = new ArrayBuffer(16);
-    let float32 = new Int16Array(buffer);
-    float32[4] = 42;
-    expect(float32.toString()).toEqual("0,0,0,0,42,0,0,0");
+    let int16 = new Int16Array(buffer);
+    int16[4] = 42;
+    expect(int16.toString()).toEqual("0,0,0,0,42,0,0,0");
 
     let res = buffer.slice(8, 12);
     let sliced = new Int16Array(res);
     expect(sliced[0]).toEqual(42);
+    // #END
+    
   }
+
   // #endif
 }
