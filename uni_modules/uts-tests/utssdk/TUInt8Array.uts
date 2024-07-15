@@ -7,7 +7,7 @@ import {
 
 export class TUint8Array {
   test() {
-    // #ifdef APP-ANDROID
+    // #ifndef APP-IOS
     this.testMAX();
     this.testConstructor();
     this.testSet();
@@ -34,7 +34,7 @@ export class TUint8Array {
     this.arrayBufferSlice();
     // #endif
   }
-  // #ifdef APP-ANDROID
+  // #ifndef APP-IOS
   from() {
     var s = new Set([1, 2, 3]);
     var unit8 = Uint8Array.from(s);

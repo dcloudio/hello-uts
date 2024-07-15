@@ -23,7 +23,8 @@ const int16 = new TInt16Array()
 
 export function testArrayBuffer() : Result {
   return describe("ArrayBuffer", () => {
-    // #ifdef APP-ANDROID
+    // #ifndef APP-IOS
+
     //dataview start
     test('dataview_constructor', () => {
       tDataView.setConstructor()
@@ -753,7 +754,8 @@ export function testArrayBuffer() : Result {
     test('uint32_testSome', () => {
       uint32.testSome()
     })
-    // #endif
+
     //uint32  end
+    // #endif
   })
 }
