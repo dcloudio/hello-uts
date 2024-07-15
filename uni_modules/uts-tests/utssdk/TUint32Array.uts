@@ -299,7 +299,6 @@ export class TUint32Array {
   }
 
   arrayBufferSlice() {
-    
     // #TEST ArrayBuffer.slice
     let buffer = new ArrayBuffer(16);
     let uint32 = new Uint32Array(buffer);
@@ -310,7 +309,6 @@ export class TUint32Array {
     let sliced = new Uint32Array(res);
     expect(sliced[1]).toEqual(42);
     // #END
-    
   }
 
   // #endif

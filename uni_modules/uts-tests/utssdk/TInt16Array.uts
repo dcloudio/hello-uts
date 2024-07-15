@@ -279,7 +279,6 @@ export class TInt16Array {
   }
 
   arrayBufferSlice() {
-    
     // #TEST ArrayBuffer.slice with Int16Array
     let buffer = new ArrayBuffer(16);
     let int16 = new Int16Array(buffer);
@@ -290,7 +289,6 @@ export class TInt16Array {
     let sliced = new Int16Array(res);
     expect(sliced[0]).toEqual(42);
     // #END
-    
   }
 
   // #endif

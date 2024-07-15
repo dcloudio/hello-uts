@@ -33,87 +33,72 @@ export class TDataView {
   }
 
   setInt8() {
-    // #TEST DataView.setInt8,DataView.getInt8
     // Create an ArrayBuffer with a size in bytes
     let buffer = new ArrayBuffer(16);
     let view = new DataView(buffer);
     view.setInt8(1, 127); // Max signed 8-bit integer
     expect(view.getInt8(1)).toEqual(127);
-    // #END
- }
+  }
 
   setFloat32() {
-    // #TEST DataView.setFloat32,DataView.getFloat32
+    console.log('setFloat32', 'start')
     // Create an ArrayBuffer with a size in bytes
     let buffer = new ArrayBuffer(16);
     let view = new DataView(buffer);
-    view.setFloat32(1, 3);
+    view.setFloat32(1,3);
+     console.log('setFloat32',view.getFloat32(1))
     expect(this.numberEquals(3, view.getFloat32(1))).toEqual(true);
-    // #END
- }
+  }
 
   setFloat64() {
-    // #TEST DataView.setFloat64,DataView.getFloat64
     // Create an ArrayBuffer with a size in bytes
     let buffer = new ArrayBuffer(16);
     let view = new DataView(buffer);
     view.setFloat64(1, Math.PI);
     expect(this.numberEquals(3.141592653589793, view.getFloat64(1))).toEqual(true);
-    // #END
- }
+  }
 
   setInt16() {
-    // #TEST DataView.setInt16,DataView.getInt16
     // Create an ArrayBuffer with a size in bytes
     let buffer = new ArrayBuffer(16);
     let view = new DataView(buffer);
     view.setInt16(1, 32767); // Max signed 16-bit integer
     expect(view.getInt16(1)).toEqual(32767);
-    // #END
- }
+  }
 
   setInt32() {
-    // #TEST DataView.setInt32,DataView.getInt32
     // Create an ArrayBuffer with a size in bytes
     let buffer = new ArrayBuffer(16);
     let view = new DataView(buffer);
     view.setInt32(1, 2147483647); // Max signed 32-bit integer
     expect(this.numberEquals(2147483647, view.getInt32(1))).toEqual(true);
-    // #END
- }
+  }
 
   setUint16() {
-    // #TEST DataView.setUint16,DataView.getUint16
     // Create an ArrayBuffer with a size in bytes
     let buffer = new ArrayBuffer(16);
     let view = new DataView(buffer);
     view.setUint16(1, 65535); // Max unsigned 16-bit integer
     expect(this.numberEquals(65535, view.getUint16(1))).toEqual(true);
-    // #END
   }
 
   setUint32() {
-    // #TEST DataView.setUint32,DataView.getUint32
     // Create an ArrayBuffer with a size in bytes
     let buffer = new ArrayBuffer(16);
     let view = new DataView(buffer);
     view.setUint32(1, 4294967295); // Max unsigned 32-bit integer
     expect(this.numberEquals(4294967295, view.getUint32(1))).toEqual(true);
-    // #END
- }
+  }
 
   setUint8() {
-    // #TEST DataView.setUint8,DataView.getUint8
     // Create an ArrayBuffer with a size in bytes
     let buffer = new ArrayBuffer(16);
     let view = new DataView(buffer);
     view.setUint8(1, 255); // Max unsigned 8-bit integer
     expect(this.numberEquals(255, view.getUint8(1))).toEqual(true);
-    // #END
   }
 
-
-  numberEquals(a : number, b : number) : Boolean {
+  numberEquals(a: number, b: number): Boolean {
     return a == b
   }
 
@@ -142,7 +127,7 @@ export class TDataView {
     this.doFloatIterations(false);
   }
 
-  doIterations(littleEndian : boolean, dataView : boolean) {
+  doIterations(littleEndian: boolean, dataView: boolean) {
     var buffer = this.makeBuffer(1000, littleEndian);
     var iterations = 10;
     if (dataView) {
@@ -154,7 +139,7 @@ export class TDataView {
     }
   }
 
-  makeBuffer(size : number, littleEndian : boolean) : ArrayBuffer {
+  makeBuffer(size: number, littleEndian: boolean): ArrayBuffer {
     var buffer = new ArrayBuffer(1000 * 14);
     var view = new DataView(buffer);
     for (var i = 0; i < 1000; ++i) {
@@ -168,7 +153,7 @@ export class TDataView {
     return buffer;
   }
 
-  doOneIterationDV(buffer : ArrayBuffer, littleEndian : boolean) {
+  doOneIterationDV(buffer: ArrayBuffer, littleEndian: boolean) {
     var xor = 0;
     var view = new DataView(buffer);
     for (var i = 0; i < view.byteLength; i += 14) {
@@ -182,7 +167,7 @@ export class TDataView {
     expect(xor).toEqual(0);
   }
 
-  doOneIterationJS(buffer : ArrayBuffer, littleEndian : boolean) {
+  doOneIterationJS(buffer: ArrayBuffer, littleEndian: boolean) {
     var xor = 0;
     if (littleEndian) {
       var reader = new LittleEndian(buffer);
@@ -209,7 +194,7 @@ export class TDataView {
 
   }
 
-  doFloatIterations(dataView : boolean) {
+  doFloatIterations(dataView: boolean) {
     var buffer = this.makeFloatBuffer();
     var iterations = 10;
     if (dataView) {
@@ -221,7 +206,7 @@ export class TDataView {
     }
   }
 
-  makeFloatBuffer() : ArrayBuffer {
+  makeFloatBuffer(): ArrayBuffer {
     var buffer = new ArrayBuffer(1000 * 16);
     var view = new DataView(buffer);
     for (var i = 0; i < 1000; i++) {
@@ -232,7 +217,7 @@ export class TDataView {
     return buffer;
   }
 
-  doOneFloatIterationDV(buffer : ArrayBuffer) {
+  doOneFloatIterationDV(buffer: ArrayBuffer) {
     var sum = 0;
     var view = new DataView(buffer);
     for (var i = 0; i < view.byteLength; i += 16) {
@@ -240,10 +225,10 @@ export class TDataView {
       sum += view.getFloat32(i + 8);
       sum += view.getFloat32(i + 12);
     }
-    expect(sum).toEqual(23634.413356150446);
+     expect(sum).toEqual(23634.413356150446);
   }
 
-  doOneFloatIterationJS(buffer : ArrayBuffer) {
+  doOneFloatIterationJS(buffer: ArrayBuffer) {
     var sum = 0;
     var float32array = new Float32Array(buffer);
     var float64array = new Float64Array(buffer);
@@ -255,32 +240,32 @@ export class TDataView {
   }
 }
 class BigEndian {
-  private uint8View_ : Uint8Array;
-  private int8View_ : Int8Array;
+  private uint8View_: Uint8Array;
+  private int8View_: Int8Array;
 
-  constructor(buffer : ArrayBuffer,) {
+  constructor(buffer: ArrayBuffer, ) {
     const offset = 0;
     this.uint8View_ = new Uint8Array(buffer, offset);
     this.int8View_ = new Int8Array(buffer, offset);
   }
 
-  getInt8(byteOffset : number) : number {
+  getInt8(byteOffset: number): number {
     return this.int8View_[byteOffset];
   }
 
-  getUint8(byteOffset : number) : number {
+  getUint8(byteOffset: number): number {
     return this.uint8View_[byteOffset];
   }
 
-  getInt16(byteOffset : number) : number {
+  getInt16(byteOffset: number): number {
     return this.uint8View_[byteOffset + 1] | (this.int8View_[byteOffset] << 8);
   }
 
-  getUint16(byteOffset : number) : number {
+  getUint16(byteOffset: number): number {
     return this.uint8View_[byteOffset + 1] | (this.uint8View_[byteOffset] << 8);
   }
 
-  getInt32(byteOffset : number) : number {
+  getInt32(byteOffset: number): number {
     return (
       this.uint8View_[byteOffset + 3] |
       (this.uint8View_[byteOffset + 2] << 8) |
@@ -289,7 +274,7 @@ class BigEndian {
     );
   }
 
-  getUint32(byteOffset : number) : number {
+  getUint32(byteOffset: number): number {
     return (
       this.uint8View_[byteOffset + 3] +
       (this.uint8View_[byteOffset + 2] << 8) +
@@ -300,32 +285,32 @@ class BigEndian {
 }
 
 class LittleEndian {
-  private uint8View_ : Uint8Array;
-  private int8View_ : Int8Array;
+  private uint8View_: Uint8Array;
+  private int8View_: Int8Array;
 
-  constructor(buffer : ArrayBuffer) {
+  constructor(buffer: ArrayBuffer) {
     const offset = 0;
     this.uint8View_ = new Uint8Array(buffer, offset);
     this.int8View_ = new Int8Array(buffer, offset);
   }
 
-  getInt8(byteOffset : number) : number {
+  getInt8(byteOffset: number): number {
     return this.int8View_[byteOffset];
   }
 
-  getUint8(byteOffset : number) : number {
+  getUint8(byteOffset: number): number {
     return this.uint8View_[byteOffset];
   }
 
-  getInt16(byteOffset : number) : number {
+  getInt16(byteOffset: number): number {
     return this.uint8View_[byteOffset] | (this.int8View_[byteOffset + 1] << 8);
   }
 
-  getUint16(byteOffset : number) : number {
+  getUint16(byteOffset: number): number {
     return this.uint8View_[byteOffset] | (this.uint8View_[byteOffset + 1] << 8);
   }
 
-  getInt32(byteOffset : number) : number {
+  getInt32(byteOffset: number): number {
     return (
       this.uint8View_[byteOffset] |
       (this.uint8View_[byteOffset + 1] << 8) |
@@ -334,7 +319,7 @@ class LittleEndian {
     );
   }
 
-  getUint32(byteOffset : number) : number {
+  getUint32(byteOffset: number): number {
     return (
       this.uint8View_[byteOffset] +
       (this.uint8View_[byteOffset + 1] << 8) +
