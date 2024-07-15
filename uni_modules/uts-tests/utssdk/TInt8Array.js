@@ -2,7 +2,6 @@ import {
   describe,
   test,
   expect,
-  expectNumber,
   Result
 } from './tests.uts'
 
@@ -182,25 +181,25 @@ export class TInt8Array {
     let total = new Int8Array([0, 1, 2, 3]);
     let res = total.reduce((accumulator: number, currentValue: number, currentIndex: number, array: Int8Array):
       number => accumulator + currentValue);
-    expect(res).toEqual(6);
+    expect(res).toEqual(6.0);
 
     total = new Int8Array([0, 1, 2, 3]);
     res = total.reduce((accumulator: number, currentValue: number, currentIndex: number, array: Int8Array): number =>
       accumulator + currentValue, 8);
-    expect(res).toEqual(14);
+    expect(res).toEqual(14.0);
   }
 
   reduceRight() {
     let total = new Int8Array([0, 1, 2, 3]);
     let res = total.reduceRight((accumulator: number, currentValue: number, currentIndex: number, array: Int8Array):
       number => accumulator + currentValue);
-    expect(res).toEqual(6);
+    expect(res).toEqual(6.0);
 
     total = new Int8Array([0, 1, 2, 3]);
     res = total.reduceRight((accumulator: number, currentValue: number, currentIndex: number, array: Int8Array):
       number => accumulator + currentValue, 8);
    
-    expect(res).toEqual(14);
+    expect(res).toEqual(14.0);
   }
 
   reverse() {

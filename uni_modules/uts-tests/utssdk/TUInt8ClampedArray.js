@@ -125,13 +125,13 @@ export class TUint8ClampedArray {
 
   includes() {
     let float32 = new Uint8ClampedArray([1, 2, 3]);
-    let res = float32.includes(2);
+    let res = float32.includes(2.0);
     expect(res).toEqual(true);
 
-    res = float32.includes(4);
+    res = float32.includes(4.0);
     expect(res).toEqual(false);
 
-    res = float32.includes(3, 3);
+    res = float32.includes(3.0, 3);
     expect(res).toEqual(false);
   }
 
@@ -182,24 +182,24 @@ export class TUint8ClampedArray {
     let total = new Uint8ClampedArray([0, 1, 2, 3]);
     let res = total.reduce((accumulator: number, currentValue: number, currentIndex: number, array:
       Uint8ClampedArray): number => accumulator + currentValue);
-    expect(res).toEqual(6);
+    expect(res).toEqual(6.0);
 
     total = new Uint8ClampedArray([0, 1, 2, 3]);
     res = total.reduce((accumulator: number, currentValue: number, currentIndex: number, array: Uint8ClampedArray):
       number => accumulator + currentValue, 8);
-    expect(res).toEqual(14);
+    expect(res).toEqual(14.0);
   }
 
   reduceRight() {
     let total = new Uint8ClampedArray([0, 1, 2, 3]);
     let res = total.reduceRight((accumulator: number, currentValue: number, currentIndex: number, array:
       Uint8ClampedArray): number => accumulator + currentValue);
-    expect(res).toEqual(6);
+    expect(res).toEqual(6.0);
 
     total = new Uint8ClampedArray([0, 1, 2, 3]);
     res = total.reduceRight((accumulator: number, currentValue: number, currentIndex: number, array:
       Uint8ClampedArray): number => accumulator + currentValue, 8);
-    expect(res).toEqual(14);
+    expect(res).toEqual(14.0);
   }
 
   reverse() {
