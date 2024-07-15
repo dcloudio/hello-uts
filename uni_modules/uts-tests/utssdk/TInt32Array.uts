@@ -35,7 +35,7 @@ export class TInt32Array {
     // #endif
   }
 
-  // #ifdef APP-ANDROID
+// #ifdef APP-ANDROID
   testInt32Array() {
     let int32 = new Int32Array(2);
     int32[0] = 42;
@@ -63,35 +63,29 @@ export class TInt32Array {
   }
 
   testSet() {
-    // #TEST Int32Array.set
     let int32 = new Int32Array(8);
-    var array = [1, 2, 3]
+    var array =[1, 2, 3]
     int32.set(array, 1);
     expect(int32.toString()).toEqual("0,1,2,3,0,0,0,0");
-    // #END
   }
 
   testCopyWith() {
-    // #TEST Int32Array.copyWithin
     console.log("testCopyWith 1")
     let int32 = new Int32Array(8);
     int32.set([1, 2, 3], 1);
-    console.log("testCopyWith 1")
+        console.log("testCopyWith 1")
     int32.copyWithin(3, 0, 3);
-    console.log("testCopyWith 1")
+        console.log("testCopyWith 1")
     expect(int32.toString()).toEqual("0,1,2,0,1,2,0,0");
-    // #END
   }
 
   testEvery() {
-    // #TEST Int32Array.every
-    let result = new Int32Array([12, 5, 8, 130, 44]).every((value : number, _ : number, _a : Int32Array) : boolean => value < 40);
+    // const isBelowThreshold = (currentValue: number, index: number, array:Int32Array): boolean => currentValue < 40;    
+    let result = new Int32Array([12, 5, 8, 130, 44]).every((value:number,_ : number, _a : Int32Array): boolean => value< 40); // 
     expect(result).toEqual(false);
-    // #END
   }
 
   testFill() {
-    // #TEST Int32Array.fill
     let int32 = new Int32Array([1, 2, 3]).fill(4);
     expect(int32.toString()).toEqual("4,4,4");
 
@@ -106,54 +100,45 @@ export class TInt32Array {
 
     int32 = new Int32Array([1, 2, 3]).fill(4, -3, -2);
     expect(int32.toString()).toEqual("4,2,3");
-    // #END
   }
 
   testFilter() {
-    // #TEST Int32Array.filter
-    let int32 = new Int32Array([12, 5, 8, 44]).filter((value : number, _ : number, _a : Int32Array) : boolean => value >= 10);
+    // const isBelowThreshold = (currentValue: number, index: number, _): boolean => currentValue >= 10;
+      
+    let int32 = new Int32Array([12, 5, 8, 44]).filter((value : number, _ : number, _a : Int32Array): boolean => value>= 10);
     expect(int32.toString()).toEqual("12,44");
-    // #END
   }
 
   find() {
-    // #TEST Int32Array.find
     let int32 = new Int32Array([4, 5, 8, 12]);
-    let res = int32.find((value : number, _ : number, _a : Int32Array) : boolean => value > 5);
+    let res = int32.find((value : number, _ : number, _a : Int32Array): boolean => value > 5);
     expect(res).toEqual(8);
-    // #END
   }
 
   findIndex() {
-    // #TEST Int32Array.findIndex
     let int32 = new Int32Array([4, 6, 8, 12]);
-    let res = int32.findIndex((value : number, _ : number, _a : Int32Array) : boolean => value > 100);
+    let res = int32.findIndex((value : number, _ : number, _a : Int32Array): boolean => value > 100);
     expect(res).toEqual(-1);
 
     int32 = new Int32Array([4, 6, 7, 120]);
-    res = int32.findIndex((value : number, _ : number, _a : Int32Array) : boolean => value > 100);
+    res = int32.findIndex((value : number, _ : number, _a : Int32Array): boolean => value > 100);
     expect(res).toEqual(3);
-    // #END
   }
 
   foreach() {
-    // #TEST Int32Array.forEach
     new Int32Array([0, 1, 2, 3]).forEach((value : number, index : number, _ : Int32Array) => {
       console.log(`a[${index}] = ${value}`);
     });
-    // #END
   }
 
   iterator() {
-    // #TEST Int32Array.entries
     let arr = new Int32Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
-    expect(entries.next().value[1]).toEqual(10);
-    // #END
+   expect(entries.next().value[1]).toEqual(10);
+   
   }
 
   includes() {
-    // #TEST Int32Array.includes
     let int32 = new Int32Array([1, 2, 3]);
     let res = int32.includes(2);
     expect(res).toEqual(true);
@@ -163,11 +148,9 @@ export class TInt32Array {
 
     res = int32.includes(3, 3);
     expect(res).toEqual(false);
-    // #END
   }
 
   indexOf() {
-    // #TEST Int32Array.indexOf
     let int32 = new Int32Array([2, 5, 9]);
     let res = int32.indexOf(2);
     expect(res).toEqual(0);
@@ -183,11 +166,9 @@ export class TInt32Array {
 
     res = int32.indexOf(2, -3);
     expect(res).toEqual(0);
-    // #END
   }
 
   join() {
-    // #TEST Int32Array.join
     let int32 = new Int32Array([1, 2, 3]);
     let res = int32.join();
     expect(res).toEqual("1,2,3");
@@ -197,60 +178,48 @@ export class TInt32Array {
 
     res = int32.join("");
     expect(res).toEqual("123");
-    // #END
   }
 
   keys() {
-    // #TEST Int32Array.keys
     let arr = new Int32Array([10, 20, 30, 40, 50]);
     let keys = arr.keys();
     expect(keys.next().value).toEqual(0);
-    // #END
   }
 
   map() {
-    // #TEST Int32Array.map
     let numbers = new Int32Array([1, 4, 9]);
-    let doubles = numbers.map((value : number, _ : number, _a : Int32Array) : number => value * 2);
+    let doubles = numbers.map((value : number, _ : number, _a : Int32Array): number => value * 2);
     expect(numbers.toString()).toEqual("1,4,9");
     expect(doubles.toString()).toEqual("2,8,18");
-    // #END
   }
 
   reduce() {
-    // #TEST Int32Array.reduce
     let total = new Int32Array([0, 1, 2, 3]);
-    let res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Int32Array) : number => accumulator + currentValue);
+    let res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Int32Array): number => accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Int32Array([0, 1, 2, 3]);
-    res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Int32Array) : number => accumulator + currentValue, 8);
+    res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Int32Array): number => accumulator + currentValue, 8);
     expect(res).toEqual(14);
-    // #END
   }
 
   reduceRight() {
-    // #TEST Int32Array.reduceRight
     let total = new Int32Array([0, 1, 2, 3]);
-    let res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Int32Array) : number => accumulator + currentValue);
+    let res = total.reduceRight((accumulator: number, currentValue : number, _ : number, _a : Int32Array): number => accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Int32Array([0, 1, 2, 3]);
-    res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Int32Array) : number => accumulator + currentValue, 8);
+    res = total.reduceRight((accumulator: number, currentValue : number, _ : number, _a : Int32Array): number => accumulator + currentValue, 8);
     expect(res).toEqual(14);
-    // #END
   }
 
   reverse() {
-    // #TEST Int32Array.reverse
     let int32 = new Int32Array([1, 2, 3]);
     int32.reverse();
     expect(int32.toString()).toEqual("3,2,1");
-    // #END
   }
 
   slice() {
-    // #TEST Int32Array.slice
     let int32 = new Int32Array([1, 2, 3]);
     let res = int32.slice(1);
     expect(res.toString()).toEqual("2,3");
@@ -263,22 +232,18 @@ export class TInt32Array {
 
     res = int32.slice(0, 1);
     expect(res.toString()).toEqual("1");
-    // #END
   }
 
   sort() {
-    // #TEST Int32Array.sort
     let numbers = new Int32Array([40, 1, 5]);
     numbers.sort();
     expect(numbers.toString()).toEqual("1,5,40");
 
-    numbers.sort((a, b) : number => a - b);
+    numbers.sort((a, b):number => a - b);
     expect(numbers.toString()).toEqual("1,5,40");
-    // #END
   }
 
   subarray() {
-    // #TEST Int32Array.subarray
     let buffer = new ArrayBuffer(16);
     let int32 = new Int32Array(buffer);
     int32.set([1, 2, 3]);
@@ -286,19 +251,15 @@ export class TInt32Array {
 
     let sub = int32.subarray(0, 4);
     expect(sub.toString()).toEqual("1,2,3,0");
-    // #END
   }
 
   values() {
-    // #TEST Int32Array.values
     let arr = new Int32Array([1, 2, 3]);
     let values = arr.values();
-    expect(values.next().value).toEqual(1);
-    // #END
+     expect(values.next().value).toEqual(1);
   }
 
   arrayBufferSlice() {
-    // #TEST ArrayBuffer.slice
     let buffer = new ArrayBuffer(16);
     let int32 = new Int32Array(buffer);
     int32[3] = 42;
@@ -307,8 +268,6 @@ export class TInt32Array {
     let res = buffer.slice(8);
     let sliced = new Int32Array(res);
     expect(sliced[1]).toEqual(42);
-    // #END
   }
-
   // #endif
 }

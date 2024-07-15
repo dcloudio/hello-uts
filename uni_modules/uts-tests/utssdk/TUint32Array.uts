@@ -35,7 +35,7 @@ export class TUint32Array {
     // #endif
   }
 
-  // #ifdef APP-ANDROID
+// #ifdef APP-ANDROID
   testuint32() {
     let uint32 = new Uint32Array(2);
     uint32[0] = 42;
@@ -63,36 +63,30 @@ export class TUint32Array {
   }
 
   testSet() {
-    // #TEST Uint32Array.set
     let uint32 = new Uint32Array(8);
-    var array = [1, 2, 3];
+    var array = [1, 2, 3]
     uint32.set(array, 1);
     expect(uint32.toString()).toEqual("0,1,2,3,0,0,0,0");
-    // #END
   }
 
   testCopyWith() {
-    // #TEST Uint32Array.copyWithin
-    console.log("testCopyWith 1");
+    console.log("testCopyWith 1")
     let uint32 = new Uint32Array(8);
     uint32.set([1, 2, 3], 1);
-    console.log("testCopyWith 1");
+    console.log("testCopyWith 1")
     uint32.copyWithin(3, 0, 3);
-    console.log("testCopyWith 1");
+    console.log("testCopyWith 1")
     expect(uint32.toString()).toEqual("0,1,2,0,1,2,0,0");
-    // #END
   }
 
   testEvery() {
-    // #TEST Uint32Array.every
-    // const isBelowThreshold = (currentValue: number, index: number, array: Uint32Array): boolean => currentValue < 40;
-    let result = new Uint32Array([12, 5, 8, 130, 44]).every((value : number, _ : number, _a : Uint32Array) : boolean => value < 40);
+    // const isBelowThreshold = (currentValue: number, index: number, array:Uint32Array): boolean => currentValue < 40;    
+    let result = new Uint32Array([12, 5, 8, 130, 44]).every((value: number, _: number, _a: Uint32Array):
+      boolean => value < 40); // 
     expect(result).toEqual(false);
-    // #END
   }
 
   testFill() {
-    // #TEST Uint32Array.fill
     let uint32 = new Uint32Array([1, 2, 3]).fill(4);
     expect(uint32.toString()).toEqual("4,4,4");
 
@@ -107,53 +101,46 @@ export class TUint32Array {
 
     uint32 = new Uint32Array([1, 2, 3]).fill(4, -3, -2);
     expect(uint32.toString()).toEqual("4,2,3");
-    // #END
   }
+
   testFilter() {
-    // #TEST Uint32Array.filter
     // const isBelowThreshold = (currentValue: number, index: number, _): boolean => currentValue >= 10;
-    let uint32 = new Uint32Array([12, 5, 8, 44]).filter((value : number, _ : number, _a : Uint32Array) : boolean => value >= 10);
+
+    let uint32 = new Uint32Array([12, 5, 8, 44]).filter((value: number, _: number, _a: Uint32Array):
+      boolean => value >= 10);
     expect(uint32.toString()).toEqual("12,44");
-    // #END
   }
 
   find() {
-    // #TEST Uint32Array.find
     let uint32 = new Uint32Array([4, 5, 8, 12]);
-    let res = uint32.find((value : number, _ : number, _a : Uint32Array) : boolean => value > 5);
+    let res = uint32.find((value: number, _: number, _a: Uint32Array): boolean => value > 5);
     expect(res).toEqual(8);
-    // #END
   }
 
   findIndex() {
-    // #TEST Uint32Array.findIndex
     let uint32 = new Uint32Array([4, 6, 8, 12]);
-    let res = uint32.findIndex((value : number, _ : number, _a : Uint32Array) : boolean => value > 100);
+    let res = uint32.findIndex((value: number, _: number, _a: Uint32Array): boolean => value > 100);
     expect(res).toEqual(-1);
 
     let uuint32 = new Uint32Array([4, 6, 7, 120]);
-    res = uuint32.findIndex((value : number, _ : number, _a : Uint32Array) : boolean => value > 100);
+    res = uuint32.findIndex((value: number, _: number, _a: Uint32Array): boolean => value > 100);
     expect(res).toEqual(3);
-    // #END
   }
 
   foreach() {
-    // #TEST Uint32Array.forEach
-    new Uint32Array([0, 1, 2, 3]).forEach((value : number, index : number, _a : Uint32Array) => {
+    new Uint32Array([0, 1, 2, 3]).forEach((value: number, index: number, _a: Uint32Array) => {
       console.log(`a[${index}] = ${value}`);
     });
-    // #END
   }
+
   iterator() {
-    // #TEST Uint32Array.entries
     let arr = new Uint32Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
     expect(entries.next().value[1]).toEqual(10);
-    // #END
+
   }
 
   includes() {
-    // #TEST Uint32Array.includes
     let uint32 = new Uint32Array([1, 2, 3]);
     let res = uint32.includes(2);
     expect(res).toEqual(true);
@@ -163,11 +150,9 @@ export class TUint32Array {
 
     res = uint32.includes(3, 3);
     expect(res).toEqual(false);
-    // #END
   }
 
   indexOf() {
-    // #TEST Uint32Array.indexOf
     let uint32 = new Uint32Array([2, 5, 9]);
     let res = uint32.indexOf(2);
     expect(res).toEqual(0);
@@ -183,10 +168,9 @@ export class TUint32Array {
 
     res = uint32.indexOf(2, -3);
     expect(res).toEqual(0);
-    // #END
   }
+
   join() {
-    // #TEST Uint32Array.join
     let uint32 = new Uint32Array([1, 2, 3]);
     let res = uint32.join();
     expect(res).toEqual("1,2,3");
@@ -196,63 +180,52 @@ export class TUint32Array {
 
     res = uint32.join("");
     expect(res).toEqual("123");
-    // #END
   }
 
   keys() {
-    // #TEST Uint32Array.keys
     let arr = new Uint32Array([10, 20, 30, 40, 50]);
     let keys = arr.keys();
     expect(keys.next().value).toEqual(0);
-    // #END
   }
 
   map() {
-    // #TEST Uint32Array.map
     let numbers = new Uint32Array([1, 4, 9]);
-    let doubles = numbers.map((value : number, _ : number, _a : Uint32Array) : number => value * 2);
+    let doubles = numbers.map((value: number, _: number, _a: Uint32Array): number => value * 2);
     expect(numbers.toString()).toEqual("1,4,9");
     expect(doubles.toString()).toEqual("2,8,18");
-    // #END
   }
 
   reduce() {
-    // #TEST Uint32Array.reduce
     let total = new Uint32Array([0, 1, 2, 3]);
-    let res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Uint32Array) :
+    let res = total.reduce((accumulator: number, currentValue: number, _: number, _a: Uint32Array):
       number => accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Uint32Array([0, 1, 2, 3]);
-    res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Uint32Array) :
+    res = total.reduce((accumulator: number, currentValue: number, _: number, _a: Uint32Array):
       number => accumulator + currentValue, 8);
     expect(res).toEqual(14);
-    // #END
   }
+
   reduceRight() {
-    // #TEST Uint32Array.reduceRight
     let total = new Uint32Array([0, 1, 2, 3]);
-    let res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Uint32Array) :
+    let res = total.reduceRight((accumulator: number, currentValue: number, _: number, _a: Uint32Array):
       number => accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Uint32Array([0, 1, 2, 3]);
-    res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Uint32Array) :
+    res = total.reduceRight((accumulator: number, currentValue: number, _: number, _a: Uint32Array):
       number => accumulator + currentValue, 8);
     expect(res).toEqual(14);
-    // #END
   }
 
   reverse() {
-    // #TEST Uint32Array.reverse
     let uint32 = new Uint32Array([1, 2, 3]);
     uint32.reverse();
     expect(uint32.toString()).toEqual("3,2,1");
-    // #END
   }
 
   slice() {
-    // #TEST Uint32Array.slice
     let uint32 = new Uint32Array([1, 2, 3]);
     let res = uint32.slice(1);
     expect(res.toString()).toEqual("2,3");
@@ -265,21 +238,18 @@ export class TUint32Array {
 
     res = uint32.slice(0, 1);
     expect(res.toString()).toEqual("1");
-    // #END
   }
 
   sort() {
-    // #TEST Uint32Array.sort
     let numbers = new Uint32Array([40, 1, 5]);
     numbers.sort();
     expect(numbers.toString()).toEqual("1,5,40");
 
-    numbers.sort((a, b) : number => a - b);
+    numbers.sort((a, b): number => a - b);
     expect(numbers.toString()).toEqual("1,5,40");
-    // #END
   }
+
   subarray() {
-    // #TEST Uint32Array.subarray
     let buffer = new ArrayBuffer(16);
     let uint32 = new Uint32Array(buffer);
     uint32.set([1, 2, 3]);
@@ -287,19 +257,16 @@ export class TUint32Array {
 
     let sub = uint32.subarray(0, 4);
     expect(sub.toString()).toEqual("1,2,3,0");
-    // #END
   }
 
   values() {
-    // #TEST Uint32Array.values
     let arr = new Uint32Array([1, 2, 3]);
     let values = arr.values();
     expect(values.next().value).toEqual(1);
-    // #END
+
   }
 
   arrayBufferSlice() {
-    // #TEST ArrayBuffer.slice
     let buffer = new ArrayBuffer(16);
     let uint32 = new Uint32Array(buffer);
     uint32[3] = 42;
@@ -308,8 +275,6 @@ export class TUint32Array {
     let res = buffer.slice(8);
     let sliced = new Uint32Array(res);
     expect(sliced[1]).toEqual(42);
-    // #END
   }
-
   // #endif
 }
