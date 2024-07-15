@@ -7,8 +7,7 @@ import {
 
 export class TUint32Array {
   test() {
-    // #ifdef APP-ANDROID
-    this.testuint32();
+    this.testfloat32();
     this.testConstructor();
     this.testSet();
     this.testCopyWith();
@@ -32,15 +31,13 @@ export class TUint32Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
-    // #endif
   }
 
-// #ifdef APP-ANDROID
-  testuint32() {
-    let uint32 = new Uint32Array(2);
-    uint32[0] = 42;
-    expect(uint32[0]).toEqual(42);
-    expect(uint32.length).toEqual(2);
+  testfloat32() {
+    let float32 = new Uint32Array(2);
+    float32[0] = 42;
+    expect(float32[0]).toEqual(42);
+    expect(float32.length).toEqual(2);
     expect(Uint32Array.BYTES_PER_ELEMENT).toEqual(4);
 
     let x = new Uint32Array([21, 31, 3]);
@@ -57,26 +54,26 @@ export class TUint32Array {
 
   testConstructor() {
     let buffer = new ArrayBuffer(16);
-    let uint32 = new Uint32Array(buffer);
-    uint32[1] = 42;
-    expect(uint32.toString()).toEqual("0,42,0,0");
+    let float32 = new Uint32Array(buffer);
+    float32[1] = 42;
+    expect(float32.toString()).toEqual("0,42,0,0");
   }
 
   testSet() {
-    let uint32 = new Uint32Array(8);
+    let float32 = new Uint32Array(8);
     var array = [1, 2, 3]
-    uint32.set(array, 1);
-    expect(uint32.toString()).toEqual("0,1,2,3,0,0,0,0");
+    float32.set(array, 1);
+    expect(float32.toString()).toEqual("0,1,2,3,0,0,0,0");
   }
 
   testCopyWith() {
     console.log("testCopyWith 1")
-    let uint32 = new Uint32Array(8);
-    uint32.set([1, 2, 3], 1);
+    let float32 = new Uint32Array(8);
+    float32.set([1, 2, 3], 1);
     console.log("testCopyWith 1")
-    uint32.copyWithin(3, 0, 3);
+    float32.copyWithin(3, 0, 3);
     console.log("testCopyWith 1")
-    expect(uint32.toString()).toEqual("0,1,2,0,1,2,0,0");
+    expect(float32.toString()).toEqual("0,1,2,0,1,2,0,0");
   }
 
   testEvery() {
@@ -87,43 +84,43 @@ export class TUint32Array {
   }
 
   testFill() {
-    let uint32 = new Uint32Array([1, 2, 3]).fill(4);
-    expect(uint32.toString()).toEqual("4,4,4");
+    let float32 = new Uint32Array([1, 2, 3]).fill(4);
+    expect(float32.toString()).toEqual("4,4,4");
 
-    uint32 = new Uint32Array([1, 2, 3]).fill(4, 1);
-    expect(uint32.toString()).toEqual("1,4,4");
+    float32 = new Uint32Array([1, 2, 3]).fill(4, 1);
+    expect(float32.toString()).toEqual("1,4,4");
 
-    uint32 = new Uint32Array([1, 2, 3]).fill(4, 1, 2);
-    expect(uint32.toString()).toEqual("1,4,3");
+    float32 = new Uint32Array([1, 2, 3]).fill(4, 1, 2);
+    expect(float32.toString()).toEqual("1,4,3");
 
-    uint32 = new Uint32Array([1, 2, 3]).fill(4, 1, 1);
-    expect(uint32.toString()).toEqual("1,2,3");
+    float32 = new Uint32Array([1, 2, 3]).fill(4, 1, 1);
+    expect(float32.toString()).toEqual("1,2,3");
 
-    uint32 = new Uint32Array([1, 2, 3]).fill(4, -3, -2);
-    expect(uint32.toString()).toEqual("4,2,3");
+    float32 = new Uint32Array([1, 2, 3]).fill(4, -3, -2);
+    expect(float32.toString()).toEqual("4,2,3");
   }
 
   testFilter() {
     // const isBelowThreshold = (currentValue: number, index: number, _): boolean => currentValue >= 10;
 
-    let uint32 = new Uint32Array([12, 5, 8, 44]).filter((value: number, _: number, _a: Uint32Array):
+    let float32 = new Uint32Array([12, 5, 8, 44]).filter((value: number, _: number, _a: Uint32Array):
       boolean => value >= 10);
-    expect(uint32.toString()).toEqual("12,44");
+    expect(float32.toString()).toEqual("12,44");
   }
 
   find() {
-    let uint32 = new Uint32Array([4, 5, 8, 12]);
-    let res = uint32.find((value: number, _: number, _a: Uint32Array): boolean => value > 5);
+    let float32 = new Uint32Array([4, 5, 8, 12]);
+    let res = float32.find((value: number, _: number, _a: Uint32Array): boolean => value > 5);
     expect(res).toEqual(8);
   }
 
   findIndex() {
-    let uint32 = new Uint32Array([4, 6, 8, 12]);
-    let res = uint32.findIndex((value: number, _: number, _a: Uint32Array): boolean => value > 100);
+    let float32 = new Uint32Array([4, 6, 8, 12]);
+    let res = float32.findIndex((value: number, _: number, _a: Uint32Array): boolean => value > 100);
     expect(res).toEqual(-1);
 
-    let uuint32 = new Uint32Array([4, 6, 7, 120]);
-    res = uuint32.findIndex((value: number, _: number, _a: Uint32Array): boolean => value > 100);
+    let ufloat32 = new Uint32Array([4, 6, 7, 120]);
+    res = ufloat32.findIndex((value: number, _: number, _a: Uint32Array): boolean => value > 100);
     expect(res).toEqual(3);
   }
 
@@ -141,44 +138,44 @@ export class TUint32Array {
   }
 
   includes() {
-    let uint32 = new Uint32Array([1, 2, 3]);
-    let res = uint32.includes(2);
+    let float32 = new Uint32Array([1, 2, 3]);
+    let res = float32.includes(2);
     expect(res).toEqual(true);
 
-    res = uint32.includes(4);
+    res = float32.includes(4);
     expect(res).toEqual(false);
 
-    res = uint32.includes(3, 3);
+    res = float32.includes(3, 3);
     expect(res).toEqual(false);
   }
 
   indexOf() {
-    let uint32 = new Uint32Array([2, 5, 9]);
-    let res = uint32.indexOf(2);
+    let float32 = new Uint32Array([2, 5, 9]);
+    let res = float32.indexOf(2);
     expect(res).toEqual(0);
 
-    res = uint32.indexOf(7);
+    res = float32.indexOf(7);
     expect(res).toEqual(-1);
 
-    res = uint32.indexOf(9, 2);
+    res = float32.indexOf(9, 2);
     expect(res).toEqual(2);
 
-    res = uint32.indexOf(2, -1);
+    res = float32.indexOf(2, -1);
     expect(res).toEqual(-1);
 
-    res = uint32.indexOf(2, -3);
+    res = float32.indexOf(2, -3);
     expect(res).toEqual(0);
   }
 
   join() {
-    let uint32 = new Uint32Array([1, 2, 3]);
-    let res = uint32.join();
+    let float32 = new Uint32Array([1, 2, 3]);
+    let res = float32.join();
     expect(res).toEqual("1,2,3");
 
-    res = uint32.join(" / ");
+    res = float32.join(" / ");
     expect(res).toEqual("1 / 2 / 3");
 
-    res = uint32.join("");
+    res = float32.join("");
     expect(res).toEqual("123");
   }
 
@@ -220,23 +217,23 @@ export class TUint32Array {
   }
 
   reverse() {
-    let uint32 = new Uint32Array([1, 2, 3]);
-    uint32.reverse();
-    expect(uint32.toString()).toEqual("3,2,1");
+    let float32 = new Uint32Array([1, 2, 3]);
+    float32.reverse();
+    expect(float32.toString()).toEqual("3,2,1");
   }
 
   slice() {
-    let uint32 = new Uint32Array([1, 2, 3]);
-    let res = uint32.slice(1);
+    let float32 = new Uint32Array([1, 2, 3]);
+    let res = float32.slice(1);
     expect(res.toString()).toEqual("2,3");
 
-    res = uint32.slice(2);
+    res = float32.slice(2);
     expect(res.toString()).toEqual("3");
 
-    res = uint32.slice(-2);
+    res = float32.slice(-2);
     expect(res.toString()).toEqual("2,3");
 
-    res = uint32.slice(0, 1);
+    res = float32.slice(0, 1);
     expect(res.toString()).toEqual("1");
   }
 
@@ -251,11 +248,11 @@ export class TUint32Array {
 
   subarray() {
     let buffer = new ArrayBuffer(16);
-    let uint32 = new Uint32Array(buffer);
-    uint32.set([1, 2, 3]);
-    expect(uint32.toString()).toEqual("1,2,3,0");
+    let float32 = new Uint32Array(buffer);
+    float32.set([1, 2, 3]);
+    expect(float32.toString()).toEqual("1,2,3,0");
 
-    let sub = uint32.subarray(0, 4);
+    let sub = float32.subarray(0, 4);
     expect(sub.toString()).toEqual("1,2,3,0");
   }
 
@@ -268,13 +265,12 @@ export class TUint32Array {
 
   arrayBufferSlice() {
     let buffer = new ArrayBuffer(16);
-    let uint32 = new Uint32Array(buffer);
-    uint32[3] = 42;
-    expect(uint32.toString()).toEqual("0,0,0,42");
+    let float32 = new Uint32Array(buffer);
+    float32[3] = 42;
+    expect(float32.toString()).toEqual("0,0,0,42");
 
     let res = buffer.slice(8);
     let sliced = new Uint32Array(res);
     expect(sliced[1]).toEqual(42);
   }
-  // #endif
 }

@@ -39,32 +39,32 @@ export class TUint8Array {
     console.log(unit8.toString())
   }
   testMAX() {
-    let uint8 = new Uint8Array(16);
-    uint8[0] = 255;
-    expect(uint8[0]).toEqual(255);
+    let float32 = new Uint8Array(16);
+    float32[0] = 255;
+    expect(float32[0]).toEqual(255);
   }
 
   testConstructor() {
     let buffer = new ArrayBuffer(16);
-    let uint8 = new Uint8Array(buffer);
-    uint8[5] = 42;
-    expect(uint8.toString()).toEqual("0,0,0,0,0,42,0,0,0,0,0,0,0,0,0,0");
+    let float32 = new Uint8Array(buffer);
+    float32[5] = 42;
+    expect(float32.toString()).toEqual("0,0,0,0,0,42,0,0,0,0,0,0,0,0,0,0");
   }
 
   testSet() {
-    let uint8 = new Uint8Array(8);
+    let float32 = new Uint8Array(8);
     var array = [1, 2, 3]
-    uint8.set(array, 1);
-    expect(uint8.toString()).toEqual("0,1,2,3,0,0,0,0");
+    float32.set(array, 1);
+    expect(float32.toString()).toEqual("0,1,2,3,0,0,0,0");
   }
 
   testCopyWith() {
     console.log("testCopyWith 1")
-    let uint8 = new Uint8Array(8);
-    uint8.set([1, 2, 3], 1);
-    uint8.copyWithin(3, 0, 3);
+    let float32 = new Uint8Array(8);
+    float32.set([1, 2, 3], 1);
+    float32.copyWithin(3, 0, 3);
 
-    expect(uint8.toString()).toEqual("0,1,2,0,1,2,0,0");
+    expect(float32.toString()).toEqual("0,1,2,0,1,2,0,0");
   }
 
   testEvery() {
@@ -75,43 +75,43 @@ export class TUint8Array {
   }
 
   testFill() {
-    let uint8 = new Uint8Array([1, 2, 3]).fill(4);
-    expect(uint8.toString()).toEqual("4,4,4");
+    let float32 = new Uint8Array([1, 2, 3]).fill(4);
+    expect(float32.toString()).toEqual("4,4,4");
 
-    uint8 = new Uint8Array([1, 2, 3]).fill(4, 1);
-    expect(uint8.toString()).toEqual("1,4,4");
+    float32 = new Uint8Array([1, 2, 3]).fill(4, 1);
+    expect(float32.toString()).toEqual("1,4,4");
 
-    uint8 = new Uint8Array([1, 2, 3]).fill(4, 1, 2);
-    expect(uint8.toString()).toEqual("1,4,3");
+    float32 = new Uint8Array([1, 2, 3]).fill(4, 1, 2);
+    expect(float32.toString()).toEqual("1,4,3");
 
-    uint8 = new Uint8Array([1, 2, 3]).fill(4, 1, 1);
-    expect(uint8.toString()).toEqual("1,2,3");
+    float32 = new Uint8Array([1, 2, 3]).fill(4, 1, 1);
+    expect(float32.toString()).toEqual("1,2,3");
 
-    uint8 = new Uint8Array([1, 2, 3]).fill(4, -3, -2);
-    expect(uint8.toString()).toEqual("4,2,3");
+    float32 = new Uint8Array([1, 2, 3]).fill(4, -3, -2);
+    expect(float32.toString()).toEqual("4,2,3");
   }
 
   testFilter() {
     // const isBelowThreshold = (currentValue: number, index: number, _): boolean => currentValue >= 10;
 
-    let uint8 = new Uint8Array([12, 5, 8, 44]).filter((value: number, _: number, _a: Uint8Array): boolean => value >=
+    let float32 = new Uint8Array([12, 5, 8, 44]).filter((value: number, _: number, _a: Uint8Array): boolean => value >=
       10);
-    expect(uint8.toString()).toEqual("12,44");
+    expect(float32.toString()).toEqual("12,44");
   }
 
   find() {
-    let uint8 = new Uint8Array([4, 5, 8, 12]);
-    let res = uint8.find((value: number, _: number, _a: Uint8Array): boolean => value > 5);
+    let float32 = new Uint8Array([4, 5, 8, 12]);
+    let res = float32.find((value: number, _: number, _a: Uint8Array): boolean => value > 5);
     expect(res).toEqual(8);
   }
 
   findIndex() {
-    let uint8 = new Uint8Array([4, 6, 8, 12]);
-    let res = uint8.findIndex((value: number, _: number, _a: Uint8Array): boolean => value > 100);
+    let float32 = new Uint8Array([4, 6, 8, 12]);
+    let res = float32.findIndex((value: number, _: number, _a: Uint8Array): boolean => value > 100);
     expect(res).toEqual(-1);
 
-    let uuint8 = new Uint8Array([4, 6, 7, 120]);
-    res = uuint8.findIndex((value: number, _: number, _a: Uint8Array): boolean => value > 100);
+    let ufloat32 = new Uint8Array([4, 6, 7, 120]);
+    res = ufloat32.findIndex((value: number, _: number, _a: Uint8Array): boolean => value > 100);
     expect(res).toEqual(3);
   }
 
@@ -129,44 +129,44 @@ export class TUint8Array {
   }
 
   includes() {
-    let uint8 = new Uint8Array([1, 2, 3]);
-    let res = uint8.includes(2);
+    let float32 = new Uint8Array([1, 2, 3]);
+    let res = float32.includes(2);
     expect(res).toEqual(true);
 
-    res = uint8.includes(4);
+    res = float32.includes(4);
     expect(res).toEqual(false);
 
-    res = uint8.includes(3, 3);
+    res = float32.includes(3, 3);
     expect(res).toEqual(false);
   }
 
   indexOf() {
-    let uint8 = new Uint8Array([2, 5, 9]);
-    let res = uint8.indexOf(2);
+    let float32 = new Uint8Array([2, 5, 9]);
+    let res = float32.indexOf(2);
     expect(res).toEqual(0);
 
-    res = uint8.indexOf(7);
+    res = float32.indexOf(7);
     expect(res).toEqual(-1);
 
-    res = uint8.indexOf(9, 2);
+    res = float32.indexOf(9, 2);
     expect(res).toEqual(2);
 
-    res = uint8.indexOf(2, -1);
+    res = float32.indexOf(2, -1);
     expect(res).toEqual(-1);
 
-    res = uint8.indexOf(2, -3);
+    res = float32.indexOf(2, -3);
     expect(res).toEqual(0);
   }
 
   join() {
-    let uint8 = new Uint8Array([1, 2, 3]);
-    let res = uint8.join();
+    let float32 = new Uint8Array([1, 2, 3]);
+    let res = float32.join();
     expect(res).toEqual("1,2,3");
 
-    res = uint8.join(" / ");
+    res = float32.join(" / ");
     expect(res).toEqual("1 / 2 / 3");
 
-    res = uint8.join("");
+    res = float32.join("");
     expect(res).toEqual("123");
   }
 
@@ -208,23 +208,23 @@ export class TUint8Array {
   }
 
   reverse() {
-    let uint8 = new Uint8Array([1, 2, 3]);
-    uint8.reverse();
-    expect(uint8.toString()).toEqual("3,2,1");
+    let float32 = new Uint8Array([1, 2, 3]);
+    float32.reverse();
+    expect(float32.toString()).toEqual("3,2,1");
   }
 
   slice() {
-    let uint8 = new Uint8Array([1, 2, 3]);
-    let res = uint8.slice(1);
+    let float32 = new Uint8Array([1, 2, 3]);
+    let res = float32.slice(1);
     expect(res.toString()).toEqual("2,3");
 
-    res = uint8.slice(2);
+    res = float32.slice(2);
     expect(res.toString()).toEqual("3");
 
-    res = uint8.slice(-2);
+    res = float32.slice(-2);
     expect(res.toString()).toEqual("2,3");
 
-    res = uint8.slice(0, 1);
+    res = float32.slice(0, 1);
     expect(res.toString()).toEqual("1");
   }
 
@@ -239,11 +239,11 @@ export class TUint8Array {
 
   subarray() {
     let buffer = new ArrayBuffer(16);
-    let uint8 = new Uint8Array(buffer);
-    uint8.set([1, 2, 3]);
-    expect(uint8.toString()).toEqual("1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0");
+    let float32 = new Uint8Array(buffer);
+    float32.set([1, 2, 3]);
+    expect(float32.toString()).toEqual("1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0");
 
-    let sub = uint8.subarray(0, 4);
+    let sub = float32.subarray(0, 4);
     expect(sub.toString()).toEqual("1,2,3,0");
   }
 
@@ -256,9 +256,9 @@ export class TUint8Array {
 
   arrayBufferSlice() {
     let buffer = new ArrayBuffer(16);
-    let uint8 = new Uint8Array(buffer);
-    uint8[4] = 42;
-    expect(uint8.toString()).toEqual("0,0,0,0,42,0,0,0,0,0,0,0,0,0,0,0");
+    let float32 = new Uint8Array(buffer);
+    float32[4] = 42;
+    expect(float32.toString()).toEqual("0,0,0,0,42,0,0,0,0,0,0,0,0,0,0,0");
 
     let res = buffer.slice(4, 12);
     let sliced = new Uint8Array(res);
