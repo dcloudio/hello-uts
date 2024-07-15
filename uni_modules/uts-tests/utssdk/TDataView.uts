@@ -18,7 +18,7 @@ export class TDataView {
     // this.setUint8();
     // this.testMix();
   }
-  // #ifdef APP-ANDROID
+  // #ifndef APP-IOS
   setConstructor() {
     let buffer = new ArrayBuffer(16);
     let dataview = new DataView(buffer);
@@ -41,7 +41,7 @@ export class TDataView {
     view.setInt8(1, 127); // Max signed 8-bit integer
     expect(view.getInt8(1)).toEqual(127);
     // #END
- }
+  }
 
   setFloat32() {
     // #TEST DataView.setFloat32,DataView.getFloat32
@@ -51,7 +51,7 @@ export class TDataView {
     view.setFloat32(1, 3);
     expect(this.numberEquals(3, view.getFloat32(1))).toEqual(true);
     // #END
- }
+  }
 
   setFloat64() {
     // #TEST DataView.setFloat64,DataView.getFloat64
@@ -61,7 +61,7 @@ export class TDataView {
     view.setFloat64(1, Math.PI);
     expect(this.numberEquals(3.141592653589793, view.getFloat64(1))).toEqual(true);
     // #END
- }
+  }
 
   setInt16() {
     // #TEST DataView.setInt16,DataView.getInt16
@@ -71,7 +71,7 @@ export class TDataView {
     view.setInt16(1, 32767); // Max signed 16-bit integer
     expect(view.getInt16(1)).toEqual(32767);
     // #END
- }
+  }
 
   setInt32() {
     // #TEST DataView.setInt32,DataView.getInt32
@@ -81,7 +81,7 @@ export class TDataView {
     view.setInt32(1, 2147483647); // Max signed 32-bit integer
     expect(this.numberEquals(2147483647, view.getInt32(1))).toEqual(true);
     // #END
- }
+  }
 
   setUint16() {
     // #TEST DataView.setUint16,DataView.getUint16
@@ -101,7 +101,7 @@ export class TDataView {
     view.setUint32(1, 4294967295); // Max unsigned 32-bit integer
     expect(this.numberEquals(4294967295, view.getUint32(1))).toEqual(true);
     // #END
- }
+  }
 
   setUint8() {
     // #TEST DataView.setUint8,DataView.getUint8

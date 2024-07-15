@@ -7,7 +7,7 @@ import {
 
 export class TUint32Array {
   test() {
-    // #ifdef APP-ANDROID
+    // #ifndef APP-IOS
     this.testuint32();
     this.testConstructor();
     this.testSet();
@@ -35,7 +35,7 @@ export class TUint32Array {
     // #endif
   }
 
-  // #ifdef APP-ANDROID
+  // #ifndef APP-IOS
   testuint32() {
     let uint32 = new Uint32Array(2);
     uint32[0] = 42;
