@@ -7,7 +7,7 @@ import {
 
 export class TInt32Array {
   test() {
-    // #ifndef APP-IOS
+    // #ifdef APP-ANDROID
     this.testInt32Array();
     this.testConstructor();
     this.testSet();
@@ -35,7 +35,7 @@ export class TInt32Array {
     // #endif
   }
 
-  // #ifndef APP-IOS
+  // #ifdef APP-ANDROID
   testInt32Array() {
     let int32 = new Int32Array(2);
     int32[0] = 42;

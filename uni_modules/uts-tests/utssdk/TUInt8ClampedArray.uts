@@ -7,7 +7,7 @@ import {
 
 export class TUint8ClampedArray {
   test() {
-    // #ifndef APP-IOS
+    // #ifdef APP-ANDROID
     this.testMAX();
     this.testConstructor();
     this.testSet();
@@ -35,7 +35,7 @@ export class TUint8ClampedArray {
     // #endif
   }
 
-  // #ifndef APP-IOS
+  // #ifdef APP-ANDROID
   testMAX() {
     let uint8Clamped = new Uint8ClampedArray(16);
     uint8Clamped[0] = 255;
