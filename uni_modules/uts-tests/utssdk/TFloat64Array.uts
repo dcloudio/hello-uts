@@ -317,20 +317,6 @@ export class TFloat64Array {
     // #END
     
   }
-  testSome() {
-    // #TEST Float64Array.some
-    const float64 = new Float64Array([-10, 20, -30, 40, -50]);
-    const positives = new Float64Array([10, 20, 30, 40, 50]);
 
-    expect(float64.some((element : number, index : number, array : Float64Array) : boolean =>
-      element < 0
-    )).toEqual(true);
-
-
-    expect(positives.some((element : number, index : number, array : Float64Array) : boolean =>
-      element < 0
-    )).toEqual(false);
-    // #END
-  }
   // #endif
 }

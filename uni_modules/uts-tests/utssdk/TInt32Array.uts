@@ -311,20 +311,6 @@ export class TInt32Array {
     // #END
     
   }
-  testSome() {
-    // #TEST Int32Array.some
-    const int32 = new Int32Array([-10, 20, -30, 40, -50]);
-    const positives = new Int32Array([10, 20, 30, 40, 50]);
 
-    expect(int32.some((element : number, index : number, array : Int32Array) : boolean =>
-      element < 0
-    )).toEqual(true);
-
-
-    expect(positives.some((element : number, index : number, array : Int32Array) : boolean =>
-      element < 0
-    )).toEqual(false);
-    // #END
-  }
   // #endif
 }

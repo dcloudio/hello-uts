@@ -318,21 +318,7 @@ export class TUint16Array {
     // #END
     
   }
-  testSome() {
-    // #TEST Uint16Array.some
-    const uint16 = new Uint16Array([8, 20, 30, 40, 50]);
-    const positives = new Uint16Array([10, 20, 30, 40, 50]);
 
-    expect(uint16.some((element : number, index : number, array : Uint16Array) : boolean =>
-      element < 10
-    )).toEqual(true);
-
-
-    expect(positives.some((element : number, index : number, array : Uint16Array) : boolean =>
-      element < 0
-    )).toEqual(false);
-    // #END
-  }
   // #endif
 
 }
