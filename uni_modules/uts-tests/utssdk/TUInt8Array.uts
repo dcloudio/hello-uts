@@ -293,7 +293,7 @@ export class TUint8Array {
   }
 
   arrayBufferSlice() {
-    
+
     // #TEST ArrayBuffer.slice
     let buffer = new ArrayBuffer(16);
     let uint8 = new Uint8Array(buffer);
@@ -304,8 +304,23 @@ export class TUint8Array {
     let sliced = new Uint8Array(res);
     expect(sliced[0]).toEqual(42);
     // #END
-    
-  }
 
+  }
+  testSome() {
+    // #TEST Uint8Array.some
+    const uint8 = new Uint8Array([8, 20, 30, 40, 50]);
+    const positives = new Uint8Array([10, 20, 30, 40, 50]);
+    var res = uint8.some((element : number, index : number, array : Uint8Array) : boolean =>
+      element < 10
+    )
+    expect(res).toEqual(true);
+    console.log('uint8',res)
+    res = positives.some((element : number, index : number, array : Uint8Array) : boolean =>
+      element < 0
+    )
+     console.log('uint8',res)
+    expect(res).toEqual(false);
+    // #END
+  }
   // #endif
 }

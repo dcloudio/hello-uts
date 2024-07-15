@@ -303,6 +303,20 @@ export class TUint8ClampedArray {
     expect(sliced[0]).toEqual(42);
     // #END
   }
+  testSome() {
+    // #TEST Uint8ClampedArray.some
+    const uint8Clamped = new Uint8ClampedArray([8, 20, 30, 40, 50]);
+    const positives = new Uint8ClampedArray([10, 20, 30, 40, 50]);
 
+    expect(uint8Clamped.some((element : number, index : number, array : Uint8ClampedArray) : boolean =>
+      element < 10
+    )).toEqual(true);
+
+
+    expect(positives.some((element : number, index : number, array : Uint8ClampedArray) : boolean =>
+      element < 0
+    )).toEqual(false);
+    // #END
+  }
   // #endif
 }
