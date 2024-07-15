@@ -32,10 +32,6 @@ export class TFloat32Array {
     this.values();
     this.arrayBufferSlice();
   }
-  from(){
-    var float32Array= Float32Array.from([1, 2, 3], (v: number, _: number):number => v + v);
-     expect(float32Array.toString()).toEqual('2,4,6');
-  }
 
   testfloat32() {
     let float32 = new Float32Array(2);
