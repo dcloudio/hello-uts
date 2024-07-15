@@ -53,7 +53,7 @@ export class TInt8Array {
   }
 
   testCopyWith() {
-    // #TEST Int8Array.copyWith
+    // #TEST Int8Array.copyWithin
     let int8 = new Int8Array(8);
     int8.set([1, 2, 3], 1);
     int8.copyWithin(3, 0, 3);
@@ -308,5 +308,20 @@ export class TInt8Array {
     
   }
 
+  testSome() {
+    // #TEST Int8Array.some
+    const int8 = new Int8Array([-10, 20, -30, 40, -50]);
+    const positives = new Int8Array([10, 20, 30, 40, 50]);
+
+    expect(int8.some((element : number, index : number, array : Int8Array) : boolean =>
+      element < 0
+    )).toEqual(true);
+
+
+    expect(positives.some((element : number, index : number, array : Int8Array) : boolean =>
+      element < 0
+    )).toEqual(false);
+    // #END
+  }
   // #endif
 }

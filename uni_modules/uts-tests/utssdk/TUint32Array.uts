@@ -312,6 +312,21 @@ export class TUint32Array {
     // #END
     
   }
+  testSome() {
+    // #TEST Uint32Array.some
+    const uint32 = new Uint32Array([8, 20, 30, 40, 50]);
+    const positives = new Uint32Array([10, 20, 30, 40, 50]);
+
+    expect(uint32.some((element : number, index : number, array : Uint32Array) : boolean =>
+      element < 10
+    )).toEqual(true);
+
+
+    expect(positives.some((element : number, index : number, array : Uint32Array) : boolean =>
+      element < 0
+    )).toEqual(false);
+    // #END
+  }
 
   // #endif
 }
