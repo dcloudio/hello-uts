@@ -146,6 +146,15 @@ export function request(url : string) : RequestTask | null {
 }
 // #ifdef APP-ANDROID
 // #ifdef UNI-APP-X
+export function callKotlinMethodGetInfo():String {
+	return NativeCode.getPhoneInfo()
+}
+
+export function callJavaMethodGetInfo():String {
+	return new JavaUser("jack",12).name
+}
+
+
 import KeyEvent from 'android.view.KeyEvent';
 import Configuration from 'android.content.res.Configuration';
 import Bundle from 'android.os.Bundle';
