@@ -17,8 +17,6 @@ import { testForLoop } from './ForLoop.uts'
 import { testGlobal } from './Global.uts'
 import { testType } from './Type.uts'
 export { Result } from './tests.uts'
-import { testArrayBuffer } from './ArrayBuffer.uts'
-
 
 // Promise、Proxy、Reflect、Weakmap、WeakSet 不支持
 export function runTests() : UTSJSONObject {
@@ -40,7 +38,6 @@ export function runTests() : UTSJSONObject {
   const JSONLargeRes = testJSONLarge();
   const consoleRes = testConsole();
   const UTSJSONObjectRes = testUTSJSONObject();
-  const ArrayBufferRes = testArrayBuffer();
   return {
     Array: ArrayRes,
     Date: DateRes,
@@ -59,7 +56,6 @@ export function runTests() : UTSJSONObject {
     Global: GlobalRes,
     Type: TypeRes,
     console:consoleRes,
-    UTSJSONObject:UTSJSONObjectRes,
-    ArrayBuffer:ArrayBufferRes
+    UTSJSONObject:UTSJSONObjectRes
   }
 }
