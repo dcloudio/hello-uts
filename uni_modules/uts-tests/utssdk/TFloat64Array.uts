@@ -7,7 +7,7 @@ import {
 
 export class TFloat64Array {
   test() {
-    // #ifdef APP-ANDROID
+    // #ifndef APP-IOS
     this.testfloat64();
     this.testConstructor();
     this.testSet();
@@ -34,7 +34,7 @@ export class TFloat64Array {
     this.arrayBufferSlice();
     // #endif
   }
-  // #ifdef APP-ANDROID
+  // #ifndef APP-IOS
   testfloat64() {
     let float64 = new Float64Array(2);
     float64[0] = 42;
