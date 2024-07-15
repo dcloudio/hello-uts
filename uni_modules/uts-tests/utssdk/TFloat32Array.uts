@@ -324,5 +324,20 @@ export class TFloat32Array {
     // #END
   }
 
+  testSome() {
+    // #TEST Float32Array.some
+    const float32 = new Float32Array([-10, 20, -30, 40, -50]);
+    const positives = new Float32Array([10, 20, 30, 40, 50]);
+
+    expect(float32.some((element : number, index : number, array : Float32Array) : boolean =>
+      element < 0
+    )).toEqual(true);
+
+
+    expect(positives.some((element : number, index : number, array : Float32Array) : boolean =>
+      element < 0
+    )).toEqual(false);
+    // #END
+  }
   // #endif
 }

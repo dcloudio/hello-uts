@@ -76,6 +76,9 @@ export function testArrayBuffer() : Result {
     test('float32_testSet', () => {
       float32.testSet()
     })
+    test('float32_testSome', () => {
+      float32.testSome()
+    })
     test('float32_testFrom', () => {
       float32.from()
     })
@@ -213,6 +216,9 @@ export function testArrayBuffer() : Result {
     test('float64_arrayBufferSlice', () => {
       float64.arrayBufferSlice()
     })
+    test('float64_testSome', () => {
+      float64.testSome()
+    })
 
     //float64 end
     //int8 start
@@ -284,6 +290,9 @@ export function testArrayBuffer() : Result {
     })
     test('int8_arrayBufferSlice', () => {
       int8.arrayBufferSlice()
+    })
+    test('int8_testSome', () => {
+      int8.testSome()
     })
 
     // //int8 end
@@ -358,6 +367,9 @@ export function testArrayBuffer() : Result {
     test('int16_arrayBufferSlice', () => {
       int16.arrayBufferSlice()
     })
+    test('int16_testSome', () => {
+      int16.testSome()
+    })
 
     //int16  end
 
@@ -430,6 +442,9 @@ export function testArrayBuffer() : Result {
     })
     test('int32_arrayBufferSlice', () => {
       int32.arrayBufferSlice()
+    })
+    test('int32_testSome', () => {
+      int32.testSome()
     })
 
     //int32  end
@@ -507,6 +522,9 @@ export function testArrayBuffer() : Result {
     test('uint8_arrayBufferSlice', () => {
       uint8.arrayBufferSlice()
     })
+    test('uint8_testSome', () => {
+      uint8.testSome()
+    })
 
     //uint8  end
 
@@ -579,6 +597,9 @@ export function testArrayBuffer() : Result {
     })
     test('uint8Clamped_arrayBufferSlice', () => {
       uint8Clamped.arrayBufferSlice()
+    })
+    test('uint8Clamped_testSome', () => {
+      uint8Clamped.testSome()
     })
 
     //uint8Clamped  end
@@ -653,6 +674,9 @@ export function testArrayBuffer() : Result {
     test('uint16_arrayBufferSlice', () => {
       uint16.arrayBufferSlice()
     })
+    test('uint16_testSome', () => {
+      uint16.testSome()
+    })
 
     //uint16  end
 
@@ -725,6 +749,9 @@ export function testArrayBuffer() : Result {
     })
     test('uint32_arrayBufferSlice', () => {
       uint32.arrayBufferSlice()
+    })
+    test('uint32_testSome', () => {
+      uint32.testSome()
     })
     // #endif
     //uint32  end
