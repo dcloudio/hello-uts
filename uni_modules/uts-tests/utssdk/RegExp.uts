@@ -2,6 +2,23 @@ import { describe, test, expect, Result } from './tests.uts'
 
 export function testRegExp(): Result {
     return describe("RegExp", () => {
+      test("constructor", () => {
+        // #ifdef APP-ANDROID
+          const str = 'table football';
+          const regex = new RegExp('foo*');
+          const globalRegex = new RegExp();
+          
+          expect(regex.test(str)).toEqual(true);
+          expect(globalRegex.test(str)).toEqual(true);
+          
+          let r2 = new RegExp(/ab+c/);
+          expect(r2.test(str)).toEqual(false);
+          
+          let r3 = new RegExp(/foo/);
+          expect(r3.test(str)).toEqual(true);
+        // #endif
+      })
+      
         test("dotAll", () => {
             const regex1 = new RegExp('foo', 's');
             expect(regex1.dotAll).toEqual(true);
