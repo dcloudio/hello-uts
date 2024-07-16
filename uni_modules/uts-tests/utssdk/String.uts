@@ -55,6 +55,26 @@ export function testString(): Result {
             const empty = "";
             expect(empty.charAt(0)).toEqual("");
         })
+        test('toWellFormed', () => {
+          expect("ab\uD800".toWellFormed()).toEqual("ab\uFFFD");
+          expect("ab\uD800c".toWellFormed()).toEqual("ab\uFFFDc");
+          expect("\uDFFFab".toWellFormed()).toEqual("\uFFFDab");
+          expect("c\uDFFFab".toWellFormed()).toEqual("c\uFFFDab");
+          expect("abc".toWellFormed()).toEqual("abc");
+          expect("ab\uD83D\uDE04c".toWellFormed()).toEqual("ab\uD83D\uDE04c");
+          expect("ab\uD83D\uDE04c".toWellFormed()).toEqual("ab\uD83D\uDE04c");
+          expect("ab\uD83D\uDE04c\uD83D".toWellFormed()).toEqual("ab\uD83D\uDE04c\uFFFD");
+        })
+        test('isWellFormed', () => {
+          expect("ab\uD800".isWellFormed()).toEqual(false);
+          expect("ab\uD800c".isWellFormed()).toEqual(false);
+          expect("\uDFFFab".isWellFormed()).toEqual(false);
+          expect("c\uDFFFab".isWellFormed()).toEqual(false);
+          expect("abc".isWellFormed()).toEqual(true);
+          expect("ab\uD83D\uDE04c".isWellFormed()).toEqual(true);
+          expect("ab\uD83D\uDE04c".isWellFormed()).toEqual(true);
+          expect("ab\uD83D\uDE04c\uD83D".isWellFormed()).toEqual(false);
+        })
         test('charCodeAt', () => {
             const sentence = 'The quick brown fox jumps over the lazy dog.';
             const index = 4;
