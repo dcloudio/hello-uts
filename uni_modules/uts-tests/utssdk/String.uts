@@ -140,12 +140,12 @@ export function testString(): Result {
             const str = 'The quick brown fox jumps over the lazy dog. It barked.';
             const result = str.match(new RegExp('[A-Z]', 'g'));
             // expect(result!.length).toEqual(2);
-            expect(result?.[0]).toEqual("T");
-            expect(result?.[1]).toEqual("I");
+            expect(result![0]).toEqual("T");
+            expect(result![1]).toEqual("I");
             
             const result2 = str.match(new RegExp('[A-Z]'));
             // expect(result2!.length).toEqual(1);
-            expect(result2?.[0]).toEqual("T");
+            expect(result2![0]).toEqual("T");
             
              // #ifdef APP-ANDROID
             const gradientString = 'linear-gradient(to right, rgb(255, 0, 0), #00FF00, hsl(120, 100%, 50%))';
