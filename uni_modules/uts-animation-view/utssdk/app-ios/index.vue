@@ -4,11 +4,11 @@
 	</view>
 </template>
 <script lang="uts">
-	import {
-		LottieAnimationView,
-		LottieAnimation,
-		LottieLoopMode
-	} from 'Lottie'
+	// import {
+	// 	LottieAnimationView,
+	// 	LottieAnimation,
+	// 	LottieLoopMode
+	// } from 'Lottie'
 	import {
 		URL
 	} from 'Foundation'
