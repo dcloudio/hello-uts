@@ -76,6 +76,19 @@ export class TFloat64Array {
     float64.set([1, 2, 3], 1);
     float64.copyWithin(3, 0, 3);
     expect(float64.toString()).toEqual("0,1,2,0,1,2,0,0");
+
+    let initialLargeArray : Array<number> = new Array(10000, 0);
+    for (let i = 0; i < 5000; ++i) {
+      initialLargeArray[i] = i;
+    }
+    let initialLargeFloat64Array = new Float64Array(initialLargeArray);
+    let largeFloat64Array : Float64Array = new Float64Array(initialLargeFloat64Array);
+    largeFloat64Array.copyWithin(5000, 0);
+    for (let i = 0; i < 5000; ++i) {
+      if (largeFloat64Array[i + 5000] !== i) {
+        expect(true).toEqual(false);
+      }
+    }
     // #END
   }
 
@@ -266,6 +279,25 @@ export class TFloat64Array {
 
     res = float64.slice(0, 1);
     expect(res.toString()).toEqual("1");
+
+
+
+    const size = 1000;
+    const initialFloat64Array = new Float64Array(size);
+    for (let i = 0; i < size; ++i) {
+      initialFloat64Array[i] = Math.random();
+    }
+
+    let arr : Float64Array;
+    let new_arr : Float64Array;
+    arr = new Float64Array(initialFloat64Array);
+    new_arr = arr.slice(1, -1);
+    for (let i = 1; i < size - 1; ++i) {
+      if (arr[i] !== new_arr[i - 1]) {
+        expect(true).toEqual(false);
+        break
+      }
+    }
     // #END
   }
 
@@ -290,6 +322,19 @@ export class TFloat64Array {
 
     let sub = float64.subarray(0, 4);
     expect(sub.toString()).toEqual("1,2,3,0");
+
+    const size = 1000;
+    const initialFloat64Array = new Float64Array(size);
+    for (let i = 0; i < size; ++i) {
+      initialFloat64Array[i] = Math.random();
+    }
+    let arr  = new Float64Array(initialFloat64Array);
+    let new_arr  = arr.subarray(1, size - 1);
+    for (let i = 1; i < size - 1; ++i) {
+      if (arr[i] !== new_arr[i - 1]) {
+        expect(true).toEqual(false);
+      }
+    }
     // #END
   }
 
@@ -304,7 +349,7 @@ export class TFloat64Array {
   }
 
   arrayBufferSlice() {
-    
+
     // #TEST ArrayBuffer.slice
     let buffer = new ArrayBuffer(16);
     let float64 = new Float64Array(buffer);
@@ -315,7 +360,7 @@ export class TFloat64Array {
     let sliced = new Float64Array(res);
     expect(sliced[0]).toEqual(42);
     // #END
-    
+
   }
   testSome() {
     // #TEST Float64Array.some
