@@ -10,7 +10,7 @@
 	import LinearLayout from 'android.widget.LinearLayout'
 	import View from 'android.view.View'
 
-	class ButtonClickListsner extends View.OnClickListener {
+	class ButtonClickListsner implements View.OnClickListener {
 		constructor() {
 			super()
 		}

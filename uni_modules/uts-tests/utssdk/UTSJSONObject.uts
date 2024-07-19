@@ -21,8 +21,20 @@ export function testUTSJSONObject() : Result {
         const source = { b: 4, c: 5 };
         const returnedTarget = UTSJSONObject.assign(target, source);
         
-        expect(returnedTarget!.toMap().size).toEqual(3);
-        console.log(returnedTarget)
+        expect(returnedTarget.toMap().size).toEqual(3);
+        
+        type A = {
+        	username:"张三",
+        	age:12
+        }
+        type C = {
+        	work:0.001
+        }
+        let b = UTSJSONObject.assign(new A("张三",12),{b:2},new C(0.002))
+        expect(b['age']).toEqual(12);
+        expect(b['username']).toEqual("张三");
+        expect(b['b']).toEqual(2);
+        expect(b['work']).toEqual(0.002);
       // #endif
     })
     

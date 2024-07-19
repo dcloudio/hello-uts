@@ -27,10 +27,9 @@ export function testConsole() : Result {
       // #ifdef APP-ANDROID
       
       let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
-      console.log(aj2!['a'])
       
-      expect(obtainInnerObject(aj2!['a']).get("type")).toEqual("number");
-      expect(obtainInnerObject(aj2!['a']).get("subType")).toEqual("number");
+      expect(obtainInnerObject(aj2['a']).get("type")).toEqual("number");
+      expect(obtainInnerObject(aj2['a']).get("subType")).toEqual("number");
       
       // #endif
       

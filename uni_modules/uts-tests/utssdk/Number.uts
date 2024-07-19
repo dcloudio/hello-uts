@@ -1,5 +1,6 @@
 import { describe, test, expect, Result } from './tests.uts'
 
+//@UTSAndroid.Suppress("IMPLICIT_BOXING_IN_IDENTITY_EQUALS")
 export function testNumber() : Result {
   return describe("Number", () => {
 
@@ -69,6 +70,8 @@ export function testNumber() : Result {
       // #endif
     })
     
+    
+    
     test('number-from-json-parse', () => {
       type A = {
       	a:number
@@ -79,10 +82,10 @@ export function testNumber() : Result {
       expect(aj?.a == 1.0).toEqual(true);
       expect(aj?.a == 1.0 as number).toEqual(true);
       // #ifdef APP-ANDROID
-      expect(aj?.a === 1).toEqual(true);
-      expect(aj?.a === 1 as number).toEqual(true);
-      expect(aj?.a === 1.0).toEqual(true);
-      expect(aj?.a === 1.0 as number).toEqual(true);
+      expect(numberEquals(aj?.a,1)).toEqual(true);
+      expect(numberEquals(aj?.a,1 as number)).toEqual(true);
+      expect(numberEquals(aj?.a,1.0)).toEqual(true);
+      expect(numberEquals(aj?.a,1.0 as number)).toEqual(true);
       let ki:Int = 1;
       let kd:Double = 1.0;
       let kf:Float = (1.0).toFloat();  

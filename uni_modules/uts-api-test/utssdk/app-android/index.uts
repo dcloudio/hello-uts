@@ -45,10 +45,10 @@ export function frequentlyObjectTest():boolean{
   console.log(typeLogRet)
   let typeLogObj = JSON.parseObject(typeLogRet)!
   
-  // let typeLogObjPos = typeLogObj.getJSON("__$originalPosition")!
-  // if("ParamOptions" != typeLogObjPos['name']){
-  //   return false
-  // }
+  let typeLogObjPos = typeLogObj.getJSON("__$originalPosition")!
+  if("ParamOptions" != typeLogObjPos['name']){
+    return false
+  }
   // /**
   //  * 编译出来的位置信息可能有差异，排除单独验证后，排除掉这个字段
   //  */

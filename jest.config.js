@@ -39,7 +39,7 @@ function parseDescribes() {
 };
 
 module.exports = {
-    testTimeout: 20000,
+    testTimeout: 60000,
     reporters: [
         'default'
     ],

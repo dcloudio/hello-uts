@@ -1,23 +1,6 @@
-import { RequestTask, SyncOptions } from "./interface.uts";
+import { RequestTask, SyncOptions, AsyncOptions, SyntaxResult, SyncResult, TestOptions } from "./interface.uts";
 import { log } from "./utils.uts";
-export type AsyncOptions = {
-  type : string;
-  success : (res : string) => void;
-  fail : (res : string) => void;
-  complete : (res : string) => void;
-};
 
-export type {
-  SyncOptions
-} from "./interface.uts";
-
-type SyntaxResult = {
-  name : string
-};
-
-type SyncResult = {
-  msg : string
-}
 
 /**
  * 导出一个属性
@@ -115,11 +98,6 @@ export async function testAsyncParam3(id : number, name : string, opts : AsyncOp
 }
 
 
-export type TestOptions = {
-  name : string;
-  callback : (res : string) => void;
-};
-
 export class Test {
   id : number;
   name : string;
@@ -168,6 +146,15 @@ export function request(url : string) : RequestTask | null {
 }
 // #ifdef APP-ANDROID
 // #ifdef UNI-APP-X
+export function callKotlinMethodGetInfo():String {
+	return NativeCode.getPhoneInfo()
+}
+
+export function callJavaMethodGetInfo():String {
+	return new JavaUser("jack",12).name
+}
+
+
 import KeyEvent from 'android.view.KeyEvent';
 import Configuration from 'android.content.res.Configuration';
 import Bundle from 'android.os.Bundle';
@@ -177,7 +164,7 @@ import WindowManager from 'android.view.WindowManager';
 import ActionMode from 'android.view.ActionMode';
 // export let onCallBackChange: (event: string) => void = (res) => {};
 
-let callback : (eventLog : string) => void = (res) => { };
+let callback : (eventLog : string) => void = (_) => { };
 
 export function onCallbackChange(fn : (eventLog : string) => void) {
   callback = fn

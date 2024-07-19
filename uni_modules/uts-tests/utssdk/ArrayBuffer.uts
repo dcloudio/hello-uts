@@ -69,7 +69,76 @@ export function testArrayBuffer() : Result {
       tDataView.doTestDataViewFloats()
     })
     //dataview end
+    //typedarray start
+    test('typedarray_testConstructor', () => {
+      var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+      var int32 = new Int32Array(arr);
+      expect(int32.toString()).toEqual("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16");
 
+      var buffer = new ArrayBuffer(64);
+
+      int32 = new Int32Array(buffer);
+      expect(int32.byteLength).toEqual(64);
+
+      var length = 1024;
+      var arrUnit8 = new Uint8Array(length);
+      for (var i = 0; i < length; i++) {
+        arrUnit8[i] = i;
+      }
+      var uint8 = new Uint8Array(arrUnit8);
+      expect(uint8.byteLength).toEqual(1024);
+
+      length = 1024;
+      uint8 = new Uint8Array(length);
+      for (var i = 0; i < length; i++) {
+        uint8[i] = i;
+      }
+
+      var float64 = new Float64Array(uint8);
+      expect(float64.length).toEqual(1024);
+
+      int32 = new Int32Array(16);
+      expect(int32.length).toEqual(16);
+    })
+    test('typedarray_from_different_type', () => {
+      const length = 16;
+
+
+      const dest_arrays = [
+        new Uint8Array(length),
+        new Int8Array(length),
+        new Uint16Array(length),
+        new Int16Array(length),
+        new Uint32Array(length),
+        new Int32Array(length),
+        new Float32Array(length),
+        new Float64Array(length),
+        new Uint8ClampedArray(length)
+      ];
+
+      let uint8_array = new Uint8Array(length);
+      let int32_array = new Int32Array(length);
+      let float32_array = new Float32Array(length);
+      let float64_array = new Float64Array(length);
+      for (let i = 0; i < length; i++) {
+        uint8_array[i] = i;
+        int32_array[i] = i;
+        float32_array[i] = i;
+        float64_array[i] = i;
+      }
+      for (let i = 0; i < dest_arrays.length; i++) {
+        var typed_dest = dest_arrays[i]
+        typed_dest.set(uint8_array)
+        expect(typed_dest.length).toEqual(16)
+        typed_dest.set(int32_array)
+        expect(typed_dest.length).toEqual(16)
+        typed_dest.set(float32_array)
+        expect(typed_dest.length).toEqual(16)
+        typed_dest.set(float64_array)
+        expect(typed_dest.length).toEqual(16)
+      }
+    })
+    //typedarray end
     //float32array start
     test('float32_testConstructor', () => {
       float32.testConstructor()

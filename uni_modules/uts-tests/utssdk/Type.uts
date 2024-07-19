@@ -1,5 +1,7 @@
 import { describe, test, expect, Result } from './tests.uts'
 
+
+//@UTSAndroid.Suppress("USELESS_IS_CHECK")
 export function testType() : Result {
   return describe("Type", () => {
     test("Object literal to type instance", () => {
@@ -35,7 +37,7 @@ export function testType() : Result {
     })
     test("destructure default value should override null", () => {
       type Options = {
-        name : string
+        name? : string
         age ?: number
         gender ?: number
       }
