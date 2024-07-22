@@ -5,14 +5,12 @@ import { describe, test, expect, expectNumber, Result } from './tests.uts'
 export function testUTSJSONObject() : Result {
   return describe("utsjsonobject", () => {
     test('keys', () => {
-      // #ifdef APP-ANDROID
         let obj = {
           name:"zhangsan",
           age:11
         }
-        expect(UTSJSONObject.keys(obj).size).toEqual(2);
+        expect(UTSJSONObject.keys(obj).length).toEqual(2);
         console.log(UTSJSONObject.keys(obj))
-      // #endif
     })
     
     test('assign-notype', () => {
