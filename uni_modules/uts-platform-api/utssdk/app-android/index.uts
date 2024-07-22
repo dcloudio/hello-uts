@@ -203,7 +203,7 @@ export function gotoCameraTake(imageDone : (event : string) => void) : boolean {
 		}
 	}, function (_ : boolean, _ : string[]) {
 		//callback(false,"用户拒绝了部分权限")
-	})
+	},true)
 
 	return true;
 
