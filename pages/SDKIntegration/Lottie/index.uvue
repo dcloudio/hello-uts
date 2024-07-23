@@ -66,7 +66,7 @@
             },
 
             changeRepeat: function() {
-                // this.$refs["animView"].updateRepeatConfig("RESTART");
+                (this.$refs["animView"] as UtsAnimationViewElement).setRepeatMode("RESTART");
             },
             lottieClickTest: function() {
                 console.log("lottieClickTest");
