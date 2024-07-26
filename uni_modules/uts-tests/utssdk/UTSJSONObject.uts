@@ -22,13 +22,21 @@ export function testUTSJSONObject() : Result {
         expect(returnedTarget.toMap().size).toEqual(3);
         
         type A = {
-        	username:"张三",
-        	age:12
+        	username:string
+        	age:number
         }
         type C = {
-        	work:0.001
+        	work:number
         }
-        let b = UTSJSONObject.assign(new A("张三",12),{b:2},new C(0.002))
+       
+        let b = UTSJSONObject.assign( {
+          username:"张三",
+          age:12
+        } as A,
+        {b:2},
+        {
+          work:0.002
+        } as C)
         expect(b['age']).toEqual(12);
         expect(b['username']).toEqual("张三");
         expect(b['b']).toEqual(2);

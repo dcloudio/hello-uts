@@ -119,7 +119,8 @@
                         },{
                             name: "实例测试示例",
                             url: "SyntaxCase/instanceTest"
-                        }]
+                        }
+                        ]
                     },
 					{
 					    name: "日志打印",

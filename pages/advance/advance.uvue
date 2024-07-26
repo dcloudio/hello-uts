@@ -94,6 +94,14 @@
                     }] as Page[]
                 },
                 {
+                    name: "组件开发示例",
+                    open: false,
+                    pages: [{
+                        name: "Hello UTS Component",
+                        url: "component/helloView"
+                    }]
+                },
+                {
                     name: "平台代码示例",
                     open: false,
                     pages: [{

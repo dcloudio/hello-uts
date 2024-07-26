@@ -25,11 +25,66 @@ export function testDate() : Result {
         })
         test('new Date', () => {
             let date1 = new Date('1992-02-02');
-            console.log("1111",date1.getTime())
             expect(date1.getTime()).toEqual(696988800000);
-            let date2 = new Date('1992-2-02');
-            console.log("2222",date2.getTime())
-            // expect(date2.getTime()).toEqual(696960000000);
+            
+            // #ifdef APP-ANDROID
+            /**
+             * iso 8601 相关
+             */
+            let isoCaseArr = [
+              "2012",
+              "2012-07",
+              "1997-07-16",
+              "1997-07-16T02:20:20",
+              "1995-12-17T03:24:00.888Z",
+              "2022-11-19T00:00:00.666+04:00",
+              "1997-07-16T19:20+01:00",
+              "1997-07-16T19:20:30+01:00",
+              "1997-07-16T19:20:30.45+01:00",
+              "1994-11-05T08:15:30-05:00"
+            ];
+            
+            let timeStr = ""
+            for(let i = 0; i < isoCaseArr.length; i++){
+            	let perDate = new Date(isoCaseArr[i])
+            	timeStr += perDate.getTime()
+            }
+            expect(timeStr).toEqual("132537600000013411008000008690112000008689908200008191706408881668801600666869077200000869077230000869077230450784041330000");
+            
+            timeStr = ""
+            let rfcCaseArr = [
+              "Dec 25, 1995",
+              "17 Dec 1995 03:24:00 GMT",
+              "December 17, 1995 03:24:00",
+              "December 17, 95 03:24:00",
+              "December 17, 95 03:24",
+              "December 17, 95 03:24:00 GMT+11:00",
+              "December 17, 1995, 03:24:00 GMT+11:00",
+            ];
+            for(let i = 0; i < rfcCaseArr.length; i++){
+            	let perDate = new Date(rfcCaseArr[i])
+            	timeStr += perDate.getTime()
+            }
+            expect(timeStr).toEqual("819820800000819170640000819141840000819141840000819141840000819131040000819131040000");
+            
+            
+            timeStr = ""
+            let otherCaseArr = [
+              "2024-5-01",
+              "2024-05-01 22:00",
+              "2024/05/01 22:00:00",
+              "2024/05/01 22:00",
+              "2024/5/1 22:00:00",
+              "2024/5/1 22:00",
+              "2024/5/1"
+            ];
+            for(let i = 0; i < otherCaseArr.length; i++){
+            	let perDate = new Date(otherCaseArr[i])
+            	timeStr += perDate.getTime()
+            }
+            expect(timeStr).toEqual("1714492800000171457200000017145720000001714572000000171457200000017145720000001714492800000");
+            // #endif
+            
         })
         
 		test('valueOf', () => {
