@@ -18,6 +18,7 @@ import { testGlobal } from './Global.uts'
 import { testType } from './Type.uts'
 export { Result } from './tests.uts'
 import { testArrayBuffer } from './ArrayBuffer.uts'
+import { testNativeCode } from './NativeCode.uts'
 
 
 // Promise、Proxy、Reflect、Weakmap、WeakSet 不支持
@@ -41,6 +42,7 @@ export function runTests() : UTSJSONObject {
   const consoleRes = testConsole();
   const UTSJSONObjectRes = testUTSJSONObject();
   const ArrayBufferRes = testArrayBuffer();
+  const NativeCodeRes = testNativeCode();
   return {
     Array: ArrayRes,
     Date: DateRes,
@@ -60,6 +62,7 @@ export function runTests() : UTSJSONObject {
     Type: TypeRes,
     console:consoleRes,
     UTSJSONObject:UTSJSONObjectRes,
-    ArrayBuffer:ArrayBufferRes
+    ArrayBuffer:ArrayBufferRes,
+    NativeCode:NativeCodeRes
   }
 }
