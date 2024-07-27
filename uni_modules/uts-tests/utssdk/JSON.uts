@@ -404,5 +404,16 @@ export function testJSON() : Result {
       expect(map?.get('a')?.num).toEqual(1)
     })
 
+    test('parse generic type', () => {
+      type A = {
+        num: number,
+      }
+      function test<T>(json: string): T {
+        return JSON.parse<T>(json)!
+      }
+      const a = test<A>(`{"num": 1}`)
+      expect(a.num).toEqual(1)
+    })
+
   })
 }
