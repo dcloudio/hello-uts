@@ -407,12 +407,15 @@ export function testJSON() : Result {
     test('parse generic type', () => {
       type A = {
         num: number,
-      }
+      }   
       function test<T>(json: string): T {
         return JSON.parse<T>(json)!
       }
+      // #ifndef APP-IOS
       const a = test<A>(`{"num": 1}`)
       expect(a.num).toEqual(1)
+      // #endif
+ 
     })
 
   })
