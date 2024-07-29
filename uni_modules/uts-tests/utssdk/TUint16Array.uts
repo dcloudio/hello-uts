@@ -7,7 +7,7 @@ import {
 
 export class TUint16Array {
   test() {
-    // #ifndef APP-IOS
+  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
     this.testuint16();
     this.testConstructor();
     this.testSet();
@@ -35,7 +35,7 @@ export class TUint16Array {
     // #endif
   }
 
-  // #ifndef APP-IOS
+  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
   testuint16() {
     let uint16 = new Uint16Array(2);
     uint16[0] = 42;
@@ -305,7 +305,7 @@ export class TUint16Array {
   }
 
   arrayBufferSlice() {
-    
+
     // #TEST Uint16Array.arrayBufferSlice
     let buffer = new ArrayBuffer(16);
     let uint16 = new Uint16Array(buffer);
@@ -316,7 +316,7 @@ export class TUint16Array {
     let sliced = new Uint16Array(res);
     expect(sliced[0]).toEqual(42);
     // #END
-    
+
   }
   testSome() {
     // #TEST Uint16Array.some
@@ -334,5 +334,4 @@ export class TUint16Array {
     // #END
   }
   // #endif
-
 }

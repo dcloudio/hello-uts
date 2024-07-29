@@ -7,7 +7,8 @@ import {
 
 export class TInt32Array {
   test() {
-    // #ifndef APP-IOS
+    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+
     this.testInt32Array();
     this.testConstructor();
     this.testSet();
@@ -35,7 +36,8 @@ export class TInt32Array {
     // #endif
   }
 
-  // #ifndef APP-IOS
+  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+
   testInt32Array() {
     let int32 = new Int32Array(2);
     int32[0] = 42;
@@ -298,7 +300,7 @@ export class TInt32Array {
   }
 
   arrayBufferSlice() {
-    
+
     // #TEST ArrayBuffer.slice
     let buffer = new ArrayBuffer(16);
     let int32 = new Int32Array(buffer);
@@ -309,7 +311,7 @@ export class TInt32Array {
     let sliced = new Int32Array(res);
     expect(sliced[1]).toEqual(42);
     // #END
-    
+
   }
   testSome() {
     // #TEST Int32Array.some

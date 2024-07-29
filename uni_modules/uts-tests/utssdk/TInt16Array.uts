@@ -7,7 +7,7 @@ import {
 
 export class TInt16Array {
   test() {
-    // #ifndef APP-IOS
+    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
     this.testConstructor();
     this.testSet();
     this.testCopyWith();
@@ -34,7 +34,8 @@ export class TInt16Array {
     // #endif
   }
 
-  // #ifndef APP-IOS
+  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+
   testConstructor() {
     let buffer = new ArrayBuffer(16);
     let int16 = new Int16Array(buffer);
@@ -62,7 +63,7 @@ export class TInt16Array {
 
   testEvery() {
     // #TEST Int16Array.every
-    let result = new Int16Array([12, 5, 8, 130, 44]).every((value, _, _a:Int16Array):boolean => value < 40);
+    let result = new Int16Array([12, 5, 8, 130, 44]).every((value, _, _a : Int16Array) : boolean => value < 40);
     expect(result).toEqual(false);
     // #END
   }
@@ -88,7 +89,7 @@ export class TInt16Array {
 
   testFilter() {
     // #TEST Int16Array.filter
-    let int16 = new Int16Array([12, 5, 8, 44]).filter((value, _, _a:Int16Array):boolean => value >= 10);
+    let int16 = new Int16Array([12, 5, 8, 44]).filter((value, _, _a : Int16Array) : boolean => value >= 10);
     expect(int16.toString()).toEqual("12,44");
     // #END
   }
@@ -96,7 +97,7 @@ export class TInt16Array {
   find() {
     // #TEST Int16Array.find
     let int16 = new Int16Array([4, 5, 8, 12]);
-    let res = int16.find((value, _, _a:Int16Array):boolean => value > 5);
+    let res = int16.find((value, _, _a : Int16Array) : boolean => value > 5);
     expect(res).toEqual(8);
     // #END
   }
@@ -104,18 +105,18 @@ export class TInt16Array {
   findIndex() {
     // #TEST Int16Array.findIndex
     let int16 = new Int16Array([4, 6, 8, 12]);
-    let res = int16.findIndex((value, _, _a:Int16Array):boolean => value > 100);
+    let res = int16.findIndex((value, _, _a : Int16Array) : boolean => value > 100);
     expect(res).toEqual(-1);
 
     int16 = new Int16Array([4, 6, 7, 120]);
-    res = int16.findIndex((value, _, _a:Int16Array):boolean => value > 100);
+    res = int16.findIndex((value, _, _a : Int16Array) : boolean => value > 100);
     expect(res).toEqual(3);
     // #END
   }
 
   foreach() {
     // #TEST Int16Array.forEach
-    new Int16Array([0, 1, 2, 3]).forEach((value, index, _:Int16Array) => {
+    new Int16Array([0, 1, 2, 3]).forEach((value, index, _ : Int16Array) => {
       console.log(`a[${index}] = ${value}`);
     });
     // #END
@@ -192,7 +193,7 @@ export class TInt16Array {
   map() {
     // #TEST Int16Array.map
     let numbers = new Int16Array([1, 4, 9]);
-    let doubles = numbers.map((value, _, _a:Int16Array):number => value * 2);
+    let doubles = numbers.map((value, _, _a : Int16Array) : number => value * 2);
     expect(numbers.toString()).toEqual("1,4,9");
     expect(doubles.toString()).toEqual("2,8,18");
     // #END
@@ -201,11 +202,11 @@ export class TInt16Array {
   reduce() {
     // #TEST Int16Array.reduce
     let total = new Int16Array([0, 1, 2, 3]);
-    let res = total.reduce((accumulator, currentValue, _, _a:Int16Array):number => accumulator + currentValue);
+    let res = total.reduce((accumulator, currentValue, _, _a : Int16Array) : number => accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Int16Array([0, 1, 2, 3]);
-    res = total.reduce((accumulator, currentValue, _, _a:Int16Array):number => accumulator + currentValue, 8);
+    res = total.reduce((accumulator, currentValue, _, _a : Int16Array) : number => accumulator + currentValue, 8);
     expect(res).toEqual(14);
     // #END
   }
@@ -213,11 +214,11 @@ export class TInt16Array {
   reduceRight() {
     // #TEST Int16Array.reduceRight
     let total = new Int16Array([0, 1, 2, 3]);
-    let res = total.reduceRight((accumulator, currentValue, _, _a:Int16Array):number => accumulator + currentValue);
+    let res = total.reduceRight((accumulator, currentValue, _, _a : Int16Array) : number => accumulator + currentValue);
     expect(res).toEqual(6);
 
     total = new Int16Array([0, 1, 2, 3]);
-    res = total.reduceRight((accumulator, currentValue, _, _a:Int16Array):number => accumulator + currentValue, 8);
+    res = total.reduceRight((accumulator, currentValue, _, _a : Int16Array) : number => accumulator + currentValue, 8);
     expect(res).toEqual(14);
     // #END
   }
@@ -253,7 +254,7 @@ export class TInt16Array {
     numbers.sort();
     expect(numbers.toString()).toEqual("1,5,40");
 
-    numbers.sort((a, b):number => a - b);
+    numbers.sort((a, b) : number => a - b);
     expect(numbers.toString()).toEqual("1,5,40");
     // #END
   }
@@ -279,7 +280,7 @@ export class TInt16Array {
   }
 
   arrayBufferSlice() {
-    
+
     // #TEST ArrayBuffer.slice with Int16Array
     let buffer = new ArrayBuffer(16);
     let int16 = new Int16Array(buffer);
@@ -290,7 +291,7 @@ export class TInt16Array {
     let sliced = new Int16Array(res);
     expect(sliced[0]).toEqual(42);
     // #END
-    
+
   }
   testSome() {
     // #TEST Int16Array.some

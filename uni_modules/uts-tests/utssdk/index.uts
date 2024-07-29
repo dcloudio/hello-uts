@@ -41,7 +41,10 @@ export function runTests() : UTSJSONObject {
   const JSONLargeRes = testJSONLarge();
   const consoleRes = testConsole();
   const UTSJSONObjectRes = testUTSJSONObject();
+
+  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
   const ArrayBufferRes = testArrayBuffer();
+  // #endif
   const NativeCodeRes = testNativeCode();
   return {
     Array: ArrayRes,
@@ -62,7 +65,9 @@ export function runTests() : UTSJSONObject {
     Type: TypeRes,
     console:consoleRes,
     UTSJSONObject:UTSJSONObjectRes,
+    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
     ArrayBuffer:ArrayBufferRes,
+    // #endif
     NativeCode:NativeCodeRes
   }
 }
