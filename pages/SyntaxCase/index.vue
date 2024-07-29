@@ -50,6 +50,8 @@
         <view>测试success：{{ format(testUtsClassInstanceResult.success) }}</view>
         <view>测试complete：{{ format(testUtsClassInstanceResult.complete) }}</view>
         <view>测试callback：{{ format(testUtsClassInstanceResult.callback) }}</view>
+        <button @click="testUtsClassSetter">点击测试class 示例setter方法</button>
+        <view>测试setter：{{ format(testUtsClassSetterResult) }}</view>
         <button @click="testAll">点击测试所有</button>
     </view>
 </template>
@@ -63,6 +65,7 @@
         testAsyncParam3,
         Test,
         request,
+        SetterTest,
     } from "../../uni_modules/uts-syntaxcase";
     // #endif
     let test
@@ -125,7 +128,8 @@
                     fail: null,
                     complete: null,
                     callback: null
-                }
+                },
+                testUtsClassSetterResult: null,
             }
         },
         methods: {
@@ -145,6 +149,7 @@
                 this.testUtsClassSyncWithCallback();
                 this.testUtsClassAsync();
                 this.testUtsClassInstance();
+                this.testUtsClassSetter();
             },
             testUtsSync() {
                 this.testUtsSyncResult = false;
@@ -405,7 +410,19 @@
                 if (res === 'sync') {
                     this.testUtsClassInstanceResult.return = true;
                 }
-            }
+            },
+            testUtsClassSetter() {
+              this.testUtsClassSetterResult = false;
+              try {
+                let obj = new SetterTest()
+                obj.nickName = "Tom";
+                if (obj.nickName == "Tom") {
+                    this.testUtsClassSetterResult = true;
+                }
+              } catch (e) {
+                    console.error("testUtsClassSetter", e);
+              }
+            },
         }
     }
 </script>

@@ -101,6 +101,7 @@ export async function testAsyncParam3(id : number, name : string, opts : AsyncOp
 export class Test {
   id : number;
   name : string;
+  
   static type : string = "Test";
   constructor(id : number, options : TestOptions) {
     this.id = id;
@@ -121,6 +122,21 @@ export class Test {
     const res = await testAsync(opts);
     return res;
   }
+}
+
+export class SetterTest {
+  
+  private _nickName: string = '';
+  
+  get nickName (): string {
+    console.log('get nickName');
+    return this._nickName;
+  }
+  set nickName (value: string) {
+    console.log('set nickName');
+    this._nickName = value;
+  }
+  
 }
 
 class RequestTaskImpl implements RequestTask {
