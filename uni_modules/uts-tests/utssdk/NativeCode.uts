@@ -6,6 +6,9 @@ export function testNativeCode(): Result {
             // #ifdef APP-ANDROID
              expect(NativeCode.getNativeStr()).toEqual("android-code");
             // #endif
+            // #ifdef APP-IOS
+             expect(NativeCode.getNativeStr()).toEqual("iOS-code");
+            // #endif
         })
     })
 }
