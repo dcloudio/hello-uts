@@ -111,9 +111,8 @@ class AddUIRunnable implements Runnable {
 		textView.setBackgroundColor(Color.RED)
 		textView.setTag("helloText")
 		textView.setGravity(Gravity.CENTER)
-
-		let decorView = UTSAndroid.getUniActivity()!.window.decorView;
-
+    
+		let decorView = UTSAndroid.getUniActivity()!.getWindow().getDecorView();
 
 		let frameContent = decorView.findViewById<FrameLayout>(android.R.id.content)
 		let layoutParam = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

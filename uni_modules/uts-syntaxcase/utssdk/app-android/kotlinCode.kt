@@ -2,12 +2,14 @@ package uts.sdk.modules.utsSyntaxcase
 
 import android.os.Build
 import io.dcloud.uts.UTSAndroid
-
+import io.dcloud.uts.console
 
 object NativeCode {
 
     fun getPhoneInfo():String{
-        return "${Build.BOARD}-${Build.USER}"
+        val ret = "${Build.BOARD}-${Build.USER}"
+        console.log("PhoneInfo",ret)
+        return ret
     }
 
     fun finishActivity(){
