@@ -160,8 +160,6 @@ export class TFloat32Array {
     let float32 = new Float32Array([4, 6, 8, 12]);
     let res1 = float32.findIndex((value : number, _ : number, _a : Float32Array) : boolean => value > 100);
     console.log(res1); // -1
-    // #END
-
 
     let ufloat32 = new Float32Array([4, 6, 7, 120]);
     let res = ufloat32.findIndex((value : number, _ : number, _a : Float32Array) : boolean => value > 100);
@@ -302,7 +300,6 @@ export class TFloat32Array {
     // total = new Float32Array([0, 1, 2, 3]);
     // res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Float32Array) : number => accumulator + currentValue, 8);
     // console.log(res); // 14
-    // // #END
     // expect(res).toEqual(14);
   }
 
@@ -407,7 +404,7 @@ export class TFloat32Array {
     expect(positives.some((element : number, index : number, array : Float32Array) : boolean =>
       element < 0
     )).toEqual(false);
-    
+
     expect(float32.some((element : number, index : number, array : Float32Array) : boolean =>
       element < 0
     )).toEqual(true);
