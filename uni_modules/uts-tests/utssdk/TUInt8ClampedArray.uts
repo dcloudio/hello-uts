@@ -56,49 +56,51 @@ export class TUint8ClampedArray {
     let uint8Clamped = new Uint8ClampedArray(8);
     var array = [1, 2, 3];
     uint8Clamped.set(array, 1);
-    expect(uint8Clamped.toString()).toEqual("0,1,2,3,0,0,0,0");
+    console.log(uint8Clamped.toString()); // "0,1,2,3,0,0,0,0"
     // #END
+    expect(uint8Clamped.toString()).toEqual("0,1,2,3,0,0,0,0");
   }
 
   testCopyWith() {
     // #TEST Uint8ClampedArray.copyWithin
-    console.log("testCopyWith 1")
+    console.log("testCopyWith 1");
     let uint8Clamped = new Uint8ClampedArray(8);
     uint8Clamped.set([1, 2, 3], 1);
     uint8Clamped.copyWithin(3, 0, 3);
-
-    expect(uint8Clamped.toString()).toEqual("0,1,2,0,1,2,0,0");
+    console.log(uint8Clamped.toString()); // "0,1,2,0,1,2,0,0"
     // #END
+    expect(uint8Clamped.toString()).toEqual("0,1,2,0,1,2,0,0");
   }
 
   testEvery() {
     // #TEST Uint8ClampedArray.every
     // const isBelowThreshold = (currentValue: number, index: number, array:Uint8ClampedArray): boolean => currentValue < 40;    
     let result = new Uint8ClampedArray([12, 5, 8, 130, 44]).every((value : number, _ : number, _a :
-      Uint8ClampedArray) : boolean => value < 40); // 
-    expect(result).toEqual(false);
+      Uint8ClampedArray) : boolean => value < 40);
+    console.log(result); // false
     // #END
+    expect(result).toEqual(false);
   }
 
   testFill() {
     // #TEST Uint8ClampedArray.fill
     let uint8Clamped = new Uint8ClampedArray([1, 2, 3]).fill(4);
-    expect(uint8Clamped.toString()).toEqual("4,4,4");
+    console.log(uint8Clamped.toString()); // "4,4,4"
 
     uint8Clamped = new Uint8ClampedArray([1, 2, 3]).fill(4, 1);
-    expect(uint8Clamped.toString()).toEqual("1,4,4");
+    console.log(uint8Clamped.toString()); // "1,4,4"
 
     uint8Clamped = new Uint8ClampedArray([1, 2, 3]).fill(4, 1, 2);
-    expect(uint8Clamped.toString()).toEqual("1,4,3");
+    console.log(uint8Clamped.toString()); // "1,4,3"
 
     uint8Clamped = new Uint8ClampedArray([1, 2, 3]).fill(4, 1, 1);
-    expect(uint8Clamped.toString()).toEqual("1,2,3");
+    console.log(uint8Clamped.toString()); // "1,2,3"
 
     uint8Clamped = new Uint8ClampedArray([1, 2, 3]).fill(4, -3, -2);
-    expect(uint8Clamped.toString()).toEqual("4,2,3");
+    console.log(uint8Clamped.toString()); // "4,2,3"
     // #END
+    expect(uint8Clamped.toString()).toEqual("4,2,3");
   }
-
 
 
   testFilter() {
@@ -107,28 +109,31 @@ export class TUint8ClampedArray {
 
     let uint8Clamped = new Uint8ClampedArray([12, 5, 8, 44]).filter((value : number, _ : number, _a :
       Uint8ClampedArray) : boolean => value >= 10);
-    expect(uint8Clamped.toString()).toEqual("12,44");
+    console.log(uint8Clamped.toString()); // "12,44"
     // #END
+    expect(uint8Clamped.toString()).toEqual("12,44");
   }
 
   find() {
     // #TEST Uint8ClampedArray.find
     let uint8Clamped = new Uint8ClampedArray([4, 5, 8, 12]);
     let res = uint8Clamped.find((value : number, _ : number, _a : Uint8ClampedArray) : boolean => value > 5);
-    expect(res).toEqual(8);
+    console.log(res); // 8
     // #END
+    expect(res).toEqual(8);
   }
 
   findIndex() {
     // #TEST Uint8ClampedArray.findIndex
     let uint8Clamped = new Uint8ClampedArray([4, 6, 8, 12]);
     let res = uint8Clamped.findIndex((value : number, _ : number, _a : Uint8ClampedArray) : boolean => value > 100);
-    expect(res).toEqual(-1);
+    console.log(res); // -1
 
     let uuint8Clamped = new Uint8ClampedArray([4, 6, 7, 120]);
     res = uuint8Clamped.findIndex((value : number, _ : number, _a : Uint8ClampedArray) : boolean => value > 100);
-    expect(res).toEqual(3);
+    console.log(res); // 3
     // #END
+    expect(res).toEqual(3);
   }
 
   foreach() {
@@ -138,89 +143,101 @@ export class TUint8ClampedArray {
     });
     // #END
   }
+
   iterator() {
     // #TEST Uint8ClampedArray.entries
     let arr = new Uint8ClampedArray([10, 20, 30, 40, 50]);
     let entries = arr.entries();
-    expect(entries.next().value[1]).toEqual(10);
+    let entry = entries.next().value;
+    console.log(entry[1]); // 10
     // #END
+    expect(entry[1]).toEqual(10);
   }
 
   includes() {
     // #TEST Uint8ClampedArray.includes
     let uint8Clamped = new Uint8ClampedArray([1, 2, 3]);
     let res = uint8Clamped.includes(2);
-    expect(res).toEqual(true);
+    console.log(res); // true
 
     res = uint8Clamped.includes(4);
-    expect(res).toEqual(false);
+    console.log(res); // false
 
     res = uint8Clamped.includes(3, 3);
-    expect(res).toEqual(false);
+    console.log(res); // false
     // #END
+    expect(res).toEqual(false);
   }
 
   indexOf() {
     // #TEST Uint8ClampedArray.indexOf
     let uint8Clamped = new Uint8ClampedArray([2, 5, 9]);
     let res = uint8Clamped.indexOf(2);
-    expect(res).toEqual(0);
+    console.log(res); // 0
 
     res = uint8Clamped.indexOf(7);
-    expect(res).toEqual(-1);
+    console.log(res); // -1
 
     res = uint8Clamped.indexOf(9, 2);
-    expect(res).toEqual(2);
+    console.log(res); // 2
 
     res = uint8Clamped.indexOf(2, -1);
-    expect(res).toEqual(-1);
+    console.log(res); // -1
 
     res = uint8Clamped.indexOf(2, -3);
-    expect(res).toEqual(0);
+    console.log(res); // 0
     // #END
+    expect(res).toEqual(0);
   }
+
   join() {
     // #TEST Uint8ClampedArray.join
     let uint8Clamped = new Uint8ClampedArray([1, 2, 3]);
     let res = uint8Clamped.join();
-    expect(res).toEqual("1,2,3");
+    console.log(res); // "1,2,3"
 
     res = uint8Clamped.join(" / ");
-    expect(res).toEqual("1 / 2 / 3");
+    console.log(res); // "1 / 2 / 3"
 
     res = uint8Clamped.join("");
-    expect(res).toEqual("123");
+    console.log(res); // "123"
     // #END
+    expect(res).toEqual("123");
   }
 
   keys() {
     // #TEST Uint8ClampedArray.keys
     let arr = new Uint8ClampedArray([10, 20, 30, 40, 50]);
     let keys = arr.keys();
-    expect(keys.next().value).toEqual(0);
+    let value = keys.next().value
+    console.log(value); // 0
     // #END
+    expect(value).toEqual(0);
   }
 
   map() {
     // #TEST Uint8ClampedArray.map
     let numbers = new Uint8ClampedArray([1, 4, 9]);
     let doubles = numbers.map((value : number, _ : number, _a : Uint8ClampedArray) : number => value * 2);
-    expect(numbers.toString()).toEqual("1,4,9");
-    expect(doubles.toString()).toEqual("2,8,18");
+    console.log(numbers.toString()); // "1,4,9"
+    console.log(doubles.toString()); // "2,8,18"
     // #END
+    expect(doubles.toString()).toEqual("2,8,18");
   }
+
   reduce() {
     // #TEST Uint8ClampedArray.reduce
     let total = new Uint8ClampedArray([0, 1, 2, 3]);
     let res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Uint8ClampedArray) : number =>
       accumulator + currentValue);
-    expect(res).toEqual(6);
+    console.log(res); // 6
 
     total = new Uint8ClampedArray([0, 1, 2, 3]);
     res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Uint8ClampedArray) : number =>
       accumulator + currentValue, 8);
-    expect(res).toEqual(14);
+    console.log(res); // 14
     // #END
+    expect(res).toEqual(14);
   }
 
   reduceRight() {
@@ -228,97 +245,118 @@ export class TUint8ClampedArray {
     let total = new Uint8ClampedArray([0, 1, 2, 3]);
     let res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Uint8ClampedArray) : number =>
       accumulator + currentValue);
-    expect(res).toEqual(6);
+    console.log(res); // 6
 
     total = new Uint8ClampedArray([0, 1, 2, 3]);
     res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Uint8ClampedArray) : number =>
       accumulator + currentValue, 8);
-    expect(res).toEqual(14);
+    console.log(res); // 14
     // #END
+    expect(res).toEqual(14);
   }
+
 
   reverse() {
     // #TEST Uint8ClampedArray.reverse
     let uint8Clamped = new Uint8ClampedArray([1, 2, 3]);
     uint8Clamped.reverse();
-    expect(uint8Clamped.toString()).toEqual("3,2,1");
+    console.log(uint8Clamped.toString()); // "3,2,1"
     // #END
+    expect(uint8Clamped.toString()).toEqual("3,2,1");
   }
 
   slice() {
     // #TEST Uint8ClampedArray.slice
     let uint8Clamped = new Uint8ClampedArray([1, 2, 3]);
     let res = uint8Clamped.slice(1);
-    expect(res.toString()).toEqual("2,3");
+    console.log(res.toString()); // "2,3"
 
     res = uint8Clamped.slice(2);
-    expect(res.toString()).toEqual("3");
+    console.log(res.toString()); // "3"
 
     res = uint8Clamped.slice(-2);
-    expect(res.toString()).toEqual("2,3");
+    console.log(res.toString()); // "2,3"
 
     res = uint8Clamped.slice(0, 1);
-    expect(res.toString()).toEqual("1");
+    console.log(res.toString()); // "1"
     // #END
+    expect(res.toString()).toEqual("1");
   }
+
+
   sort() {
     // #TEST Uint8ClampedArray.sort
     let numbers = new Uint8ClampedArray([40, 1, 5]);
     numbers.sort();
-    expect(numbers.toString()).toEqual("1,5,40");
+    console.log(numbers.toString()); // "1,5,40"
 
     numbers.sort((a, b) : number => a - b);
-    expect(numbers.toString()).toEqual("1,5,40");
+    console.log(numbers.toString()); // "1,5,40"
     // #END
+    expect(numbers.toString()).toEqual("1,5,40");
   }
+
 
   subarray() {
     // #TEST Uint8ClampedArray.subarray
     let buffer = new ArrayBuffer(16);
     let uint8Clamped = new Uint8ClampedArray(buffer);
     uint8Clamped.set([1, 2, 3]);
-    expect(uint8Clamped.toString()).toEqual("1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0");
+    console.log(uint8Clamped.toString()); // "1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0"
 
     let sub = uint8Clamped.subarray(0, 4);
-    expect(sub.toString()).toEqual("1,2,3,0");
+    console.log(sub.toString()); // "1,2,3,0"
     // #END
+    expect(sub.toString()).toEqual("1,2,3,0");
   }
+
 
   values() {
     // #TEST Uint8ClampedArray.values
     let arr = new Uint8ClampedArray([1, 2, 3]);
     let values = arr.values();
-    expect(values.next().value).toEqual(1);
+    let value = values.next().value
+    console.log(value); // 1
     // #END
+    expect(value).toEqual(1);
   }
 
   arrayBufferSlice() {
-
     // #TEST ArrayBuffer.slice
     let buffer = new ArrayBuffer(16);
     let uint8Clamped = new Uint8ClampedArray(buffer);
     uint8Clamped[4] = 42;
-    expect(uint8Clamped.toString()).toEqual("0,0,0,0,42,0,0,0,0,0,0,0,0,0,0,0");
+    console.log(uint8Clamped.toString()); // "0,0,0,0,42,0,0,0,0,0,0,0,0,0,0,0"
 
     let res = buffer.slice(4, 12);
     let sliced = new Uint8ClampedArray(res);
-    expect(sliced[0]).toEqual(42);
+    console.log(sliced[0]); // 42
     // #END
+    expect(sliced[0]).toEqual(42);
   }
+
   testSome() {
     // #TEST Uint8ClampedArray.some
     const uint8Clamped = new Uint8ClampedArray([8, 20, 30, 40, 50]);
     const positives = new Uint8ClampedArray([10, 20, 30, 40, 50]);
 
-    expect(uint8Clamped.some((element : number, index : number, array : Uint8ClampedArray) : boolean =>
+    console.log(uint8Clamped.some((element : number, index : number, array : Uint8ClampedArray) : boolean =>
       element < 10
-    )).toEqual(true);
+    )); // true
 
 
+    console.log(positives.some((element : number, index : number, array : Uint8ClampedArray) : boolean =>
+      element < 0
+    )); // false
+    // #END
     expect(positives.some((element : number, index : number, array : Uint8ClampedArray) : boolean =>
       element < 0
     )).toEqual(false);
-    // #END
+
+    expect(uint8Clamped.some((element : number, index : number, array : Uint8ClampedArray) : boolean =>
+      element < 10
+    )).toEqual(true);
   }
+
   // #endif
 }
