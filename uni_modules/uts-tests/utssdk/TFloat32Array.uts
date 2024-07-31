@@ -210,25 +210,26 @@ export class TFloat32Array {
     let float32 = new Float32Array([2, 5, 9]);
     let res = float32.indexOf(2);
     console.log(res); // 0
+
+    let res1 = float32.indexOf(7);
+    console.log(res1); // -1
+
+
+    let res2 = float32.indexOf(9, 2);
+    console.log(res2); // 2
+
+
+    let res3 = float32.indexOf(2, -1);
+    console.log(res3); // -1
+
+
+    let res4 = float32.indexOf(2, -3);
+    console.log(res4); // 0
     // #END
-    // expect(res).toEqual(0);
-
-    // res = float32.indexOf(7);
-    // console.log(res); // -1
-    // expect(res).toEqual(-1);
-
-    // res = float32.indexOf(9, 2);
-    // console.log(res); // 2
-    // expect(res).toEqual(2);
-
-    // res = float32.indexOf(2, -1);
-    // console.log(res); // -1
-    // expect(res).toEqual(-1);
-
-    // res = float32.indexOf(2, -3);
-    // console.log(res); // 0
-
-    expect(res).toEqual(0);
+    expect(res4).toEqual(0);
+    expect(res1).toEqual(-1);
+    expect(res2).toEqual(2);
+    expect(res3).toEqual(-1);
   }
 
   join() {
@@ -236,16 +237,16 @@ export class TFloat32Array {
     let float32 = new Float32Array([1, 2, 3]);
     let res = float32.join();
     console.log(res); // 1,2,3
+
+    let res1 = float32.join(" / ");
+    console.log(res1); // 1 / 2 / 3
+
+    let res2 = float32.join("");
+    console.log(res2); // 123
     // #END
     expect(res).toEqual("1,2,3");
-
-    // res = float32.join(" / ");
-    // console.log(res); // 1 / 2 / 3
-    // expect(res).toEqual("1 / 2 / 3");
-
-    // res = float32.join("");
-    // console.log(res); // 123
-    // expect(res).toEqual("123");
+    expect(res2).toEqual("123");
+    expect(res1).toEqual("1 / 2 / 3");
   }
 
   keys() {
@@ -256,14 +257,6 @@ export class TFloat32Array {
     console.log(ret); // 0
     // #END
     expect(ret).toEqual(0);
-    // console.log(keys.next().value); // 1
-    // expect(keys.next().value).toEqual(1);
-    // console.log(keys.next().value); // 2
-    // expect(keys.next().value).toEqual(2);
-    // console.log(keys.next().value); // 3
-    // expect(keys.next().value).toEqual(3);
-    // console.log(keys.next().value); // 4
-    // expect(keys.next().value).toEqual(4);
   }
 
   map() {
@@ -317,20 +310,20 @@ export class TFloat32Array {
     let float32 = new Float32Array([1, 2, 3]);
     let res = float32.slice(1);
     console.log(res.toString()); // 2,3
+
+    let res1 = float32.slice(2);
+    console.log(res1.toString()); // 3
+
+    let res2 = float32.slice(-2);
+    console.log(res2.toString()); // 2,3
+
+    let res3 = float32.slice(0, 1);
+    console.log(res3.toString()); // 1
     // #END
     expect(res.toString()).toEqual("2,3");
-
-    // res = float32.slice(2);
-    // console.log(res.toString()); // 3
-    // expect(res.toString()).toEqual("3");
-
-    // res = float32.slice(-2);
-    // console.log(res.toString()); // 2,3
-    // expect(res.toString()).toEqual("2,3");
-
-    // res = float32.slice(0, 1);
-    // console.log(res.toString()); // 1
-    // expect(res.toString()).toEqual("1");
+    expect(res1.toString()).toEqual("3");
+    expect(res3.toString()).toEqual("1");
+    expect(res2.toString()).toEqual("2,3");
   }
 
   sort() {
@@ -338,12 +331,14 @@ export class TFloat32Array {
     let numbers = new Float32Array([40, 1, 5]);
     numbers.sort();
     console.log(numbers.toString()); // 1,5,40
+
+    let ret = numbers.toString()
+    numbers.sort((a, b) : number => a - b);
+    console.log(numbers.toString()); // 1,5,40
+
     // #END
     expect(numbers.toString()).toEqual("1,5,40");
-
-    // numbers.sort((a, b) : number => a - b);
-    // console.log(numbers.toString()); // 1,5,40
-    // expect(numbers.toString()).toEqual("1,5,40");
+    expect(ret).toEqual("1,5,40");
   }
 
   subarray() {
@@ -352,12 +347,11 @@ export class TFloat32Array {
     let float32 = new Float32Array(buffer);
     float32.set([1, 2, 3]);
     console.log(float32.toString()); // 1,2,3,0
-    // #END
-    expect(float32.toString()).toEqual("1,2,3,0");
 
-    // let sub = float32.subarray(0, 4);
-    // console.log(sub.toString()); // 1,2,3,0
-    // expect(sub.toString()).toEqual("1,2,3,0");
+    let sub = float32.subarray(0, 4);
+    console.log(sub.toString()); // 1,2,3,0
+    // #END
+    expect(sub.toString()).toEqual("1,2,3,0");
   }
 
   values() {
@@ -367,10 +361,6 @@ export class TFloat32Array {
     console.log(values); // 1
     // #END
     expect(values).toEqual(1);
-    // console.log(values.next().value); // 2
-    // expect(values.next().value).toEqual(2);
-    // console.log(values.next().value); // 3
-    // expect(values.next().value).toEqual(3);
   }
 
   arrayBufferSlice() {
@@ -379,13 +369,11 @@ export class TFloat32Array {
     let float32 = new Float32Array(buffer);
     float32[3] = 42;
     console.log(float32.toString()); // 0,0,0,42
+    let res = buffer.slice(8);
+    let sliced = new Float32Array(res);
+    console.log(sliced[1]); // 42
     // #END
-    expect(float32.toString()).toEqual("0,0,0,42");
-
-    // let res = buffer.slice(8);
-    // let sliced = new Float32Array(res);
-    // console.log(sliced[1]); // 42
-    // expect(sliced[1]).toEqual(42);
+    expect(sliced[1]).toEqual(42);
   }
 
   testSome() {
