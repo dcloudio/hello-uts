@@ -5,19 +5,24 @@
             // #ifdef APP-ANDROID && UNI-APP-X
             <button @tap="callKotlinMethodGetInfoTest">调用kotlin方法</button>
             <button @tap="callJavaMethodGetInfoTest">调用java方法(需自定义基座)</button>
+            <view style="height: 10px;width: 100%;"></view>
+            <button @tap="kotlinMemListenTest">kotlin监听内存并持续回调UTS</button>
+            <button @tap="kotlinStopMemListenTest">停止监听</button>
+            <text>{{memInfo}}</text>
             // #endif
         </view>
     </view>
 </template>
 <script>
     // #ifdef APP-ANDROID && UNI-APP-X
-    import { callKotlinMethodGetInfo, callJavaMethodGetInfo} from "../../uni_modules/uts-syntaxcase";
+    import { callKotlinMethodGetInfo, callJavaMethodGetInfo,callKotlinCallbackUTS,callKotlinStopCallbackUTS} from "../../uni_modules/uts-syntaxcase";
     // #endif
     
     export default {
         data() {
             return {
                 title: 'UTS混编示例',
+                memInfo:''
             }
         },
 
@@ -36,6 +41,16 @@
                   title:javaInfo
                 })
             },
+            kotlinMemListenTest: function () {
+                callKotlinCallbackUTS(function(ret:string){
+                  this.memInfo = ret
+                })
+            },
+            
+            kotlinStopMemListenTest:function () {
+                callKotlinStopCallbackUTS()
+            },
+            
             // #endif
 
         }

@@ -160,8 +160,10 @@ class RequestTaskImpl implements RequestTask {
 export function request(url : string) : RequestTask | null {
   return new RequestTaskImpl(url)
 }
+
+
 // #ifdef APP-ANDROID
-// #ifdef UNI-APP-X
+
 export function callKotlinMethodGetInfo():String {
 	return NativeCode.getPhoneInfo()
 }
@@ -170,6 +172,21 @@ export function callJavaMethodGetInfo():String {
 	return new JavaUser("jack",12).name
 }
 
+export function callKotlinCallbackUTS(callback: (res: string) => void) {
+	NativeCode.kotlinCallbackUTS(function(res:string){
+    console.log(res)
+    callback(res)
+  })
+}
+
+export function callKotlinStopCallbackUTS() {
+	NativeCode.kotlinStopMemListenTest()
+}
+
+// #endif
+
+// #ifdef APP-ANDROID
+// #ifdef UNI-APP-X
 
 import KeyEvent from 'android.view.KeyEvent';
 import Configuration from 'android.content.res.Configuration';

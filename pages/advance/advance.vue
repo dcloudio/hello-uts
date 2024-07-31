@@ -119,6 +119,10 @@
                         },{
                             name: "实例测试示例",
                             url: "SyntaxCase/instanceTest"
+                        },
+                        {
+                            name: "混编测试示例",
+                            url: "SyntaxCase/MixNativeCode"
                         }
                         ]
                     },
