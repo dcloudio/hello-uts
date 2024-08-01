@@ -271,15 +271,20 @@ export class TFloat32Array {
   reduce() {
     // #TEST Float32Array.reduce
     let total = new Float32Array([0, 1, 2, 3]);
-    let res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Float32Array) : number => accumulator + currentValue);
-    console.log(res); // 6
-    // #END
-    expect(res).toEqual(6);
+    let res1 = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Float32Array) : number =>
+      accumulator + currentValue
+    );
+    console.log(res1); // 6
 
-    // total = new Float32Array([0, 1, 2, 3]);
-    // res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Float32Array) : number => accumulator + currentValue, 8);
-    // console.log(res); // 14
-    // expect(res).toEqual(14);
+    total = new Float32Array([0, 1, 2, 3]);
+    let res2 = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Float32Array) : number =>
+      accumulator + currentValue, 8
+    );
+    console.log(res2); // 14
+    // #END
+
+    expect(res1).toEqual(6);
+    expect(res2).toEqual(14);
   }
 
   reduceRight() {
