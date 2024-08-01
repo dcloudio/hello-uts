@@ -73,31 +73,29 @@ export class TInt16Array {
 
   testFill() {
     // #TEST Int16Array.fill
-    let int16 = new Int16Array([1, 2, 3]).fill(4);
-    console.log(int16.toString()); // "4,4,4"
+    let int16_t1 = new Int16Array([1, 2, 3]).fill(4);
+    console.log(int16_t1.toString()); // "4,4,4"
 
-    // expect(int16.toString()).toEqual("4,4,4");
+    let int16_t2 = new Int16Array([1, 2, 3]).fill(4, 1);
+    console.log(int16_t2.toString()); // "1,4,4"
 
-    int16 = new Int16Array([1, 2, 3]).fill(4, 1);
-    console.log(int16.toString()); // "1,4,4"
+    let int16_t3 = new Int16Array([1, 2, 3]).fill(4, 1, 2);
+    console.log(int16_t3.toString()); // "1,4,3"
 
-    // expect(int16.toString()).toEqual("1,4,4");
+    let int16_t4 = new Int16Array([1, 2, 3]).fill(4, 1, 1);
+    console.log(int16_t4.toString()); // "1,2,3"
 
-    int16 = new Int16Array([1, 2, 3]).fill(4, 1, 2);
-    console.log(int16.toString()); // "1,4,3"
-
-    // expect(int16.toString()).toEqual("1,4,3");
-
-    int16 = new Int16Array([1, 2, 3]).fill(4, 1, 1);
-    console.log(int16.toString()); // "1,2,3"
-
-    // expect(int16.toString()).toEqual("1,2,3");
-
-    int16 = new Int16Array([1, 2, 3]).fill(4, -3, -2);
-    console.log(int16.toString()); // "4,2,3"
+    let int16_t5 = new Int16Array([1, 2, 3]).fill(4, -3, -2);
+    console.log(int16_t5.toString()); // "4,2,3"
     // #END
-    expect(int16.toString()).toEqual("4,2,3");
+
+    expect(int16_t1.toString()).toEqual("4,4,4");
+    expect(int16_t2.toString()).toEqual("1,4,4");
+    expect(int16_t3.toString()).toEqual("1,4,3");
+    expect(int16_t4.toString()).toEqual("1,2,3");
+    expect(int16_t5.toString()).toEqual("4,2,3");
   }
+
 
   testFilter() {
     // #TEST Int16Array.filter

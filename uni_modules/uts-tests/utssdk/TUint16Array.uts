@@ -372,24 +372,32 @@ export class TUint16Array {
     let res = buffer.slice(8);
     let sliced = new Uint16Array(res);
     console.log(sliced[0]); // 42
+
     // #END
+    expect(uint16.toString()).toEqual("0,0,0,0,42,0,0,0");
     expect(sliced[0]).toEqual(42);
   }
+
 
   testSome() {
     // #TEST Uint16Array.some
     const uint16 = new Uint16Array([8, 20, 30, 40, 50]);
     const positives = new Uint16Array([10, 20, 30, 40, 50]);
 
-    expect(uint16.some((element : number, index : number, array : Uint16Array) : boolean =>
+    const res1 = uint16.some((element : number, index : number, array : Uint16Array) : boolean =>
       element < 10
-    )).toEqual(true);
+    );
+    console.log('uint16', res1); // true
 
-    expect(positives.some((element : number, index : number, array : Uint16Array) : boolean =>
+    const res2 = positives.some((element : number, index : number, array : Uint16Array) : boolean =>
       element < 0
-    )).toEqual(false);
+    );
+    console.log('positives', res2); // false
     // #END
+    expect(res1).toEqual(true);
+    expect(res2).toEqual(false);
   }
+
 
   // #endif
 }
