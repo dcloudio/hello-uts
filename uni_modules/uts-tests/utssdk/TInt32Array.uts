@@ -174,10 +174,8 @@ export class TInt32Array {
     let res1 = int32_t1.includes(2);
     console.log(res1); // true
 
-    res = int32.includes(4);
-    console.log(res); // false
- 
-    // expect(res).toEqual(false);
+    let res2 = int32_t1.includes(4);
+    console.log(res2); // false
 
     let res3 = int32_t1.includes(3, 3);
     console.log(res3); // false
