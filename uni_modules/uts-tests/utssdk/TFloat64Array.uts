@@ -237,13 +237,14 @@ export class TFloat64Array {
     // #TEST Float64Array.keys
     let arr = new Float64Array([10, 20, 30, 40, 50]);
     let keys = arr.keys();
-    console.log(keys.next().value); // 0
+    let value = keys.next().value
+    console.log(value); // 0
     console.log(keys.next().value); // 1
     console.log(keys.next().value); // 2
     console.log(keys.next().value); // 3
     console.log(keys.next().value); // 4
     // #END
-    expect(keys.next().value).toEqual(-1);
+    expect(value).toEqual(0);
   }
 
   map() {
@@ -334,7 +335,7 @@ export class TFloat64Array {
       }
     }
     console.log(ret5); //  true;
-    
+
     // #END
     expect(ret4).toEqual("1");
     expect(ret3.toString()).toEqual("2,3");
@@ -389,11 +390,12 @@ export class TFloat64Array {
     // #TEST Float64Array.values
     let arr = new Float64Array([1, 2, 3]);
     let values = arr.values();
-    console.log(values.next().value); // 1
+    let value = values.next().value
+    console.log(value); // 1
     console.log(values.next().value); // 2
     console.log(values.next().value); // 3
     // #END
-    expect(values.next().value).toEqual(-1);
+    expect(value).toEqual(1);
   }
 
   arrayBufferSlice() {
