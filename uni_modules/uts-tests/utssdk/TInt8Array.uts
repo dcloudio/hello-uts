@@ -8,7 +8,7 @@ import {
 
 export class TInt8Array {
   test() {
-    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+    // #ifdef  APP-ANDROID || WEB
 
     this.testConstructor();
     this.testSet();
@@ -36,7 +36,7 @@ export class TInt8Array {
     //#endif
   }
 
-  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+  // #ifdef  APP-ANDROID || WEB
 
   testConstructor() {
     let buffer = new ArrayBuffer(16);

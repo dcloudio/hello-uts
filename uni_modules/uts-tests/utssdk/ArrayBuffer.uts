@@ -9,7 +9,7 @@ import { TUint8Array } from './TUInt8Array.uts'
 import { TUint8ClampedArray } from './TUInt8ClampedArray.uts'
 import { TUint16Array } from './TUint16Array.uts'
 import { TUint32Array } from './TUint32Array.uts'
-// #ifdef UNI-APP-X && APP-ANDROID
+// #ifdef APP-ANDROID
 import ByteBuffer from 'java.nio.ByteBuffer';
 // #endif
 
@@ -26,7 +26,7 @@ const int16 = new TInt16Array()
 
 export function testArrayBuffer() : Result {
   return describe("ArrayBuffer", () => {
-    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+    // #ifdef  APP-ANDROID || WEB
     test('arraybuffer_isview', () => {
       // #TEST ArrayBuffer.isView
       var arrayBuffer = new ArrayBuffer(16)
@@ -42,7 +42,7 @@ export function testArrayBuffer() : Result {
 
       expect(isViewA).toEqual(false);
     })
-    // #ifdef UNI-APP-X && APP-ANDROID
+    // #ifdef  APP-ANDROID
     test('arraybuffer_toByteBuffer', () => {
       // #TEST ArrayBuffer.fromByteBuffer,ArrayBuffer.toByteBuffer
       var byteBuffer = ByteBuffer.allocate(100)

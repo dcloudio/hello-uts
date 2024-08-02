@@ -7,7 +7,7 @@ import {
 
 export class TInt32Array {
   test() {
-    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+    // #ifdef  APP-ANDROID || WEB
 
     this.testInt32Array();
     this.testConstructor();
@@ -36,7 +36,7 @@ export class TInt32Array {
     // #endif
   }
 
-  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+  // #ifdef  APP-ANDROID || WEB
 
   testInt32Array() {
     let int32 = new Int32Array(2);
@@ -103,7 +103,7 @@ export class TInt32Array {
 
     int32 = new Int32Array([1, 2, 3]).fill(4, 1);
     console.log(int32.toString()); // "1,4,4"
- 
+
     // expect(int32.toString()).toEqual("1,4,4");
 
     int32 = new Int32Array([1, 2, 3]).fill(4, 1, 2);
@@ -113,7 +113,7 @@ export class TInt32Array {
 
     int32 = new Int32Array([1, 2, 3]).fill(4, 1, 1);
     console.log(int32.toString()); // "1,2,3"
- 
+
     // expect(int32.toString()).toEqual("1,2,3");
 
     int32 = new Int32Array([1, 2, 3]).fill(4, -3, -2);
@@ -182,7 +182,7 @@ export class TInt32Array {
 
     res = int32.includes(4);
     console.log(res); // false
- 
+
     // expect(res).toEqual(false);
 
     res = int32.includes(3, 3);
@@ -196,7 +196,7 @@ export class TInt32Array {
     let int32 = new Int32Array([2, 5, 9]);
     let res = int32.indexOf(2);
     console.log(res); // 0
-   
+
     // expect(res).toEqual(0);
 
     res = int32.indexOf(7);
@@ -225,12 +225,12 @@ export class TInt32Array {
     let int32 = new Int32Array([1, 2, 3]);
     let res = int32.join();
     console.log(res); // "1,2,3"
-  
+
     // expect(res).toEqual("1,2,3");
 
     res = int32.join(" / ");
     console.log(res); // "1 / 2 / 3"
-   
+
     // expect(res).toEqual("1 / 2 / 3");
 
     res = int32.join("");
@@ -265,7 +265,7 @@ export class TInt32Array {
     let total = new Int32Array([0, 1, 2, 3]);
     let res = total.reduce((accumulator : number, currentValue : number, _ : number, _a : Int32Array) : number => accumulator + currentValue);
     console.log(res); // 6
-   
+
     // expect(res).toEqual(6);
 
     total = new Int32Array([0, 1, 2, 3]);
@@ -279,7 +279,7 @@ export class TInt32Array {
     let total = new Int32Array([0, 1, 2, 3]);
     let res = total.reduceRight((accumulator : number, currentValue : number, _ : number, _a : Int32Array) : number => accumulator + currentValue);
     console.log(res); // 6
-   
+
     // expect(res).toEqual(6);
 
     total = new Int32Array([0, 1, 2, 3]);
@@ -303,17 +303,17 @@ export class TInt32Array {
     let int32 = new Int32Array([1, 2, 3]);
     let res = int32.slice(1);
     console.log(res.toString()); // "2,3"
-  
+
     // expect(res.toString()).toEqual("2,3");
 
     res = int32.slice(2);
     console.log(res.toString()); // "3"
-    
+
     // expect(res.toString()).toEqual("3");
 
     res = int32.slice(-2);
     console.log(res.toString()); // "2,3"
-  
+
     // expect(res.toString()).toEqual("2,3");
 
     res = int32.slice(0, 1);
@@ -327,7 +327,7 @@ export class TInt32Array {
     let numbers = new Int32Array([40, 1, 5]);
     numbers.sort();
     console.log(numbers.toString()); // "1,5,40"
-   
+
     // expect(numbers.toString()).toEqual("1,5,40");
 
     numbers.sort((a, b) : number => a - b);
@@ -379,7 +379,7 @@ export class TInt32Array {
     const positives = new Int32Array([10, 20, 30, 40, 50]);
 
     console.log(int32.some((element : number, index : number, array : Int32Array) : boolean => element < 0)); // true
-   
+
     // expect(int32.some((element : number, index : number, array : Int32Array) : boolean => element < 0)).toEqual(true);
 
     console.log(positives.some((element : number, index : number, array : Int32Array) : boolean => element < 0)); // false

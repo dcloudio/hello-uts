@@ -7,7 +7,7 @@ import {
 
 export class TFloat32Array {
   test() {
-    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+    // #ifdef  APP-ANDROID || WEB
     this.testfloat32();
     this.testConstructor();
     this.testSet();
@@ -34,7 +34,7 @@ export class TFloat32Array {
     this.arrayBufferSlice();
     // #endif
   }
-  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+  // #ifdef  APP-ANDROID || WEB
   from() {
     var float32Array = Float32Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
     expect(float32Array.toString()).toEqual('2,4,6');

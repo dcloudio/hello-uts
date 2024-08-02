@@ -42,7 +42,7 @@ export function runTests() : UTSJSONObject {
   const consoleRes = testConsole();
   const UTSJSONObjectRes = testUTSJSONObject();
 
-  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+  // #ifdef  APP-ANDROID || WEB
   const ArrayBufferRes = testArrayBuffer();
   // #endif
   const NativeCodeRes = testNativeCode();
@@ -52,7 +52,7 @@ export function runTests() : UTSJSONObject {
     String: StringRes,
     Error: ErrorRes,
     Json: JsonRes,
-    JSONLarge:JSONLargeRes,
+    JSONLarge: JSONLargeRes,
     Number: NumberRes,
     Map: MapRes,
     Set: SetRes,
@@ -63,11 +63,11 @@ export function runTests() : UTSJSONObject {
     ForLoop: ForLoopRes,
     Global: GlobalRes,
     Type: TypeRes,
-    console:consoleRes,
-    UTSJSONObject:UTSJSONObjectRes,
-    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
-    ArrayBuffer:ArrayBufferRes,
+    console: consoleRes,
+    UTSJSONObject: UTSJSONObjectRes,
+    // #ifdef  APP-ANDROID || WEB
+    ArrayBuffer: ArrayBufferRes,
     // #endif
-    NativeCode:NativeCodeRes
+    NativeCode: NativeCodeRes
   }
 }

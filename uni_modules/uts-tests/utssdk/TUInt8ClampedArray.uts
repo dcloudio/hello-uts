@@ -7,7 +7,7 @@ import {
 
 export class TUint8ClampedArray {
   test() {
-    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+    // #ifdef  APP-ANDROID || WEB
 
     this.testMAX();
     this.testConstructor();
@@ -36,7 +36,7 @@ export class TUint8ClampedArray {
     // #endif
   }
 
-  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+  // #ifdef  APP-ANDROID || WEB
 
   testMAX() {
     let uint8Clamped = new Uint8ClampedArray(16);

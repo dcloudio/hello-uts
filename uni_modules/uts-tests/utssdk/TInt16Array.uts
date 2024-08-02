@@ -7,7 +7,7 @@ import {
 
 export class TInt16Array {
   test() {
-    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+    // #ifdef  APP-ANDROID || WEB
     this.testConstructor();
     this.testSet();
     this.testCopyWith();
@@ -34,7 +34,7 @@ export class TInt16Array {
     // #endif
   }
 
-  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+  // #ifdef  APP-ANDROID || WEB
 
   testConstructor() {
     let buffer = new ArrayBuffer(16);

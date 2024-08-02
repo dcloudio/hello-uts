@@ -7,7 +7,7 @@ import {
 
 export class TUint16Array {
   test() {
-    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+    // #ifdef  APP-ANDROID || WEB
     this.testuint16();
     this.testConstructor();
     this.testSet();
@@ -35,7 +35,7 @@ export class TUint16Array {
     // #endif
   }
 
-  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+  // #ifdef  APP-ANDROID || WEB
   testuint16() {
     let uint16 = new Uint16Array(2);
     uint16[0] = 42;
