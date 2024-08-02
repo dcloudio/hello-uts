@@ -205,10 +205,10 @@ export class TFloat64Array {
 
 
     let res4 = float64.indexOf(2, -3);
-    console.log(res); // 0
+    console.log(res4); // 0
     // #END
     expect(res).toEqual(0);
-    expect(res).toEqual(0);
+    expect(res4).toEqual(0);
     expect(res1).toEqual(-1);
     expect(res2).toEqual(2);
     expect(res3).toEqual(-1);
