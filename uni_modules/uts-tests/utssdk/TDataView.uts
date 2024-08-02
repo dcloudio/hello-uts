@@ -18,7 +18,7 @@ export class TDataView {
     // this.setUint8();
     // this.testMix();
   }
-  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+  // #ifdef  APP-ANDROID || WEB
   setConstructor() {
     let buffer = new ArrayBuffer(16);
     let dataview = new DataView(buffer);

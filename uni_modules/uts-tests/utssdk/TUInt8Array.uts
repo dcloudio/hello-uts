@@ -7,7 +7,7 @@ import {
 
 export class TUint8Array {
   test() {
-    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+    // #ifdef  APP-ANDROID || WEB
 
     this.testMAX();
     this.testConstructor();
@@ -35,7 +35,7 @@ export class TUint8Array {
     this.arrayBufferSlice();
     // #endif
   }
-  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+  // #ifdef  APP-ANDROID || WEB
 
   from() {
     var s = new Set([1, 2, 3]);

@@ -7,7 +7,7 @@ import {
 
 export class TInt32Array {
   test() {
-    // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+    // #ifdef  APP-ANDROID || WEB
 
     this.testInt32Array();
     this.testConstructor();
@@ -36,7 +36,7 @@ export class TInt32Array {
     // #endif
   }
 
-  // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+  // #ifdef  APP-ANDROID || WEB
 
   testInt32Array() {
     let int32 = new Int32Array(2);
@@ -174,8 +174,10 @@ export class TInt32Array {
     let res1 = int32_t1.includes(2);
     console.log(res1); // true
 
-    let res2 = int32_t1.includes(4);
-    console.log(res2); // false
+    res = int32.includes(4);
+    console.log(res); // false
+ 
+    // expect(res).toEqual(false);
 
     let res3 = int32_t1.includes(3, 3);
     console.log(res3); // false
