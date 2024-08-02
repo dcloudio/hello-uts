@@ -9,6 +9,9 @@ import { TUint8Array } from './TUInt8Array.uts'
 import { TUint8ClampedArray } from './TUInt8ClampedArray.uts'
 import { TUint16Array } from './TUint16Array.uts'
 import { TUint32Array } from './TUint32Array.uts'
+// #ifdef UNI-APP-X && APP-ANDROID
+import ByteBuffer from 'java.nio.ByteBuffer';
+// #endif
 
 const tDataView = new TDataView();
 const float32 = new TFloat32Array();
@@ -24,6 +27,48 @@ const int16 = new TInt16Array()
 export function testArrayBuffer() : Result {
   return describe("ArrayBuffer", () => {
     // #ifdef (UNI-APP-X && APP-ANDROID) || WEB
+    test('arraybuffer_isview', () => {
+      // #TEST ArrayBuffer.isView
+      var arrayBuffer = new ArrayBuffer(16)
+      var float64 = new Float64Array(arrayBuffer);
+      var isView = ArrayBuffer.isView(float64)
+      console.log(isView)//true
+
+      var a = 1
+      var isViewA = ArrayBuffer.isView(a)
+      console.log(isViewA)//false
+      // #END
+      expect(isView).toEqual(true);
+
+      expect(isViewA).toEqual(false);
+    })
+    // #ifdef UNI-APP-X && APP-ANDROID
+    test('arraybuffer_toByteBuffer', () => {
+      // #TEST ArrayBuffer.fromByteBuffer,ArrayBuffer.toByteBuffer
+      var byteBuffer = ByteBuffer.allocate(100)
+      byteBuffer.put(1)
+      byteBuffer.put(2)
+      var buffer = ArrayBuffer.fromByteBuffer(byteBuffer)
+      console.log('arraybuffer_toByteBuffer', buffer)
+      var int8 = new Int8Array(buffer)
+      console.log(int8[0])//1
+      console.log(int8[1])//2
+
+      byteBuffer = buffer.toByteBuffer()
+      console.log('arraybuffer_toByteBuffer', byteBuffer)
+
+      byteBuffer.rewind()
+      console.log(byteBuffer[0])//1
+      console.log(byteBuffer[1])//2
+      // #END
+      expect(int8[0]).toEqual(1);
+      expect(int8[1]).toEqual(2);
+      expect(byteBuffer[0]).toEqual(1);
+      expect(byteBuffer[1]).toEqual(2);
+    })
+    // #endif
+
+
     //dataview start
     test('dataview_constructor', () => {
       tDataView.setConstructor()
