@@ -62,6 +62,24 @@ export function testUTSJSONObject() : Result {
         // #endif
     })
     
+    
+    test('get-speed', () => {
+      // #ifdef APP-ANDROID
+        const utsObj: UTSJSONObject = {} as any as UTSJSONObject
+        for (let i = 0; i < 100; i++) {
+          utsObj.set('' + i, '' + i)
+        }
+        
+        console.log('--start--')
+        let startTime = Date.now()
+        for (let i = 0; i < 10000; i++) {
+          utsObj.getString('0')
+        }
+        let spendTime = Date.now() - startTime
+        expect(spendTime < 300).toEqual(true);
+        // #endif
+    })
+    
     test('assign-withtype', () => {
       // #ifdef APP-ANDROID
         type User = {

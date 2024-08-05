@@ -22522,22 +22522,25 @@ export function testJSONLarge() : Result {
   return describe("JSON_large", () => {
     test('parse', () => {
       // #ifdef APP-ANDROID
-        let startTime = System.currentTimeMillis()
-        let listdata = JSON.parseArray<PICKER_ITEM_INFO>(allStr)
-        let spendTime = System.currentTimeMillis() - startTime
+        UTSAndroid.getDispatcher("io").async(function(_){
+          let startTime = System.currentTimeMillis()
+          let listdata = JSON.parseArray<PICKER_ITEM_INFO>(allStr)
+          let spendTime = System.currentTimeMillis() - startTime
+          
+          console.log('指定类型转换耗时',spendTime,listdata!.length)
+          expect(listdata.length).toEqual(33);
+          expect(spendTime < 500).toEqual(true);
+          
+          startTime = System.currentTimeMillis()
+          let listdata2 = JSON.parse(allStr)
+          spendTime = System.currentTimeMillis() - startTime
+          expect(listdata2 instanceof Array).toEqual(true);
+          let parseArray = listdata2 as Array
+          expect(parseArray.length).toEqual(33);
+          expect(spendTime < 300).toEqual(true);
+          console.log('不指定类型转换耗时',spendTime,listdata2)
+        },null)
         
-        console.log('指定类型转换耗时',spendTime,listdata!.length)
-        expect(listdata.length).toEqual(33);
-        expect(spendTime < 500).toEqual(true);
-        
-        startTime = System.currentTimeMillis()
-        let listdata2 = JSON.parse(allStr)
-        spendTime = System.currentTimeMillis() - startTime
-        expect(listdata2 instanceof Array).toEqual(true);
-        let parseArray = listdata2 as Array
-        expect(parseArray.length).toEqual(33);
-        expect(spendTime < 300).toEqual(true);
-        console.log('不指定类型转换耗时',spendTime,listdata2)
         
       // #endif
       
