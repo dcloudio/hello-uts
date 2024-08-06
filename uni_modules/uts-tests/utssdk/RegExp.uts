@@ -51,6 +51,13 @@ export function testRegExp(): Result {
             const regex2 = new RegExp('bar');
             expect(regex2.ignoreCase).toEqual(false);
         })
+        test("RegExpExecArray", () => {
+          const regex1 = RegExp('foo*', 'g');
+          const str1 = 'table football, foosball';
+          let array1:RegExpExecArray = regex1.exec(str1)!;
+          console.log(array1[0] == 'foo')
+          expect(array1[0] == 'foo').toEqual(true);
+        })
         test("lastIndex", () => {
             const regex = /ab/g;
             const str = 'ab ab ab';
