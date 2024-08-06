@@ -42,6 +42,20 @@ export function testArray(): Result {
 			
 		})
 		
+    test('convert-native', () => {
+    	// #ifndef APP-ANDROID
+      let utsArray = ["1",2,3.0]
+      let javaArray = utsArray.toTypedArray();
+      let kotlinArray = utsArray.toKotlinList()
+
+      let convertArrayFromJava = Array.fromNative(javaArray);
+      let convertArrayFromKotlin = Array.fromNative(kotlinArray);
+      expect(convertArrayFromJava[0] == convertArrayFromKotlin[0]).toEqual(true);
+      expect(convertArrayFromJava[0]).toEqual("1");
+    	// #endif
+    	
+    })
+    
         test('length', () => {
             const arr = ['shoes', 'shirts', 'socks', 'sweaters'];
             expect(arr.length).toEqual(4);
