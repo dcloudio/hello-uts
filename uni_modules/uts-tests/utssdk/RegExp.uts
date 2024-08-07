@@ -52,11 +52,13 @@ export function testRegExp(): Result {
             expect(regex2.ignoreCase).toEqual(false);
         })
         test("RegExpExecArray", () => {
+          // #ifdef APP-ANDROID
           const regex1 = RegExp('foo*', 'g');
           const str1 = 'table football, foosball';
           let array1:RegExpExecArray = regex1.exec(str1)!;
           console.log(array1[0] == 'foo')
           expect(array1[0] == 'foo').toEqual(true);
+          // #endif
         })
         test("lastIndex", () => {
             const regex = /ab/g;

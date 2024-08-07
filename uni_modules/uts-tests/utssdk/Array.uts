@@ -43,7 +43,7 @@ export function testArray(): Result {
 		})
 		
     test('convert-native', () => {
-    	// #ifndef APP-ANDROID
+    	// #ifdef APP-ANDROID
       let utsArray = ["1",2,3.0]
       let javaArray = utsArray.toTypedArray();
       let kotlinArray = utsArray.toKotlinList()

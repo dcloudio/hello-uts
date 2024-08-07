@@ -27,6 +27,12 @@ export function testDate() : Result {
             let date1 = new Date('1992-02-02');
             expect(date1.getTime()).toEqual(696988800000);
             
+            let date2 = new Date('Sun Feb 03 1991 08:00:00 GMT+0800');
+            expect(date2.getTime()).toEqual(665539200000);
+            
+            let date3 = new Date('Sun Feb 03 1991');
+            expect(date3.getTime()).toEqual(665510400000);
+            
             // #ifdef APP-ANDROID
             /**
              * iso 8601 相关
