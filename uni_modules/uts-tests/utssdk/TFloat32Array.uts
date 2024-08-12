@@ -36,8 +36,18 @@ export class TFloat32Array {
   }
   // #ifdef  APP-ANDROID || WEB
   from() {
+    // #TEST Float32Array.from
     var float32Array = Float32Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
+    console.log(float32Array.toString()); // '2,4,6'
+    // #END
     expect(float32Array.toString()).toEqual('2,4,6');
+  }
+  of() {
+    // #TEST Float32Array.of
+    var float32Array = Float32Array.of(1, 2, 3)
+    console.log(float32Array.toString()); // '1,2,3'
+    // #END
+    expect(float32Array.toString()).toEqual("1,2,3");
   }
 
   testfloat32() {

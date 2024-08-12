@@ -36,6 +36,20 @@ export class TUint16Array {
   }
 
   // #ifdef  APP-ANDROID || WEB
+  from() {
+    // #TEST Uint16Array.from
+    var array = Uint16Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
+    console.log(array.toString()); // '2,4,6'
+    // #END
+    expect(array.toString()).toEqual('2,4,6');
+  }
+  of() {
+    // #TEST Uint16Array.of
+    var array = Uint16Array.of(1, 2, 3)
+    console.log(array.toString()); // '1,2,3'
+    // #END
+    expect(array.toString()).toEqual("1,2,3");
+  }
   testuint16() {
     let uint16 = new Uint16Array(2);
     uint16[0] = 42;

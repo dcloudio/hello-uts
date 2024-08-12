@@ -37,7 +37,20 @@ export class TInt32Array {
   }
 
   // #ifdef  APP-ANDROID || WEB
-
+ from() {
+    // #TEST Int32Array.from
+    var array = Int32Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
+    console.log(array.toString()); // '2,4,6'
+    // #END
+    expect(array.toString()).toEqual('2,4,6');
+  }
+  of() {
+    // #TEST Int32Array.of
+    var array = Int32Array.of(1, 2, 3)
+    console.log(array.toString()); // '1,2,3'
+    // #END
+    expect(array.toString()).toEqual("1,2,3");
+  }
   testInt32Array() {
     let int32 = new Int32Array(2);
     int32[0] = 42;

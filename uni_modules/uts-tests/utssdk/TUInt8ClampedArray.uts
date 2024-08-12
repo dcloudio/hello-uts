@@ -37,7 +37,20 @@ export class TUint8ClampedArray {
   }
 
   // #ifdef  APP-ANDROID || WEB
-
+  from() {
+    // #TEST Uint8ClampedArray.from
+    var array = Uint8ClampedArray.from([1, 2, 3], (v : number, _ : number) : number => v + v);
+    console.log(array.toString()); // '2,4,6'
+    // #END
+    expect(array.toString()).toEqual('2,4,6');
+  }
+  of() {
+    // #TEST Uint8ClampedArray.of
+    var array = Uint8ClampedArray.of(1, 2, 3)
+    console.log(array.toString()); // '1,2,3'
+    // #END
+    expect(array.toString()).toEqual("1,2,3");
+  }
   testMAX() {
     let uint8Clamped = new Uint8ClampedArray(16);
     uint8Clamped[0] = 255;
