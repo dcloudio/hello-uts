@@ -35,7 +35,20 @@ export class TInt16Array {
   }
 
   // #ifdef  APP-ANDROID || WEB
-
+ from() {
+    // #TEST Int16Array.from
+    var array = Int16Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
+    console.log(array.toString()); // '2,4,6'
+    // #END
+    expect(array.toString()).toEqual('2,4,6');
+  }
+  of() {
+    // #TEST Int16Array.of
+    var array = Int16Array.of(1, 2, 3)
+    console.log(array.toString()); // '1,2,3'
+    // #END
+    expect(array.toString()).toEqual("1,2,3");
+  }
   testConstructor() {
     let buffer = new ArrayBuffer(16);
     let int16 = new Int16Array(buffer);

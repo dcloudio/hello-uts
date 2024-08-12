@@ -37,6 +37,20 @@ export class TUint32Array {
   }
 
   // #ifdef  APP-ANDROID || WEB
+  from() {
+    // #TEST Uint32Array.from
+    var array = Uint32Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
+    console.log(array.toString()); // '2,4,6'
+    // #END
+    expect(array.toString()).toEqual('2,4,6');
+  }
+  of() {
+    // #TEST Uint32Array.of
+    var array = Uint32Array.of(1, 2, 3)
+    console.log(array.toString()); // '1,2,3'
+    // #END
+    expect(array.toString()).toEqual("1,2,3");
+  }
   testuint32() {
     let uint32 = new Uint32Array(2);
     uint32[0] = 42;

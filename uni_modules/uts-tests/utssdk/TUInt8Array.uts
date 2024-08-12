@@ -36,12 +36,20 @@ export class TUint8Array {
     // #endif
   }
   // #ifdef  APP-ANDROID || WEB
-
+  of() {
+    // #TEST Uint8Array.of
+    var array = Uint8Array.of(1, 2, 3)
+    console.log(array.toString()); // '1,2,3'
+    // #END
+    expect(array.toString()).toEqual("1,2,3");
+  }
   from() {
+    // #TEST Uint8Array.from
     var s = new Set([1, 2, 3]);
     var unit8 = Uint8Array.from(s);
+    console.log(unit8.toString()); // '1,2,3'
+    // #END
     expect(unit8.toString()).toEqual('1,2,3');
-    console.log(unit8.toString())
   }
   testMAX() {
     let uint8 = new Uint8Array(16);

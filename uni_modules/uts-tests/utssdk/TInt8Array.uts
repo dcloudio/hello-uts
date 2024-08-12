@@ -37,7 +37,20 @@ export class TInt8Array {
   }
 
   // #ifdef  APP-ANDROID || WEB
-
+  from() {
+    // #TEST Int8Array.from
+    var array = Int8Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
+    console.log(array.toString()); // '2,4,6'
+    // #END
+    expect(array.toString()).toEqual('2,4,6');
+  }
+  of() {
+    // #TEST Int8Array.of
+    var array = Int8Array.of(1, 2, 3)
+    console.log(array.toString()); // '1,2,3'
+    // #END
+    expect(array.toString()).toEqual("1,2,3");
+  }
   testConstructor() {
     let buffer = new ArrayBuffer(16);
     let int8View = new Int8Array(buffer);
