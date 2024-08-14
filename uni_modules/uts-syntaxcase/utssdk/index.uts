@@ -52,14 +52,11 @@ export function testSyncWithCallback(opts : AsyncOptions) : SyntaxResult {
 
 
 async function testAwaitPromise(res : SyntaxResult) : Promise<SyntaxResult> {
-  // #ifdef APP-ANDROID
   return await new Promise(function (resolve : (res : SyntaxResult) => void) {
-    resolve(res)
+    setTimeout(() => {
+      resolve(res)
+    }, 2000)
   })
-  // #endif
-  // #ifndef APP-ANDROID
-  return res
-  // #endif
 }
 /**
  * 导出一个异步方法
