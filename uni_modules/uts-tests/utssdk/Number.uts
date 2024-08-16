@@ -127,21 +127,45 @@ export function testNumber() : Result {
     })
     
     test('Unary-Operators', () => {
+      // #ifdef APP-ANDROID
       let a = JSON.parse("1") as Number
       a++;
       expect(a.toString()).toEqual("2");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      
       a--;
       expect(a.toString()).toEqual("1");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
       a /= 0.5;
       expect(a.toString()).toEqual("2");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
       a *= 5;
       expect(a.toString()).toEqual("10");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
       a += -1;
       expect(a.toString()).toEqual("9");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
       a -= -2;
       expect(a.toString()).toEqual("11");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
       let a2 = a % 5
       expect(a2.toString()).toEqual("1");
+      expect(UTSAndroid.getJavaClass(a2).name).toEqual("io.dcloud.uts.UTSNumber");
+      
+      let b = 12
+      let c1 = b + a2
+      expect(c1.toString()).toEqual("13");
+      expect(UTSAndroid.getJavaClass(c1).name).toEqual("io.dcloud.uts.UTSNumber");
+      
+      let c2 = a2 + 2
+      expect(c2.toString()).toEqual("3");
+      expect(UTSAndroid.getJavaClass(c2).name).toEqual("io.dcloud.uts.UTSNumber");
+      
+      let c3 = 2 + a2
+      expect(c3.toString()).toEqual("3");
+      expect(UTSAndroid.getJavaClass(c3).name).toEqual("io.dcloud.uts.UTSNumber");
+      // #endif
+      
       
     })
 
