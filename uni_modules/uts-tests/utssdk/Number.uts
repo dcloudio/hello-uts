@@ -125,6 +125,25 @@ export function testNumber() : Result {
       expect(Number.isInteger(-213123112.01)).toEqual(false);
       expect(Number.isInteger(-213123112)).toEqual(true);
     })
+    
+    test('Unary-Operators', () => {
+      let a = JSON.parse("1") as Number
+      a++;
+      expect(a.toString()).toEqual("2");
+      a--;
+      expect(a.toString()).toEqual("1");
+      a /= 0.5;
+      expect(a.toString()).toEqual("2");
+      a *= 5;
+      expect(a.toString()).toEqual("10");
+      a += -1;
+      expect(a.toString()).toEqual("9");
+      a -= -2;
+      expect(a.toString()).toEqual("11");
+      let a2 = a % 5
+      expect(a2.toString()).toEqual("1");
+      
+    })
 
     test('isNaN', () => {
       expect(isNaN(0)).toEqual(false);
