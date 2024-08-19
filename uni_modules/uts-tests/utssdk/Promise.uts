@@ -1,0 +1,197 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+export function testPromise(): Result {
+    return describe("Promise", () => {
+        // #ifdef APP-IOS
+        test('constructor', () => {
+          // 常规方式
+           let p = new Promise<Int>((resolve, reject) => {
+             let success = true;
+              setTimeout(()=>{
+                if (success) {
+                  resolve(2024)
+                } else{
+                  let error = new Error("something going wrong")
+                  reject(error)
+                }
+              }, 10);
+           });
+           p.then((res: Int) => {  
+              expect(res).toEqual(2024) 
+           })
+           
+           // 单个函数
+           let p1 = new Promise<any | null>((resolve: (value: any | null) => void) => {
+             setTimeout(function() {
+               resolve(null)
+             }, 10);
+           })
+           p1.then((res: any | null) => {
+              expect(res).toEqual(null) 
+           })
+           
+           // 指定函数类型
+           let p2 = new Promise((resolve: (value: string) => void, reject: (error: any | null) => void) => {
+              setTimeout(function() {
+                reject(null)
+              }, 10);
+           })
+           p2.then()
+           .catch((error: any | null) => {
+             expect(error).toEqual(null) 
+           })
+        })
+        
+        test('then', () => {
+            let p = new Promise<string>((reslove, reject) => {
+            	setTimeout(function() {
+                reslove("hello world")  
+            	}, 13);
+            })
+              
+            p.then(
+            	(res: string): Promise<string> => {
+                expect(res).toEqual("hello world") 
+            		let p0 = new Promise<string>((reslove,reject) => {
+            			var success = true;  
+            			setTimeout(function() {
+            				success = true;
+            				if (success) {
+            					reslove(res + " 2024")  
+            				} else{
+            					reject("first then p0 reject message")
+            				}
+            			}, 8);
+            		})
+            		return p0;
+            	},
+            	(err: any | null): void => {  
+            		throw new Error("first then throw error")
+            	}
+            )
+            .catch(
+            	(err):string => {
+            		return "first catch return message"
+            	}
+            )   
+            .then(
+            	(res) => {
+                console.log(res)
+                expect(res).toEqual("hello world 2024") 
+            	}
+            )
+            .catch(
+            	(err) => {
+            		console.log(err, "this is seconded catch")
+            	}
+            )  
+            .finally(() => {
+              console.log("finally")
+              expect("finally").toEqual("finally")
+            })
+        })
+        
+        test('catch', () => {
+        
+        })
+        
+        test('finally', () => {
+        
+        })
+        
+        test('resolve', () => {
+        
+        })
+        
+        test('reject', () => {
+        
+        })
+        
+        test('all', () => {
+           let p0 = new Promise<string>((resolve, reject) => {
+             setTimeout(function() {
+               resolve("1");
+             }, 10);
+           })
+           
+           let p1 = new Promise<string>((resolve, reject) => {
+             setTimeout(function() {
+               resolve("2");
+             }, 10);
+           })
+           
+           let p2 = new Promise<string>((resolve, reject) => {
+             setTimeout(function() {
+               resolve("3");
+             }, 10);
+           })
+           
+           let p3 = new Promise<string>((resolve, reject) => {
+             setTimeout(function() {
+               let error = new Error("p3 reject reason")
+               reject(error);
+             }, 10);
+           })
+           // resolve
+           Promise.all([p0, p1, p2])
+           .then((res) => {
+             console.log(res);
+             expect(res).toEqual(["1", "2", "3"]) 
+           })
+           
+           // reject
+           Promise.all([p1, p2, p3])
+           .then()
+           .catch((error) => {
+             console.log(error);
+             expect((error as Error).message).toEqual("p3 reject reason");
+           })
+        })
+        
+        test('allSettled', () => {
+            let p0 = new Promise<string | null>((resolve, reject) => {
+              setTimeout(function() {
+                resolve("1");
+              }, 10);
+            })
+            
+            let p1 = new Promise<string | null>((resolve, reject) => {
+              setTimeout(function() {
+                resolve(null);
+              }, 10);
+            })
+            
+            let p2 = new Promise<string | null>((resolve, reject) => {
+              setTimeout(function() {
+                reject(null)
+              }, 10);
+            })
+            
+            let p3 = new Promise<string  | null>((resolve, reject) => {
+              setTimeout(function() {
+                let error = new Error("p3 reject reason")
+                reject(error);
+              }, 10);
+            })
+            
+            Promise.allSettled([p0, p1, p2, p3])
+            .then((res) => {
+              console.log(res);
+              let statusArr : string[] = []
+              res.forEach((item, index) => {
+                statusArr.append(item.status)
+              })
+              expect(statusArr).toEqual(["fulfilled", "fulfilled", "rejected", "rejected"]) 
+            })
+        })
+        
+        test('any', () => {
+        
+        })
+        
+        test('race', () => {
+        
+        })
+        // #endif
+    })
+}

@@ -19,9 +19,9 @@ import { testType } from './Type.uts'
 export { Result } from './tests.uts'
 import { testArrayBuffer } from './ArrayBuffer.uts'
 import { testNativeCode } from './NativeCode.uts'
+import { testPromise} from "./Promise.uts"
 
-
-// Promise、Proxy、Reflect、Weakmap、WeakSet 不支持
+// Proxy、Reflect、Weakmap、WeakSet 不支持
 export function runTests() : UTSJSONObject {
   const ArrayRes = testArray();
   const DateRes = testDate();
@@ -46,6 +46,10 @@ export function runTests() : UTSJSONObject {
   const ArrayBufferRes = testArrayBuffer();
   // #endif
   const NativeCodeRes = testNativeCode();
+  
+  // #ifdef APP-IOS
+   const PromiseRes = testPromise();
+  // #endif
   return {
     Array: ArrayRes,
     Date: DateRes,
@@ -68,6 +72,9 @@ export function runTests() : UTSJSONObject {
     // #ifdef  APP-ANDROID || WEB
     ArrayBuffer: ArrayBufferRes,
     // #endif
-    NativeCode: NativeCodeRes
+    NativeCode: NativeCodeRes,
+    // #ifdef APP-IOS
+    Primise: PromiseRes
+    // #endif
   }
 }
