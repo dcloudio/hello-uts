@@ -96,15 +96,79 @@ export function testPromise(): Result {
         })
         
         test('finally', () => {
-        
+            Promise.resolve(2)
+            .finally(() => {
+              console.log("finally")
+            })
+            .then((res) => {
+              expect(res).toEqual(2)
+            })
+            
+            Promise.reject(3)
+            .finally(() => {
+              console.log("finally")
+            })
+            .catch((res) => {
+              expect(res).toEqual(3)
+            })
         })
         
         test('resolve', () => {
-        
+          // resolve array
+          Promise.resolve([1,2,3])
+          .then((res) => {
+            expect(res).toEqual([1,2,3])
+          })
+          
+          // resolve string
+          Promise.resolve("成功")
+          .then((res) => {
+            expect(res).toEqual("成功");
+          })
+          
+          // resolve null
+          Promise.resolve()
+          .then((res) => {
+            // expect(res).toEqual(null);
+          })
+          
+          // resolve promise
+          const original = Promise.resolve(33)
+          const cast = Promise.resolve(original)
+          cast.then((res) => {
+            expect(res).toEqual(33);
+          })
+          // 注：此处飘红是编译器误报，实际可以判等
+          expect(original === cast).toEqual(true)
         })
         
         test('reject', () => {
-        
+          // reject array
+          Promise.reject([1,2,3])
+          .catch((err) => {
+            expect(err).toEqual([1,2,3])
+          })
+          
+          // reject error
+          Promise.reject(new Error("this is reject error message"))
+          .catch((err) => {
+            expect((err as Error).message).toEqual("this is reject error message");
+          })
+          
+          // reject null
+          Promise.reject()
+          .catch((err) => {
+            expect(err).toEqual(null);
+          })
+          
+          // reject promise
+          const original = Promise.reject(33)
+          const cast = Promise.reject(original)
+          cast.catch((err) => {
+            expect((err as Promise<any>) === original).toEqual(true);
+          })
+          expect(original === cast).toEqual(false)
+          
         })
         
         test('all', () => {
@@ -186,11 +250,82 @@ export function testPromise(): Result {
         })
         
         test('any', () => {
-        
+          let p0 = new Promise<string | null>((resolve, reject) => {
+            setTimeout(function() {
+              resolve("1");
+            }, 10);
+          })
+          
+          let p1 = new Promise<string | null>((resolve, reject) => {
+            setTimeout(function() {
+              resolve(null);
+            }, 15);
+          })
+          
+          let p2 = new Promise<string | null>((resolve, reject) => {
+            setTimeout(function() {
+              reject(null)
+            }, 10);
+          })
+          
+          let p3 = new Promise<string  | null>((resolve, reject) => {
+            setTimeout(function() {
+             reject("error");
+            }, 12);
+          })
+          
+          // test for resolve
+          Promise.any([p0, p1, p2])
+          .then((res) => {
+            console.log(res)
+            expect(res).toEqual("1");
+          })
+          
+          // test for reject
+          Promise.any([p2, p3])
+          .then()
+          .catch(
+            (error: any | null) => {
+              console.log("test for promise.any error ==> ", error);
+              expect((error as UTSPromiseAggregateError).name).toEqual("AggregateError");
+              expect((error as UTSPromiseAggregateError).message).toEqual("All promises were rejected");
+              expect((error as UTSPromiseAggregateError).errors).toEqual([null, "error"]);
+          })   
         })
         
         test('race', () => {
-        
+          let p0 = new Promise<string | null>((resolve, reject) => {
+            setTimeout(function() {
+              resolve("fast");
+            }, 10);
+          })
+          
+          let p1 = new Promise<string | null>((resolve, reject) => {
+            setTimeout(function() {
+              resolve("slow");
+            }, 15);
+          })
+          
+          let p2 = new Promise<string | null>((resolve, reject) => {
+            setTimeout(function() {
+              reject(null)
+            }, 12);
+          })
+          
+          // test for resolve
+          Promise.race([p0, p1])
+          .then((res) => {
+            console.log("test for race resolve ===> ", res);
+            expect(res).toEqual("fast");
+          })
+          
+          // test for reject 
+          Promise.race([p1, p2])
+          .then()
+          .catch((error) => {
+            console.log("test for race reject ===> ", error);
+            expect(error).toEqual(null);
+          })
         })
         // #endif
     })
