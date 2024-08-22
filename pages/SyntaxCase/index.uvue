@@ -54,6 +54,9 @@
         <button @click="testUtsClassSetter">点击测试class 示例setter方法</button>
         <view>测试setter：{{ format(testUtsClassSetterResult) }}</view>
         <button @click="testAll">点击测试所有</button>
+        <!-- #ifdef APP-IOS -->
+        <button @click="testPromiseStaticMethod">点击测试promise静态方法</button>
+        <!-- #endif -->
       </view>
       <view style="height: 20px;"></view>
   </scroll-view>
@@ -73,6 +76,11 @@
         request,
         SetterTest,
     } from "../../uni_modules/uts-syntaxcase";
+    // #endif
+    // #ifdef APP-IOS
+    import {
+      testPromiseStaticMethod
+    } from "@/uni_modules/uts-syntaxcase"
     // #endif
     let test:Test|null = null
     let id = 0
@@ -442,6 +450,11 @@
                     console.error("testUtsClassSetter", e);
               }
             },
+            // #ifdef APP-IOS
+            testPromiseStaticMethod() {
+              testPromiseStaticMethod()
+            }
+            // #endif
         }
     }
 </script>
