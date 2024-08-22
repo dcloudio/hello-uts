@@ -13,6 +13,31 @@ export function testUTSJSONObject() : Result {
         console.log(UTSJSONObject.keys(obj))
     })
     
+    test('toJSONObject', () => {
+      // #ifdef APP-ANDROID
+        let result = {}
+        result["opt"] = "xxxx"
+        
+        let subArray = [] as Array<UTSJSONObject>
+        let subModel = {}
+        subModel["name"] = "xxx"
+        subModel["type"] = 0
+        subArray.push(subModel)
+        
+        let service = {}
+        service["name"] = "0xxxb34fb"
+        service["type"] = 0
+        
+        //这个数据返回为空对象数组
+        service["array"] = subArray
+        
+        result["service"] = service
+        
+        expect(result.toJSONObject().toJSONString()).toEqual('{"opt":"xxxx","service":{"array":[{"name":"xxx","type":0}],"name":"0xxxb34fb","type":0}}');
+        
+      // #endif
+    })
+    
     test('assign-notype', () => {
       // #ifdef APP-ANDROID
         const target = { a: 1, b: 2 };
