@@ -1,5 +1,5 @@
 import { describe, test, expect, expectNumber, Result } from './tests.uts'
-
+import {mockData} from './data.uts'
 
 
 export function testUTSJSONObject() : Result {
@@ -10,7 +10,8 @@ export function testUTSJSONObject() : Result {
           age:11
         }
         expect(UTSJSONObject.keys(obj).length).toEqual(2);
-        console.log(UTSJSONObject.keys(obj))
+        expect(UTSJSONObject.keys(mockData).length).toEqual(2);
+        
     })
     
     test('toJSONObject', () => {

@@ -223,7 +223,7 @@ export function testNumber() : Result {
       expect((new UTSNumber(0.000001)).toString()).toEqual("0.000001");
       expect((new UTSNumber(0.0000001)).toString()).toEqual("1e-7");
       expect((new UTSNumber(100000000000000000000.0)).toString()).toEqual("100000000000000000000");
-      expect((new UTSNumber(1000000000000000000000.0)).toString()).toEqual("1e21");
+      expect((new UTSNumber(1000000000000000000000.0)).toString()).toEqual("1e+21");
       // #endif
     })
 
