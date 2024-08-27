@@ -307,7 +307,7 @@ export function testPromise(): Result {
             .then((res) => {
               console.log(res);
               let statusArr : string[] = []
-              res.forEach((item, index) => {
+              res.forEach((item, index: number) => {
                 statusArr.append(item.status)
               })
               expect(statusArr).toEqual(["fulfilled", "fulfilled", "rejected", "rejected"]) 
