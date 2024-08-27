@@ -5,7 +5,7 @@ export function testPromise(): Result {
         // #ifdef APP-IOS
         test('constructor', () => {
           // 常规方式
-           let p = new Promise<Int>((resolve, reject) => {
+           let p = new Promise<number>((resolve, reject) => {
              let success = true;
               setTimeout(()=>{
                 if (success) {
@@ -16,7 +16,7 @@ export function testPromise(): Result {
                 }
               }, 10);
            });
-           p.then((res: Int) => {  
+           p.then((res: number) => {  
               expect(res).toEqual(2024) 
            })
            
@@ -92,7 +92,44 @@ export function testPromise(): Result {
         })
         
         test('catch', () => {
-        
+            let p = Promise.reject()
+            p.then()
+            .catch((res: any | null) => {
+              expect(res).toEqual(null)
+            })
+            
+            // catch 指定返回值
+            new Promise<string>((resolve, reject) => {
+              setTimeout(() => {
+                reject("2024")
+              }, 12)
+            })
+            .then()
+            .catch((res: any | null): string => {
+              expect(res!).toEqual("2024")
+              return "hello world"
+            })
+            .then((res) => {
+              expect(res).toEqual("hello world")
+            })
+            
+            // catch 返回Promise
+             new Promise<string>((resolve, reject) => {
+              setTimeout(() => {
+                reject("2024")
+              }, 12)
+            })
+            .then()
+            .catch((res: any | null): Promise<number> => {
+              expect(res!).toEqual("2024")
+              let p = new Promise<number>((resolve, reject) => {
+                resolve(1)
+              })
+              return p
+            })
+            .then((res) => {
+              expect(res).toEqual(1)
+            })
         })
         
         test('finally', () => {
@@ -110,6 +147,34 @@ export function testPromise(): Result {
             })
             .catch((res) => {
               expect(res).toEqual(3)
+            })
+            
+            Promise.resolve(2)
+            .finally((): number => {
+              console.log("finally")
+              return 88
+            })
+            .then((res) => {
+            	expect(res).toEqual(2)
+            })
+            
+            Promise.reject(3).finally(() => {
+            	throw new Error("99")
+            })
+            .catch((res) => {
+              expect((res as Error).message).toEqual("99");
+            })
+            
+            console.log("start");
+            Promise.reject(4).finally((): Promise<number> => {
+            	return new Promise((resolve, reject) => {
+            		setTimeout(() => {
+            			resolve(20)
+            		}, 1000)
+            	})
+            })
+            .catch((res) => {
+            	expect(res).toEqual(4)
             })
         })
         
