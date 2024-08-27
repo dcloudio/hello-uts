@@ -46,10 +46,7 @@ export function runTests() : UTSJSONObject {
   const ArrayBufferRes = testArrayBuffer();
   // #endif
   const NativeCodeRes = testNativeCode();
-  
-  // #ifdef APP-IOS
-   const PromiseRes = testPromise();
-  // #endif
+  const PromiseRes = testPromise();
   return {
     Array: ArrayRes,
     Date: DateRes,
@@ -73,8 +70,6 @@ export function runTests() : UTSJSONObject {
     ArrayBuffer: ArrayBufferRes,
     // #endif
     NativeCode: NativeCodeRes,
-    // #ifdef APP-IOS
     Primise: PromiseRes
-    // #endif
   }
 }

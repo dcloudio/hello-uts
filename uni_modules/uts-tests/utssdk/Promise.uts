@@ -2,7 +2,6 @@ import { describe, test, expect, Result } from './tests.uts'
 
 export function testPromise(): Result {
     return describe("Promise", () => {
-        // #ifdef APP-IOS
         test('constructor', () => {
           // 常规方式
            let p = new Promise<number>((resolve, reject) => {
@@ -308,7 +307,7 @@ export function testPromise(): Result {
               console.log(res);
               let statusArr : string[] = []
               res.forEach((item, index: number) => {
-                statusArr.append(item.status)
+                statusArr.add(item.status)
               })
               expect(statusArr).toEqual(["fulfilled", "fulfilled", "rejected", "rejected"]) 
             })
@@ -352,9 +351,17 @@ export function testPromise(): Result {
           .catch(
             (error: any | null) => {
               console.log("test for promise.any error ==> ", error);
+              // #ifdef APP-IOS
               expect((error as UTSPromiseAggregateError).name).toEqual("AggregateError");
               expect((error as UTSPromiseAggregateError).message).toEqual("All promises were rejected");
               expect((error as UTSPromiseAggregateError).errors).toEqual([null, "error"]);
+              // #endif
+              
+              // #ifdef APP-ANDROID
+              expect((error as UTSPromiseAggregateError).name).toEqual("AggregateError");
+              expect((error as UTSPromiseAggregateError).message).toEqual("All promises were rejected");
+              expect((error as UTSPromiseAggregateError).errors).toEqual([null, "error"]);
+              // #endif
           })   
         })
         
@@ -392,6 +399,5 @@ export function testPromise(): Result {
             expect(error).toEqual(null);
           })
         })
-        // #endif
     })
 }
