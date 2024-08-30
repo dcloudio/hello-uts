@@ -146,7 +146,7 @@ export function testArray() : Result {
       })
     })
     test("find", () => {
-      // #TEST Array.find_1
+      // #TEST Array.find_2
       const array1 : number[] = [5, 12, 8, 130, 44];
       const found1 = array1.find((element : number) : boolean => element > 10);
       console.log(found1) //12
