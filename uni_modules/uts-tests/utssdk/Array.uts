@@ -84,22 +84,44 @@ export function testArray() : Result {
       // 超出边界没有返回信息
     })
     test("concat", () => {
-      expect(['a', 'b', 'c'].concat(['d', 'e', 'f'])).toEqual(["a", "b", "c", "d", "e", "f"]);
-      expect([1, 2, 3].concat([4, 5, 6])).toEqual([1, 2, 3, 4, 5, 6]);
-      expect([''].concat([''])).toEqual(["", ""]);
+      // #TEST Array.concat,Array.concat_1
+      let ret = ['a', 'b', 'c'].concat(['d', 'e', 'f'])
+      console.log(ret) //["a", "b", "c", "d", "e", "f"]
+      let ret1 = [1, 2, 3].concat([4, 5, 6])
+      console.log(ret1)//[1, 2, 3, 4, 5, 6]
+      let ret2 = [''].concat([''])//
+      console.log(ret2)//["", ""]
+
       const num1 = [1, 2, 3];
       const num2 = [4, 5, 6];
       const num3 = [7, 8, 9];
       const numbers = num1.concat(num2, num3);
+      console.log(numbers)//[1, 2, 3, 4, 5, 6, 7, 8, 9]
+      // #END
+
       expect(numbers).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+      expect(ret).toEqual(["a", "b", "c", "d", "e", "f"]);
+      expect(ret1).toEqual([1, 2, 3, 4, 5, 6]);
+      expect(ret2).toEqual(["", ""]);
+
     })
     test("copyWithin", () => {
+      // #TEST Array.copyWithin
       const arr = ['a', 'b', 'c', 'd', 'e'];
-      expect(arr.copyWithin(0, 3, 4)).toEqual(["d", "b", "c", "d", "e"]);
-      expect(arr.copyWithin(1, 3)).toEqual(["d", "d", "e", "d", "e"]);
+      let ret1 = arr.copyWithin(0, 3, 4)
+      console.log(ret1)//["d", "b", "c", "d", "e"]
+      let ret2 = arr.copyWithin(1, 3)
+      console.log(ret2)//["d", "d", "e", "d", "e"]
       const arr2 = [1, 2, 3, 4, 5];
-      expect(arr2.copyWithin(-2)).toEqual([1, 2, 3, 1, 2]);
-      expect(arr2.copyWithin(-2, -3, -1)).toEqual([1, 2, 3, 3, 1]);
+      let ret3 = arr2.copyWithin(-2)
+      console.log(ret3) //[1, 2, 3, 1, 2]
+      let ret4 = arr2.copyWithin(-2, -3, -1)
+      console.log(ret4) //[1, 2, 3, 3, 1]
+      // #END
+      expect(ret1).toEqual(["d", "b", "c", "d", "e"]);
+      expect(ret2).toEqual(["d", "d", "e", "d", "e"]);
+      expect(ret3).toEqual([1, 2, 3, 1, 2]);
+      expect(ret4).toEqual([1, 2, 3, 3, 1]);
     })
     test("every", () => {
       const isBelowThreshold = (currentValue : number) : boolean => currentValue < 40;
@@ -114,13 +136,21 @@ export function testArray() : Result {
       })
     })
     test("fill", () => {
+      // #TEST Array.fill
       const array1 : number[] = [1, 2, 3, 4];
+      console.log(array1.fill(0, 2, 4)); //[1, 2, 0, 0]
+      console.log(array1.fill(5, 1)); //[1, 5, 5, 5]
+      console.log(array1.fill(6)); //[6, 6, 6, 6]
+      const array2 : number[] = [1, 2, 3];
+      console.log(array2.fill(4))//[4, 4, 4]
+      const array3 : number[] = [0, 0]
+      console.log(array3.fill(1, null))//[1, 1]
+      console.log(array3.fill(1, 0, 1.5))//([1, 1]);
+      // #END
       expect(array1.fill(0, 2, 4)).toEqual([1, 2, 0, 0]);
       expect(array1.fill(5, 1)).toEqual([1, 5, 5, 5]);
       expect(array1.fill(6)).toEqual([6, 6, 6, 6]);
-      const array2 : number[] = [1, 2, 3]
       expect(array2.fill(4)).toEqual([4, 4, 4]);
-      const array3 : number[] = [0, 0]
       expect(array3.fill(1, null)).toEqual([1, 1]);
       expect(array3.fill(1, 0, 1.5)).toEqual([1, 1]);
     })
@@ -172,12 +202,22 @@ export function testArray() : Result {
       })
     })
     test("findIndex", () => {
+      // #TEST Array.findIndex_1,Array.findIndex_2,Array.findIndex
       const array1 : number[] = [5, 12, 8, 130, 44];
-      const isLargeNumber = (element : number) : boolean => element > 13;
-      expect(array1.findIndex(isLargeNumber)).toEqual(3);
+      let isLargeNumber = (element : number, index : number) : boolean => element > 13;
+      console.log(isLargeNumber)//3
+
       const array2 : number[] = [10, 11, 12];
-      expect(array2.findIndex(isLargeNumber)).toEqual(-1);
+      console.log(array2.findIndex(isLargeNumber))//3
+
       const array3 : number[] = [1, 2, 3];
+      array3.findIndex((element : number, index : number, array : number[]) : boolean => {
+        console.log(array[index]) //1=>2=>3
+        return true;
+      })
+      // #END
+      expect(array2.findIndex(isLargeNumber)).toEqual(-1);
+      expect(array1.findIndex(isLargeNumber)).toEqual(3);
       array3.findIndex((element : number, index : number, array : number[]) : boolean => {
         expect(array[index]).toEqual(element);
         return true;
@@ -259,10 +299,15 @@ export function testArray() : Result {
       expect(indices).toEqual([0, 2, 4]);
     })
     test("join", () => {
+      // #TEST Array.join
       const elements : string[] = ['Fire', 'Air', 'Water'];
-      expect(elements.join()).toEqual("Fire,Air,Water");
-      expect(elements.join('')).toEqual("FireAirWater");
-      expect(elements.join('-')).toEqual("Fire-Air-Water");
+      let ret1 = elements.join()//Fire,Air,Water
+      let ret2 = elements.join('') //FireAirWater
+      let ret3 = elements.join('-')//Fire-Air-Water
+      expect(ret1).toEqual("Fire,Air,Water");
+      expect(ret2).toEqual("FireAirWater");
+      expect(ret3).toEqual("Fire-Air-Water");
+      // #END
     })
     test("lastIndexOf", () => {
 
@@ -307,19 +352,30 @@ export function testArray() : Result {
       })
     })
     test("pop", () => {
+      // #TEST Array.pop
       const plants : string[] = ['broccoli', 'cauliflower', 'cabbage', 'kale', 'tomato'];
-      expect(plants.pop()).toEqual("tomato");
+      let ret1 = plants.pop()
+      console.log(ret1)//"tomato"
+      console.log(plants)//["broccoli", "cauliflower", "cabbage", "kale"]
+      // #END
+      expect(ret1).toEqual("tomato");
       expect(plants).toEqual(["broccoli", "cauliflower", "cabbage", "kale"]);
       plants.pop();
       expect(plants).toEqual(["broccoli", "cauliflower", "cabbage"]);
+
     })
     test("push", () => {
+      // #TEST Array.push
       const animals : string[] = ['pigs', 'goats', 'sheep'];
       const count = animals.push('cows');
+      console.log(count)//4
+      console.log(animals) //['pigs', 'goats', 'sheep', 'cows']
+      // #END
       expect(count).toEqual(4);
       expect(animals).toEqual(['pigs', 'goats', 'sheep', 'cows']);
       animals.push('chickens', 'cats', 'dogs');
       expect(animals).toEqual(["pigs", "goats", "sheep", "cows", "chickens", "cats", "dogs"]);
+
     })
     test("reduce", () => {
       const array1 : number[] = [1, 2, 3, 4];
@@ -331,13 +387,40 @@ export function testArray() : Result {
       expect(sumWithInitial).toEqual(10);
     })
     test("shift", () => {
-      const array1 : number[] = [1, 2, 3];
+      // #TEST Array.shift
+      const array1 = [1, 2, 3];
+
       const firstElement = array1.shift();
+
+      console.log(array1); // [2, 3]     
+
+      console.log(firstElement); //1
+      // #END
       expect(firstElement).toEqual(1);
       expect(array1).toEqual([2, 3]);
     })
     test("slice", () => {
-      const animals : string[] = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+      // #TEST Array.slice
+      const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+
+      console.log(animals.slice(2));
+      //  ["camel", "duck", "elephant"]
+
+      console.log(animals.slice(2, 4));
+      //["camel", "duck"]
+
+      console.log(animals.slice(1, 5));
+      //  ["bison", "camel", "duck", "elephant"]
+
+      console.log(animals.slice(-2));
+      // ["duck", "elephant"]
+
+      console.log(animals.slice(2, -1));
+      // ["camel", "duck"]
+
+      console.log(animals.slice());
+      //["ant", "bison", "camel", "duck", "elephant"]
+      // #END
       expect(animals.slice(2)).toEqual(["camel", "duck", "elephant"]);
       expect(animals.slice(2, 4)).toEqual(["camel", "duck"]);
       expect(animals.slice(1, 5)).toEqual(["bison", "camel", "duck", "elephant"]);
@@ -354,15 +437,22 @@ export function testArray() : Result {
       expect([12, 5, 8, 1, 4].some(isBiggerThan10)).toEqual(true);
     })
     test("splice", () => {
+      // #TEST Array.splice
       const months : string[] = ['Jan', 'March', 'April', 'June'];
       months.splice(1, 0, 'Feb');
+      console.log(months)//["Jan", "Feb", "March", "April", "June"]
+      // #END
+
       expect(months).toEqual(["Jan", "Feb", "March", "April", "June"]);
       months.splice(4, 1, 'May');
       expect(months).toEqual(["Jan", "Feb", "March", "April", "May"]);
     })
     test('sort', () => {
+      // #TEST Array.slice
       const months = ['March', 'Jan', 'Feb', 'Dec'];
       months.sort();
+      console.log(months)//["Dec", "Feb", "Jan", "March"]
+      // #END
       expect(months).toEqual(["Dec", "Feb", "Jan", "March"]);
 
       const array1 = [1, 30, 4, 21, 100000];
@@ -405,7 +495,7 @@ export function testArray() : Result {
       expect(array1).toEqual([4, 5, 1, 2, 3]);
     })
     test("toString", () => {
-      // #TEST Array.length
+      // #TEST Array.toString
       const array1 : number[] = [1, 2, 3];
       console.log(array1.toString()) //"1,2,3"
       // #END
