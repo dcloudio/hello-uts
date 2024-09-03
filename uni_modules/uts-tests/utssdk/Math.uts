@@ -93,6 +93,7 @@ export function testMath(): Result {
             expect(Math.atan2(90, 15)).toEqual(1.4056476493802699);
             expect(Math.atan2(15, 90)).toEqual(0.16514867741462683);
         })
+      
         test('atanh', () => {
             // 解决精度问题
             expect(Math.atanh(0)).toEqual(0.0);
@@ -241,6 +242,7 @@ export function testMath(): Result {
             expect(Math.trunc(0.123)).toEqual(0);
         })
       test('round', () => {
+          expect(Math.round(NaN)).toEqual(NaN);
           expect(Math.round(0.9)).toEqual(1);
           expect(Math.round(5.95)).toEqual(6);
           expect(Math.round(-5.05)).toEqual(-5);
