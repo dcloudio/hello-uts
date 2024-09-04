@@ -674,6 +674,13 @@ export function testArray() : Result {
       // Expected output: false
       // #END
     })
+    //示例
+    test("sample_create", () => {
+      // #TEST Array.sampleCreate
+      const fruits = ['Apple', 'Banana']
+      console.log(fruits.length)
+      // #END
+    })
 
   })
 }
