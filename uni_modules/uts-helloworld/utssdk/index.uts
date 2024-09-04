@@ -42,4 +42,23 @@ export function callWithJSONParam(opts: JsonParamOptions) {
 }
 
 
-
+/**
+ * 导出多次回调UTS函数
+ * @param opts
+ */
+export function onCallback(callback: (sth:string) => void) {
+  /**
+   * 模拟多次回调
+   */
+  let count = 1
+  let taskId = -1
+  taskId = setInterval(function() {
+    callback("第" + count + "次回调")
+    count++;
+	console.log("count",count)
+	if(count > 3){
+		clearInterval(taskId)
+	}
+  }, 500);
+	
+}

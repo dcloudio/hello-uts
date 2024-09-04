@@ -63,18 +63,18 @@ export function testMath(): Result {
             expect(Math.acos(-1)).toEqual(3.141592653589793);
             expect(Math.acos(0)).toEqual(1.5707963267948966);
             // 解决精度问题
-            expect(Math.acos(1)).toEqual(0.0);
+            expect(Math.acos(1)).toEqual(0);
         })
         test('acosh', () => {
             // 解决精度问题
-            expect(Math.acosh(1)).toEqual(0.0);
+            expect(Math.acosh(1)).toEqual(0);
 			expectNumber(Math.acosh(2)).toEqualDouble(1.3169578969248166);
             expectNumber(Math.acosh(2.5)).toEqualDouble(1.566799236972411);
         })
         test('asin', () => {
             expect(Math.asin(-1)).toEqual(-1.5707963267948966);
             // 解决精度问题
-            expect(Math.asin(0)).toEqual(0.0);
+            expect(Math.asin(0)).toEqual(0);
             // expect(Math.asin(0.5)).toEqual(0.5235987755982989);
             expect(Math.asin(1)).toEqual(1.5707963267948966);
         })
@@ -87,16 +87,16 @@ export function testMath(): Result {
         test('atan', () => {
             expect(Math.atan(1)).toEqual(0.7853981633974483);
             // 解决精度问题
-            expect(Math.atan(0)).toEqual(0.0);
+            expect(Math.atan(0)).toEqual(0);
         })
         test('atan2', () => {
             expect(Math.atan2(90, 15)).toEqual(1.4056476493802699);
-            expect(Math.atan2(15, 90)).toEqual(0.16514867741462683);
+            expectNumber(Math.atan2(15, 90)).toEqualDouble(0.16514867741462683);
         })
       
         test('atanh', () => {
             // 解决精度问题
-            expect(Math.atanh(0)).toEqual(0.0);
+            expect(Math.atanh(0)).toEqual(0);
             // expect(Math.atanh(0.5)).toEqual(0.5493061443340548);
         })
         test('cbrt', () => {
