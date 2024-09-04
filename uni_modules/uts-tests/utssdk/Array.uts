@@ -146,6 +146,7 @@ export function testArray() : Result {
       expect(array2.every(isBelowThreshold)).toEqual(false);
     })
     test("fill", () => {
+      // #TEST Array.fill
       const array1 : number[] = [1, 2, 3, 4];
       let ret1 = array1.fill(0, 2, 4)
       console.log(ret1); //[1, 2, 0, 0]
