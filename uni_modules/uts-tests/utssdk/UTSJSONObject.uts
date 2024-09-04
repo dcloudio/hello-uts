@@ -1,7 +1,5 @@
 import { describe, test, expect, expectNumber, Result } from './tests.uts'
 
-
-
 export function testUTSJSONObject() : Result {
   return describe("utsjsonobject", () => {
     test('keys', () => {
@@ -12,6 +10,7 @@ export function testUTSJSONObject() : Result {
         expect(UTSJSONObject.keys(obj).length).toEqual(2);
         console.log(UTSJSONObject.keys(obj))
     })
+    
     test('toJSONObject', () => {
       // #ifdef APP-ANDROID
         let result = {}
@@ -36,8 +35,7 @@ export function testUTSJSONObject() : Result {
         
       // #endif
     })
-
-
+    
     test('assign-notype', () => {
       // #ifdef APP-ANDROID
         const target = { a: 1, b: 2 };
@@ -84,6 +82,24 @@ export function testUTSJSONObject() : Result {
         cars![0].set("value",20)
         let firstCar = obj.getJSON("cars[0]")
         expect(firstCar!['value']).toEqual(20);
+        // #endif
+    })
+    
+    
+    test('get-speed', () => {
+      // #ifdef APP-ANDROID
+        const utsObj: UTSJSONObject = {} as any as UTSJSONObject
+        for (let i = 0; i < 100; i++) {
+          utsObj.set('' + i, '' + i)
+        }
+        
+        console.log('--start--')
+        let startTime = Date.now()
+        for (let i = 0; i < 10000; i++) {
+          utsObj.getString('0')
+        }
+        let spendTime = Date.now() - startTime
+        expect(spendTime < 300).toEqual(true);
         // #endif
     })
     
