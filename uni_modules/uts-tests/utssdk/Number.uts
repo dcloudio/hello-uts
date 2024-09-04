@@ -5,9 +5,16 @@ export function testNumber() : Result {
   return describe("Number", () => {
 
     test('toFixed', () => {
+      // #TEST Number.toFixed
       function financial(x : Number) : String {
         return x.toFixed(2);
       }
+      console.log(financial(123.456));
+      // expected output: "123.46"
+      console.log(financial(0.004));
+      // expected output: "0.00"
+      // #END
+
       expect(financial(123.456)).toEqual('123.46');
       expect(financial(0.004)).toEqual("0.00");
       expect(financial(0)).toEqual("0.00");
@@ -60,7 +67,7 @@ export function testNumber() : Result {
       expect(isFinite(1000 / 1)).toEqual(true);
       expect(isFinite(910)).toEqual(true);
       expect(isFinite(0)).toEqual(true);
-       // #ifdef APP-ANDROID
+      // #ifdef APP-ANDROID
       let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
       let aNumber = aj2['a'] as UTSNumber
       expect(isFinite(aNumber)).toEqual(true);
@@ -140,12 +147,19 @@ export function testNumber() : Result {
     })
 
     test('toPrecision', () => {
+      // #TEST Number.toPrecision
+      console.log(123.456.toPrecision(4))//123.5
+      // #END
       expect(123.456.toPrecision(4)).toEqual("123.5");
       expect(0.004.toPrecision(4)).toEqual("0.004000");
       // expect(1.23e5.toPrecision(4)).toEqual("1.230e+5");
     })
 
     test('toString', () => {
+      // #TEST Number.toString
+      console.log((10).toString())//10
+      // #END
+
       expect((10).toString()).toEqual("10");
       expect((17).toString()).toEqual("17");
       expect((17.2).toString()).toEqual("17.2");
@@ -177,6 +191,9 @@ export function testNumber() : Result {
     })
 
     test('valueOf', () => {
+      // #TEST Number.valueOf
+      console.log((10).valueOf()) //10
+      // #END
       expect((10).valueOf()).toEqual(10);
       expect((-10.2).valueOf()).toEqual(-10.2);
       expect((0xf).valueOf()).toEqual(15);
@@ -190,6 +207,54 @@ export function testNumber() : Result {
       expect(num.toDouble()).toEqual(10.123);
     })
     // #endif
+    test('toInt', () => {
+      // #ifdef APP
+      // #TEST Number.toInt
+      let a = 12
+      console.log(a.toInt());
+      // expected output: 12
+
+      // Int最大值2147483647,溢出了
+      let b = 2147483648
+      // expected output: -2147483648
+      // #END
+      expect(a.toInt()).toEqual(12);
+      // #endif
+    })
+
+    test('toByte', () => {
+      // #ifdef APP
+      // #TEST Number.toByte
+      let a = 12
+      console.log(a.toByte());
+      // expected output: 12
+      // #END
+      expect(a.toInt()).toEqual(12);
+      // #endif
+    })
+
+    test('toLong', () => {
+      // #ifdef APP
+      // #TEST Number.toLong
+      let a = 12
+      console.log(a.toLong());
+      // expected output: 12
+      // #END
+      expect(a.toLong()).toEqual(12);
+      // #endif
+    })
+
+    test('from', () => {
+      // #ifdef APP
+      // #TEST Number.from
+      let a = 12
+      let b = Number.from(a)
+      console.log(b);
+      // expected output: 12
+      // #END
+      expect(b).toEqual(12);
+      // #endif
+    })
 
     test('numberEquals', () => {
       let a1 = 10.123
