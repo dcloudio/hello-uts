@@ -545,7 +545,7 @@ export function testArray() : Result {
     test("unshift", () => {
       // #TEST Array.unshift
       const array1 = [1, 2, 3];
-      let ret1 =array1.unshift(4, 5)
+      let ret1 = array1.unshift(4, 5)
       console.log(ret1);
       //  5
 
@@ -737,6 +737,49 @@ export function testArray() : Result {
       // #TEST Array.sampleSpliceCopy
       const shallowCopy = fruits.slice() // this is how to make a copy
       console.log(shallowCopy) // ["Strawberry", "Mango"]
+      // #END
+
+      // #TEST Array.sampleForEachCallback
+      let array = ['a', 'b', 'c'];
+      array.forEach(element => {
+        console.log(element)
+        // array.pop() // 此行为在 Android 平台会造成闪退，在 iOS 平台会输出 'a', 'b', 'c', 而 JS 会输出 'a', 'b'
+      });
+
+      // 如果想让上述行为正常运行，可以用 while 循环实现：
+
+      array = ['a', 'b', 'c'];
+      let index = 0;
+      while (index < array.length) {
+        console.log(array[index]);
+        array.pop();
+        index += 1;
+      }
+      // #END
+
+      // #TEST Array.sampleSort
+      // #ifdef APP-ANDROID
+      let a = [2, 0, 4];
+      a.sort((a, b) : number => {
+        // 这里的判断不能省略
+        if (a.compareTo(b) == 0) {
+          return 0
+        }
+        return a - b
+      })
+      // #endif
+
+      // #END
+
+      // #TEST Array.sampleFill
+      let b = new Array<Number>()
+      for (let i = 0; i < 20; i++) {
+        b.push(0)
+      }
+      // #END
+
+      // #TEST Array.sampleFillError
+      new Array(20).fill(0)
       // #END
 
     })
