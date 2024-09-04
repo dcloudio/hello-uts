@@ -115,18 +115,12 @@ export function testArray() : Result {
       const arr = ['a', 'b', 'c', 'd', 'e'];
       let ret1 = arr.copyWithin(0, 3, 4)
       console.log(ret1)//["d", "b", "c", "d", "e"]
-      let ret2 = arr.copyWithin(1, 3)
-      console.log(ret2)//["d", "d", "e", "d", "e"]
-      const arr2 = [1, 2, 3, 4, 5];
-      let ret3 = arr2.copyWithin(-2)
-      console.log(ret3) //[1, 2, 3, 1, 2]
-      let ret4 = arr2.copyWithin(-2, -3, -1)
-      console.log(ret4) //[1, 2, 3, 3, 1]
       // #END
       expect(ret1).toEqual(["d", "b", "c", "d", "e"]);
-      expect(ret2).toEqual(["d", "d", "e", "d", "e"]);
-      expect(ret3).toEqual([1, 2, 3, 1, 2]);
-      expect(ret4).toEqual([1, 2, 3, 3, 1]);
+      expect(arr.copyWithin(1, 3)).toEqual(["d", "d", "e", "d", "e"]);
+      const arr2 = [1, 2, 3, 4, 5];
+      expect(arr2.copyWithin(-2)).toEqual([1, 2, 3, 1, 2]);
+      expect(arr2.copyWithin(-2, -3, -1)).toEqual([1, 2, 3, 3, 1]);
     })
     test("every", () => {
       // #TEST Array.every,Array.every_1,Array.every_2,Array.every_3
@@ -152,21 +146,16 @@ export function testArray() : Result {
       expect(array2.every(isBelowThreshold)).toEqual(false);
     })
     test("fill", () => {
-      // #TEST Array.fill
       const array1 : number[] = [1, 2, 3, 4];
-      console.log(array1.fill(0, 2, 4)); //[1, 2, 0, 0]
-      console.log(array1.fill(5, 1)); //[1, 5, 5, 5]
-      console.log(array1.fill(6)); //[6, 6, 6, 6]
-      const array2 : number[] = [1, 2, 3];
-      console.log(array2.fill(4))//[4, 4, 4]
-      const array3 : number[] = [0, 0]
-      console.log(array3.fill(1, null))//[1, 1]
-      console.log(array3.fill(1, 0, 1.5))//([1, 1]);
+      let ret1 = array1.fill(0, 2, 4)
+      console.log(ret1); //[1, 2, 0, 0]
       // #END
-      expect(array1.fill(0, 2, 4)).toEqual([1, 2, 0, 0]);
+      expect(ret1).toEqual([1, 2, 0, 0]);
       expect(array1.fill(5, 1)).toEqual([1, 5, 5, 5]);
       expect(array1.fill(6)).toEqual([6, 6, 6, 6]);
+      const array2 : number[] = [1, 2, 3]
       expect(array2.fill(4)).toEqual([4, 4, 4]);
+      const array3 : number[] = [0, 0]
       expect(array3.fill(1, null)).toEqual([1, 1]);
       expect(array3.fill(1, 0, 1.5)).toEqual([1, 1]);
     })
@@ -556,14 +545,14 @@ export function testArray() : Result {
     test("unshift", () => {
       // #TEST Array.unshift
       const array1 = [1, 2, 3];
-
-      console.log(array1.unshift(4, 5));
+      let ret1 =array1.unshift(4, 5)
+      console.log(ret1);
       //  5
 
       console.log(array1);
       // [4, 5, 1, 2, 3]
       // #END
-      expect(array1.unshift(4, 5)).toEqual(5);
+      expect(ret1).toEqual(5);
       expect(array1).toEqual([4, 5, 1, 2, 3]);
     })
     test("toString", () => {
@@ -672,11 +661,84 @@ export function testArray() : Result {
       // #END
     })
     //示例
-    test("sample_create", () => {
+    test("sample", () => {
       // #TEST Array.sampleCreate
       const fruits = ['Apple', 'Banana']
       console.log(fruits.length)
       // #END
+
+      // #TEST Array.sampleVisit
+      const first = fruits[0]
+      console.log(first)     // Apple
+
+      const last = fruits[fruits.length - 1]
+      console.log(last) // Banana
+      // #END
+
+      // #TEST Array.sampleForEach
+      fruits.forEach(function (item, index, array) {
+        console.log(item, index)
+      })
+      // Apple 0
+      // Banana 1
+      // #END
+
+      // #TEST Array.sampleAdd
+      let newLength = fruits.push('Orange')
+      // ["Apple", "Banana", "Orange"]
+      console.log(newLength)//3
+      // #END
+
+      // #TEST Array.samplePop
+      const lastE = fruits.pop() // remove Orange (from the end)
+      // ["Apple", "Banana"]
+      console.log(lastE)
+      // #END
+
+      // #TEST Array.sampleShift
+      const firstE = fruits.shift() // remove Apple from the front
+      console.log(firstE) // ["Banana"]
+      // #END
+
+      // #TEST Array.sampleUnshift
+      newLength = fruits.unshift('Strawberry') // add to the front
+      console.log(newLength) // 2
+      // ["Strawberry", "Banana"]
+      // #END
+
+      // #TEST Array.sampleIndexOf
+      fruits.push('Mango')
+      // ["Strawberry", "Banana", "Mango"]
+      let pos = fruits.indexOf('Banana')
+      // 1
+      // #END
+
+      // #TEST Array.sampleSplice
+      const removedItem = fruits.splice(pos, 1) // this is how to remove an item
+      console.log(removedItem) // ["Banana"]
+
+      // #END
+
+      // #TEST Array.sampleSpliceMul
+      const vegetables = ['Cabbage', 'Turnip', 'Radish', 'Carrot']
+      console.log(vegetables)
+      // ["Cabbage", "Turnip", "Radish", "Carrot"]
+      pos = 1
+      const n = 2
+      const removedItems = vegetables.splice(pos, n)
+      // this is how to remove items, n defines the number of items to be removed,
+      // starting at the index position specified by pos and progressing toward the end of array.
+      console.log(vegetables)
+      // ["Cabbage", "Carrot"] (the original array is changed)
+      console.log(removedItems)
+      // ["Turnip", "Radish"]
+      // #END
+
+      // #TEST Array.sampleSpliceCopy
+      const shallowCopy = fruits.slice() // this is how to make a copy
+      console.log(shallowCopy) // ["Strawberry", "Mango"]
+      // #END
+
     })
 
   })
