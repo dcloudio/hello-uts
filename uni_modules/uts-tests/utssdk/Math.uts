@@ -61,6 +61,7 @@ export function testMath(): Result {
         })
         test('acos', () => {
             expect(Math.acos(-1)).toEqual(3.141592653589793);
+            expect(Math.acos(NaN)).toEqual(NaN);
             expect(Math.acos(0)).toEqual(1.5707963267948966);
             // 解决精度问题
             expect(Math.acos(1)).toEqual(0);
@@ -68,10 +69,12 @@ export function testMath(): Result {
         test('acosh', () => {
             // 解决精度问题
             expect(Math.acosh(1)).toEqual(0);
-			expectNumber(Math.acosh(2)).toEqualDouble(1.3169578969248166);
+            expect(Math.acosh(NaN)).toEqual(NaN);
+            expectNumber(Math.acosh(2)).toEqualDouble(1.3169578969248166);
             expectNumber(Math.acosh(2.5)).toEqualDouble(1.566799236972411);
         })
         test('asin', () => {
+            expect(Math.asin(NaN)).toEqual(NaN);
             expect(Math.asin(-1)).toEqual(-1.5707963267948966);
             // 解决精度问题
             expect(Math.asin(0)).toEqual(0);
@@ -79,12 +82,14 @@ export function testMath(): Result {
             expect(Math.asin(1)).toEqual(1.5707963267948966);
         })
         test('asinh', () => {
+            expect(Math.asinh(NaN)).toEqual(NaN);
             expectNumber(Math.asinh(1)).toEqualDouble(0.881373587019543);
             expectNumber(Math.asinh(0)).toEqualDouble(0);
             expectNumber(Math.asinh(-1)).toEqualDouble(-0.881373587019543);
             expectNumber(Math.asinh(2)).toEqualDouble(1.4436354751788103);
         })
         test('atan', () => {
+            expect(Math.atan(NaN)).toEqual(NaN);
             expect(Math.atan(1)).toEqual(0.7853981633974483);
             // 解决精度问题
             expect(Math.atan(0)).toEqual(0);
@@ -96,6 +101,7 @@ export function testMath(): Result {
       
         test('atanh', () => {
             // 解决精度问题
+            expect(Math.atanh(NaN)).toEqual(NaN);
             expect(Math.atanh(0)).toEqual(0);
             // expect(Math.atanh(0.5)).toEqual(0.5493061443340548);
         })
@@ -114,6 +120,7 @@ export function testMath(): Result {
             expect(Math.ceil(-37110233000.223)).toEqual(-37110233000);
         })
         test('clz32', () => {
+            expect(Math.clz32(NaN)).toEqual(32);
             expect(Math.clz32(1)).toEqual(31);
             expect(Math.clz32(1000)).toEqual(22);
             expect(Math.clz32(0)).toEqual(32);
@@ -148,6 +155,7 @@ export function testMath(): Result {
             expect(Math.floor(-37110233000.223)).toEqual(-37110233001);
         })
         test('fround', () => {
+            expect(Math.fround(NaN)).toEqual(NaN);
             expect(Math.fround(1.5)).toEqual(1.5);
             expectNumber(Math.fround(1.337)).toEqualDouble(1.3370000123977661);
         })
@@ -243,6 +251,11 @@ export function testMath(): Result {
         })
       test('round', () => {
           expect(Math.round(NaN)).toEqual(NaN);
+          expect(Math.round(Math.E)).toEqual(3);
+          expectNumber(Math.round(Number.MAX_VALUE)).toEqualDouble(1.7976931348623157e+308);
+          expect(Math.round(Number.MIN_VALUE)).toEqual(0);
+          expect(Math.round(Number.NEGATIVE_INFINITY)).toEqual(-Infinity);
+          expect(Math.round(Number.POSITIVE_INFINITY)).toEqual(Infinity);
           expect(Math.round(0.9)).toEqual(1);
           expect(Math.round(5.95)).toEqual(6);
           expect(Math.round(-5.05)).toEqual(-5);
