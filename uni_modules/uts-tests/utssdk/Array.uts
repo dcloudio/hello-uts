@@ -655,8 +655,9 @@ export function testArray() : Result {
 
       console.log(Array.isArray(new Array(5)));
       // Expected output: true
-
+      // #ifdef APP-ANDROID
       console.log(Array.isArray(new Int16Array([15, 33])));
+      // #endif
       // Expected output: false
       // #END
     })
@@ -676,7 +677,7 @@ export function testArray() : Result {
       // #END
 
       // #TEST Array.sampleForEach
-      fruits.forEach(function (item, index, array) {
+      fruits.forEach(function (item, index: number, array) {
         console.log(item, index)
       })
       // Apple 0
@@ -779,7 +780,10 @@ export function testArray() : Result {
       // #END
 
       // #TEST Array.sampleFillError
+      // #ifdef APP-ANDROID
       new Array(20).fill(0)
+      // #endif
+      
       // #END
 
     })

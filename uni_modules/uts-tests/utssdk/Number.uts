@@ -277,7 +277,9 @@ export function testNumber() : Result {
       // #ifdef APP
       // #TEST Number.toByte
       let a = 12
+      // #ifdef APP-ANDROID
       console.log(a.toByte());
+      // #endif
       // expected output: 12
       // #END
       expect(a.toInt()).toEqual(12);
@@ -285,7 +287,7 @@ export function testNumber() : Result {
     })
 
     test('toLong', () => {
-      // #ifdef APP
+      // #ifdef APP-ANDROID
       // #TEST Number.toLong
       let a = 12
       console.log(a.toLong());
@@ -298,7 +300,7 @@ export function testNumber() : Result {
     test('from', () => {
       // #ifdef APP
       // #TEST Number.from
-      let a = 12
+      let a: Int = 12
       let b = Number.from(a)
       console.log(b);
       // expected output: 12
