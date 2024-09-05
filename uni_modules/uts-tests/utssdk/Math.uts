@@ -113,6 +113,7 @@ export function testMath(): Result {
         })
         test('ceil', () => {
             expect(Math.ceil(0.95)).toEqual(1);
+            expect(Math.ceil(NaN)).toEqual(NaN);
             expect(Math.ceil(4)).toEqual(4);
             expect(Math.ceil(7.004)).toEqual(8);
             expect(Math.ceil(-7.004)).toEqual(-7);
