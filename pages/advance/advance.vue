@@ -116,10 +116,17 @@
                         }, {
                             name: "参数传递示例",
                             url: "SyntaxCase/paramTest"
-                        },{
+                        },
+                        {
                             name: "实例测试示例",
                             url: "SyntaxCase/instanceTest"
                         },
+                        // #ifdef UNI-APP-X
+                        {
+                            name: "默认值测试示例",
+                            url: "SyntaxCase/defaultValueTest"
+                        },
+                        // #endif
                         {
                             name: "混编测试示例",
                             url: "SyntaxCase/MixNativeCode"

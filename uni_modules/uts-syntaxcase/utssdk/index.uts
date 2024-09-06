@@ -429,3 +429,43 @@ export class UTSActivityComponentCallback extends UniActivityComponentCallback {
 }
 // #endif
 // #endif
+
+export function Scan(timeMillis : Number = 60000):number {
+	console.log("Scan", timeMillis)
+	return timeMillis
+}
+
+export function Scan1(timeMillis ?: Number):string {
+	console.log("Scan", timeMillis)
+	if(timeMillis == null){
+		return "null"
+	}
+	return timeMillis.toString()
+}
+
+export function Scan2(timeMillis ?: Number | null):string {
+	console.log("Scan", timeMillis)
+	if(timeMillis == null){
+		return "null"
+	}
+	return timeMillis.toString()
+}
+
+export class myClass {
+	constructor() {
+		
+	}
+	
+	to(name: String):string {
+		console.log(name);
+		return name
+	}
+	
+	to1(name?: String):string {
+		if(name == null){
+			return "null"
+		}
+		console.log(name);
+		return name!
+	}
+}
