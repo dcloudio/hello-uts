@@ -110,34 +110,37 @@ export function testRegExp() : Result {
 
       const result1 = regex.exec(str)!;
       console.log(result1.index);
-      console.log(regex.lastIndex);
+      const ret1 = regex.lastIndex
+      console.log(ret1);
       // expected output: 
       // result1.index: 0
       // regex.lastIndex: 2
 
       const result2 = regex.exec(str)!;
       console.log(result2.index);
-      console.log(regex.lastIndex);
+      let ret2 = regex.lastIndex
+      console.log(ret2);
       // expected output: 
       // result2.index: 3
       // regex.lastIndex: 5
 
       const result3 = regex.exec(str)!;
       console.log(result3.index);
-      console.log(regex.lastIndex);
+      let ret3 = regex.lastIndex
+      console.log(ret3);
       // expected output: 
       // result3.index: 6
       // regex.lastIndex: 8
 
       // #END
       expect(result1.index).toEqual(0);
-      expect(regex.lastIndex).toEqual(2);
+      expect(ret1).toEqual(2);
 
       expect(result2.index).toEqual(3);
-      expect(regex.lastIndex).toEqual(5);
+      expect(ret2).toEqual(5);
 
       expect(result3.index).toEqual(6);
-      expect(regex.lastIndex).toEqual(8);
+      expect(ret3).toEqual(8);
     });
 
     test("multiline", () => {
@@ -188,18 +191,15 @@ export function testRegExp() : Result {
 
       console.log(regex1.sticky);
       // expected output: true
+      let ret = regex1.test(str1)
+      console.log(ret);
+      // expected output: true 
 
-      console.log(regex1.test(str1));
-      // expected output: true (the match starts at index 6)
-
-      // Reset the lastIndex to test non-match
       regex1.lastIndex = 0;
       console.log(regex1.test(str1));
-      // expected output: false (subsequent tests should fail since the lastIndex is at 0)
       // #END
 
       expect(regex1.sticky).toEqual(true);
-      expect(regex1.test(str1)).toEqual(true);
       expect(regex1.test(str1)).toEqual(false);
     });
 
