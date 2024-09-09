@@ -52,7 +52,7 @@ export function testUTSJSONObject() : Result {
       let target = { a: 1, b: 2 };
       let source = { b: 4, c: 5 };
       // 得到一个UTSJSONObject对象
-      const returnedTarget = UTSJSONObject.assign(target, source);
+      let returnedTarget = UTSJSONObject.assign(target, source);
       // #END
 
       expect(returnedTarget.toMap().size).toEqual(3);
@@ -79,14 +79,11 @@ export function testUTSJSONObject() : Result {
       expect(b['work']).toEqual(0.002);
 
       // #TEST UTSJSONObject.assign_1
-      type User = {
-        a : number
-        b : number
-      }
       let target1 = { a: 1, b: 2 };
       let source1 = { b: 4, c: 5 };
-      // 得到一个User对象
-      const returnedTarget = UTSJSONObject.assign<User>(target1, source1);
+      // 得到一个UTSJSONObject对象
+      let returned= UTSJSONObject.assign<UTSJSONObject>(target1, source1);
+      console.log(returned)
       // #END
 
       // #endif
