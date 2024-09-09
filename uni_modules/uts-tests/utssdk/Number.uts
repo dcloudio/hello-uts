@@ -188,6 +188,7 @@ export function testNumber() : Result {
       expect(bStr12.length).toEqual(21);
       expect(bStr12.substring(0,14)).toEqual("27373a86ba1a19");
       
+      expect(0.6.toString()).toEqual("0.6");
     })
 
     test('valueOf', () => {
