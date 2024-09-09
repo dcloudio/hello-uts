@@ -230,8 +230,9 @@ export function testNumber() : Result {
        */
       expect(bStr12.length).toEqual(21);
       expect(bStr12.substring(0, 14)).toEqual("27373a86ba1a19");
-
+    
       // #ifdef APP-ANDROID
+      expect(0.6.toString()).toEqual("0.6");
       expect((new UTSNumber(2709954670497349.5)).toString()).toEqual("2709954670497349.5");
       expect((new UTSNumber(0.00000000000001)).toString()).toEqual("1e-14");
       expect((new UTSNumber(0.000001)).toString()).toEqual("0.000001");
