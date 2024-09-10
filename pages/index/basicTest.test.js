@@ -42,5 +42,10 @@ if (process.env.UNI_PROJECT_TYPE === '2.0' && process.env.uniTestPlatformInfo.to
       const res = await page.callMethod('jest_testTypeFromAppJs')
       expect(res).toEqual(true)
     })
+    
+    it("jest_testCallbackKeepAlive", async () => {
+      const res = await page.callMethod('jest_testCallbackKeepAlive')
+      expect(res).toEqual(true)
+    })
   })
 }

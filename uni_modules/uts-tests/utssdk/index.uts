@@ -71,3 +71,102 @@ export function runTests() : UTSJSONObject {
     NativeCode: NativeCodeRes
   }
 }
+
+// #ifdef APP-IOS
+import { expect } from './tests.uts'
+
+export type TestKeepAliveCallback = (res: string) => void
+
+export function onTest1(callback: TestKeepAliveCallback) {
+  callback("1")
+  setTimeout(()=> {
+    callback("2")
+    expect(callback != null).toEqual(true)
+  }, 20)
+}
+
+@UTSJS.keepAlive
+export function testKeepAlive(callback: TestKeepAliveCallback) {
+  callback("3")
+  setTimeout(()=> {
+    callback("4")
+    expect(callback != null).toEqual(true)
+  }, 22)
+}
+
+export type TestKeepAliveOption = {
+  a: string
+  success: TestKeepAliveCallback | null
+}
+
+@UTSJS.keepAlive
+export function testKeepAliveOption(option: TestKeepAliveOption) {
+  console.log(option.a);
+  option.success?.("11")
+  setTimeout(() => {
+    option.success?.("22")
+    expect(option.success != null).toEqual(true)
+  }, 30)
+}
+
+export class TestKeepAliveClass {
+  
+  constructor() {
+  
+  }
+  onTest(callback: TestKeepAliveCallback) {
+    callback("1")
+    setTimeout(()=> {
+      callback("2")
+      expect(callback != null).toEqual(true)
+    }, 40)
+  }
+  
+  @UTSJS.keepAlive
+  testKeepAlive(callback: TestKeepAliveCallback) {
+    callback("3")
+    setTimeout(()=> {
+      callback("4")
+      expect(callback != null).toEqual(true)
+    }, 42)
+  }
+  
+  @UTSJS.keepAlive
+  testKeepAliveOption(option: TestKeepAliveOption) {
+    console.log(option.a);
+    option.success?.("11")
+    setTimeout(() => {
+      option.success?.("22")
+      expect(option.success != null).toEqual(true)
+    }, 45)
+  }
+  
+  static onTestStatic(callback: TestKeepAliveCallback) {
+    callback("1")
+    setTimeout(()=> {
+      callback("2")
+      expect(callback != null).toEqual(true)
+    }, 40)
+  }
+  
+  @UTSJS.keepAlive
+  static testKeepAliveStatic(callback: TestKeepAliveCallback) {
+    callback("3")
+    setTimeout(()=> {
+      callback("4")
+      expect(callback != null).toEqual(true)
+    }, 50)
+  }
+  
+  @UTSJS.keepAlive
+  testKeepAliveOptionStatic(option: TestKeepAliveOption) {
+    console.log(option.a);
+    option.success?.("11")
+    setTimeout(() => {
+      option.success?.("22")
+      expect(option.success != null).toEqual(true)
+    }, 52)
+  }
+}
+// #endif
+

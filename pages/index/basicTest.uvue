@@ -22,7 +22,8 @@
 <script lang="ts">
 import { runTests, Result } from '../../uni_modules/uts-tests'
 // #ifdef APP-IOS
-import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests'
+import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests';
+import { onTest1, testKeepAlive, testKeepAliveOption, TestKeepAliveClass } from '@/uni_modules/uts-tests'
 // #endif
 export default {
   data() {
@@ -55,6 +56,58 @@ export default {
       return testTypeFromAppJs({
         num: 1
       } as Options)
+    },
+    // #endif
+    // #ifdef APP-IOS
+    jest_testCallbackKeepAlive() {
+      
+      onTest1((res) => {
+        console.log(res)
+      })
+      
+      testKeepAlive((res) => {
+        console.log(res)
+      })
+      
+      testKeepAliveOption({
+        a: "testKeepAliveOption",
+        success: (res) => {
+          console.log(res)
+        }
+      })
+      
+      TestKeepAliveClass.onTestStatic((res) => {
+        console.log(res)
+      })
+      
+      TestKeepAliveClass.testKeepAliveStatic((res) => {
+        console.log(res)
+      })
+      
+      TestKeepAliveClass.testKeepAliveOptionStatic({
+        a: "testKeepAliveOption",
+        success: (res) => {
+          console.log(res)
+        }
+      })
+      
+      const obj = new TestKeepAliveClass()
+      obj.onTest((res) => {
+        console.log(res)
+      })
+      
+      obj.testKeepAlive((res) => {
+        console.log(res)
+      })
+      
+      obj.testKeepAliveOption({
+        a: "testKeepAliveOption",
+        success: (res) => {
+          console.log(res)
+        }
+      })
+      
+      return true
     }
     // #endif
   },
