@@ -25,7 +25,7 @@ import { runTests, Result } from '../../uni_modules/uts-tests'
 import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests';
 // #endif
 // #ifdef APP
-import { onTest1, testKeepAlive, testKeepAliveOption, TestKeepAliveClass } from '@/uni_modules/uts-tests'
+import { onTest1, testKeepAlive, testKeepAliveOption, TestKeepAliveClass, TestKeepAliveOption, } from '@/uni_modules/uts-tests'
 // #endif
 export default {
   data() {
@@ -92,7 +92,7 @@ export default {
             count++;
             console.log("testKeepAliveOption callback =====> ", res)
           }
-        })
+        } as TestKeepAliveOption)
         
         if (count < 2) {
           ret = false
@@ -125,7 +125,7 @@ export default {
             count++;
             console.log("testKeepAliveOptionStatic callback =====> ", res)
           }
-        })
+        } as TestKeepAliveOption)
         
         if (count < 2) {
           ret = false
@@ -159,7 +159,7 @@ export default {
             count++;
             console.log("TestKeepAliveClass.testKeepAliveOption callback =====> ", res)
           }
-        })
+        } as TestKeepAliveOption)
         if (count < 2) {
           ret = false
         }
