@@ -58,7 +58,7 @@ if (process.env.UNI_PROJECT_TYPE === '1.0' && (process.env.uniTestPlatformInfo.t
   describe('testCallbackKeepAlive',  () => {
     it("jest_testCallbackKeepAlive", async () => {
       const res = await page.callMethod('jest_testCallbackKeepAlive')
-      page.waitFor(10)
+      page.waitFor(100)
       const count = await page.data('count')
       expect(count).toEqual(18)
     })
