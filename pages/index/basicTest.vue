@@ -141,7 +141,7 @@
               }
               setTimeout(()=>{
                 this.count = count
-              },10)
+              },50)
               return ret
             }
         }
