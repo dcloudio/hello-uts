@@ -41,8 +41,21 @@ if (process.env.UNI_PROJECT_TYPE === '2.0' && process.env.uniTestPlatformInfo.to
     it("jest_testTypeFromAppJs", async () => {
       const res = await page.callMethod('jest_testTypeFromAppJs')
       expect(res).toEqual(true)
+    })     
+  })
+}
+
+if (process.env.UNI_PROJECT_TYPE === '2.0' && (process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios') || process.env.uniTestPlatformInfo.startsWith('android'))) {
+  describe('testCallbackKeepAlive',  () => {
+    it("jest_testCallbackKeepAlive", async () => {
+      const res = await page.callMethod('jest_testCallbackKeepAlive')
+      expect(res).toEqual(true)
     })
-    
+  })
+}
+
+if (process.env.UNI_PROJECT_TYPE === '1.0' && (process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios') || process.env.uniTestPlatformInfo.startsWith('android'))) {
+  describe('testCallbackKeepAlive',  () => {
     it("jest_testCallbackKeepAlive", async () => {
       const res = await page.callMethod('jest_testCallbackKeepAlive')
       expect(res).toEqual(true)

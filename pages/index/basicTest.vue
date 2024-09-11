@@ -20,6 +20,7 @@
     import {
         runTests
     } from '../../uni_modules/uts-tests'
+    import { onTest1, testKeepAlive, testKeepAliveOption, TestKeepAliveClass } from '@/uni_modules/uts-tests'
     export default {
         data() {
             return {
@@ -34,6 +35,110 @@
             test() {
                 this.result = runTests()
                 console.log(this.result)
+            },
+               
+            jest_testCallbackKeepAlive() {
+              let ret = true
+              let count = 0;
+              
+              onTest1((res) => {
+                count++;
+                console.log("onTest1 callback =====> ", res)
+              })
+              
+              if (count < 2) {
+                ret = false
+              }
+              count = 0;
+              
+              testKeepAlive((res) => {
+                count++;
+                console.log(res)
+              })
+              
+              if (count < 2) {
+                ret = false
+              }
+              count = 0;
+              
+              testKeepAliveOption({
+                a: "testKeepAliveOption",
+                success: (res) => {
+                  count++;
+                  console.log("testKeepAliveOption callback =====> ", res)
+                }
+              })
+              
+              if (count < 2) {
+                ret = false
+              }
+              count = 0;
+              
+              TestKeepAliveClass.onTestStatic((res) => {
+                count++;
+                console.log("onTestStatic callback =====> ", res)
+              })
+              
+              if (count < 2) {
+                ret = false
+              }
+              count = 0;
+              
+              TestKeepAliveClass.testKeepAliveStatic((res) => {
+                count++;
+                console.log("testKeepAliveStatic callback =====> ", res)
+              })
+              
+              if (count < 2) {
+                ret = false
+              }
+              count = 0;
+              
+              TestKeepAliveClass.testKeepAliveOptionStatic({
+                a: "testKeepAliveOption",
+                success: (res) => {
+                  count++;
+                  console.log("testKeepAliveOptionStatic callback =====> ", res)
+                }
+              })
+              
+              if (count < 2) {
+                ret = false
+              }
+              count = 0;
+              
+              const obj = new TestKeepAliveClass()
+              obj.onTest((res) => {
+                count++;
+                console.log("TestKeepAliveClass.onTest callback =====> ", res)
+              })
+              
+              if (count < 2) {
+                ret = false
+              }
+              count = 0;
+              
+              obj.testKeepAlive((res) => {
+                count++;
+                console.log("TestKeepAliveClass.testKeepAlive callback =====> ", res)
+              })
+              
+              if (count < 2) {
+                ret = false
+              }
+              count = 0;
+              
+              obj.testKeepAliveOption({
+                a: "testKeepAliveOption",
+                success: (res) => {
+                  count++;
+                  console.log("TestKeepAliveClass.testKeepAliveOption callback =====> ", res)
+                }
+              })
+              if (count < 2) {
+                ret = false
+              }
+              return ret
             }
         }
     }

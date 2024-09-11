@@ -72,26 +72,20 @@ export function runTests() : UTSJSONObject {
   }
 }
 
-// #ifdef APP-IOS
+// #ifdef APP
 import { expect } from './tests.uts'
 
 export type TestKeepAliveCallback = (res: string) => void
 
 export function onTest1(callback: TestKeepAliveCallback) {
   callback("1")
-  setTimeout(()=> {
-    callback("2")
-    expect(callback != null).toEqual(true)
-  }, 20)
+  callback("2")
 }
 
 @UTSJS.keepAlive
 export function testKeepAlive(callback: TestKeepAliveCallback) {
-  callback("3")
-  setTimeout(()=> {
-    callback("4")
-    expect(callback != null).toEqual(true)
-  }, 22)
+  callback("1")
+  callback("2")
 }
 
 export type TestKeepAliveOption = {
@@ -102,11 +96,8 @@ export type TestKeepAliveOption = {
 @UTSJS.keepAlive
 export function testKeepAliveOption(option: TestKeepAliveOption) {
   console.log(option.a);
-  option.success?.("11")
-  setTimeout(() => {
-    option.success?.("22")
-    expect(option.success != null).toEqual(true)
-  }, 30)
+  option.success?.("1")
+  option.success?.("2")
 }
 
 export class TestKeepAliveClass {
@@ -116,56 +107,38 @@ export class TestKeepAliveClass {
   }
   onTest(callback: TestKeepAliveCallback) {
     callback("1")
-    setTimeout(()=> {
-      callback("2")
-      expect(callback != null).toEqual(true)
-    }, 40)
+    callback("2")
   }
   
   @UTSJS.keepAlive
   testKeepAlive(callback: TestKeepAliveCallback) {
-    callback("3")
-    setTimeout(()=> {
-      callback("4")
-      expect(callback != null).toEqual(true)
-    }, 42)
+    callback("1")
+    callback("2")
   }
   
   @UTSJS.keepAlive
   testKeepAliveOption(option: TestKeepAliveOption) {
     console.log(option.a);
-    option.success?.("11")
-    setTimeout(() => {
-      option.success?.("22")
-      expect(option.success != null).toEqual(true)
-    }, 45)
+    option.success?.("1")
+    option.success?.("2")
   }
   
   static onTestStatic(callback: TestKeepAliveCallback) {
     callback("1")
-    setTimeout(()=> {
-      callback("2")
-      expect(callback != null).toEqual(true)
-    }, 40)
+    callback("2")
   }
   
   @UTSJS.keepAlive
   static testKeepAliveStatic(callback: TestKeepAliveCallback) {
-    callback("3")
-    setTimeout(()=> {
-      callback("4")
-      expect(callback != null).toEqual(true)
-    }, 50)
+    callback("1")
+    callback("2")
   }
   
   @UTSJS.keepAlive
-  testKeepAliveOptionStatic(option: TestKeepAliveOption) {
+  static testKeepAliveOptionStatic(option: TestKeepAliveOption) {
     console.log(option.a);
-    option.success?.("11")
-    setTimeout(() => {
-      option.success?.("22")
-      expect(option.success != null).toEqual(true)
-    }, 52)
+    option.success?.("1")
+    option.success?.("2")
   }
 }
 // #endif

@@ -23,6 +23,8 @@
 import { runTests, Result } from '../../uni_modules/uts-tests'
 // #ifdef APP-IOS
 import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests';
+// #endif
+// #ifdef APP
 import { onTest1, testKeepAlive, testKeepAliveOption, TestKeepAliveClass } from '@/uni_modules/uts-tests'
 // #endif
 export default {
@@ -54,60 +56,114 @@ export default {
     // #ifdef APP-IOS
     jest_testTypeFromAppJs() {
       return testTypeFromAppJs({
-        num: 1
+        num: 1   
       } as Options)
     },
     // #endif
-    // #ifdef APP-IOS
+    // #ifdef APP
     jest_testCallbackKeepAlive() {
       
-      onTest1((res) => {
-        console.log(res)
-      })
-      
-      testKeepAlive((res) => {
-        console.log(res)
-      })
-      
-      testKeepAliveOption({
-        a: "testKeepAliveOption",
-        success: (res) => {
-          console.log(res)
+        let ret = true
+        let count = 0;
+        
+        onTest1((res) => {
+          count++;
+          console.log("onTest1 callback =====> ", res)
+        })
+        
+        if (count < 2) {
+          ret = false
         }
-      })
-      
-      TestKeepAliveClass.onTestStatic((res) => {
-        console.log(res)
-      })
-      
-      TestKeepAliveClass.testKeepAliveStatic((res) => {
-        console.log(res)
-      })
-      
-      TestKeepAliveClass.testKeepAliveOptionStatic({
-        a: "testKeepAliveOption",
-        success: (res) => {
+        count = 0;
+        
+        testKeepAlive((res) => {
+          count++;
           console.log(res)
+        })
+        
+        if (count < 2) {
+          ret = false
         }
-      })
-      
-      const obj = new TestKeepAliveClass()
-      obj.onTest((res) => {
-        console.log(res)
-      })
-      
-      obj.testKeepAlive((res) => {
-        console.log(res)
-      })
-      
-      obj.testKeepAliveOption({
-        a: "testKeepAliveOption",
-        success: (res) => {
-          console.log(res)
+        count = 0;
+        
+        testKeepAliveOption({
+          a: "testKeepAliveOption",
+          success: (res) => {
+            count++;
+            console.log("testKeepAliveOption callback =====> ", res)
+          }
+        })
+        
+        if (count < 2) {
+          ret = false
         }
-      })
-      
-      return true
+        count = 0;
+        
+        TestKeepAliveClass.onTestStatic((res) => {
+          count++;
+          console.log("onTestStatic callback =====> ", res)
+        })
+        
+        if (count < 2) {
+          ret = false
+        }
+        count = 0;
+        
+        TestKeepAliveClass.testKeepAliveStatic((res) => {
+          count++;
+          console.log("testKeepAliveStatic callback =====> ", res)
+        })
+        
+        if (count < 2) {
+          ret = false
+        }
+        count = 0;
+        
+        TestKeepAliveClass.testKeepAliveOptionStatic({
+          a: "testKeepAliveOption",
+          success: (res) => {
+            count++;
+            console.log("testKeepAliveOptionStatic callback =====> ", res)
+          }
+        })
+        
+        if (count < 2) {
+          ret = false
+        }
+        count = 0;
+        
+        const obj = new TestKeepAliveClass()
+        obj.onTest((res) => {
+          count++;
+          console.log("TestKeepAliveClass.onTest callback =====> ", res)
+        })
+        
+        if (count < 2) {
+          ret = false
+        }
+        count = 0;
+        
+        obj.testKeepAlive((res) => {
+          count++;
+          console.log("TestKeepAliveClass.testKeepAlive callback =====> ", res)
+        })
+        
+        if (count < 2) {
+          ret = false
+        }
+        count = 0;
+        
+        obj.testKeepAliveOption({
+          a: "testKeepAliveOption",
+          success: (res) => {
+            count++;
+            console.log("TestKeepAliveClass.testKeepAliveOption callback =====> ", res)
+          }
+        })
+        if (count < 2) {
+          ret = false
+        }
+        return ret
     }
     // #endif
   },
