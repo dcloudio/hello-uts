@@ -103,7 +103,7 @@ export function testKeepAliveOption(option: TestKeepAliveOption) {
 export class TestKeepAliveClass {
   
   constructor() {
-  
+    super()
   }
   onTest(callback: TestKeepAliveCallback) {
     callback("1")

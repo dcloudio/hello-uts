@@ -61,9 +61,9 @@ export default {
     },
     // #endif
     // #ifdef APP
-    jest_testCallbackKeepAlive() {
+    jest_testCallbackKeepAlive(): boolean {
       
-        let ret = true
+        let ret: boolean = true
         let count = 0;
         
         onTest1((res) => {
