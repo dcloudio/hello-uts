@@ -25,7 +25,8 @@
         data() {
             return {
 				title: 'UTS基础语法',
-                result: {}
+                result: {},
+                count: 0
             }
         },
         onReady() {
@@ -49,7 +50,7 @@
               if (count < 2) {
                 ret = false
               }
-              count = 0;
+              // count = 0;
               
               testKeepAlive((res) => {
                 count++;
@@ -59,7 +60,7 @@
               if (count < 2) {
                 ret = false
               }
-              count = 0;
+              // count = 0;
               
               testKeepAliveOption({
                 a: "testKeepAliveOption",
@@ -72,7 +73,7 @@
               if (count < 2) {
                 ret = false
               }
-              count = 0;
+              // count = 0;
               
               TestKeepAliveClass.onTestStatic((res) => {
                 count++;
@@ -82,7 +83,7 @@
               if (count < 2) {
                 ret = false
               }
-              count = 0;
+              // count = 0;
               
               TestKeepAliveClass.testKeepAliveStatic((res) => {
                 count++;
@@ -92,7 +93,7 @@
               if (count < 2) {
                 ret = false
               }
-              count = 0;
+              // count = 0;
               
               TestKeepAliveClass.testKeepAliveOptionStatic({
                 a: "testKeepAliveOption",
@@ -105,7 +106,7 @@
               if (count < 2) {
                 ret = false
               }
-              count = 0;
+              // count = 0;
               
               const obj = new TestKeepAliveClass()
               obj.onTest((res) => {
@@ -116,7 +117,7 @@
               if (count < 2) {
                 ret = false
               }
-              count = 0;
+              // count = 0;
               
               obj.testKeepAlive((res) => {
                 count++;
@@ -126,7 +127,7 @@
               if (count < 2) {
                 ret = false
               }
-              count = 0;
+              // count = 0;
               
               obj.testKeepAliveOption({
                 a: "testKeepAliveOption",
@@ -138,6 +139,9 @@
               if (count < 2) {
                 ret = false
               }
+              setTimeout(()=>{
+                this.count = count
+              },10)
               return ret
             }
         }
