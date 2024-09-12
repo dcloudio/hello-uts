@@ -141,5 +141,22 @@ export class TestKeepAliveClass {
     option.success?.("2")
   }
 }
+
+
+interface ITest {
+    test(callback : (msg : string) => void) : void
+}
+
+class TestImpl implements ITest {
+    @UTSJS.keepAlive
+    test(callback : (msg : string) => void) : void {
+        callback("1")
+        callback("2")
+    }
+}
+
+export function createTest() : ITest {
+    return new TestImpl()
+}
 // #endif
 

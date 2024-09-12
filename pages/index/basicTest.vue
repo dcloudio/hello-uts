@@ -20,22 +20,22 @@
     import {
         runTests
     } from '../../uni_modules/uts-tests'
-    import { onTest1, testKeepAlive, testKeepAliveOption, TestKeepAliveClass } from '@/uni_modules/uts-tests'
+    import { onTest1, testKeepAlive, testKeepAliveOption, createTest, TestKeepAliveClass } from '@/uni_modules/uts-tests'
     export default {
         data() {
             return {
 				title: 'UTS基础语法',
-                result: {},
-                count: 0
+                result: {}
             }
         },
         onReady() {
             this.test()
         },
         methods: {
-            test() {
+            async test() {
                 this.result = runTests()
                 console.log(this.result)
+                console.log('jest_testCallbackKeepAlive:' + await this.jest_testCallbackKeepAlive())
             },
                
             jest_testCallbackKeepAlive() {
@@ -139,10 +139,20 @@
               if (count < 2) {
                 ret = false
               }
-              setTimeout(()=>{
-                this.count = count
-              },50)
-              return ret
+              // count = 0;
+              const testImpl = createTest()
+              testImpl.test((res) => {
+                count++;
+                console.log("TestImpl.test callback =====> ", res)
+              })
+              if (count < 2) {
+                ret = false
+              }
+              return new Promise((resolve)=>{
+                setTimeout(()=>{
+                  resolve(count)
+                },30)
+              })
             }
         }
     }

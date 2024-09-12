@@ -46,7 +46,7 @@ if (process.env.UNI_PROJECT_TYPE === '2.0' && process.env.uniTestPlatformInfo.to
 }
 
 if (process.env.UNI_PROJECT_TYPE === '2.0' && (process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios') || process.env.uniTestPlatformInfo.startsWith('android'))) {
-  describe('testCallbackKeepAlive',  () => {
+  describe('testCallbackKeepAlive2.0',  () => {
     it("jest_testCallbackKeepAlive", async () => {
       const res = await page.callMethod('jest_testCallbackKeepAlive')
       expect(res).toEqual(true)
@@ -55,12 +55,10 @@ if (process.env.UNI_PROJECT_TYPE === '2.0' && (process.env.uniTestPlatformInfo.t
 }
 
 if (process.env.UNI_PROJECT_TYPE === '1.0' && (process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios') || process.env.uniTestPlatformInfo.startsWith('android'))) {
-  describe('testCallbackKeepAlive',  () => {
+  describe('testCallbackKeepAlive1.0',  () => {
     it("jest_testCallbackKeepAlive", async () => {
       const res = await page.callMethod('jest_testCallbackKeepAlive')
-      page.waitFor(100)
-      const count = await page.data('count')
-      expect(count).toEqual(18)
+      expect(res).toEqual(20)
     })
   })
 }
