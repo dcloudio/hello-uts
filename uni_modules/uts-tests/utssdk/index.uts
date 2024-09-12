@@ -158,5 +158,18 @@ class TestImpl implements ITest {
 export function createTest() : ITest {
     return new TestImpl()
 }
+
+export function testNonKeepAlive(callback: (res: string) => void){
+  setTimeout(()=>{
+    callback("1")
+  },10)
+}
+
+export function testNonKeepAliveOption(option: TestKeepAliveOption) {
+  console.log(option.a);
+  setTimeout(()=>{
+    option.success?.("1")
+  },10)
+}
 // #endif
 

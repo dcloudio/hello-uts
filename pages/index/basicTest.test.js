@@ -46,19 +46,27 @@ if (process.env.UNI_PROJECT_TYPE === '2.0' && process.env.uniTestPlatformInfo.to
 }
 
 if (process.env.UNI_PROJECT_TYPE === '2.0' && (process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios') || process.env.uniTestPlatformInfo.startsWith('android'))) {
-  describe('testCallbackKeepAlive2.0',  () => {
+  describe('testCallbackKeepAlive',  () => {
     it("jest_testCallbackKeepAlive", async () => {
       const res = await page.callMethod('jest_testCallbackKeepAlive')
       expect(res).toEqual(true)
+    })
+    it("jest_testCallbackNonKeepAlive", async () => {
+      const res = await page.callMethod('jest_testCallbackNonKeepAlive')
+      expect(res).toEqual(4)
     })
   })
 }
 
 if (process.env.UNI_PROJECT_TYPE === '1.0' && (process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios') || process.env.uniTestPlatformInfo.startsWith('android'))) {
-  describe('testCallbackKeepAlive1.0',  () => {
+  describe('testCallbackKeepAlive',  () => {
     it("jest_testCallbackKeepAlive", async () => {
       const res = await page.callMethod('jest_testCallbackKeepAlive')
       expect(res).toEqual(20)
+    })
+    it("jest_testCallbackNonKeepAlive", async () => {
+      const res = await page.callMethod('jest_testCallbackNonKeepAlive')
+      expect(res).toEqual(4)
     })
   })
 }
