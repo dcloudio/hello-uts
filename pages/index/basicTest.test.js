@@ -1,6 +1,6 @@
 const ERR_RE = /expected:<(.*)> but was:<(.*)>/
-
 let result;
+const resultEmptyError = '获取到 result 是空的, 请运行项目进行排查'
 
 beforeAll(async () => {
   await program.reLaunch('/pages/index/basicTest')
@@ -11,6 +11,9 @@ beforeAll(async () => {
 })
 
 function getApiFailed(describe, api) {
+  if(Object.keys(result).length === 0){
+    return resultEmptyError
+  }
   const failed = result[describe]?.failed?.find(item => {
     return item.split(':')[0] === api
   })
@@ -22,7 +25,9 @@ describes.forEach(d => {
     d?.tests && d.tests.forEach(api => {
       it(api, () => {
         const failed = getApiFailed(d.describe, api)
-        if (failed) {
+        if(failed == resultEmptyError){
+          expect('').toBe(resultEmptyError)
+        }else if (failed) {
           const parts = failed.split('\n')
           const matches = parts[1].match(ERR_RE)
           if (matches?.length) {
