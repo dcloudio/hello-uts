@@ -53,7 +53,7 @@ export function onCallback(callback: (sth:string) => void) {
   let count = 1
   let taskId = -1
   taskId = setInterval(function() {
-    callback("第" + count + "次回调")
+    callback(`第 ${count} 次回调`)
     count++;
 	console.log("count",count)
 	if(count > 3){

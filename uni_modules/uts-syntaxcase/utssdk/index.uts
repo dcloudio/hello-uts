@@ -440,7 +440,7 @@ export function Scan1(timeMillis ?: Number):string {
 	if(timeMillis == null){
 		return "null"
 	}
-	return timeMillis.toString()
+	return timeMillis!.toString()
 }
 
 export function Scan2(timeMillis ?: Number | null):string {
@@ -448,7 +448,7 @@ export function Scan2(timeMillis ?: Number | null):string {
 	if(timeMillis == null){
 		return "null"
 	}
-	return timeMillis.toString()
+	return timeMillis!.toString()
 }
 
 export class myClass {
