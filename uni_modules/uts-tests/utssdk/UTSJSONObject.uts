@@ -163,7 +163,7 @@ export function testUTSJSONObject() : Result {
         }
       }
       //返回指定键对应的值，如果对象中不存在此键则返回 null。
-      let name : string = person.get('name') as string
+      let name : string = person["name"] as String
       //get 方法可以简化为使用下标运算符 `[]` 访问
       name = person['name'] as string
       //增加或更新指定键对应的值。

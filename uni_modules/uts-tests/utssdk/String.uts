@@ -7,10 +7,10 @@ export function testString() : Result {
       const x = "Mozilla";
       const e = "";
 
-      console.log("Mozilla is " + x.length + " code units long");
+      console.log("Mozilla is " + `${x.length}` + " code units long");
       /* "Mozilla is 7 code units long" */
 
-      console.log("The empty string is has a length of " + e.length);
+      console.log("The empty string is has a length of " + `${e.length}`);
       /* "The e string is has a length of 0" */
       // #END
 
@@ -335,6 +335,7 @@ export function testString() : Result {
 
 
       // #TEST String.replace_1
+      // #ifdef APP-ANDROID
       // 不包含捕捉组的示例
       let a = "The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?"
       let b = a.replace(RegExp("fox"), function (match : string, offset : number, string : string) : string {
@@ -344,7 +345,7 @@ export function testString() : Result {
         return "cat"
       })
       console.log("b:", b)
-
+      
       // 包含一个捕获组的示例。注意，目前android仅支持最多五个捕获组
       let a1 = "The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?"
       let b1 = a1.replace(RegExp("(fox)"), function (match : string, p1 : string, offset : number, string : string) : string {
@@ -355,6 +356,8 @@ export function testString() : Result {
         return "cat"
       })
       console.log("b1", b1)
+      // #endif
+
       // #END
 
       // const REGEX_FORMAT = /[YMDHhms]o|\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a{1,2}|A{1,2}|m{1,2}|s{1,2}|Z{1,2}|SSS/g
@@ -374,10 +377,12 @@ export function testString() : Result {
       // #TEST String.search
       const paragraph = 'The quick brown fox jumps over the lazy dog. If the dog barked, was it really lazy?';
       const regex = /[^\w\s]/g;
+      // #ifdef APP-ANDROID
       console.log(paragraph.search(regex));
       // expected output: 43
       console.log(paragraph[paragraph.search(regex)]);
       // expected output: "."
+      // #endif
       // #END
 
       expect(paragraph.search(regex)).toEqual(43);
