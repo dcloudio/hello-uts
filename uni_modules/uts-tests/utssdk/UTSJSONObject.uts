@@ -4,21 +4,14 @@ export function testUTSJSONObject() : Result {
   return describe("utsjsonobject", () => {
 
     test('keys', () => {
+      // #TEST UTSJSONObject.keys
         let obj = {
           name:"zhangsan",
           age:11
         }
         expect(UTSJSONObject.keys(obj).length).toEqual(2);
-        console.log(UTSJSONObject.keys(obj))
-      // #TEST UTSJSONObject.keys
-      let obj = {
-        name: "zhangsan",
-        age: 11
-      }
-
-      let ret1 = UTSJSONObject.keys(obj).length
-      console.log(ret1) //2
-      // #END
+    
+         // #END
     })
     
     test('toJSONObject', () => {
