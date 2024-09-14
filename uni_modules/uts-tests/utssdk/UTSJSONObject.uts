@@ -203,7 +203,7 @@ export function testUTSJSONObject() : Result {
       })
       // #END
 
-      // #ifdef APP-ANDROID
+
        // #TEST UTSJSONObject.convert
       type User = {
         name : string,
@@ -214,13 +214,13 @@ export function testUTSJSONObject() : Result {
         age: 12
       }
       // UTSJSONObject => 自定义type
-      let userA = JSON.parse<User>(jsonObj.toJSONString())
+      let userA = JSON.parse<User>(JSON.stringify(jsonObj)!)
       console.log(userA!.name)
       // 自定义type => UTSJSONObject
-      let utsJsonA = JSON.parseObject(JSON.stringify(userA))
+      let utsJsonA = JSON.parseObject(JSON.stringify(userA)!)
       console.log(utsJsonA)
        // #END
-      // #endif
+
     })
   })
 }
