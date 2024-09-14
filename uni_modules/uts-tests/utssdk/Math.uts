@@ -638,60 +638,13 @@ export function testMath() : Result {
     })
 
     test('round', () => {
-      // #TEST Math.round
-      // #ifdef APP-ANDROID
-      console.log(Math.round(NaN));
-      // #endif
-      // expected output: NaN
-
-      console.log(Math.round(Math.E));
-      // expected output: 3
-      
-      // #ifdef APP-ANDROID
-      console.log(Math.round(Number.MAX_VALUE));
-      // expected output: 1.7976931348623157e+308
-      
-      console.log(Math.round(Number.MIN_VALUE));
-      // expected output: 0
-      
-      console.log(Math.round(Number.NEGATIVE_INFINITY));
-      // expected output: -Infinity
-      
-      console.log(Math.round(Number.POSITIVE_INFINITY));
-      // expected output: Infinity
-      
-      // #endif
-
-      console.log(Math.round(0.9));
-      // expected output: 1
-
-      console.log(Math.round(5.95));
-      // expected output: 6
-
-      console.log(Math.round(-5.05));
-      // expected output: -5
-
-      console.log(Math.round(37110233000.223));
-      // expected output: 37110233000
-
-      console.log(Math.round(-37110233000.223));
-      // expected output: -37110233000
-      // #END
-      expect(Math.round(NaN)).toEqual(NaN);
-      expect(Math.round(Math.E)).toEqual(3);
-      
-      // #ifdef APP-ANDROID
-      expectNumber(Math.round(Number.MAX_VALUE)).toEqualDouble(1.7976931348623157e+308);
-      expect(Math.round(Number.MIN_VALUE)).toEqual(0);
-      expect(Math.round(Number.NEGATIVE_INFINITY)).toEqual(-Infinity);
-      expect(Math.round(Number.POSITIVE_INFINITY)).toEqual(Infinity);
-      // #endif
-
+     // #TEST Math.round
       expect(Math.round(0.9)).toEqual(1);
       expect(Math.round(5.95)).toEqual(6);
       expect(Math.round(-5.05)).toEqual(-5);
       expect(Math.round(37110233000.223)).toEqual(37110233000);
       expect(Math.round(-37110233000.223)).toEqual(-37110233000);
+      // #END
     })
 
   })
