@@ -222,5 +222,14 @@ export function testUTSJSONObject() : Result {
        // #END
 
     })
+    
+    test('useless-as', () => {
+      const obj = {
+        a: { b: { c: 'c' } }
+      };
+      ((obj["a"] as UTSJSONObject)["b"] as UTSJSONObject)["c"] = "c1"
+      expect(obj.getString("a.b.c")).toEqual('c1')
+      
+    })
   })
 }
