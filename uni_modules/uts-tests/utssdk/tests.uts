@@ -2,7 +2,7 @@ import { Matchers,NumberMatchers } from './Matchers.uts'
 
 export const describes = new Map<string, Result>()
 
-export class Result implements io.dcloud.uts.json.IJsonStringify {
+export class Result implements IJsonStringify {
     total = 0
     passed: string[] = []
     failed: string[] = []
