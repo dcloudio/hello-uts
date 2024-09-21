@@ -76,7 +76,8 @@ export function testGlobal() : Result {
       expect(parseInt("922337203685477580700099999999999999999999999999999999999999999999999999999999999999999")).toEqualNumber(9.223372036854776e+86)
       expect(parseInt("50") / 100).toEqualNumber(0.5);
       expect(parseInt("500") / 100).toEqualNumber(5);
-
+      expect(parseFloat("3.0").toString()).toEqual("3");
+      expect(parseFloat("3.02").toString()).toEqual("3");
       // #END
     })
 
@@ -90,6 +91,9 @@ export function testGlobal() : Result {
       expect(parseFloat("3.14some non-digit characters")).toEqual(3.14);
       expect(parseFloat("100") / 50).toEqualNumber(2);
       expect(parseFloat("105") / 50).toEqual(2.1);
+      
+      expect(parseFloat("3.0").toString()).toEqual("3");
+      expect(parseFloat("3.02").toString()).toEqual("3.02");
       // #END
     })
 
