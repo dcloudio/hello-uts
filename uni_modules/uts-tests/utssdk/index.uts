@@ -21,6 +21,7 @@ import { testArrayBuffer } from './ArrayBuffer.uts'
 import { testNativeCode } from './NativeCode.uts'
 import { testPromise} from "./Promise.uts"
 import { testEncoder} from "./TextEncoder.uts"
+import { testDecoder} from "./TextDecoder.uts"
 // Proxy、Reflect、Weakmap、WeakSet 不支持
 export function runTests() : UTSJSONObject {
   const ArrayRes = testArray();
@@ -49,6 +50,7 @@ export function runTests() : UTSJSONObject {
   const PromiseRes = testPromise();
   // #ifdef  APP-ANDROID || WEB
   const TextEncoderRes = testEncoder();
+  const TextDecoderRes = testDecoder();
   // #endif
   return {
     Array: ArrayRes,
@@ -72,6 +74,7 @@ export function runTests() : UTSJSONObject {
     // #ifdef  APP-ANDROID || WEB
     ArrayBuffer: ArrayBufferRes,
     TextEncoder: TextEncoderRes,
+    TextDecoder: TextDecoderRes,
     // #endif
     NativeCode: NativeCodeRes,
     Primise: PromiseRes
