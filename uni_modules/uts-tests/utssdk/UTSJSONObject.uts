@@ -1,62 +1,219 @@
 import { describe, test, expect, expectNumber, Result } from './tests.uts'
 
-
-
 export function testUTSJSONObject() : Result {
   return describe("utsjsonobject", () => {
+
     test('keys', () => {
-      // #ifdef APP-ANDROID
+      // #TEST UTSJSONObject.keys
         let obj = {
           name:"zhangsan",
           age:11
         }
-        expect(UTSJSONObject.keys(obj).size).toEqual(2);
-        console.log(UTSJSONObject.keys(obj))
+        expect(UTSJSONObject.keys(obj).length).toEqual(2);
+    
+         // #END
+    })
+    
+    test('toJSONObject', () => {
+      // #ifdef APP-ANDROID
+        let result = {}
+        result["opt"] = "xxxx"
+        
+        let subArray = [] as Array<UTSJSONObject>
+        let subModel = {}
+        subModel["name"] = "xxx"
+        subModel["type"] = 0
+        subArray.push(subModel)
+        
+        let service = {}
+        service["name"] = "0xxxb34fb"
+        service["type"] = 0
+        
+        //这个数据返回为空对象数组
+        service["array"] = subArray
+        
+        result["service"] = service
+        
+        expect(result.toJSONObject().toJSONString()).toEqual('{"opt":"xxxx","service":{"array":[{"name":"xxx","type":0}],"name":"0xxxb34fb","type":0}}');
+        
       // #endif
     })
     
     test('assign-notype', () => {
       // #ifdef APP-ANDROID
-        const target = { a: 1, b: 2 };
-        const source = { b: 4, c: 5 };
-        const returnedTarget = UTSJSONObject.assign(target, source);
-        
-        expect(returnedTarget!.toMap().size).toEqual(3);
-        console.log(returnedTarget)
+      // #TEST UTSJSONObject.assign
+      let target = { a: 1, b: 2 };
+      let source = { b: 4, c: 5 };
+      // 得到一个UTSJSONObject对象
+      let returnedTarget = UTSJSONObject.assign(target, source);
+      // #END
+
+      expect(returnedTarget.toMap().size).toEqual(3);
+
+      type A = {
+        username : string
+        age : number
+      }
+      type C = {
+        work : number
+      }
+
+      let b = UTSJSONObject.assign({
+        username: "张三",
+        age: 12
+      } as A,
+        { b: 2 },
+        {
+          work: 0.002
+        } as C)
+      expect(b['age']).toEqual(12);
+      expect(b['username']).toEqual("张三");
+      expect(b['b']).toEqual(2);
+      expect(b['work']).toEqual(0.002);
+
+      // #TEST UTSJSONObject.assign_1
+      let target1 = { a: 1, b: 2 };
+      let source1 = { b: 4, c: 5 };
+      // 得到一个UTSJSONObject对象
+      let returned= UTSJSONObject.assign<UTSJSONObject>(target1, source1);
+      console.log(returned)
+      // #END
+
       // #endif
     })
-    
+
     test('setvalue-after-get', () => {
       // #ifdef APP-ANDROID
-        let obj = {
-          "cars":[
-            {
-              name:"car1",
-              value:100
-            }
-          ]
-        }
-            
-        let cars = obj.getArray<UTSJSONObject>("cars")
-        cars![0].set("value",20)
-        let firstCar = obj.getJSON("cars[0]")
-        expect(firstCar!['value']).toEqual(20);
-        // #endif
+      // #TEST UTSJSONObject.getJSON,UTSJSONObject.getArray
+      let obj = {
+        "cars": [
+          {
+            name: "car1",
+            value: 100
+          }
+        ]
+      }
+
+      let cars = obj.getArray<UTSJSONObject>("cars")
+      cars![0].set("value", 20)
+      let firstCar = obj.getJSON("cars[0]")
+      console.log(firstCar!['value'])//20
+      // #END
+      expect(firstCar!['value']).toEqual(20);
+      // #endif
     })
     
+    
+    test('get-speed', () => {
+      // #ifdef APP-ANDROID
+      // #TEST UTSJSONObject.getString
+      const utsObj : UTSJSONObject = {} as any as UTSJSONObject
+      for (let i = 0; i < 100; i++) {
+        utsObj.set('' + i, '' + i)
+      }
+
+      console.log('--start--')
+      let startTime = Date.now()
+      for (let i = 0; i < 10000; i++) {
+        utsObj.getString('0')
+      }
+      // #END
+      let spendTime = Date.now() - startTime
+      expect(spendTime < 300).toEqual(true);
+      // #endif
+    })
+
     test('assign-withtype', () => {
       // #ifdef APP-ANDROID
-        type User = {
-          a:number
-          b:number
-        }
-        const target = { a: 1, b: 2 };
-        const source = { b: 4, c: 5 };
-        const returnedTarget = UTSJSONObject.assign<User>(target, source);
-        
-        expect(returnedTarget!.a).toEqual(1);
-        console.log(returnedTarget)
+      type User = {
+        a : number
+        b : number
+      }
+      const target = { a: 1, b: 2 };
+      const source = { b: 4, c: 5 };
+      const returnedTarget = UTSJSONObject.assign<User>(target, source);
+
+      expect(returnedTarget!.a).toEqual(1);
+      console.log(returnedTarget)
       // #endif
+    })
+    test('getArray_1', () => {
+      // #ifdef APP-ANDROID
+      // #TEST UTSJSONObject.getArray_1
+      //这个方法用来获取指定元素类型的数组
+      let obj = JSON.parseObject('{"name":"tom","tag":["student","user"]}')
+
+      // 这里得到是 Array<*>
+      let noGenericArray = obj!.getArray("tag")
+      console.log(noGenericArray)
+
+      // 这里得到是 Array<string>
+      let genericArray = obj!.getArray<string>("tag")
+      console.log(genericArray)
+      // #END
+      // #endif
+    })
+
+    test('sample', () => {
+      // #TEST UTSJSONObject.sample_create,UTSJSONObject.get,UTSJSONObject.set
+      const person : UTSJSONObject = {
+        name: 'Tom',
+        printName: () => {
+          // ...
+        }
+      }
+      //返回指定键对应的值，如果对象中不存在此键则返回 null。
+      let name : string = person["name"] as String
+      //get 方法可以简化为使用下标运算符 `[]` 访问
+      name = person['name'] as string
+      //增加或更新指定键对应的值。
+      person.set('name', 'Tom1')
+      //set 方法可以简化为使用下标运算符 `[]` 赋值
+      person['name'] = 'Tom2'
+      // #END
+
+      // #TEST UTSJSONObject.sample_create1
+
+      // 写法1 推荐
+      let person1 : UTSJSONObject = JSON.parseObject('{"name":"Tom"}')!
+
+      // 写法2 推荐
+      const person2 : UTSJSONObject = JSON.parse<UTSJSONObject>('{"name":"Tom"}')!
+
+
+      // 写法3  如果 as 转换的实际类型不匹配 会导致 crash，建议先通过 `instanceof` 判断类型再进行as转换。
+      const parseRet3 = JSON.parse('{"name":"Tom"}')
+      if (parseRet3 instanceof UTSJSONObject) {
+        const person = parseRet3 as UTSJSONObject
+      }
+
+      // #END
+      // #TEST UTSJSONObject.toMap
+      person1 = JSON.parseObject('{"name":"Tom"}')!
+      person1.toMap().forEach((value, key) => {
+        console.log(key)
+        console.log(value)
+      })
+      // #END
+
+
+       // #TEST UTSJSONObject.convert
+      type User = {
+        name : string,
+        age : number
+      }
+      let jsonObj = {
+        name: "张三",
+        age: 12
+      }
+      // UTSJSONObject => 自定义type
+      let userA = JSON.parse<User>(JSON.stringify(jsonObj)!)
+      console.log(userA!.name)
+      // 自定义type => UTSJSONObject
+      let utsJsonA = JSON.parseObject(JSON.stringify(userA)!)
+      console.log(utsJsonA)
+       // #END
+
     })
   })
 }

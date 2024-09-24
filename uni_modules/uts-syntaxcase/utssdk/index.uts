@@ -1,23 +1,6 @@
-import { RequestTask, SyncOptions } from "./interface.uts";
+import { RequestTask, SyncOptions, AsyncOptions, SyntaxResult, SyncResult, TestOptions } from "./interface.uts";
 import { log } from "./utils.uts";
-export type AsyncOptions = {
-  type : string;
-  success : (res : string) => void;
-  fail : (res : string) => void;
-  complete : (res : string) => void;
-};
 
-export type {
-  SyncOptions
-} from "./interface.uts";
-
-type SyntaxResult = {
-  name : string
-};
-
-type SyncResult = {
-  msg : string
-}
 
 /**
  * 导出一个属性
@@ -69,14 +52,17 @@ export function testSyncWithCallback(opts : AsyncOptions) : SyntaxResult {
 
 
 async function testAwaitPromise(res : SyntaxResult) : Promise<SyntaxResult> {
-  // #ifdef APP-ANDROID
-  return await new Promise(function (resolve : (res : SyntaxResult) => void) {
-    resolve(res)
-  })
-  // #endif
-  // #ifndef APP-ANDROID
-  return res
-  // #endif
+   // #ifdef APP-ANDROID
+   return await new Promise(function (resolve : (res : SyntaxResult) => void) {
+     resolve(res)
+     setTimeout(() => {
+       resolve(res)
+     }, 2000)
+   })
+   // #endif
+   // #ifndef APP-ANDROID
+   return res
+   // #endif
 }
 /**
  * 导出一个异步方法
@@ -115,14 +101,10 @@ export async function testAsyncParam3(id : number, name : string, opts : AsyncOp
 }
 
 
-export type TestOptions = {
-  name : string;
-  callback : (res : string) => void;
-};
-
 export class Test {
   id : number;
   name : string;
+  
   static type : string = "Test";
   constructor(id : number, options : TestOptions) {
     this.id = id;
@@ -143,6 +125,21 @@ export class Test {
     const res = await testAsync(opts);
     return res;
   }
+}
+
+export class SetterTest {
+  
+  private _nickName: string = '';
+  
+  get nickName (): string {
+    console.log('get nickName');
+    return this._nickName;
+  }
+  set nickName (value: string) {
+    console.log('set nickName');
+    this._nickName = value;
+  }
+  
 }
 
 class RequestTaskImpl implements RequestTask {
@@ -168,6 +165,15 @@ export function request(url : string) : RequestTask | null {
 }
 // #ifdef APP-ANDROID
 // #ifdef UNI-APP-X
+export function callKotlinMethodGetInfo():String {
+	return NativeCode.getPhoneInfo()
+}
+
+export function callJavaMethodGetInfo():String {
+	return new JavaUser("jack",12).name
+}
+
+
 import KeyEvent from 'android.view.KeyEvent';
 import Configuration from 'android.content.res.Configuration';
 import Bundle from 'android.os.Bundle';
@@ -177,7 +183,7 @@ import WindowManager from 'android.view.WindowManager';
 import ActionMode from 'android.view.ActionMode';
 // export let onCallBackChange: (event: string) => void = (res) => {};
 
-let callback : (eventLog : string) => void = (res) => { };
+let callback : (eventLog : string) => void = (_) => { };
 
 export function onCallbackChange(fn : (eventLog : string) => void) {
   callback = fn

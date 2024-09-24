@@ -61,6 +61,9 @@ export function sayHelloFromJar(): string {
 }
 
 
+
+  
+
 export class AppHookProxy implements UTSAndroidHookProxy {
   override onCreate(application: Application) {
     //当前应用是否 取得用户同意隐私协议
@@ -75,7 +78,7 @@ export class AppHookProxy implements UTSAndroidHookProxy {
 }
 
 
-
+//@UTSAndroid.Suppress("DEPRECATION")
 class ForeService extends Service {
 
 	constructor (){
@@ -130,6 +133,7 @@ class ForeService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    
     override onDestroy():void {
         super.onDestroy();
         this.stopForeground(true);// 停止前台服务--参数：表示是否移除之前的通知
@@ -157,23 +161,23 @@ class ScreenReceiver extends BroadcastReceiver{
 }
 
 
-class StartServiceListener extends OnClickListener{
+class StartServiceListener implements OnClickListener{
 	
     override onClick(v?: View):void{
 		
-		var intent = new Intent(UTSAndroid.getUniActivity(), ForeService().javaClass);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			UTSAndroid.getAppContext()!.startForegroundService(intent);
-		}
-		else{
-			UTSAndroid.getAppContext()!.startService(intent);
-		}
+      var intent = new Intent(UTSAndroid.getUniActivity(), ForeService().javaClass);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        UTSAndroid.getAppContext()!.startForegroundService(intent);
+      }
+      else{
+        UTSAndroid.getAppContext()!.startService(intent);
+      }
 
     }
 }
 
 
-class StartBroadcastListener extends OnClickListener{
+class StartBroadcastListener implements OnClickListener{
 	
     override onClick(v?: View):void{
 		
@@ -189,7 +193,7 @@ class StartBroadcastListener extends OnClickListener{
     }
 }
 
-class StartThreadListener extends OnClickListener{
+class StartThreadListener implements OnClickListener{
 	
     override onClick(v?: View):void{
 		new CustomThread().start()
@@ -200,7 +204,7 @@ class StartThreadListener extends OnClickListener{
 }
 
 
-class ActivityFinishListener extends OnClickListener{
+class ActivityFinishListener implements OnClickListener{
 	
 	host:Activity
 	
@@ -216,7 +220,7 @@ class ActivityFinishListener extends OnClickListener{
     }
 }
 
-class RootActivityStartListener extends OnClickListener{
+class RootActivityStartListener implements OnClickListener{
 	
 	host:Activity
 	
@@ -232,7 +236,7 @@ class RootActivityStartListener extends OnClickListener{
     }
 }
 
-class RootPageStartListener extends OnClickListener{
+class RootPageStartListener implements OnClickListener{
 	
 	host:Activity
 	
@@ -307,46 +311,62 @@ class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
 	
 }
 
+//@UTSAndroid.Suppress("DEPRECATION")
 class DemoActivity  extends Activity{
 	
 	constructor (){
 		super();
 	}
+  // 自定义 handler
+  CustomHandler = class extends android.os.Handler {
+    constructor (){
+    	super();
+    }
+    override handleMessage(msg: android.os.Message) {
+      super.handleMessage(msg)
+      if(msg.what = 111){
+        console.log("handle message received:111")
+      }
+    }
+  }
 	
 	override onCreate(savedInstanceState?: Bundle):void {
 		super.onCreate(savedInstanceState)
 		this.setContentView(R.layout.demo_activity);
 		
-		 let btn_start_service_front = this.findViewById<Button>(R.id.btn_start_service_front);
-		 btn_start_service_front.setOnClickListener(new StartServiceListener());
-		 
-		 let btn_start_screen_listen = this.findViewById<Button>(R.id.btn_start_screen_listen);
-		 btn_start_screen_listen.setOnClickListener(new StartBroadcastListener());
-		 
-		 let btn_start_thread = this.findViewById<Button>(R.id.btn_start_thread);
-		 btn_start_thread.setOnClickListener(new StartThreadListener());
-		 
-		 let btn_finish_activity = this.findViewById<Button>(R.id.btn_finish_activity);
-		 btn_finish_activity.setOnClickListener(new ActivityFinishListener(this));
-		 
-		 let btn_start_root_activity = this.findViewById<Button>(R.id.btn_start_root_activity);
-		 btn_start_root_activity.setOnClickListener(new RootActivityStartListener(this));
-		 
-     let btn_start_root_page = this.findViewById<Button>(R.id.btn_start_root_page);
-     btn_start_root_page.setOnClickListener(new RootPageStartListener(this));
-     
-		 
-		 let recyclerView = this.findViewById<RecyclerView>(R.id.recycler_view)
-		 let layoutManager = new LinearLayoutManager(this);
-		 recyclerView.setLayoutManager(layoutManager);
-		 let fruitAdapter = new FruitAdapter(utsArrayOf("香蕉","苹果","大鸭梨"));
-		 recyclerView.setAdapter(fruitAdapter);
+    new CustomHandler().sendEmptyMessage(111);
+    
+    let btn_start_service_front = this.findViewById<Button>(R.id.btn_start_service_front);
+    btn_start_service_front.setOnClickListener(new StartServiceListener());
+   
+    let btn_start_screen_listen = this.findViewById<Button>(R.id.btn_start_screen_listen);
+    btn_start_screen_listen.setOnClickListener(new StartBroadcastListener());
+   
+    let btn_start_thread = this.findViewById<Button>(R.id.btn_start_thread);
+    btn_start_thread.setOnClickListener(new StartThreadListener());
+   
+    let btn_finish_activity = this.findViewById<Button>(R.id.btn_finish_activity);
+    btn_finish_activity.setOnClickListener(new ActivityFinishListener(this));
+   
+    let btn_start_root_activity = this.findViewById<Button>(R.id.btn_start_root_activity);
+    btn_start_root_activity.setOnClickListener(new RootActivityStartListener(this));
+   
+    let btn_start_root_page = this.findViewById<Button>(R.id.btn_start_root_page);
+    btn_start_root_page.setOnClickListener(new RootPageStartListener(this));
+   
+   
+    let recyclerView = this.findViewById<RecyclerView>(R.id.recycler_view)
+    let layoutManager = new LinearLayoutManager(this);
+    recyclerView.setLayoutManager(layoutManager);
+    let fruitAdapter = new FruitAdapter(utsArrayOf("香蕉","苹果","大鸭梨"));
+    recyclerView.setAdapter(fruitAdapter);
+    
 	}
 	
 }
 
-@Suppress("DEPRECATION")
-class IntentRunable extends Runnable{
+//@UTSAndroid.Suppress("DEPRECATION")
+class IntentRunable implements Runnable{
 	override run(){
 		console.log("IntentRunable = " + Thread.currentThread().getName())
 		let intent = new Intent(UTSAndroid.getUniActivity(),DemoActivity().javaClass);
@@ -363,32 +383,33 @@ function initShortCut() {
       console.log("桌面快捷方式 仅支持android 7.1 以上版本")
       return;
     }
-    // 注意 id 不能重复
-    let shortcutBuilder = ShortcutInfoCompat.Builder(UTSAndroid.getAppContext()!, "id1");
-    shortcutBuilder.setShortLabel("官网")
-    shortcutBuilder.setLongLabel("访问官网")
-    shortcutBuilder.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
-    shortcutBuilder.setIntent(
-          new Intent(
-              Intent.ACTION_VIEW,
-              Uri.parse("https://dcloud.io/")
-          )
-    )
-    let shortcut = shortcutBuilder.build()
-    // 注意 id 不能重复
-    let shortcutBuilder2 = ShortcutInfoCompat.Builder(UTSAndroid.getAppContext()!, "id2");
-    shortcutBuilder2.setShortLabel("示例界面")
-    shortcutBuilder2.setLongLabel("打开示例界面，最多可以写25个字")
-    shortcutBuilder2.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
-    shortcutBuilder2.setIntent(
-          new Intent(
-              Intent.ACTION_VIEW,
-              Uri.parse("appuniappx://market/111")
-          )
-    )
-    let shortcut2 = shortcutBuilder2.build()
+
     
     // #ifdef UNI-APP-X
+      // 注意 id 不能重复
+      let shortcutBuilder = ShortcutInfoCompat.Builder(UTSAndroid.getAppContext()!, "id1");
+      shortcutBuilder.setShortLabel("官网")
+      shortcutBuilder.setLongLabel("访问官网")
+      shortcutBuilder.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
+      shortcutBuilder.setIntent(
+            new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://dcloud.io/")
+            )
+      )
+      let shortcut = shortcutBuilder.build()
+      // 注意 id 不能重复
+      let shortcutBuilder2 = ShortcutInfoCompat.Builder(UTSAndroid.getAppContext()!, "id2");
+      shortcutBuilder2.setShortLabel("示例界面")
+      shortcutBuilder2.setLongLabel("打开示例界面，最多可以写25个字")
+      shortcutBuilder2.setIcon(IconCompat.createWithResource(UTSAndroid.getAppContext()!, R.drawable.icon_short))
+      shortcutBuilder2.setIntent(
+            new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("appuniappx://market/111")
+            )
+      )
+      let shortcut2 = shortcutBuilder2.build()
       ShortcutManagerCompat.setDynamicShortcuts(UTSAndroid.getAppContext()!, [shortcut,shortcut2].toKotlinList())
     // #endif
     // #ifndef UNI-APP-X
@@ -397,7 +418,7 @@ function initShortCut() {
 
 }
 
-@Suppress("DEPRECATION")
+//@UTSAndroid.Suppress("DEPRECATION")
 export function gotoDemoActivity():boolean {
 	// 这里的逻辑是为了判断 当前的自定义activity 是否注册了，并以此为条件判断是否是自定义基座
 	let hasXActivityIntegration =  true

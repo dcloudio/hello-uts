@@ -10,7 +10,7 @@
 	import LinearLayout from 'android.widget.LinearLayout'
 	import View from 'android.view.View'
 
-	class ButtonClickListsner extends View.OnClickListener {
+	class ButtonClickListsner implements View.OnClickListener {
 		constructor() {
 			super()
 		}
@@ -128,7 +128,7 @@
       // 组件内可以调用 UTSAndroid 内置方法
       console.log("UTSAndroid.devicePX2px(1080) : ",UTSAndroid.devicePX2px(1080))
       console.log("UTSAndroid.rpx2px(1080) : ",UTSAndroid.rpx2px(1080))
-      console.log("UTSAndroid.appJSBundleUrl() : ",UTSAndroid.appJSBundleUrl())
+      // console.log("UTSAndroid.appJSBundleUrl() : ",UTSAndroid.appJSBundleUrl())
 		},
 		/**
 		 * 原生View布局完成  

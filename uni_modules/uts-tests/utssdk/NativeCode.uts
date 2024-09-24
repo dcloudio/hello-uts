@@ -1,0 +1,14 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+export function testNativeCode(): Result {
+    return describe("mix-native-code-work", () => {
+        test('getStrFromNativeCode', () => {
+            // #ifdef APP-ANDROID
+             expect(NativeCode.getNativeStr()).toEqual("android-code");
+            // #endif
+            // #ifdef APP-IOS
+             expect(NativeCode.getNativeStr()).toEqual("iOS-code");
+            // #endif
+        })
+    })
+}

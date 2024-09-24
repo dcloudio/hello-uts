@@ -3,13 +3,13 @@ import AlertDialog from 'android.app.AlertDialog';
 import DialogInterface from 'android.content.DialogInterface';
 import EditText from 'android.widget.EditText';
 
-@Suppress("UNUSED_PARAMETER")
+//@UTSAndroid.Suppress("UNUSED_PARAMETER")
 export function showAlert(_title : string | null, _message : string | null, _result : (index : Number) => void) {
 	let uiRunable = new DialogUIRunnable(null, _title!, _message!, "", false);
 	UTSAndroid.getUniActivity()!.runOnUiThread(uiRunable)
 }
 
-@Suppress("UNUSED_PARAMETER")
+//@UTSAndroid.Suppress("UNUSED_PARAMETER")
 export function showPrompt(_title : string | null, _message : string | null, _placeholder : string | null, success : (content : string) => void) {
 	let uiRunable = new DialogUIRunnable(success, _title!, _message!, _placeholder!, true);
 	UTSAndroid.getUniActivity()!.runOnUiThread(uiRunable)
@@ -20,7 +20,7 @@ export function showPrompt(_title : string | null, _message : string | null, _pl
 /**
 	* 用户输入对话框监听器
 	*/
-class DialogListener extends DialogInterface.OnClickListener {
+class DialogListener implements DialogInterface.OnClickListener {
 
 	inputET : EditText
 	callback : (content : string) => void
@@ -45,7 +45,7 @@ class DialogListener extends DialogInterface.OnClickListener {
 /**
 	* Dialog ui任务封装
 	*/
-class DialogUIRunnable extends Runnable {
+class DialogUIRunnable implements Runnable {
 
 	callback ?: (content : string) => void = null
 	title : string

@@ -149,6 +149,14 @@
 			}
 
 		},
+    {
+    	"path": "pages/SyntaxCase/MixNativeCode",
+    	"style": {
+    		"navigationBarTitleText": "",
+    		"enablePullDownRefresh": false
+    	}
+    },
+    
 		{
 			"path": "pages/SyntaxCase/instanceTest",
 			"style": {

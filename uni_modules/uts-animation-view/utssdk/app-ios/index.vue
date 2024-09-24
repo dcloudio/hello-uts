@@ -4,17 +4,17 @@
 	</view>
 </template>
 <script lang="uts">
-	import {
-		LottieAnimationView,
-		LottieAnimation,
-		LottieLoopMode
-	} from 'Lottie'
+	// import {
+	// 	LottieAnimationView,   
+	// 	LottieAnimation,
+	// 	LottieLoopMode
+	// } from 'Lottie'
 	import {
 		URL
 	} from 'Foundation'
-	import {
-		UTSiOS
-	} from "DCloudUTSFoundation"
+	// import {
+	// 	UTSiOS
+	// } from "DCloudUTSFoundation"
 
 
 	//原生提供以下属性或方法的实现  

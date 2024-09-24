@@ -11,7 +11,7 @@
     import LottieDrawable from 'com.airbnb.lottie.LottieDrawable'
 	import FileInputStream from 'java.io.FileInputStream'
 
-    class CustomAnimListener extends Animator.AnimatorListener {
+    class CustomAnimListener implements Animator.AnimatorListener {
 
         comp: UTSComponent < LottieAnimationView >
             constructor(com: UTSComponent < LottieAnimationView > ) {

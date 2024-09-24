@@ -42,7 +42,7 @@ export class DoAppWidget extends AppWidgetProvider {
 /**
  * Dialog ui任务封装
  */
-class UIRunnable extends Runnable {
+class UIRunnable implements Runnable {
 	
 	context: Context;
 	appWidgetManager: AppWidgetManager;

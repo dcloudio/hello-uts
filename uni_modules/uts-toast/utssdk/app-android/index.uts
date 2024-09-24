@@ -3,7 +3,7 @@ import XToast from "com.hjq.xtoast.XToast";
 import R from "io.dcloud.uni_modules.uts_toast.R";
 
 
-class UIRunnable extends Runnable {
+class UIRunnable implements Runnable {
 
     override run():void {
 		

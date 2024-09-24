@@ -1,17 +1,17 @@
 <template>
     <div>
         <button @tap="changeUrl">播放本地动画资源</button>
-		<button @tap="changeServerUrl">播放远程动画资源</button>
+        <button @tap="changeServerUrl">播放远程动画资源</button>
 		
         <button @tap="changeAutoPlay">测试AutoPlay</button>
         <button @tap="changeLoop">测试Loop</button>
         <button @tap="changeAction(1)">测试action play</button>
         <button @tap="changeAction(2)">测试action pause</button>
         <button @tap="changeAction(3)">测试action stop</button>
-       <!-- <uts-animation-view ref="animView" :path="animUrl" :autoplay="autoplay" :loop="loop" :action="action"
+        <uts-animation-view ref="animView" :path="animUrl" :autoplay="autoplay" :loop="loop" :action="action"
             :hidden="hidden" @bindended="testAnimEnd" @click="lottieClickTest" @longpress="lottieLongpressTest"
             :style="{width:widthNum+'rpx',height:heightNum+'px',background:yanse}">
-        </uts-animation-view> -->
+        </uts-animation-view>
         
     </div>
 </template>
@@ -66,7 +66,7 @@
             },
 
             changeRepeat: function() {
-                // this.$refs["animView"].updateRepeatConfig("RESTART");
+                (this.$refs["animView"] as UtsAnimationViewElement).setRepeatMode("RESTART");
             },
             lottieClickTest: function() {
                 console.log("lottieClickTest");

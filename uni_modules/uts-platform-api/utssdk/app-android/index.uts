@@ -168,6 +168,7 @@ export function gotoSystemPermissionActivityTest() {
 /**
  * 跳转系统拍照界面，并触发相关生命周期测试
  */
+//@UTSAndroid.Suppress("DEPRECATION")
 export function gotoCameraTake(imageDone : (event : string) => void) : boolean {
 
 	let permissionNeed = ["android.permission.CAMERA"]
@@ -202,7 +203,7 @@ export function gotoCameraTake(imageDone : (event : string) => void) : boolean {
 		}
 	}, function (_ : boolean, _ : string[]) {
 		//callback(false,"用户拒绝了部分权限")
-	})
+	},true)
 
 	return true;
 
@@ -335,7 +336,7 @@ export function arrayPermissionFlowTest(callback : (ret : boolean, desc : string
 	 */
 	let permissionNeed = ["android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.ACCESS_FINE_LOCATION", "android.permission.READ_PHONE_STATE"]
 	
-	if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
+	if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).length == 0) {
 		callback(false, "已具备请求权限")
 		return;
 	}
@@ -344,7 +345,7 @@ export function arrayPermissionFlowTest(callback : (ret : boolean, desc : string
 		if (allRight) {
 			// 交给目前的location 引擎，真实执行
 			// 测试权限api 返回值
-			if (!UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
+			if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).length > 0) {
 				// 预期当前基座具备了读写日历的权限
 				callback(false, "权限请求完成,getSystemPermissionDenied 失败")
 				return;
@@ -482,7 +483,7 @@ export function singlePermissionFlowTest(callback : (ret : boolean, desc : strin
 	}
 
 	let permissionNeed = ["android.permission.READ_PHONE_STATE"]
-	if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
+	if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).length == 0) {
 		callback(false, "已具备权限")
 		return;
 	}
@@ -490,7 +491,7 @@ export function singlePermissionFlowTest(callback : (ret : boolean, desc : strin
 	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight : boolean, _ : string[]) {
 		if (allRight) {
 			// 测试权限api 返回值
-			if (!UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).isEmpty()) {
+			if (UTSAndroid.getSystemPermissionDenied(UTSAndroid.getUniActivity()!, permissionNeed).length > 0) {
 				callback(false, "权限请求完成,getSystemPermissionDenied 失败")
 				return;
 			}

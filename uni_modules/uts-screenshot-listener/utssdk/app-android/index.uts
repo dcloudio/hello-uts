@@ -79,7 +79,7 @@ class ScreenFileObserver extends FileObserver {
 /**
  * 开启截图监听
  */
-@Suppress("DEPRECATION")
+//@UTSAndroid.Suppress("DEPRECATION")
 export function onUserCaptureScreen(callback: UserCaptureScreenCallback) {
 	
 	// 检查相关权限是否已经具备

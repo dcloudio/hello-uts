@@ -128,7 +128,7 @@ class AddUIRunnable implements Runnable {
  * 实现一个移除view的 Runnable类
  * 用法说明：https://uniapp.dcloud.net.cn/plugin/uts-plugin.html#%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB
  */
-class RemoveUIRunnable extends Runnable {
+class RemoveUIRunnable implements Runnable {
 
 	override run() : void {
 
@@ -228,6 +228,7 @@ export function stopAssetAudio() {
 
 }
 
+//@UTSAndroid.Suppress("DEPRECATION")
 export function goOtherActivity(imageDone : (event : string) => void) : boolean {
 
 	// 检查相关权限是否已经具备
@@ -238,12 +239,14 @@ export function goOtherActivity(imageDone : (event : string) => void) : boolean 
 		return false;
 	}
 
+  
 	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ?: Intent) => {
 		let eventName = "onAppActivityResult  -  requestCode:" + requestCode + " -resultCode:" + resultCode + " -data:" + JSON.stringify(data);
 		console.log(eventName);
 		if ((requestCode == 1001) && (resultCode == Activity.RESULT_OK)) {
 			if (data != null) {
 				let bundle = data.getExtras();
+        
 				let mImageBitmap = bundle!.get("data") as Bitmap;
 				let bitmapPath = UTSAndroid.getUniActivity()!.getExternalCacheDir()!.getPath() + "/photo.png"
 				console.log(bitmapPath);
@@ -465,7 +468,7 @@ export function arrayConvert():boolean{
 	let kotlinList = mutableListOf("hello","world")
 	let utsArr1 = Array.fromNative(kotlinList) 
 	
-	if(!(utsArr1 instanceof UTSArray<string>)){
+	if(utsArr1[0] != "hello"){
 		return false
 	}
 	
@@ -473,47 +476,47 @@ export function arrayConvert():boolean{
 	let kotlinArray = arrayOf("hello","world")
 	let utsArr2 = Array.fromNative(kotlinArray)
 	
-	if(!(utsArr2 instanceof UTSArray<string>)){
+	if(utsArr2[0] != "hello"){
 		return false
 	}
 	
 	let b1 = byteArrayOf(-1,2,0,3,4,5)
 	let c1 = Array.fromNative(b1)
-	if(!(c1 instanceof UTSArray<Number>)){
+  
+	if(c1[0] != (-1 as Number).toByte()){
 		return false
 	}
 	
 	
 	let b2 = longArrayOf(-1,2,0,3,4,5)
 	let c2 = Array.fromNative(b2)
-	if(!(c2 instanceof UTSArray<Number>)){
+	if(c2[0] != (-1 as Number).toLong()){
 		return false
 	}
 	
-	
 	let b3 = shortArrayOf(-1,2,0,3,4,5)
 	let c3 = Array.fromNative(b3)
-	if(!(c3 instanceof UTSArray<Number>)){
+	if(c3[0] != (-1 as Number).toShort()){
 		return false
 	}
 	
 	let b4 = intArrayOf(-1,2,0,3,4,5)
 	let c4 = Array.fromNative(b4)
-	if(!(c4 instanceof UTSArray<Number>)){
+	if(c4[0] != (-1 as Number).toInt()){
 		return false
 	}
-	
 	
 	return true
 }
 
 
-export function openFileWithProvider(url:String){
+export function openFileWithProvider(){
 	let file = new File(UTSAndroid.getResourcePath("static/logo.png"))
   const uri = UTSAndroid.getFileProviderUri(file)
 	console.log("uri",uri.toString())
 	const intent = new Intent(Intent.ACTION_VIEW, uri)
-	intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // 添加权限标志 
+  // 添加权限标志 
+	intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) 
 	const context = UTSAndroid.getUniActivity()!;
 	context.startActivity(intent);
 }

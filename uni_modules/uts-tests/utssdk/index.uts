@@ -17,6 +17,9 @@ import { testForLoop } from './ForLoop.uts'
 import { testGlobal } from './Global.uts'
 import { testType } from './Type.uts'
 export { Result } from './tests.uts'
+import { testArrayBuffer } from './ArrayBuffer.uts'
+import { testNativeCode } from './NativeCode.uts'
+
 
 // Promise、Proxy、Reflect、Weakmap、WeakSet 不支持
 export function runTests() : UTSJSONObject {
@@ -38,13 +41,18 @@ export function runTests() : UTSJSONObject {
   const JSONLargeRes = testJSONLarge();
   const consoleRes = testConsole();
   const UTSJSONObjectRes = testUTSJSONObject();
+
+  // #ifdef  APP-ANDROID || WEB
+  const ArrayBufferRes = testArrayBuffer();
+  // #endif
+  const NativeCodeRes = testNativeCode();
   return {
     Array: ArrayRes,
     Date: DateRes,
     String: StringRes,
     Error: ErrorRes,
     Json: JsonRes,
-    JSONLarge:JSONLargeRes,
+    JSONLarge: JSONLargeRes,
     Number: NumberRes,
     Map: MapRes,
     Set: SetRes,
@@ -55,7 +63,113 @@ export function runTests() : UTSJSONObject {
     ForLoop: ForLoopRes,
     Global: GlobalRes,
     Type: TypeRes,
-    console:consoleRes,
-    UTSJSONObject:UTSJSONObjectRes
+    console: consoleRes,
+    UTSJSONObject: UTSJSONObjectRes,
+    // #ifdef  APP-ANDROID || WEB
+    ArrayBuffer: ArrayBufferRes,
+    // #endif
+    NativeCode: NativeCodeRes
   }
 }
+
+// #ifdef APP
+import { expect } from './tests.uts'
+
+export type TestKeepAliveCallback = (res: string) => void
+
+export function onTest1(callback: TestKeepAliveCallback) {
+  callback("1")
+  callback("2")
+}
+
+@UTSJS.keepAlive
+export function testKeepAlive(callback: TestKeepAliveCallback) {
+  callback("1")
+  callback("2")
+}
+
+export type TestKeepAliveOption = {
+  a: string
+  success: TestKeepAliveCallback | null
+}
+
+@UTSJS.keepAlive
+export function testKeepAliveOption(option: TestKeepAliveOption) {
+  console.log(option.a);
+  option.success?.("1")
+  option.success?.("2")
+}
+
+export class TestKeepAliveClass {
+  
+  constructor() {
+    super()
+  }
+  onTest(callback: TestKeepAliveCallback) {
+    callback("1")
+    callback("2")
+  }
+  
+  @UTSJS.keepAlive
+  testKeepAlive(callback: TestKeepAliveCallback) {
+    callback("1")
+    callback("2")
+  }
+  
+  @UTSJS.keepAlive
+  testKeepAliveOption(option: TestKeepAliveOption) {
+    console.log(option.a);
+    option.success?.("1")
+    option.success?.("2")
+  }
+  
+  static onTestStatic(callback: TestKeepAliveCallback) {
+    callback("1")
+    callback("2")
+  }
+  
+  @UTSJS.keepAlive
+  static testKeepAliveStatic(callback: TestKeepAliveCallback) {
+    callback("1")
+    callback("2")
+  }
+  
+  @UTSJS.keepAlive
+  static testKeepAliveOptionStatic(option: TestKeepAliveOption) {
+    console.log(option.a);
+    option.success?.("1")
+    option.success?.("2")
+  }
+}
+
+
+interface ITest {
+    test(callback : (msg : string) => void) : void
+}
+
+class TestImpl implements ITest {
+    @UTSJS.keepAlive
+    test(callback : (msg : string) => void) : void {
+        callback("1")
+        callback("2")
+    }
+}
+
+export function createTest() : ITest {
+    return new TestImpl()
+}
+
+export function testNonKeepAlive(callback: (res: string) => void){
+  setTimeout(()=>{
+    callback("1")
+  },10)
+}
+
+export function testNonKeepAliveOption(option: TestKeepAliveOption) {
+  console.log(option.a);
+  setTimeout(()=>{
+    option.success?.("1")
+  },10)
+}
+// #endif
+

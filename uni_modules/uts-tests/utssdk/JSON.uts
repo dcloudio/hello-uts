@@ -23,13 +23,36 @@ type PersonJSON = {
 }
 
 
+function countOccurrences(str : string, substr : string) : number {
+
+  let count = 0
+  let position = 0
+
+  while (true) {
+    position = str.indexOf(substr, position)
+    if (position == -1) break
+    count++
+    position += substr.length
+  }
+
+  return count;
+}
 
 
 export function testJSON() : Result {
   return describe("JSON", () => {
     test('parse', () => {
+      // #TEST JSON.parse_tip,JSON.parse
       const json = `{"result":true, "count":42}`;
       const obj = JSON.parse(json) as UTSJSONObject;
+      console.log(obj["count"]);
+      // expected output: 42
+
+      console.log(obj["result"]);
+      // expected output: true
+      // #END
+
+
       expect(obj["count"]).toEqual(42);
       expect(obj["result"] as boolean).toEqual(true);
 
@@ -46,9 +69,10 @@ export function testJSON() : Result {
       // });
       expect((obj1! as UTSJSONObject).getString('name')).toEqual("John")
 
-
+      // #TEST JSON.parse_1
       const json2 = '{"string":"Hello","number":42,"boolean":true,"nullValue":null,"array":[1,2,3],"object":{"nestedKey":"nestedValue"}}';
       const obj2 = JSON.parse<UTSJSONObject>(json2)!;
+      // #END
       // expect(obj2).toEqual({
       //     string: 'Hello',
       //     number: 42,
@@ -117,18 +141,24 @@ export function testJSON() : Result {
 
     })
     test('parseObject', () => {
+      // #TEST JSON.parseObject
       const json = `{"result":true, "count":42}`;
       const obj = JSON.parseObject(json);
-      expect(obj!["count"]).toEqual(42);
-      expect(obj!["result"] as boolean).toEqual(true);
+      console.log(obj?.["count"])//42
+      // #END
+
+      expect(obj?.["count"]).toEqual(42);
+      expect(obj?.["result"] as boolean).toEqual(true);
 
       expect(JSON.parseObject('{}')!).toEqual({});
-
+      // #TEST JSON.parseObject_1
       const json1 = `{
 			    "name": "John",
 			    "id": "30"
 			  }`;
       let obj2 = JSON.parseObject<UserJSON>(json1);
+      console.log(obj2!.id) //30
+      // #END
       expect(obj2!.id).toEqual("30");
 
       const json2 = `{
@@ -143,8 +173,11 @@ export function testJSON() : Result {
       expect(obj4).toEqual(null);
     })
     test('parseArray', () => {
+      // #TEST JSON.parseArray
       const json1 = `[1,2,3]`;
       const array1 = JSON.parseArray(json1);
+      console.log(array1)//[1, 2, 3]
+      // #END
       expect(array1).toEqual([1, 2, 3]);
 
       const json2 = `[1,"hello world",3]`;
@@ -152,42 +185,104 @@ export function testJSON() : Result {
       expect(array2).toEqual([1, "hello world", 3]);
 
 
+      // #ifdef APP-ANDROID
+      // #TEST JSON.parseArray_1
       const json3 = `[{"name":"John","id":"30"},{"name":"jack","id":"21"}]`;
       const array3 = JSON.parseArray<UTSJSONObject>(json3);
-      // expect((array3![0])["name"]).toEqual("John");
-
+      console.log((array3![0])["name"])//"John"
+      // #END
+      expect((array3![0])["name"]).toEqual("John");
+      // #endif
     })
-    
+
     test('merge-test-1', () => {
       // #ifdef APP-ANDROID
-        const data1 = {
-        		name: 'Tom1',
-        		age: 21
-        	};
-        
-        const data2 = {
-        	aa: {
-        		name: 'Tom2',
-        		age: 22,
-        		bb: {
-        			name: 'Tom3',
-        			age: 23
-        		}
-        	}
+      const data1 = {
+        name: 'Tom1',
+        age: 21
+      };
+
+      const data2 = {
+        aa: {
+          name: 'Tom2',
+          age: 22,
+          bb: {
+            name: 'Tom3',
+            age: 23
+          }
         }
-        const obj = Object.assign(JSON.parse<UTSJSONObject>(JSON.stringify(data2))!, JSON.parse<UTSJSONObject>(JSON.stringify(data1))!) as UTSJSONObject; 
-        const innerObj = obj.getJSON("aa.bb")
-        expect(innerObj instanceof UTSJSONObject).toEqual(true);
+      }
+      const obj = Object.assign(JSON.parse<UTSJSONObject>(JSON.stringify(data2))!, JSON.parse<UTSJSONObject>(JSON.stringify(data1))!) as UTSJSONObject;
+      const innerObj = obj.getJSON("aa.bb")
+      expect(innerObj instanceof UTSJSONObject).toEqual(true);
+      // #endif
+    })
+    test('stringify-with-replacer', () => {
+      // #ifdef APP-ANDROID
+      let a = JSON.stringify({ "x": 111, "y": "aaa" })
+      expect(a).toEqual('{"x":111,"y":"aaa"}');
+      let a1 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+        if (key == "x") {
+          return "x"
+        }
+        return value
+      })
+      expect(a1).toEqual('{"x":"x","y":"aaa"}');
+      let a2 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+        if (key == "x") {
+          return "x"
+        }
+        return value
+      }, 6)
+      expect(a2.length).toEqual(36);
+      let a3 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+        if (key == "x") {
+          return "x"
+        }
+        return value
+      }, 11)
+      expect(a3.length).toEqual(44);
+
+      let a4 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+        if (key == "x") {
+          return "x"
+        }
+        return value
+      }, -11)
+      expect(a4.length).toEqual(19);
+
+      let a5 = JSON.stringify({ "x": 111, "y": "aaa", "z": { "x": 123 } }, ["x", 'z'])
+      expect(a5).toEqual('{"x":111,"z":{"x":123}}');
+
+      let a6 = JSON.stringify({ "x": 111, "y": "aaa", "z": { "x": 123 } }, ["x", 'y', 'z'])
+      expect(a6).toEqual('{"x":111,"y":"aaa","z":{"x":123}}');
+      let a7 = JSON.stringify({ "x": 111, "y": "aaa", "z": { "x": 123 } }, ["x", 'y', 'z'], 8)
+      expect(a7.length).toEqual(91);
+
+      let a8 = JSON.stringify({ "x": 111, "y": "aaa", "z": { "x": 123 } }, ["x", 'y', 'z'], "99999")
+
+      expect(a8.length).toEqual(73);
+      expect(countOccurrences(a8, "99999")).toEqual(6);
+
+
       // #endif
     })
     test('stringify', () => {
-      const obj = { name: 'John', age: 30 };
-      const json = JSON.stringify(obj);
-      // expect(json).toEqual('{"name":"John","age":30}');
+      // #ifdef APP-ANDROID
 
-      const obj1 = { name: 'John', age: 30, address: { city: 'New York', country: 'USA' } };
-      const json1 = JSON.stringify(obj1);
+      // const obj1 = { name: 'John', age: 30, address: { city: 'New York', country: 'USA' } };
+      // const json1 = JSON.stringify(obj1);
       // expect(json1).toEqual('{"address":{"country":"USA","city":"New York"},"name":"John","age":30}');
+
+      // #endif
+
+      // #TEST JSON.stringify
+      console.log(JSON.stringify({ x: 5, y: 6 }));
+      // expected output: "{"x":5,"y":6}"
+
+      console.log(JSON.stringify(new Date(2006, 0, 2, 15, 4, 5)));
+      // expected output: ""2006-01-02T15:04:05.000Z""
+      // #END
 
       const obj2 = ['apple', 'banana', 'cherry'];
       const json2 = JSON.stringify(obj2);
@@ -223,6 +318,7 @@ export function testJSON() : Result {
        * add since 2023-09-23
        * 部分出错过的示例场景
        */
+      // #ifdef APP-ANDROID
       const arr = [{
         "$method": "collection",
         "$param": ["type"] as Array<any>,
@@ -241,26 +337,25 @@ export function testJSON() : Result {
       let ret = JSON.stringify({
         $db: arr
       })
-      // expect(ret).toEqual('{"$db":[{"$method":"collection","$param":["type"]},{"$method":"add","$param":[[{"num":2,"tag":"default-tag"},{"num":3,"tag":"default-tag"}]]}]}')
+      expect(ret).toEqual('{"$db":[{"$method":"collection","$param":["type"]},{"$method":"add","$param":[[{"num":2,"tag":"default-tag"},{"num":3,"tag":"default-tag"}]]}]}')
 
-      type Msg = {
-        id : string,
-        method : string,
-        params : any
-      }
+      // type Msg = {
+      //   id : string,
+      //   method : string,
+      //   params : any
+      // }
       // type CallUniMethodParams = {	
       // 	method : string	
       // 	args : com.alibaba.fastjson.JSONArray
       // }
-      const msg = `{"id":"6fd6ca73-c313-48ac-ad30-87ff4eba2be8","method":"App.callUniMethod","params":{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}}`
-      const jsonRet2 = JSON.parse<Msg>(msg)!
+      // const msg = `{"id":"6fd6ca73-c313-48ac-ad30-87ff4eba2be8","method":"App.callUniMethod","params":{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}}`
+      // const jsonRet2 = JSON.parse<Msg>(msg)!
 
-      const paramsStr = JSON.stringify(jsonRet2.params)
-      console.log(paramsStr)
-      //expect(paramsStr).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
+      // const paramsStr = JSON.stringify(jsonRet2.params)
+      // console.log(paramsStr)
+      // expect(paramsStr).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
       // const params = JSON.parse<CallUniMethodParams>(paramsStr)!
-      //console.warn('params', JSON.stringify(params))
-      //expect(JSON.stringify(params)).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
+      // expect(JSON.stringify(params)).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
 
 
       class Stage {
@@ -275,9 +370,9 @@ export function testJSON() : Result {
       const obj22 = {
         data: [new Stage()] as Array<any>
       } as UTSJSONObject
+      expect(JSON.stringify(obj22)).toEqual('{"data":[{}]}')
 
-      console.log(JSON.stringify(obj22))
-      // expect(JSON.stringify(obj22)).toEqual('{"data":[{}]}')
+      // #endif
 
       type A = {
         inserted : number
@@ -319,7 +414,7 @@ export function testJSON() : Result {
         a: 1
       }.toMap()
       expect(map.get('a')).toEqual(1)
-      
+
       const json = `{"result":true, "count":42}`;
       const obj = JSON.parse(json) as UTSJSONObject;
       let retStr = JSON.stringify(obj)
@@ -330,13 +425,30 @@ export function testJSON() : Result {
 
     test('parse Map', () => {
       type A = {
-        num: number,
+        num : number,
       }
       const map = JSON.parse<Map<string, A>>(`{"a": {"num": 1}}`)
       // #ifndef APP-IOS
       expect(map instanceof Map).toEqual(true)
       // #endif
       expect(map?.get('a')?.num).toEqual(1)
+    })
+
+    test('parse generic type', () => {
+      // #ifndef APP-ANDROID
+      type A = {
+        num : number,
+      }
+      function test<T>(json : string) : T {
+        return JSON.parse<T>(json)!
+      }
+
+      // #ifndef APP-IOS
+      const a = test<A>(`{"num": 1}`)
+      expect(a.num).toEqual(1)
+      // #endif
+      // #endif
+
     })
 
   })
