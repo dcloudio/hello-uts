@@ -89,6 +89,16 @@ export function testUTSJSONObject() : Result {
       // #endif
     })
 
+    test('get-no-exist-value', () => {
+      // #ifdef APP-ANDROID
+      let test = {
+      	qq:[11,22]
+      }
+      expect(test.getNumber("qq[2]")).toEqual(null);
+      expect(test.getNumber("qq[2]",999)).toEqual(999);
+      
+      // #endif
+    })
     test('setvalue-after-get', () => {
       // #ifdef APP-ANDROID
       // #TEST UTSJSONObject.getJSON,UTSJSONObject.getArray
