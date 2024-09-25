@@ -274,21 +274,21 @@ export function testJSON() : Result {
       // #ifdef APP-ANDROID
       let a = JSON.stringify({ "x": 111, "y": "aaa" })
       expect(a).toEqual('{"x":111,"y":"aaa"}');
-      let a1 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+      let a1 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : string, value : any | null) : any | null {
         if (key == "x") {
           return "x"
         }
         return value
       })
       expect(a1).toEqual('{"x":"x","y":"aaa"}');
-      let a2 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+      let a2 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : string, value : any | null) : any | null {
         if (key == "x") {
           return "x"
         }
         return value
       }, 6)
       expect(a2.length).toEqual(36);
-      let a3 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+      let a3 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : string, value : any | null) : any | null {
         if (key == "x") {
           return "x"
         }
@@ -296,7 +296,7 @@ export function testJSON() : Result {
       }, 11)
       expect(a3.length).toEqual(44);
 
-      let a4 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+      let a4 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : string, value : any | null) : any | null {
         if (key == "x") {
           return "x"
         }

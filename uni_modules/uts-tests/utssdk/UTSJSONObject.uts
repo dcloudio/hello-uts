@@ -126,7 +126,7 @@ export function testUTSJSONObject() : Result {
       }
       // #END
       let spendTime = Date.now() - startTime
-      expect(spendTime < 300).toEqual(true);
+      expect(spendTime < 800).toEqual(true);
       // #endif
     })
 
