@@ -50,31 +50,31 @@ class A1 implements IJsonStringify{
 }
 
 class A2 implements IJsonStringify{
-  override toJSON():any|null{
+  toJSON():any|null{
   	return 2
   }
 }
 
 class A3 implements IJsonStringify{
-  override toJSON():any|null{
+  toJSON():any|null{
   	return "json"
   }
 }
 
 class A4 implements IJsonStringify{
-  override toJSON():any|null{
+  toJSON():any|null{
   	return null
   }
 }
 
 class A5 implements IJsonStringify{
-  override toJSON():any|null{
+  toJSON():any|null{
   	return new A1()
   }
 }
 
 class A6 implements IJsonStringify{
-  override toJSON():any|null{
+  toJSON():any|null{
   	return new A5()
   }
 }
