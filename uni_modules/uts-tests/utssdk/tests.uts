@@ -1,21 +1,31 @@
 import { Matchers,NumberMatchers } from './Matchers.uts'
 
 export const describes = new Map<string, Result>()
-
+// #ifndef APP-IOS
 export class Result implements IJsonStringify {
     total = 0
     passed: string[] = []
     failed: string[] = []
 	
-	override toJSON():any|null{
-		let jsonRet = {
-			'total': this.total,
-			'passed': JSON.stringify(this.passed),
-			'failed': JSON.stringify(this.failed),
-		}
-		return jsonRet
-	}
+    toJSON():any|null{
+      let jsonRet = {
+        'total': this.total,
+        'passed': JSON.stringify(this.passed),
+        'failed': JSON.stringify(this.failed),
+      }
+      return jsonRet
+    }
 }
+// #endif
+
+// #ifdef APP-IOS
+export class Result {
+    total = 0
+    passed: string[] = []
+    failed: string[] = []
+}
+// #endif
+
 
 let result: Result = new Result()
 
