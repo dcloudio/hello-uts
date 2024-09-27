@@ -82,7 +82,7 @@ export function testKeyWord() : Result {
     test('typeof', () => {
       let new1 = new User()
       expect(typeof (new1)).toEqual('object')
-
+      //expect(typeof null).toEqual('object')
       // #ifdef APP-ANDROID || APP-IOS
       expect(typeof (123456.789)).toEqual('Double')
       //expect(typeof(789778979798797987979)).toEqual('number')
