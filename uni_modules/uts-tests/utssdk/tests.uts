@@ -10,8 +10,8 @@ export class Result implements IJsonStringify {
     toJSON():any|null{
       let jsonRet = {
         'total': this.total,
-        'passed': JSON.stringify(this.passed),
-        'failed': JSON.stringify(this.failed),
+          'passed': this.passed,
+          'failed': this.failed,
       }
       return jsonRet
     }
