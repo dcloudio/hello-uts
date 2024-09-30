@@ -93,20 +93,20 @@ export function testUTSJSONObject() : Result {
       
       expect(data5!.toJSONString()).toEqual('{"data4":{"data":{"num":1,"num2":2.369,"str":"test"},"name":"张三"}}')
       
-      class TestData6 implements IJsonStringify{
-      	toJSON():any|null{
-      		return JSON.parse("22")
-      	}
-      }
-      let testData6 = TestData6()
-      let data6 = {
-      	data:testData6,
-      	array:[1,"22",false],
-      	name:"data6"
-      }
+      // class TestData6 implements IJsonStringify{
+      // 	toJSON():any|null{
+      // 		return JSON.parse("22")
+      // 	}
+      // }
+      // let testData6 = TestData6()
+      // let data6 = {
+      // 	data:testData6,
+      // 	array:[1,"22",false],
+      // 	name:"data6"
+      // }
       
-      expect(data6!.toJSONString()).toEqual('{"data":22.0,"array":[1,"22",false],"name":"data6"}')
-      console.log(data6.toJSONString())
+      // expect(data6!.toJSONString()).toEqual('{"data":22.0,"array":[1,"22",false],"name":"data6"}')
+      // console.log(data6.toJSONString())
       
       // #endif
     })

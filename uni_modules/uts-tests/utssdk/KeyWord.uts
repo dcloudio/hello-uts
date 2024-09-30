@@ -80,6 +80,8 @@ export function testKeyWord() : Result {
     })
 
     test('typeof', () => {
+      expect(typeof (null)).toEqual('object')
+      expect(typeof null).toEqual('object')
       let new1 = new User()
       expect(typeof (new1)).toEqual('object')
       //expect(typeof null).toEqual('object')
