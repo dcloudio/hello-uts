@@ -36,6 +36,38 @@ export function testUTSJSONObject() : Result {
         
         expect(result.toJSONObject().toJSONString()).toEqual('{"opt":"xxxx","service":{"array":[{"name":"xxx","type":0}],"name":"0xxxb34fb","type":0}}');
         
+        type TestData = {
+            num:number;
+            num2:number;
+            str:string;
+          }
+          
+          let data1:TestData = {
+            num:1,
+            num2:2.369,
+            str:'test'
+          }
+          let data2 = JSON.parse<UTSJSONObject>(JSON.stringify(data1))
+          
+          expect(data2!.toJSONString()).toEqual('{"str":"test","num":1.0,"num2":2.369}')
+          
+          type TestData4 = {
+            name:string,
+            data:any,
+          }
+          
+          let data4 : TestData4 = {
+            name:"张三",
+            data:data1
+          }
+          
+          let data5 = {
+            data4 :data4
+          }
+          
+          expect(data5!.toJSONString()).toEqual('{"data4":{"data":{"num":1,"num2":2.369,"str":"test"},"name":"张三"}}')
+
+
       // #endif
     })
     
