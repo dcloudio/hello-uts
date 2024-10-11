@@ -1,0 +1,14 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+export function testEncoder() : Result {
+  return describe("TextEncoder", () => {
+    test('encoder', () => {
+      // #TEST TextEncoder.encode
+      const encoder = new TextEncoder()
+      const int8 = encoder.encode("€");
+      console.log(int8); // Uint8Array(3) [226, 130, 172]
+      // #END
+      expect(int8.toString()).toEqual("226,130,172");
+    })
+  })
+}

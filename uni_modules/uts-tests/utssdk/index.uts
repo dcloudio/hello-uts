@@ -19,7 +19,7 @@ import { testType } from './Type.uts'
 export { Result } from './tests.uts'
 import { testArrayBuffer } from './ArrayBuffer.uts'
 import { testNativeCode } from './NativeCode.uts'
-
+import { testEncoder} from "./TextEncoder.uts"
 
 // Promise、Proxy、Reflect、Weakmap、WeakSet 不支持
 export function runTests() : UTSJSONObject {
@@ -46,6 +46,9 @@ export function runTests() : UTSJSONObject {
   const ArrayBufferRes = testArrayBuffer();
   // #endif
   const NativeCodeRes = testNativeCode();
+  // #ifdef  APP-ANDROID || WEB
+  const TextEncoderRes = testEncoder();
+  // #endif
   return {
     Array: ArrayRes,
     Date: DateRes,
@@ -67,6 +70,7 @@ export function runTests() : UTSJSONObject {
     UTSJSONObject: UTSJSONObjectRes,
     // #ifdef  APP-ANDROID || WEB
     ArrayBuffer: ArrayBufferRes,
+    TextEncoder: TextEncoderRes,
     // #endif
     NativeCode: NativeCodeRes
   }
