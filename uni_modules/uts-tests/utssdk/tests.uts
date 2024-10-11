@@ -2,7 +2,7 @@ import { Matchers,NumberMatchers } from './Matchers.uts'
 
 export const describes = new Map<string, Result>()
 // #ifndef APP-IOS
-export class Result implements IJsonStringify {
+export class Result implements IJSONStringify {
     total = 0
     passed: string[] = []
     failed: string[] = []

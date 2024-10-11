@@ -39,7 +39,7 @@ function countOccurrences(str : string, substr : string) : number {
 }
 
 // #ifdef APP-ANDROID
-class A1 implements IJsonStringify{
+class A1 implements IJSONStringify{
   override toJSON():any|null{
   	let jsonRet = {
   		'name': "zhangsan",
@@ -49,31 +49,31 @@ class A1 implements IJsonStringify{
   }
 }
 
-class A2 implements IJsonStringify{
+class A2 implements IJSONStringify{
   toJSON():any|null{
   	return 2
   }
 }
 
-class A3 implements IJsonStringify{
+class A3 implements IJSONStringify{
   toJSON():any|null{
   	return "json"
   }
 }
 
-class A4 implements IJsonStringify{
+class A4 implements IJSONStringify{
   toJSON():any|null{
   	return null
   }
 }
 
-class A5 implements IJsonStringify{
+class A5 implements IJSONStringify{
   toJSON():any|null{
   	return new A1()
   }
 }
 
-class A6 implements IJsonStringify{
+class A6 implements IJSONStringify{
   toJSON():any|null{
   	return new A5()
   }

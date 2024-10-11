@@ -59,7 +59,7 @@ export function testUTSJSONObject() : Result {
       
       expect(data2!.toJSONString()).toEqual('{"str":"test","num":1.0,"num2":2.369}')
       
-      class TestData2 implements IJsonStringify{
+      class TestData2 implements IJSONStringify{
       	toJSON():any|null{
       		return "122"
       	}
