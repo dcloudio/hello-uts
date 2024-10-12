@@ -1,6 +1,9 @@
 import { RequestTask, SyncOptions, AsyncOptions, SyntaxResult, SyncResult, TestOptions } from "./interface.uts";
 import { log } from "./utils.uts";
 
+// #ifdef APP-IOS
+import { UTSPromiseAggregateError, UTSPromiseFulfilledResult, UTSPromiseRejectedResult} from "DCloudUTSFoundation";
+// #endif
 
 /**
  * 导出一个属性
@@ -52,17 +55,11 @@ export function testSyncWithCallback(opts : AsyncOptions) : SyntaxResult {
 
 
 async function testAwaitPromise(res : SyntaxResult) : Promise<SyntaxResult> {
-   // #ifdef APP-ANDROID
-   return await new Promise(function (resolve : (res : SyntaxResult) => void) {
-     resolve(res)
-     setTimeout(() => {
-       resolve(res)
-     }, 2000)
-   })
-   // #endif
-   // #ifndef APP-ANDROID
-   return res
-   // #endif
+  return await new Promise(function (resolve : (res : SyntaxResult) => void) {
+    setTimeout(() => {
+      resolve(res)
+    }, 2000)
+  })
 }
 /**
  * 导出一个异步方法
@@ -127,6 +124,104 @@ export class Test {
   }
 }
 
+// #ifdef APP-IOS
+// #ifdef UNI-APP-X
+
+export function testPromiseStaticMethod() {
+	 let p0 = new Promise<SyntaxResult | null>((resolve, reject) => {
+		 let success = true
+		 setTimeout(() => {
+			 if (success) {
+			 	const res : SyntaxResult = {
+			 	  name: "pomise 0",
+			 	}
+			 	resolve(res);
+			 } else{
+			 	reject(new Error("this is promise 0 reject reasion"))
+			 }
+
+		 }, 1000);
+	 });
+	 
+	 let p1 = new Promise<SyntaxResult  | null>((resolve, reject) => {
+	 		 let success = true
+	 		 setTimeout(() => {
+	 			 if (success) {
+	 			 	resolve(null);
+	 			 } else{
+	 			 	reject(new Error("this is promise 1 reject reasion"))
+	 			 }
+	 
+	 		 }, 2000);
+	 });
+	 
+	 let p2 = new Promise<SyntaxResult | null>((resolve, reject) => {
+	 		 let success = false
+	 		 setTimeout(() => {
+	 			 if (success) {
+	 			 	resolve(null);
+	 			 } else{
+	 			 	// reject(new Error("this is promise 2 reject reasion"))
+					reject(null)
+	 			 }
+	 
+	 		 }, 2500);
+	 });
+	 
+	 // test for any
+	 let pt = Promise.any([p0, p1, p2]);
+	 pt.then( (res) => {
+		 console.log("promise.any test success", res)
+	 })
+	 .catch( (error: any | null) => {
+		 if (error instanceof UTSPromiseAggregateError) {
+		 	let err = error as UTSPromiseAggregateError
+			console.log(err.name, err.message, err.errors);
+		 }else {
+			 console.log(error);
+		 }
+	 })
+	 
+	 // test for allSettled
+	 Promise.allSettled([p0, p1, p2])
+	 .then((res) => {
+		 res.forEach((item, index) => {
+			 if (item instanceof UTSPromiseFulfilledResult<SyntaxResult  | null >) {
+			 	let item0 = item as UTSPromiseFulfilledResult
+				console.log(item0.value, "UTSPromiseFulfilledResult value")
+			 } else if (item instanceof UTSPromiseRejectedResult<SyntaxResult | null>) {
+			 	let item0 = item as UTSPromiseRejectedResult
+			 	console.log(item0.reason, "UTSPromiseRejectedResult reason")
+			 }
+		 })
+	 })
+	 .catch((error:  any | null) => {   
+		 console.log(error, "rejected test for promise.allSettled")
+	 })
+	 
+	 // test for all 
+	 Promise.all([p0, p1, p2])
+	 .then((res)=> {
+		 console.log(res, res.count)
+	 })
+	 .catch( (error: any | null) => {
+		 console.log(error, "rejected test for promise.all")
+	 })
+	 
+	 // test for race
+	 Promise.race([p0, p1, p2])
+	 .then((res) => {
+		 console.log(res, "resolved test for promise.race");
+	 })
+	 .catch((error: any | null) => {
+		 console.log(error, "catch test for promise.race")
+	 })
+}
+
+
+// #endif
+// #endif
+
 export class SetterTest {
   
   private _nickName: string = '';
@@ -163,8 +258,10 @@ class RequestTaskImpl implements RequestTask {
 export function request(url : string) : RequestTask | null {
   return new RequestTaskImpl(url)
 }
+
+
 // #ifdef APP-ANDROID
-// #ifdef UNI-APP-X
+
 export function callKotlinMethodGetInfo():String {
 	return NativeCode.getPhoneInfo()
 }
@@ -173,6 +270,21 @@ export function callJavaMethodGetInfo():String {
 	return new JavaUser("jack",12).name
 }
 
+export function callKotlinCallbackUTS(callback: (res: string) => void) {
+	NativeCode.kotlinCallbackUTS(function(res:string){
+    console.log(res)
+    callback(res)
+  })
+}
+
+export function callKotlinStopCallbackUTS() {
+	NativeCode.kotlinStopMemListenTest()
+}
+
+// #endif
+
+// #ifdef APP-ANDROID
+// #ifdef UNI-APP-X
 
 import KeyEvent from 'android.view.KeyEvent';
 import Configuration from 'android.content.res.Configuration';
@@ -317,3 +429,43 @@ export class UTSActivityComponentCallback extends UniActivityComponentCallback {
 }
 // #endif
 // #endif
+
+export function Scan(timeMillis : Number = 60000):number {
+	console.log("Scan", timeMillis)
+	return timeMillis
+}
+
+export function Scan1(timeMillis ?: Number):string {
+	console.log("Scan", timeMillis)
+	if(timeMillis == null){
+		return "null"
+	}
+	return timeMillis!.toString()
+}
+
+export function Scan2(timeMillis ?: Number | null):string {
+	console.log("Scan", timeMillis)
+	if(timeMillis == null){
+		return "null"
+	}
+	return timeMillis!.toString()
+}
+
+export class myClass {
+	constructor() {
+		
+	}
+	
+	to(name: String):string {
+		console.log(name);
+		return name
+	}
+	
+	to1(name?: String):string {
+		if(name == null){
+			return "null"
+		}
+		console.log(name);
+		return name!
+	}
+}

@@ -19,7 +19,7 @@ import Toast from 'android.widget.Toast';
 import ShortcutInfoCompat from 'androidx.core.content.pm.ShortcutInfoCompat'
 import ShortcutManagerCompat from 'androidx.core.content.pm.ShortcutManagerCompat'
 import IconCompat from 'androidx.core.graphics.drawable.IconCompat'
-
+import ActivityLifecycleCallbacks from 'android.app.Application.ActivityLifecycleCallbacks';
 
 import Service from 'android.app.Service';
 import System from 'java.lang.System';
@@ -61,7 +61,64 @@ export function sayHelloFromJar(): string {
 }
 
 
+/**
+ * 调用SO动态库中的方法
+ */
+export function sayHelloFromSO():string {
+  
+  // 这里的逻辑是为了判断 当前的自定义activity 是否注册了，并以此为条件判断是否是自定义基座
+  let hasXActivityIntegration =  true
+  try{
+  	let packageManager = UTSAndroid.getUniActivity()!.getPackageManager();
+  	let intent = new Intent(UTSAndroid.getUniActivity(),DemoActivity().javaClass);
+  	let resolveInfo = packageManager.queryIntentActivities(intent,0);
+  	console.log(resolveInfo.size)
+  	if(resolveInfo.size == 0){
+  		hasXActivityIntegration = false;
+  	}
+  }catch(e:Exception){
+  	console.log(e);
+  	hasXActivityIntegration = false;
+  }
+  
+  if(!hasXActivityIntegration){
+  	return "需要在自定义基座运行";
+  }
+  
+  let nativeLib = new NativeLib()
+  return nativeLib.stringFromJNI()
+}
 
+class MyLifecycleCallbacks implements ActivityLifecycleCallbacks {
+	override onActivityCreated(a: Activity, b: Bundle|null):void {
+		console.log("onActivityCreated",a)
+	}
+  
+  override onActivityStarted(a: Activity):void {
+  	console.log("onActivityStarted",a)
+  }
+  
+  override onActivityResumed(a: Activity):void {
+  	console.log("onActivityResumed",a)
+  }
+  
+  override onActivityPaused(a: Activity):void {
+  	console.log("onActivityPaused",a)
+  }
+  
+  override onActivityStopped(a: Activity):void {
+  	console.log("onActivityStopped",a)
+  }
+  
+  override onActivitySaveInstanceState(a: Activity, b: Bundle):void {
+  	console.log("onActivitySaveInstanceState",a)
+  }
+  
+  override onActivityDestroyed(a: Activity):void {
+  	console.log("onActivityDestroyed",a)
+  }
+  
+}
   
 
 export class AppHookProxy implements UTSAndroidHookProxy {
@@ -74,6 +131,9 @@ export class AppHookProxy implements UTSAndroidHookProxy {
       //onCreate 初始化三方SDK
       Log.d("AppHookProxy", "AppHookProxy--onCreate---isPrivacyAgree")
     }
+    
+    application.registerActivityLifecycleCallbacks(new MyLifecycleCallbacks());
+    
   }
 }
 
@@ -165,7 +225,7 @@ class StartServiceListener implements OnClickListener{
 	
     override onClick(v?: View):void{
 		
-      var intent = new Intent(UTSAndroid.getUniActivity(), ForeService().javaClass);
+      let intent = new Intent(UTSAndroid.getUniActivity(), ForeService().javaClass);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         UTSAndroid.getAppContext()!.startForegroundService(intent);
       }

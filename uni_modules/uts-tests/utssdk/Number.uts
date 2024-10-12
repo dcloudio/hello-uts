@@ -76,12 +76,12 @@ export function testNumber() : Result {
       expect(UTSNumber.isFinite(Double.POSITIVE_INFINITY)).toEqual(false);
       // #endif
     })
-    
-    
-    
+
+
+
     test('number-from-json-parse', () => {
       type A = {
-      	a:number
+        a : number
       }
       let aj = JSON.parse<A>('{"a":1}');
       expect(aj?.a == 1).toEqual(true);
@@ -89,13 +89,13 @@ export function testNumber() : Result {
       expect(aj?.a == 1.0).toEqual(true);
       expect(aj?.a == 1.0 as number).toEqual(true);
       // #ifdef APP-ANDROID
-      expect(numberEquals(aj?.a,1)).toEqual(true);
-      expect(numberEquals(aj?.a,1 as number)).toEqual(true);
-      expect(numberEquals(aj?.a,1.0)).toEqual(true);
-      expect(numberEquals(aj?.a,1.0 as number)).toEqual(true);
-      let ki:Int = 1;
-      let kd:Double = 1.0;
-      let kf:Float = (1.0).toFloat();  
+      expect(numberEquals(aj?.a, 1)).toEqual(true);
+      expect(numberEquals(aj?.a, 1 as number)).toEqual(true);
+      expect(numberEquals(aj?.a, 1.0)).toEqual(true);
+      expect(numberEquals(aj?.a, 1.0 as number)).toEqual(true);
+      let ki : Int = 1;
+      let kd : Double = 1.0;
+      let kf : Float = (1.0).toFloat();
       expect(aj?.a == ki).toEqual(true);
       expect(aj?.a == kd).toEqual(true);
       expect(aj?.a == kf).toEqual(true);
@@ -112,7 +112,7 @@ export function testNumber() : Result {
       newA.a = 1.1
       expect(aj?.a == newA.a).toEqual(false);
       expect(aj?.a === newA.a).toEqual(false);
-      
+
       let a10 = JSON.parse("10")
       let b10 = JSON.parse("10")
       let c10 = JSON.parse("10.0")
@@ -120,17 +120,60 @@ export function testNumber() : Result {
       expect(a10 == c10).toEqual(true);
       let aj2 = JSON.parse<A>('{"a":1}');
       expect(aj?.a == aj2?.a).toEqual(true);
-      
+
       // #endif
-      
+
     })
-    
-    
+
+
     test('isInteger', () => {
       expect(Number.isInteger(12)).toEqual(true);
       expect(Number.isInteger(12.01)).toEqual(false);
       expect(Number.isInteger(-213123112.01)).toEqual(false);
       expect(Number.isInteger(-213123112)).toEqual(true);
+    })
+
+    test('Unary-Operators', () => {
+      // #ifdef APP-ANDROID
+      let a = JSON.parse("1") as Number
+      a++;
+      expect(a.toString()).toEqual("2");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+
+      a--;
+      expect(a.toString()).toEqual("1");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      a /= 0.5;
+      expect(a.toString()).toEqual("2");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      a *= 5;
+      expect(a.toString()).toEqual("10");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      a += -1;
+      expect(a.toString()).toEqual("9");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      a -= -2;
+      expect(a.toString()).toEqual("11");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      let a2 = a % 5
+      expect(a2.toString()).toEqual("1");
+      expect(UTSAndroid.getJavaClass(a2).name).toEqual("io.dcloud.uts.UTSNumber");
+
+      let b = 12
+      let c1 = b + a2
+      expect(c1.toString()).toEqual("13");
+      expect(UTSAndroid.getJavaClass(c1).name).toEqual("io.dcloud.uts.UTSNumber");
+
+      let c2 = a2 + 2
+      expect(c2.toString()).toEqual("3");
+      expect(UTSAndroid.getJavaClass(c2).name).toEqual("io.dcloud.uts.UTSNumber");
+
+      let c3 = 2 + a2
+      expect(c3.toString()).toEqual("3");
+      expect(UTSAndroid.getJavaClass(c3).name).toEqual("io.dcloud.uts.UTSNumber");
+      // #endif
+
+
     })
 
     test('isNaN', () => {
@@ -171,13 +214,13 @@ export function testNumber() : Result {
       expect((123456789987654).toString(16)).toEqual("7048861cc146");
       expect((-0xff).toString(2)).toEqual("-11111111");
       const a = 1e38
-      
-      expect(a.toString(16).substring(0,12)).toEqual("4b3b4ca85a86");
+
+      expect(a.toString(16).substring(0, 12)).toEqual("4b3b4ca85a86");
       expect(a.toString(16).length).toEqual(32);
       expect(a.toString(16).substring(23)).toEqual("000000000");
-      
+
       expect(a.toString(2).length).toEqual(127);
-      expect(a.toString(2).substring(0,32)).toEqual("10010110011101101001100101010000");
+      expect(a.toString(2).substring(0, 32)).toEqual("10010110011101101001100101010000");
       expect(a.toString(2).substring(100)).toEqual("000000000000000000000000000");
       const b = 1e22
       const bStr12 = b.toString(12)
@@ -186,9 +229,17 @@ export function testNumber() : Result {
        * 浏览器端:27373a86ba1a195400000
        */
       expect(bStr12.length).toEqual(21);
-      expect(bStr12.substring(0,14)).toEqual("27373a86ba1a19");
-      
+      expect(bStr12.substring(0, 14)).toEqual("27373a86ba1a19");
+    
+      // #ifdef APP-ANDROID
       expect(0.6.toString()).toEqual("0.6");
+      expect((new UTSNumber(2709954670497349.5)).toString()).toEqual("2709954670497349.5");
+      expect((new UTSNumber(0.00000000000001)).toString()).toEqual("1e-14");
+      expect((new UTSNumber(0.000001)).toString()).toEqual("0.000001");
+      expect((new UTSNumber(0.0000001)).toString()).toEqual("1e-7");
+      expect((new UTSNumber(100000000000000000000.0)).toString()).toEqual("100000000000000000000");
+      expect((new UTSNumber(1000000000000000000000.0)).toString()).toEqual("1e+21");
+      // #endif
     })
 
     test('valueOf', () => {

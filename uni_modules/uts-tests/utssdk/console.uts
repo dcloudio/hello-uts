@@ -1,10 +1,12 @@
 import { describe, test, expect, expectNumber, Result } from './tests.uts'
 
-function obtainInnerObject(obj:Any | null):UTSJSONObject{
+// #ifdef APP-ANDROID
+function obtainInnerObject(obj:any | null):UTSJSONObject{
   let jsonStr = console.getLogV2(obj).slice(19,-17)
   let a = JSON.parseArray(jsonStr)![0]
   return a as UTSJSONObject
 }
+// #endif
 
 export function testConsole() : Result {
   return describe("log", () => {

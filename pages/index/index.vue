@@ -6,12 +6,13 @@
 				<button type="primary"  @tap="testDoSthWithCallback">uts异步方法（无参数）</button>
 				<button type="primary"  @tap="testDoSthWithString">uts异步方法（字符串参数）</button>
 				<button type="primary"  @tap="testDoSthWithJSON">uts异步方法（json参数）</button>
+        <button type="primary"  @tap="testCallback">多次回调示例</button>
 				<button type="primary"  @tap="testBuildinObject">内置对象语法测试</button>
 			</view>
 	</view>
 </template>
 <script>
-	import { callWithJSONParam, callWithStringParam, callWithoutParam } from "../../uni_modules/uts-helloworld";
+	import { callWithJSONParam, callWithStringParam, callWithoutParam,onCallback } from "../../uni_modules/uts-helloworld";
 	
 	export default {
 		data() {
@@ -46,7 +47,7 @@
 					this.stringParam,
 					function(response){
 						uni.showToast({
-							title:'uts插件uts-helloworld的callWithStringParam方法收到了你输入的字符串：'+response,
+							title:'uts插件uts-helloworld的onCallback方法：'+response,
 							icon:'none'
 						});
 					},
@@ -70,6 +71,18 @@
 						});
 					}
 				});
+			},
+      
+      testCallback: function () {
+				
+				onCallback(
+					function(response){
+						uni.showToast({
+							title:'uts插件uts-helloworld的callWithStringParam方法收到了你输入的字符串：'+response,
+							icon:'none'
+						});
+					},
+				);
 			},
 			/**
 			 * 测试内置对象

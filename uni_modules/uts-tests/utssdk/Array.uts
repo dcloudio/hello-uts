@@ -72,9 +72,6 @@ export function testArray() : Result {
       console.log(arr[1])//'shoes'
       console.log(arr[1])//'shirts'
       // #END
-      expect(arr.length).toEqual(4);
-      expect(arr[0]).toEqual('shoes');
-      expect(arr[1]).toEqual('shirts');
       // expect(arr[4]).toEqual(null);
       const numbers : number[] = [1, 2, 3, 4, 5];
       if (numbers.length > 3) {

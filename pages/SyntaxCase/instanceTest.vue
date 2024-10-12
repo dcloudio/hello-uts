@@ -2,6 +2,7 @@
   <div>
     {{ret}}
     <button @click="instanceCreate">多实例创建测试</button>
+    <button @click="defaultValueTest">默认值测试</button>
   </div>
 	
 </template>
@@ -11,7 +12,12 @@
 		User
 	} from '@/uni_modules/uts-advance'
 
-
+  import {
+      Scan, 
+      Scan1, 
+      Scan2, 
+      myClass
+  } from "@/uni_modules/uts-syntaxcase";
 
 	export default {
 		data() {
@@ -21,6 +27,34 @@
 		},
 		methods: {
 			
+      defaultValueTest() {
+        const myClassInit = new myClass();
+        // 默认值测试
+        if(Scan() != 60000){
+          this.ret = "测试失败1"
+        }
+        if(Scan(100) != 100){
+          this.ret = "测试失败2"
+        }
+        if(Scan1() != null){
+          this.ret = "测试失败3"
+        }
+        if(Scan1(100) != 100){
+          this.ret = "测试失败4"
+        }
+        let ret5 = Scan2()
+        if(ret5 != "null"){
+          console.log(ret5)
+          this.ret = "测试失败5"
+        }
+        if(Scan2(100) != 100){
+          this.ret = "测试失败6"
+        }
+        if(myClassInit.to('123') != 123){
+          this.ret = "测试失败7"
+        }
+      },
+      
 			instanceCreate() {
 				
 				const user1 = new User("张三", 20);
