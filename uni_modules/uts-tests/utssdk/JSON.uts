@@ -80,46 +80,6 @@ class A6 implements IJSONStringify{
 }
 // #endif
 
-class A1 implements IJSONStringify{
-   toJSON():any|null{
-  	let jsonRet = {
-  		'name': "zhangsan",
-  		'age': 12,
-  	}
-  	return jsonRet
-  }
-}
-
-class A2 implements IJSONStringify{
-  toJSON():any|null{
-  	return 2
-  }
-}
-
-class A3 implements IJSONStringify{
-  toJSON():any|null{
-  	return "json"
-  }
-}
-
-class A4 implements IJSONStringify{
-  toJSON():any|null{
-  	return null
-  }
-}
-
-class A5 implements IJSONStringify{
-  toJSON():any|null{
-  	return new A1()
-  }
-}
-
-class A6 implements IJSONStringify{
-  toJSON():any|null{
-  	return new A5()
-  }
-}
-
 
 export function testJSON() : Result {
   return describe("JSON", () => {
