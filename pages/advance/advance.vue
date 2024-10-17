@@ -130,6 +130,10 @@
                         {
                             name: "混编测试示例",
                             url: "SyntaxCase/MixNativeCode"
+                        },
+                        {
+                            name: "nvue语法示例",
+                            url: "SyntaxCase/nvueTest"
                         }
                         ]
                     },
