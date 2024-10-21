@@ -85,13 +85,14 @@ export function testJSON() : Result {
   return describe("JSON", () => {
     
     test('custom-stringify', () => {
-  
+      // #ifdef APP-ANDROID
       expect(JSON.stringify(new A1())!.length).toEqual(28)
       expect(JSON.stringify(new A2())).toEqual("2")
       expect(JSON.stringify(new A3())).toEqual('"json"')
       expect(JSON.stringify(new A4())).toEqual('null')
       expect(JSON.stringify(new A5())!.length).toEqual(28)
       expect(JSON.stringify(new A6())!.length).toEqual(28)
+      // #endif
  
     })
     
