@@ -69,11 +69,11 @@ export function testNumber() : Result {
       expect(isFinite(0)).toEqual(true);
       // #ifdef APP-ANDROID
       let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
-      let aNumber = aj2['a'] as UTSNumber
+      let aNumber = aj2['a'] as Number
       expect(isFinite(aNumber)).toEqual(true);
-      expect(UTSNumber.isFinite(aNumber)).toEqual(true);
-      expect(UTSNumber.isFinite(11.00)).toEqual(true);
-      expect(UTSNumber.isFinite(Double.POSITIVE_INFINITY)).toEqual(false);
+      expect(Number.isFinite(aNumber)).toEqual(true);
+      expect(Number.isFinite(11.00)).toEqual(true);
+      expect(Number.isFinite(Double.POSITIVE_INFINITY)).toEqual(false);
       // #endif
     })
 
@@ -138,39 +138,39 @@ export function testNumber() : Result {
       let a = JSON.parse("1") as Number
       a++;
       expect(a.toString()).toEqual("2");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
 
       a--;
       expect(a.toString()).toEqual("1");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
       a /= 0.5;
       expect(a.toString()).toEqual("2");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
       a *= 5;
       expect(a.toString()).toEqual("10");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
       a += -1;
       expect(a.toString()).toEqual("9");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
       a -= -2;
       expect(a.toString()).toEqual("11");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("io.dcloud.uts.UTSNumber");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
       let a2 = a % 5
       expect(a2.toString()).toEqual("1");
-      expect(UTSAndroid.getJavaClass(a2).name).toEqual("io.dcloud.uts.UTSNumber");
+      expect(UTSAndroid.getJavaClass(a2).name).toEqual("java.lang.Integer");
 
       let b = 12
       let c1 = b + a2
       expect(c1.toString()).toEqual("13");
-      expect(UTSAndroid.getJavaClass(c1).name).toEqual("io.dcloud.uts.UTSNumber");
+      expect(UTSAndroid.getJavaClass(c1).name).toEqual("java.lang.Integer");
 
       let c2 = a2 + 2
       expect(c2.toString()).toEqual("3");
-      expect(UTSAndroid.getJavaClass(c2).name).toEqual("io.dcloud.uts.UTSNumber");
+      expect(UTSAndroid.getJavaClass(c2).name).toEqual("java.lang.Integer");
 
       let c3 = 2 + a2
       expect(c3.toString()).toEqual("3");
-      expect(UTSAndroid.getJavaClass(c3).name).toEqual("io.dcloud.uts.UTSNumber");
+      expect(UTSAndroid.getJavaClass(c3).name).toEqual("java.lang.Integer");
       // #endif
 
 
@@ -180,12 +180,12 @@ export function testNumber() : Result {
       expect(isNaN(0)).toEqual(false);
       // #ifdef APP-ANDROID
       let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
-      let aNumber = aj2['a'] as UTSNumber
+      let aNumber = aj2['a'] as Number
       expect(isNaN(aNumber)).toEqual(false);
-      expect(UTSNumber.isNaN(aNumber)).toEqual(false);
-      expect(UTSNumber.isNaN(11)).toEqual(false);
-      expect(UTSNumber.isNaN(null)).toEqual(false);
-      expect(UTSNumber.isNaN(1 / 0)).toEqual(false);
+      expect(Number.isNaN(aNumber)).toEqual(false);
+      expect(Number.isNaN(11)).toEqual(false);
+      expect(Number.isNaN(null)).toEqual(false);
+      expect(Number.isNaN(1 / 0)).toEqual(false);
       // #endif
     })
 
@@ -233,8 +233,8 @@ export function testNumber() : Result {
     
       // #ifdef APP-ANDROID
       expect(0.6.toString()).toEqual("0.6");
-      expect((new UTSNumber(2709954670497349.5)).toString()).toEqual("2709954670497349.5");
-      expect((new UTSNumber(0.00000000000001)).toString()).toEqual("1e-14");
+      expect((2709954670497349.5).toString(10)).toEqual("2709954670497349.5");
+      expect(((0.00000000000001)).toString()).toEqual("1e-14");
       expect((new UTSNumber(0.000001)).toString()).toEqual("0.000001");
       expect((new UTSNumber(0.0000001)).toString()).toEqual("1e-7");
       expect((new UTSNumber(100000000000000000000.0)).toString()).toEqual("100000000000000000000");
