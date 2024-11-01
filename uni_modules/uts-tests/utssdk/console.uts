@@ -30,7 +30,7 @@ export function testConsole() : Result {
       
       let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
       
-      expect(obtainInnerObject(aj2['a']).get("type")).toEqual("Int");
+      expect(obtainInnerObject(aj2['a']).get("type")).toEqual("Double");
       expect(obtainInnerObject(aj2['a']).get("subType")).toEqual("number");
       
       // #endif

@@ -57,7 +57,7 @@ export function testUTSJSONObject() : Result {
       }
       let data2 = JSON.parse<UTSJSONObject>(JSON.stringify(data1))
       
-      expect(data2!.toJSONString()).toEqual('{"str":"test","num":1,"num2":2.369}')
+      expect(data2!.toJSONString()).toEqual('{"str":"test","num":1.0,"num2":2.369}')
       
       class TestData2 implements IJSONStringify{
       	toJSON():any|null{
