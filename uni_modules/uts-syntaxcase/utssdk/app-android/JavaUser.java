@@ -1,5 +1,7 @@
 package uts.sdk.modules.utsSyntaxcase;
 
+import io.dcloud.uts.console;
+
 public class JavaUser {
 
     public String name;
@@ -11,8 +13,10 @@ public class JavaUser {
     }
 
     public String toString() {
-        return "Name: " + name + ", Age: " + age;
+        String ret = "Name: " + name + ", Age: " + age;
+        console.log(ret);
+        return ret;
     }
-
+    
 
 }

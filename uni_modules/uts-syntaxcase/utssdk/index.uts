@@ -267,8 +267,10 @@ export function callKotlinMethodGetInfo():String {
 }
 
 export function callJavaMethodGetInfo():String {
-	return new JavaUser("jack",12).name
+	return new JavaUser("jack",12).toString()
 }
+
+
 
 export function callKotlinCallbackUTS(callback: (res: string) => void) {
 	NativeCode.kotlinCallbackUTS(function(res:string){
