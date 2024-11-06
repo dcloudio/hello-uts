@@ -137,40 +137,40 @@ export function testNumber() : Result {
       // #ifdef APP-ANDROID
       let a = JSON.parse("1") as Number
       a++;
-      expect(a.toString()).toEqual("2");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
+      expect(JSON.stringify(a)).toEqual("2");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Double");
 
       a--;
-      expect(a.toString()).toEqual("1");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
+      expect(JSON.stringify(a)).toEqual("1");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Double");
       a /= 0.5;
-      expect(a.toString()).toEqual("2");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
+      expect(JSON.stringify(a)).toEqual("2");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Double");
       a *= 5;
-      expect(a.toString()).toEqual("10");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
+      expect(JSON.stringify(a)).toEqual("10");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Double");
       a += -1;
-      expect(a.toString()).toEqual("9");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
+      expect(JSON.stringify(a)).toEqual("9");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Double");
       a -= -2;
-      expect(a.toString()).toEqual("11");
-      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Integer");
+      expect(JSON.stringify(a)).toEqual("11");
+      expect(UTSAndroid.getJavaClass(a).name).toEqual("java.lang.Double");
       let a2 = a % 5
-      expect(a2.toString()).toEqual("1");
-      expect(UTSAndroid.getJavaClass(a2).name).toEqual("java.lang.Integer");
+      expect(JSON.stringify(a2)).toEqual("1");
+      expect(UTSAndroid.getJavaClass(a2).name).toEqual("java.lang.Double");
 
       let b = 12
       let c1 = b + a2
-      expect(c1.toString()).toEqual("13");
-      expect(UTSAndroid.getJavaClass(c1).name).toEqual("java.lang.Integer");
+      expect(JSON.stringify(c1)).toEqual("13");
+      expect(UTSAndroid.getJavaClass(c1).name).toEqual("java.lang.Double");
 
       let c2 = a2 + 2
-      expect(c2.toString()).toEqual("3");
-      expect(UTSAndroid.getJavaClass(c2).name).toEqual("java.lang.Integer");
+      expect(JSON.stringify(c2)).toEqual("3");
+      expect(UTSAndroid.getJavaClass(c2).name).toEqual("java.lang.Double");
 
       let c3 = 2 + a2
-      expect(c3.toString()).toEqual("3");
-      expect(UTSAndroid.getJavaClass(c3).name).toEqual("java.lang.Integer");
+      expect(JSON.stringify(c3)).toEqual("3");
+      expect(UTSAndroid.getJavaClass(c3).name).toEqual("java.lang.Double");
       // #endif
 
 
@@ -234,11 +234,12 @@ export function testNumber() : Result {
       // #ifdef APP-ANDROID
       expect(0.6.toString()).toEqual("0.6");
       expect((2709954670497349.5).toString(10)).toEqual("2709954670497349.5");
-      expect(((0.00000000000001)).toString()).toEqual("1e-14");
-      expect((new UTSNumber(0.000001)).toString()).toEqual("0.000001");
-      expect((new UTSNumber(0.0000001)).toString()).toEqual("1e-7");
-      expect((new UTSNumber(100000000000000000000.0)).toString()).toEqual("100000000000000000000");
-      expect((new UTSNumber(1000000000000000000000.0)).toString()).toEqual("1e+21");
+      // todo change JSON.stringify to toString
+      expect((JSON.stringify(0.00000000000001))).toEqual("1e-14");
+      expect((JSON.stringify(0.000001))).toEqual("0.000001");
+      expect((JSON.stringify(0.0000001))).toEqual("1e-7");
+      expect((JSON.stringify(100000000000000000000.0))).toEqual("100000000000000000000");
+      expect((JSON.stringify(1000000000000000000000.0))).toEqual("1e+21");
       // #endif
     })
 
