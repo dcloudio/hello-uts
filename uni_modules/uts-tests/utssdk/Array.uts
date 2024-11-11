@@ -329,8 +329,68 @@ export function testArray() : Result {
       m1.set("name","张三")
       m1.set("age",123)
       let a3 = Array.from(m1)
-      console.log(a3)
       expect(a3).toEqual([["name","张三"],["age",123]]);
+      
+      let s1 = new Set<string>()
+      s1.add("张三")
+      s1.add("李四")
+      let a4 = Array.from(s1)
+      expect(a4).toEqual(["张三","李四"]);
+      
+    })
+    
+    test("fromAsync", () => {
+      
+      let m1 = new Map<any,any>([
+          [1, 2],
+          [3, 4],
+        ])
+      Array.fromAsync(
+        m1
+      ).then((array) => {
+        expect(array).toEqual([[1, 2], [3, 4]]);
+      });
+      
+      let s1 = new Set([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)])
+      Array.fromAsync(
+        s1
+      ).then((array) => {
+        expect(array).toEqual([1, 2, 3]);
+      });
+      
+      
+
+      UTSAndroid.getDispatcher("io").async(function(_){
+        
+          let ret2 = new Array<any>()
+          let p = new Promise<number>((resolve, reject) => {
+          	setTimeout(() => {
+          		reject("xxxxxxxx")
+          	}, 1000)
+          })
+          
+          let pArray = [p, 1, 2, "3"]
+          const a = Array.fromAsync(pArray)
+          a.then((res) => {
+          	ret2 = ret2.concat(res)
+          }).catch((err) => {
+          	ret2.clear()
+          })
+          
+          const pArray1 = Array.fromAsync("abcdefg");
+          
+          pArray1.then((res) => {
+          	ret2 = ret2.concat(res)
+          }) 
+          
+          setTimeout(function(){
+            expect(ret2).toEqual(["a", "b", "c", "d", "e", "f", "g"]);
+          },200)
+          
+          setTimeout(function(){
+          	expect(ret2).toEqual([1]);
+          },2000)
+      },null)
       
     })
     
