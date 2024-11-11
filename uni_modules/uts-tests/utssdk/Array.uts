@@ -298,6 +298,42 @@ export function testArray() : Result {
       // #endif
 
     })
+    
+    test("of-1", () => {
+      let a1 = Array.of('foo', 2, 'bar', true)
+      let a2 = Array.of()
+      console.log(a1,a2)
+      type User = {
+      	id:number
+      	name:string
+      }
+      let u1 = {
+      	id:1001,
+      	name:"张三"
+      } as User
+      let a3 = Array.of("aaa",false,u1)
+      expect(a1).toEqual([ "foo", 2, "bar", true ]);
+      expect(a2).toEqual([]);
+      expect(a3).toEqual([ "aaa", false, {id: 1001, name: "张三"} ] );
+    })
+    
+    test("from", () => {
+      let a1 = Array.from('foo')
+      let a2 = Array.from([1, 2, 3], function(x:any|null,index:number){
+        
+        return (x as Number).toInt() + (x as Number).toInt()
+      })
+      expect(a1).toEqual(["f", "o", "o"]);
+      expect(a2).toEqual([2, 4, 6]);
+      let m1 = new Map<string,any>()
+      m1.set("name","张三")
+      m1.set("age",123)
+      let a3 = Array.from(m1)
+      console.log(a3)
+      expect(a3).toEqual([["name","张三"],["age",123]]);
+      
+    })
+    
     test("indexOf", () => {
 
       let raw = {}
