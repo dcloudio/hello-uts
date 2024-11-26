@@ -371,6 +371,27 @@ export function testNumber() : Result {
       expect(a10 == b10).toEqual(true);
       expect(a10 === b10).toEqual(true);
 
+      let num1:Any = 1.0
+      let num2 = 1
+      console.log(num1 == num2)
+      let num3:Any = 112233
+      let num4 = 112233.0
+      console.log(num3 == num4)
+      
+      let num5:Any = 112233.0
+      let num6:Any = 112233
+      console.log(num5 == num6)
+      
+      let u11 = {
+        name:"zhangsan",
+        age:0
+      }
+      u11["age2"] = 0.0
+      let a22 = u11["age2"]
+      console.log(a22 == 0)
+      console.log(a22 == 0.0)
+      console.log(a22 != 0)
+      console.log(a22 != 0.0)
 
     })
 

@@ -12,7 +12,7 @@ export function testConsole() : Result {
   return describe("log", () => {
     test('log-native-obj', () => {
       // #ifdef APP-ANDROID
-        expect(obtainInnerObject(0.9).get("type")).toEqual("Double");
+        expect(obtainInnerObject(0.9).get("type")).toEqual("number");
         expect(obtainInnerObject(0.9).get("subType")).toEqual("number");
         expect(obtainInnerObject(0.9).get("value")).toEqual("0.9");
         
@@ -30,7 +30,7 @@ export function testConsole() : Result {
       
       let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
       
-      expect(obtainInnerObject(aj2['a']).get("type")).toEqual("Double");
+      expect(obtainInnerObject(aj2['a']).get("type")).toEqual("number");
       expect(obtainInnerObject(aj2['a']).get("subType")).toEqual("number");
       
       // #endif
