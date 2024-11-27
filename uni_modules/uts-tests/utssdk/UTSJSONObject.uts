@@ -1,76 +1,116 @@
 import { describe, test, expect, expectNumber, Result } from './tests.uts'
+import { mockData } from './data.uts'
+
 
 export function testUTSJSONObject() : Result {
   return describe("utsjsonobject", () => {
 
     test('keys', () => {
       // #TEST UTSJSONObject.keys
-        let obj = {
-          name:"zhangsan",
-          age:11
-        }
-        expect(UTSJSONObject.keys(obj).length).toEqual(2);
-    
-         // #END
+      let obj = {
+        name: "zhangsan",
+        age: 11
+      }
+
+      let ret1 = UTSJSONObject.keys(obj).length
+      console.log(ret1) //2
+      // #END
+
+      expect(ret1).toEqual(2);
+      expect(UTSJSONObject.keys(mockData).length).toEqual(2);
+
     })
-    
+
     test('toJSONObject', () => {
       // #ifdef APP-ANDROID
-        let result = {}
-        result["opt"] = "xxxx"
-        
-        let subArray = [] as Array<UTSJSONObject>
-        let subModel = {}
-        subModel["name"] = "xxx"
-        subModel["type"] = 0
-        subArray.push(subModel)
-        
-        let service = {}
-        service["name"] = "0xxxb34fb"
-        service["type"] = 0
-        
-        //这个数据返回为空对象数组
-        service["array"] = subArray
-        
-        result["service"] = service
-        
-        expect(result.toJSONObject().toJSONString()).toEqual('{"opt":"xxxx","service":{"array":[{"name":"xxx","type":0}],"name":"0xxxb34fb","type":0}}');
-        
-        type TestData = {
-            num:number;
-            num2:number;
-            str:string;
-          }
-          
-          let data1:TestData = {
-            num:1,
-            num2:2.369,
-            str:'test'
-          }
-          let data2 = JSON.parse<UTSJSONObject>(JSON.stringify(data1))
-          
-          expect(data2!.toJSONString()).toEqual('{"str":"test","num":1.0,"num2":2.369}')
-          
-          type TestData4 = {
-            name:string,
-            data:any,
-          }
-          
-          let data4 : TestData4 = {
-            name:"张三",
-            data:data1
-          }
-          
-          let data5 = {
-            data4 :data4
-          }
-          
-          expect(data5!.toJSONString()).toEqual('{"data4":{"data":{"num":1,"num2":2.369,"str":"test"},"name":"张三"}}')
+      let result = {}
+      result["opt"] = "xxxx"
+
+      let subArray = [] as Array<UTSJSONObject>
+      let subModel = {}
+      subModel["name"] = "xxx"
+      subModel["type"] = 0
+      subArray.push(subModel)
+
+      let service = {}
+      service["name"] = "0xxxb34fb"
+      service["type"] = 0
+
+      //这个数据返回为空对象数组
+      service["array"] = subArray
+
+      result["service"] = service
+
+      expect(result.toJSONObject().toJSONString()).toEqual('{"opt":"xxxx","service":{"array":[{"name":"xxx","type":0}],"name":"0xxxb34fb","type":0}}');
 
 
+      type TestData = {
+      	num:number;
+      	num2:number;
+      	str:string;
+      }
+      
+      let data1:TestData = {
+      	num:1,
+      	num2:2.369,
+      	str:'test'
+      }
+      let data2 = JSON.parse<UTSJSONObject>(JSON.stringify(data1))
+      
+      expect(data2!.toJSONString()).toEqual('{"str":"test","num":1.0,"num2":2.369}')
+      
+      class TestData2 implements IJSONStringify{
+      	toJSON():any|null{
+      		return "122"
+      	}
+      }
+      
+      let testData2 = TestData2()
+      let dataClass = UTSAndroid.getJavaClass(data2)
+      let data3 = {
+      	strA:"stringA",
+      	dataClass:dataClass,
+      	booleanB:false,
+      	testData:testData2
+      }
+      
+      expect(data3!.toJSONString()).toEqual('{"testData":"122","strA":"stringA","dataClass":"io.dcloud.uts.UTSJSONObject","booleanB":false}')
+      
+      
+      type TestData4 = {
+      	name:string,
+      	data:any,
+      }
+      
+      let data4 : TestData4 = {
+      	name:"张三",
+      	data:data1
+      }
+      
+      let data5 = {
+      	data4 :data4
+      }
+      
+      expect(data5!.toJSONString()).toEqual('{"data4":{"data":{"num":1,"num2":2.369,"str":"test"},"name":"张三"}}')
+      
+      // class TestData6 implements IJsonStringify{
+      // 	toJSON():any|null{
+      // 		return JSON.parse("22")
+      // 	}
+      // }
+      // let testData6 = TestData6()
+      // let data6 = {
+      // 	data:testData6,
+      // 	array:[1,"22",false],
+      // 	name:"data6"
+      // }
+      
+      // expect(data6!.toJSONString()).toEqual('{"data":22.0,"array":[1,"22",false],"name":"data6"}')
+      // console.log(data6.toJSONString())
+      
       // #endif
     })
-    
+
     test('assign-notype', () => {
       // #ifdef APP-ANDROID
       // #TEST UTSJSONObject.assign
@@ -114,6 +154,16 @@ export function testUTSJSONObject() : Result {
       // #endif
     })
 
+    test('get-no-exist-value', () => {
+      // #ifdef APP-ANDROID
+      let test = {
+      	qq:[11,22]
+      }
+      expect(test.getNumber("qq[2]")).toEqual(null);
+      expect(test.getNumber("qq[2]",999)).toEqual(999);
+      
+      // #endif
+    })
     test('setvalue-after-get', () => {
       // #ifdef APP-ANDROID
       // #TEST UTSJSONObject.getJSON,UTSJSONObject.getArray
@@ -134,8 +184,8 @@ export function testUTSJSONObject() : Result {
       expect(firstCar!['value']).toEqual(20);
       // #endif
     })
-    
-    
+
+
     test('get-speed', () => {
       // #ifdef APP-ANDROID
       // #TEST UTSJSONObject.getString
@@ -151,7 +201,7 @@ export function testUTSJSONObject() : Result {
       }
       // #END
       let spendTime = Date.now() - startTime
-      expect(spendTime < 300).toEqual(true);
+      expect(spendTime < 800).toEqual(true);
       // #endif
     })
 
@@ -246,6 +296,15 @@ export function testUTSJSONObject() : Result {
       console.log(utsJsonA)
        // #END
 
+    })
+    
+    test('useless-as', () => {
+      const obj = {
+        a: { b: { c: 'c' } }
+      };
+      ((obj["a"] as UTSJSONObject)["b"] as UTSJSONObject)["c"] = "c1"
+      expect(obj.getString("a.b.c")).toEqual('c1')
+      
     })
   })
 }

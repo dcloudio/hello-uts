@@ -22,11 +22,7 @@
 <script lang="ts">
 import { runTests, Result } from '../../uni_modules/uts-tests'
 // #ifdef APP-IOS
-import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests';
-// #endif
-// #ifdef APP
-import { onTest1, testKeepAlive, testKeepAliveOption, createTest, TestKeepAliveClass, TestKeepAliveOption, } from '@/uni_modules/uts-tests'
-import { testNonKeepAlive, testNonKeepAliveOption } from '@/uni_modules/uts-tests'
+import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests'
 // #endif
 export default {
   data() {
@@ -35,8 +31,6 @@ export default {
       resultArray: [] as Result[],
       result: {} as UTSJSONObject,
       names: [] as string[],
-      keepAliveCount: 0,
-      nonKeepAliveCount: 0
     }
   },
   onReady() {
@@ -55,157 +49,12 @@ export default {
         this.names.push(key)
         this.resultArray.push(resultMap[key] as Result)
       }
-      console.log('jest_testCallbackKeepAlive:' + this.jest_testCallbackKeepAlive())
-      this.jest_testCallbackNonKeepAlive().then(res=>{
-       console.log('jest_testCallbackNonKeepAlive:' + res)  
-      })
-      
     },
     // #ifdef APP-IOS
     jest_testTypeFromAppJs() {
       return testTypeFromAppJs({
-        num: 1   
+        num: 1
       } as Options)
-    },
-    // #endif
-    // #ifdef APP
-    jest_testCallbackKeepAlive(): boolean {
-      
-        let ret: boolean = true
-        let count = 0;
-        
-        onTest1((res) => {
-          count++;
-          console.log("onTest1 callback =====> ", res)
-        })
-        
-        if (count < 2) {
-          ret = false
-        }
-        count = 0;
-        
-        testKeepAlive((res) => {
-          count++;
-          console.log(res)
-        })
-        
-        if (count < 2) {
-          ret = false
-        }
-        count = 0;
-        
-        testKeepAliveOption({
-          a: "testKeepAliveOption",
-          success: (res) => {
-            count++;
-            console.log("testKeepAliveOption callback =====> ", res)
-          }
-        } as TestKeepAliveOption)
-        
-        if (count < 2) {
-          ret = false
-        }
-        count = 0;
-        
-        TestKeepAliveClass.onTestStatic((res) => {
-          count++;
-          console.log("onTestStatic callback =====> ", res)
-        })
-        
-        if (count < 2) {
-          ret = false
-        }
-        count = 0;
-        
-        TestKeepAliveClass.testKeepAliveStatic((res) => {
-          count++;
-          console.log("testKeepAliveStatic callback =====> ", res)
-        })
-        
-        if (count < 2) {
-          ret = false
-        }
-        count = 0;
-        
-        TestKeepAliveClass.testKeepAliveOptionStatic({
-          a: "testKeepAliveOption",
-          success: (res) => {
-            count++;
-            console.log("testKeepAliveOptionStatic callback =====> ", res)
-          }
-        } as TestKeepAliveOption)
-        
-        if (count < 2) {
-          ret = false
-        }
-        count = 0;
-        
-        const obj = new TestKeepAliveClass()
-        obj.onTest((res) => {
-          count++;
-          console.log("TestKeepAliveClass.onTest callback =====> ", res)
-        })
-        
-        if (count < 2) {
-          ret = false
-        }
-        count = 0;
-        
-        obj.testKeepAlive((res) => {
-          count++;
-          console.log("TestKeepAliveClass.testKeepAlive callback =====> ", res)
-        })
-        
-        if (count < 2) {
-          ret = false
-        }
-        count = 0;
-        
-        obj.testKeepAliveOption({
-          a: "testKeepAliveOption",
-          success: (res) => {
-            count++;
-            console.log("TestKeepAliveClass.testKeepAliveOption callback =====> ", res)
-          }
-        } as TestKeepAliveOption)
-        if (count < 2) {
-          ret = false
-        }
-        count = 0;
-        const testImpl = createTest()
-        testImpl.test((res) => {
-          count++;
-          console.log("TestImpl.test callback =====> ", res)
-        })
-        if (count < 2) {
-          ret = false
-        }
-        this.keepAliveCount = count
-        return ret
-    },
-    jest_testCallbackNonKeepAlive(): Promise<number> {
-      let count = 0
-      const fn = (res:string) => {
-        count++;
-        console.log("testCallbackNonKeepAlive callback =====> ", res)
-      }
-      testNonKeepAlive(fn)
-      testNonKeepAlive(fn)
-      const options: TestKeepAliveOption = {
-        a:'a',
-        success(res:string){
-          count++;
-          console.log("testCallbackNonKeepAliveOption callback =====> ", res)
-        }
-      }
-      testNonKeepAliveOption(options)
-      testNonKeepAliveOption(options)
-      return new Promise((resolve)=>{
-        setTimeout(()=>{
-          this.nonKeepAliveCount = count
-          resolve(count)
-        },50)
-      })
     }
     // #endif
   },

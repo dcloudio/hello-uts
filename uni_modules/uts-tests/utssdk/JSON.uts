@@ -38,9 +38,64 @@ function countOccurrences(str : string, substr : string) : number {
   return count;
 }
 
+// #ifdef APP-ANDROID
+class A1 implements IJSONStringify{
+  override toJSON():any|null{
+  	let jsonRet = {
+  		'name': "zhangsan",
+  		'age': 12,
+  	}
+  	return jsonRet
+  }
+}
+
+class A2 implements IJSONStringify{
+  toJSON():any|null{
+  	return 2
+  }
+}
+
+class A3 implements IJSONStringify{
+  toJSON():any|null{
+  	return "json"
+  }
+}
+
+class A4 implements IJSONStringify{
+  toJSON():any|null{
+  	return null
+  }
+}
+
+class A5 implements IJSONStringify{
+  toJSON():any|null{
+  	return new A1()
+  }
+}
+
+class A6 implements IJSONStringify{
+  toJSON():any|null{
+  	return new A5()
+  }
+}
+// #endif
+
 
 export function testJSON() : Result {
   return describe("JSON", () => {
+    
+    test('custom-stringify', () => {
+      // #ifdef APP-ANDROID
+      expect(JSON.stringify(new A1())!.length).toEqual(28)
+      expect(JSON.stringify(new A2())).toEqual("2")
+      expect(JSON.stringify(new A3())).toEqual('"json"')
+      expect(JSON.stringify(new A4())).toEqual('null')
+      expect(JSON.stringify(new A5())!.length).toEqual(28)
+      expect(JSON.stringify(new A6())!.length).toEqual(28)
+      // #endif
+ 
+    })
+    
     test('parse', () => {
       // #TEST JSON.parse_tip,JSON.parse
       const json = `{"result":true, "count":42}`;
@@ -221,21 +276,21 @@ export function testJSON() : Result {
       // #ifdef APP-ANDROID
       let a = JSON.stringify({ "x": 111, "y": "aaa" })
       expect(a).toEqual('{"x":111,"y":"aaa"}');
-      let a1 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+      let a1 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : string, value : any | null) : any | null {
         if (key == "x") {
           return "x"
         }
         return value
       })
       expect(a1).toEqual('{"x":"x","y":"aaa"}');
-      let a2 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+      let a2 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : string, value : any | null) : any | null {
         if (key == "x") {
           return "x"
         }
         return value
       }, 6)
       expect(a2.length).toEqual(36);
-      let a3 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+      let a3 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : string, value : any | null) : any | null {
         if (key == "x") {
           return "x"
         }
@@ -243,7 +298,7 @@ export function testJSON() : Result {
       }, 11)
       expect(a3.length).toEqual(44);
 
-      let a4 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : any, value : any | null) : any | null {
+      let a4 = JSON.stringify({ "x": 111, "y": "aaa" }, function (key : string, value : any | null) : any | null {
         if (key == "x") {
           return "x"
         }
@@ -264,9 +319,11 @@ export function testJSON() : Result {
       expect(a8.length).toEqual(73);
       expect(countOccurrences(a8, "99999")).toEqual(6);
 
-
       // #endif
     })
+    
+    
+    
     test('stringify', () => {
       // #ifdef APP-ANDROID
 

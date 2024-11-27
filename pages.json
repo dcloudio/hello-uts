@@ -164,10 +164,17 @@
 				"enablePullDownRefresh": false
 			}
 
-		}
+		},
+    // {
+    // 	"path": "pages/SyntaxCase/defaultValueTest",
+    // 	"style": {
+    // 		"navigationBarTitleText": "",
+    // 		"enablePullDownRefresh": false
+    // 	}
+    // },
+    
     // #endif
     // #ifdef APP
-    ,
 		{
 			"path": "pages/SyntaxCase/utsAndroid",
 			"style": {

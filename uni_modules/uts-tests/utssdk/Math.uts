@@ -106,6 +106,14 @@ export function testMath() : Result {
       expect(difference(3, 5)).toEqual(2);
       expect(difference(5, 3)).toEqual(2);
       expect(difference(1.23456, 7.89012)).toEqual(6.6555599999999995);
+      
+      let utsNumber1 = JSON.parse("-160")! as Number
+      expect(Math.abs(utsNumber1)).toEqual(160);
+      
+      let utsNumber2 = Math.abs(0) - 0.123456
+      expect(Math.abs(utsNumber2)).toEqual(0.123456);
+      
+      
     })
 
     test('acos', () => {
@@ -126,7 +134,7 @@ export function testMath() : Result {
       // 解决精度问题
       expect(Math.acos(-1)).toEqual(3.141592653589793);
       expect(Math.acos(0)).toEqual(1.5707963267948966);
-      expect(Math.acos(1)).toEqual(0.0);
+      expect(Math.acos(1)).toEqual(0);
     })
 
     test('acosh', () => {
@@ -145,7 +153,7 @@ export function testMath() : Result {
       // expected output: 1.566799236972411
       // #END
       // 解决精度问题
-      expect(Math.acosh(1)).toEqual(0.0);
+      expect(Math.acosh(1)).toEqual(0);
       expectNumber(Math.acosh(2)).toEqualDouble(1.3169578969248166);
       expectNumber(Math.acosh(2.5)).toEqualDouble(1.566799236972411);
     })
@@ -172,7 +180,7 @@ export function testMath() : Result {
       // 解决精度问题
       expect(Math.asin(-1)).toEqual(-1.5707963267948966);
       // expect(Math.asin(0.5)).toEqual(0.5235987755982989);
-      expect(Math.asin(0)).toEqual(0.0);
+      expect(Math.asin(0)).toEqual(0);
       expect(Math.asin(1)).toEqual(1.5707963267948966);
     })
 
@@ -197,7 +205,7 @@ export function testMath() : Result {
       // #END
       // 解决精度问题
       expectNumber(Math.asinh(1)).toEqualDouble(0.881373587019543);
-      expectNumber(Math.asinh(0)).toEqualDouble(0.0);
+      expectNumber(Math.asinh(0)).toEqualDouble(0);
       expectNumber(Math.asinh(-1)).toEqualDouble(-0.881373587019543);
       expectNumber(Math.asinh(2)).toEqualDouble(1.4436354751788103);
     })
@@ -217,7 +225,7 @@ export function testMath() : Result {
       // #END
       // 解决精度问题
       expect(Math.atan(1)).toEqual(0.7853981633974483);
-      expect(Math.atan(0)).toEqual(0.0);
+      expect(Math.atan(0)).toEqual(0);
     })
 
     test('atan2', () => {
@@ -243,7 +251,7 @@ export function testMath() : Result {
       // expected output: 0
       // #END
       // 解决精度问题
-      expect(Math.atanh(0)).toEqual(0.0);
+      expect(Math.atanh(0)).toEqual(0);
       // expect(Math.atanh(0.5)).toEqual(0.5493061443340548);
     })
 

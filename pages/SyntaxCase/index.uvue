@@ -53,7 +53,11 @@
         <view>测试callback：{{ format(testUtsClassInstanceResult['callback']) }}</view>
         <button @click="testUtsClassSetter">点击测试class 示例setter方法</button>
         <view>测试setter：{{ format(testUtsClassSetterResult) }}</view>
+        <view>测试promise返回值：{{ format(testUtsReturnPromiseResult) }}</view>
         <button @click="testAll">点击测试所有</button>
+        <!-- #ifdef APP-IOS -->
+        <button @click="testPromiseStaticMethod">点击测试promise静态方法</button>
+        <!-- #endif -->
       </view>
       <view style="height: 20px;"></view>
   </scroll-view>
@@ -72,7 +76,13 @@
         Test,
         request,
         SetterTest,
+        PromiseReturnDemo,
     } from "../../uni_modules/uts-syntaxcase";
+    // #endif
+    // #ifdef APP-IOS
+    import {
+      testPromiseStaticMethod
+    } from "@/uni_modules/uts-syntaxcase"
     // #endif
     let test:Test|null = null
     let id = 0
@@ -136,6 +146,7 @@
                     callback: null
                 },
                 testUtsClassSetterResult: null,
+                testUtsReturnPromiseResult: null,
             }
         },
         methods: {
@@ -162,6 +173,7 @@
                 this.testUtsClassAsync();
                 this.testUtsClassInstance();
                 this.testUtsClassSetter();
+                this.testUtsReturnPromise();
             },
             testUtsSync() {
                 this.testUtsSyncResult = false;
@@ -442,6 +454,25 @@
                     console.error("testUtsClassSetter", e);
               }
             },
+
+            testUtsReturnPromise() {
+              this.testUtsReturnPromiseResult = false;
+              try {
+                let demo = new PromiseReturnDemo();
+                demo.test1();
+                demo.test2();
+                if (demo.recordRet == 2) {
+                    this.testUtsReturnPromiseResult = true;
+                }
+              } catch (e) {
+                    console.error("testUtsClassSetter", e);
+              }
+            },
+            // #ifdef APP-IOS
+            testPromiseStaticMethod() {
+              testPromiseStaticMethod()
+            }
+            // #endif
         }
     }
 </script>

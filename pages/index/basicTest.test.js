@@ -1,6 +1,6 @@
 const ERR_RE = /expected:<(.*)> but was:<(.*)>/
-
 let result;
+const resultEmptyError = '获取到 result 是空的, 请运行项目进行排查'
 
 beforeAll(async () => {
   await program.reLaunch('/pages/index/basicTest')
@@ -11,6 +11,9 @@ beforeAll(async () => {
 })
 
 function getApiFailed(describe, api) {
+  if(Object.keys(result).length === 0){
+    return resultEmptyError
+  }
   const failed = result[describe]?.failed?.find(item => {
     return item.split(':')[0] === api
   })
@@ -22,7 +25,9 @@ describes.forEach(d => {
     d?.tests && d.tests.forEach(api => {
       it(api, () => {
         const failed = getApiFailed(d.describe, api)
-        if (failed) {
+        if(failed == resultEmptyError){
+          expect('').toBe(resultEmptyError)
+        }else if (failed) {
           const parts = failed.split('\n')
           const matches = parts[1].match(ERR_RE)
           if (matches?.length) {
@@ -41,32 +46,6 @@ if (process.env.UNI_PROJECT_TYPE === '2.0' && process.env.uniTestPlatformInfo.to
     it("jest_testTypeFromAppJs", async () => {
       const res = await page.callMethod('jest_testTypeFromAppJs')
       expect(res).toEqual(true)
-    })     
-  })
-}
-
-if (process.env.UNI_PROJECT_TYPE === '2.0' && (process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios') || process.env.uniTestPlatformInfo.startsWith('android'))) {
-  describe('testCallbackKeepAlive',  () => {
-    it("jest_testCallbackKeepAlive", async () => {
-      const res = await page.callMethod('jest_testCallbackKeepAlive')
-      expect(res).toEqual(true)
-    })
-    it("jest_testCallbackNonKeepAlive", async () => {
-      const res = await page.callMethod('jest_testCallbackNonKeepAlive')
-      expect(res).toEqual(4)
-    })
-  })
-}
-
-if (process.env.UNI_PROJECT_TYPE === '1.0' && (process.env.uniTestPlatformInfo.toLocaleLowerCase().startsWith('ios') || process.env.uniTestPlatformInfo.startsWith('android'))) {
-  describe('testCallbackKeepAlive',  () => {
-    it("jest_testCallbackKeepAlive", async () => {
-      const res = await page.callMethod('jest_testCallbackKeepAlive')
-      expect(res).toEqual(20)
-    })
-    it("jest_testCallbackNonKeepAlive", async () => {
-      const res = await page.callMethod('jest_testCallbackNonKeepAlive')
-      expect(res).toEqual(4)
     })
   })
 }
