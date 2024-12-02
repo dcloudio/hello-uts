@@ -1,0 +1,96 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+
+class TestSuper implements UTSKeyIterable {
+	r1: string = ""
+	r2: Int = 1
+	r3: boolean = false
+	
+	ignoredKeys(): string[] {
+		return ["r1"]
+	}
+}
+
+
+class TestChild extends TestSuper implements UTSValueIterable {
+	a: string = ""
+	b: Int = 1
+	c: boolean = false
+	
+	holderArray: (any | null)[] = [11, 22, null, 33, 44, null];
+	
+	
+	override ignoredKeys(): string[] {
+		var result = super.ignoredKeys()
+		result.push("holderArray")
+		return result
+	}
+	
+	valueIterator(): UTSIterator<any | null> {
+		let holderIndex = 0;
+		let obj: UTSIterator<any | null> = {
+			next(): UTSIteratorResult<any | null> {
+				return UTSIteratorResult<any | null>(holderIndex == this.holderArray.count - 1, this.holderArray[holderIndex++])
+			}
+		}
+		return obj
+	}
+}
+
+
+export function testIterator(): Result {
+    return describe("Iterator", () => {
+        test('for...in', () => {
+            let test = new TestChild()
+            let result: string[] = []
+            for (item in test) {
+              result.add(item)
+            }
+            expect(result).toEqual(["r2", "r3", "a", "b", "c"])
+        })
+		
+        test('for...of', () => {
+          // test Array
+            let arr = ["a", "b", "c", "d"]
+            let result1: string[] = []
+            for (let item of arr) {
+              result1.add(item)
+            }
+            expect(result1).toEqual(["a", "b", "c", "d"])
+            
+            // test Map
+            let dic = new Map<string, any>()
+            dic.set("a", 1)
+            dic.set("b", 2)
+            dic.set("c", 3)
+            let result2: [any] = []
+            for (let item of dic) {
+              result2.add(item)
+            }
+            // #ifdef APP-ANDROID
+            expect(result2).toEqual(
+              [["a", 1], ["b", 2], ["c", 3]]
+            )
+            // #endif
+
+            // test Set
+            let set = new Set()
+            set.add("a")
+            set.add("b")
+            set.add("c")
+            var result3: any[] = []
+            for (let item of set) {
+              result3.add(item)
+            }
+            expect(result3).toEqual(["a", "b", "c"])
+            
+            // test Class for UTSValueIterable
+            let test = new TestChild()
+            let result4: (any | null)[] = []
+            for (item of test) {   
+              result4.add(item)
+            }
+            expect(result4).toEqual([11, 22, null, 33, 44, null])
+        })
+    })
+}

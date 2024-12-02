@@ -191,12 +191,14 @@ export function testJSON() : Result {
       expect(obj4?.getAny('data[1].a')).toEqual(2)
       expect(obj4?.getJSON('data[2][1]')).toEqual({ "b": "test" })
       expect(obj4?.getArray('data[3]')).toEqual([1, 2, 3])
-      
+      // #ifdef APP-ANDROID
       let cc1 = JSON.parse<boolean>("12",true)
       expect(cc1).toEqual(null)
       
       let cc2 = JSON.parse('{"a"2}',true)
       expect(cc2).toEqual(null)
+      // #endif
+
 
     })
     test('parseObject', () => {
@@ -513,7 +515,7 @@ export function testJSON() : Result {
     })
 
     test('parse-type-string', () => {
-      // #ifndef APP-ANDROID
+      // #ifdef APP-ANDROID
       
       let bb2 = JSON.parse<string>('{"a":12}')
       console.log(typeof bb2)

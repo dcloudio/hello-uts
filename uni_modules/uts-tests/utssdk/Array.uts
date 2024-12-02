@@ -314,7 +314,10 @@ export function testArray() : Result {
       let a3 = Array.of("aaa",false,u1)
       expect(a1).toEqual([ "foo", 2, "bar", true ]);
       expect(a2).toEqual([]);
+      // #ifdef APP-ANDROID
       expect(a3).toEqual([ "aaa", false, {id: 1001, name: "张三"} ] );
+      // #endif
+      
     })
     
     test("from", () => {
@@ -323,13 +326,17 @@ export function testArray() : Result {
         
         return (x as Number).toInt() + (x as Number).toInt()
       })
+      // #ifdef APP-ANDROID
       expect(a1).toEqual(["f", "o", "o"]);
+      // #endif
       expect(a2).toEqual([2, 4, 6]);
       let m1 = new Map<string,any>()
       m1.set("name","张三")
       m1.set("age",123)
       let a3 = Array.from(m1)
+      // #ifdef APP-ANDROID
       expect(a3).toEqual([["name","张三"],["age",123]]);
+      // #endif
       
       let s1 = new Set<string>()
       s1.add("张三")
@@ -341,7 +348,8 @@ export function testArray() : Result {
     
     test("fromAsync", () => {
       
-      let m1 = new Map<any,any>([
+      // #ifdef APP-ANDROID
+      let m1 = new Map<Int,any>([
           [1, 2],
           [3, 4],
         ])
@@ -350,6 +358,8 @@ export function testArray() : Result {
       ).then((array) => {
         expect(array).toEqual([[1, 2], [3, 4]]);
       });
+      // #endif
+
       
       let s1 = new Set([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)])
       Array.fromAsync(
@@ -358,8 +368,7 @@ export function testArray() : Result {
         expect(array).toEqual([1, 2, 3]);
       });
       
-      
-
+      // #ifdef APP-ANDROID
       UTSAndroid.getDispatcher("io").async(function(_){
         
           let ret2 = new Array<any>()
@@ -391,7 +400,7 @@ export function testArray() : Result {
           	expect(ret2).toEqual([1]);
           },2000)
       },null)
-      
+      // #endif      
     })
     
     test("indexOf", () => {

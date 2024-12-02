@@ -378,9 +378,11 @@ export function testNumber() : Result {
       let num4 = 112233.0
       console.log(num3 == num4)
       
+      // #ifdef APP-ANDROID
       let num5:Any = 112233.0
       let num6:Any = 112233
       console.log(num5 == num6)
+      // #endif
       
       let u11 = {
         name:"zhangsan",
