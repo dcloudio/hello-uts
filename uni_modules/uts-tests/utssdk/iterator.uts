@@ -181,23 +181,23 @@ export function testIterator(): Result {
             expect(result4).toEqual([11, 22, null, 33, 44, null])
             
             
-            let test = new TestClass()
+            let test221 = new TestClass()
             let forofRet = ""
-            for (item of test) {
+            for (item of test221) {
             	forofRet += item.toString()
             }
             expect(forofRet).toEqual('')
             
-            let test2 = new TestClass2()
+            let test222 = new TestClass2()
             let forofRet2 = ""
-            for (item of test2) {
+            for (item of test222) {
             	forofRet2 += item.toString()
             }
             expect(forofRet2).toEqual('11223344')
             
-            let test3 = new TestClass3()
+            let test223 = new TestClass3()
             let forofRet3 = ""
-            for (item of test3) {
+            for (item of test223) {
             	forofRet3 += item.toString()
             }
             expect(forofRet3).toEqual('1122null3344null')
