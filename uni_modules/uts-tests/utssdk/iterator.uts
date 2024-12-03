@@ -41,6 +41,86 @@ class TestChild implements UTSValueIterable<any | null> {
 	}
 }
 
+	class TestClass implements UTSValueIterable<any | null> {
+		
+		holderArray: (any | null)[] = [null,  null]
+		constructor(){
+			super()
+		}
+		
+		valueIterator(): UTSIterator<any | null> {
+			let holderIndex = 0;
+			let obj: UTSIterator<any | null> = {
+				next(): UTSIteratorResult<any | null> {
+					
+					let currentVal = this.holderArray[holderIndex++]
+					while(currentVal == null ){
+						if(holderIndex == this.holderArray.size - 1){
+							break;
+						}
+						currentVal = this.holderArray[holderIndex++]
+					}
+					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.size - 1,currentVal )
+				}
+			}
+			return obj
+		}
+		
+	}
+	
+	
+	
+	class TestClass2 implements UTSValueIterable<any | null> {
+		
+		holderArray: (any | null)[] = [11, 22, null, 33, 44, null]
+		constructor(){
+			super()
+		}
+		
+		valueIterator(): UTSIterator<any | null> {
+			let holderIndex = 0;
+			let obj: UTSIterator<any | null> = {
+				next(): UTSIteratorResult<any | null> {
+					
+					let currentVal = this.holderArray[holderIndex++]
+					while(currentVal == null ){
+						if(holderIndex == this.holderArray.size - 1){
+							break;
+						}
+						currentVal = this.holderArray[holderIndex++]
+					}
+					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.size - 1,currentVal )
+				}
+			}
+			return obj
+		}
+		
+	}
+	
+	
+	
+	class TestClass3 implements UTSValueIterable<any | null> {
+		
+		holderArray: (any | null)[] = [11, 22, null, 33, 44, null]
+		
+		constructor(){
+			super()
+		}
+		
+		valueIterator(): UTSIterator<any | null> {
+			let holderIndex = 0;
+			let obj: UTSIterator<any | null> = {
+				next(): UTSIteratorResult<any | null> {
+					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.size - 1, this.holderArray[holderIndex++])
+				}
+			}
+			return obj
+		}
+		
+	}
+  
+  
+
 
 export function testIterator(): Result {
     return describe("Iterator", () => {
@@ -53,6 +133,9 @@ export function testIterator(): Result {
             // expect(result).toEqual(["a", "b", "c"])
         })
 		
+    
+
+    
         test('for...of', () => {
           // test Array
             let arr = ["a", "b", "c", "d"]
@@ -96,6 +179,29 @@ export function testIterator(): Result {
               result4.add(item)
             }
             expect(result4).toEqual([11, 22, null, 33, 44, null])
+            
+            
+            let test = new TestClass()
+            let forofRet = ""
+            for (item of test) {
+            	forofRet += item.toString()
+            }
+            expect(forofRet).toEqual('')
+            
+            let test2 = new TestClass2()
+            let forofRet2 = ""
+            for (item of test2) {
+            	forofRet2 += item.toString()
+            }
+            expect(forofRet2).toEqual('11223344')
+            
+            let test3 = new TestClass3()
+            let forofRet3 = ""
+            for (item of test3) {
+            	forofRet3 += item.toString()
+            }
+            expect(forofRet3).toEqual('1122null3344null')
+            
         })
     })
 }
