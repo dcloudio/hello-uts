@@ -240,6 +240,14 @@ export function testNumber() : Result {
       expect((JSON.stringify(0.0000001))).toEqual("1e-7");
       expect((JSON.stringify(100000000000000000000.0))).toEqual("100000000000000000000");
       expect((JSON.stringify(1000000000000000000000.0))).toEqual("1e+21");
+      
+      let a11:number|null = null
+      let b11:Int|null = null
+      
+      expect(a11.toString()).toEqual("null");
+      expect(b11.toString()).toEqual("null");
+      
+      
       // #endif
     })
 
