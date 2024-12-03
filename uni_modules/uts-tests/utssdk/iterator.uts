@@ -55,12 +55,12 @@ class TestChild implements UTSValueIterable<any | null> {
 					
 					let currentVal = this.holderArray[holderIndex++]
 					while(currentVal == null ){
-						if(holderIndex == this.holderArray.size - 1){
+						if(holderIndex == this.holderArray.length - 1){
 							break;
 						}
 						currentVal = this.holderArray[holderIndex++]
 					}
-					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.size - 1,currentVal )
+					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.length - 1,currentVal )
 				}
 			}
 			return obj
@@ -84,12 +84,12 @@ class TestChild implements UTSValueIterable<any | null> {
 					
 					let currentVal = this.holderArray[holderIndex++]
 					while(currentVal == null ){
-						if(holderIndex == this.holderArray.size - 1){
+						if(holderIndex == this.holderArray.length - 1){
 							break;
 						}
 						currentVal = this.holderArray[holderIndex++]
 					}
-					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.size - 1,currentVal )
+					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.length - 1,currentVal )
 				}
 			}
 			return obj
@@ -111,7 +111,7 @@ class TestChild implements UTSValueIterable<any | null> {
 			let holderIndex = 0;
 			let obj: UTSIterator<any | null> = {
 				next(): UTSIteratorResult<any | null> {
-					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.size - 1, this.holderArray[holderIndex++])
+					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.length - 1, this.holderArray[holderIndex++])
 				}
 			}
 			return obj
@@ -182,25 +182,25 @@ export function testIterator(): Result {
             
             
             let test221 = new TestClass()
-            let forofRet = ""
+            let forofRet:Array<Any|null> = []
             for (item of test221) {
-            	forofRet += item.toString()
+              forofRet.add(item)
             }
-            expect(forofRet).toEqual('')
+            expect(forofRet).toEqual([11, 22, null, 33, 44, null])
             
             let test222 = new TestClass2()
-            let forofRet2 = ""
+            let forofRet2:Array<Any|null> = []
             for (item of test222) {
-            	forofRet2 += item.toString()
+              forofRet2.add(item)
             }
-            expect(forofRet2).toEqual('11223344')
+            expect(forofRet2).toEqual([11, 22, 33, 44, ])
             
             let test223 = new TestClass3()
-            let forofRet3 = ""
+            let forofRet3:Array<Any|null> = []
             for (item of test223) {
-            	forofRet3 += item.toString()
+              forofRet3.add(item)
             }
-            expect(forofRet3).toEqual('1122null3344null')
+            expect(forofRet3).toEqual([11, 22, null, 33, 44, null])
             
         })
     })
