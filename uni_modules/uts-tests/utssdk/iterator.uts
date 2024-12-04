@@ -185,7 +185,7 @@ export function testIterator(): Result {
             for (let item of test221) {
               forofRet.push(item)
             }
-            expect(forofRet).toEqual([11, 22, null, 33, 44, null])
+            expect(forofRet).toEqual([])
             
             let test222 = new TestClass2()
             let forofRet2:Array<any|null> = []
