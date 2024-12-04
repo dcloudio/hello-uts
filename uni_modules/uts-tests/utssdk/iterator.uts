@@ -44,7 +44,8 @@ class TestChild implements UTSValueIterable<any | null> {
 		valueIterator(): UTSIterator<any | null> {
 			let holderIndex = 0;
 			let obj: UTSIterator<any | null> = {
-				next: (): UTSIteratorResult<any | null> => {
+
+				next:() : UTSIteratorResult<any | null> => {
 					
 					let currentVal = this.holderArray[holderIndex++]
 					while(currentVal == null ){
@@ -53,7 +54,11 @@ class TestChild implements UTSValueIterable<any | null> {
 						}
 						currentVal = this.holderArray[holderIndex++]
 					}
-					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.length - 1,currentVal )
+          return {
+            done: holderIndex == this.holderArray.length - 1,
+            value: currentVal,
+          } as UTSIteratorResult<any | null>
+          
 				}
 			}
 			return obj
@@ -70,7 +75,8 @@ class TestChild implements UTSValueIterable<any | null> {
 		valueIterator(): UTSIterator<any | null> {
 			let holderIndex = 0;
 			let obj: UTSIterator<any | null> = {
-				next: (): UTSIteratorResult<any | null> => {
+
+				next: () : UTSIteratorResult<any | null> => {
 					
 					let currentVal = this.holderArray[holderIndex++]
 					while(currentVal == null ){
@@ -79,7 +85,10 @@ class TestChild implements UTSValueIterable<any | null> {
 						}
 						currentVal = this.holderArray[holderIndex++]
 					}
-					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.length - 1,currentVal )
+          return {
+            done: holderIndex == this.holderArray.length - 1,
+            value: currentVal,
+          } as UTSIteratorResult<any | null>
 				}
 			}
 			return obj
@@ -96,8 +105,12 @@ class TestChild implements UTSValueIterable<any | null> {
 		valueIterator(): UTSIterator<any | null> {
 			let holderIndex = 0;
 			let obj: UTSIterator<any | null> = {
-				next: (): UTSIteratorResult<any | null> => {
-					return UTSIteratorResult<any | null>(holderIndex == this.holderArray.length - 1, this.holderArray[holderIndex++])
+
+				next: () : UTSIteratorResult<any | null> => {
+            return {
+              done: holderIndex == this.holderArray.length - 1,
+              value: this.holderArray[holderIndex++],
+            } as UTSIteratorResult<any | null>
 				}
 			}
 			return obj
