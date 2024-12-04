@@ -53,18 +53,11 @@ class TestChild implements UTSValueIterable<any | null> {
 			let obj: UTSIterator<any> = {
       
 				next:() : UTSIteratorResult<any> => {
-          if (arr.length == 0) {
-            return {
-              done: true,
-              value: null,
-            } as UTSIteratorResult<any>
-          }else {
-             const done = holderIndex == arr.length
-            return {
-              done,
-              value: done ? null : arr[holderIndex++],
-            } as UTSIteratorResult<any>
-          }
+          const done = holderIndex == arr.length
+          return {
+            done,
+            value: done ? null : arr[holderIndex++],
+          } as UTSIteratorResult<any>
 				}
 			}
 			return obj
