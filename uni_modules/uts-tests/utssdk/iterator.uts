@@ -12,7 +12,7 @@ import { describe, test, expect, Result } from './tests.uts'
 // }
 
 
-class TestChild implements UTSValueIterable<any | null> {
+class TestChild implements UTSKeyIterable, UTSValueIterable<any | null> {
 	a: string = ""
 	b: number = 1
 	c: boolean = false
@@ -41,29 +41,30 @@ class TestChild implements UTSValueIterable<any | null> {
 	}
 }
 
-	class TestClass implements UTSValueIterable<any | null> {
+	class TestClass implements UTSValueIterable<any> {
 		
 		holderArray: (any | null)[] = [null,  null]
     
-		valueIterator(): UTSIterator<any | null> {
+		valueIterator(): UTSIterator<any> {
 			let holderIndex = 0;
-			let obj: UTSIterator<any | null> = {
-
-				next:() : UTSIteratorResult<any | null> => {
-					
-					let currentVal = this.holderArray[holderIndex++]
-					while(currentVal == null){
-						if(holderIndex == this.holderArray.length){
-							break;
-						}
-						currentVal = this.holderArray[holderIndex++]
-					}
-          const done = holderIndex == this.holderArray.length
-          return {
-            done: done,
-            value: done ? null : currentVal,
-          } as UTSIteratorResult<any | null>
-          
+      let arr = this.holderArray.filter((value) => {
+        return value != null
+      })
+			let obj: UTSIterator<any> = {
+      
+				next:() : UTSIteratorResult<any> => {
+          if (arr.length == 0) {
+            return {
+              done: true,
+              value: null,
+            } as UTSIteratorResult<any>
+          }else {
+             const done = holderIndex == arr.length
+            return {
+              done,
+              value: done ? null : arr[holderIndex++],
+            } as UTSIteratorResult<any>
+          }
 				}
 			}
 			return obj
@@ -73,28 +74,24 @@ class TestChild implements UTSValueIterable<any | null> {
 	
 	
 	
-	class TestClass2 implements UTSValueIterable<any | null> {
+	class TestClass2 implements UTSValueIterable<any> {
 		
 		holderArray: (any | null)[] = [11, 22, null, 33, 44, null]
     
-		valueIterator(): UTSIterator<any | null> {
+		valueIterator(): UTSIterator<any> {
 			let holderIndex = 0;
-			let obj: UTSIterator<any | null> = {
-
-				next: () : UTSIteratorResult<any | null> => {
-					
-					let currentVal = this.holderArray[holderIndex++]
-					while(currentVal == null ){
-						if(holderIndex == this.holderArray.length){
-							break;
-						}
-						currentVal = this.holderArray[holderIndex++]
-					}
-          const done = holderIndex == this.holderArray.length
+      let arr = this.holderArray.filter((value) => { 
+        return value != null
+      })
+      
+			let obj: UTSIterator<any> = {
+        
+				next: () : UTSIteratorResult<any> => {
+          const done = holderIndex == arr.length
           return {
             done,
-            value: done ? null : currentVal,
-          } as UTSIteratorResult<any | null>
+            value: done ? null : arr[holderIndex++],
+          } as UTSIteratorResult<any>
 				}
 			}
 			return obj
@@ -131,17 +128,14 @@ class TestChild implements UTSValueIterable<any | null> {
 export function testIterator(): Result {
     return describe("Iterator", () => {
         test('for...in', () => {
-            // let test = new TestChild()
-            // let result: string[] = []
-            // for (item in test) {
-            //   result.add(item)
-            // }
-            // expect(result).toEqual(["a", "b", "c"])
+            let test = new TestChild()
+            let result: string[] = []
+            for (item in test) {
+              result.add(item)
+            }
+            expect(result).toEqual(["a", "b", "c"])
         })
 		
-    
-
-    
         test('for...of', () => {
           // test Array
             let arr = ["a", "b", "c", "d"]
