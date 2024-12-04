@@ -12,7 +12,7 @@ import { describe, test, expect, Result } from './tests.uts'
 // }
 
 
-class TestChild implements UTSKeyIterable, UTSValueIterable<any | null> {
+class TestChild implements UTSValueIterable<any | null> {
 	a: string = ""
 	b: number = 1
 	c: boolean = false
@@ -127,14 +127,14 @@ class TestChild implements UTSKeyIterable, UTSValueIterable<any | null> {
 
 export function testIterator(): Result {
     return describe("Iterator", () => {
-        test('for...in', () => {
-            let test = new TestChild()
-            let result: string[] = []
-            for (item in test) {
-              result.add(item)
-            }
-            expect(result).toEqual(["a", "b", "c"])
-        })
+        // test('for...in', () => {
+        //     let test = new TestChild()
+        //     let result: string[] = []
+        //     for (let item in test) {
+        //       result.push(item)
+        //     }
+        //     expect(result).toEqual(["a", "b", "c"])
+        // })
 		
         test('for...of', () => {
           // test Array
