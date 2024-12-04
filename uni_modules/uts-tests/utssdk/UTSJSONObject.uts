@@ -337,5 +337,14 @@ export function testUTSJSONObject() : Result {
       expect(obj.getString("a.b.c")).toEqual('c1')
       
     })
+    
+    test('property-access', () => {
+      const obj = {
+        a: { b: { c: 'c' } }
+      }
+      expect(((obj.a as UTSJSONObject).b as UTSJSONObject).c).toEqual('c');
+      ((obj.a as UTSJSONObject).b as UTSJSONObject).c = 'c1';
+      expect(((obj.a as UTSJSONObject).b as UTSJSONObject).c).toEqual('c1');
+    })
   })
 }
