@@ -379,10 +379,10 @@ export function testNumber() : Result {
       expect(a10 == b10).toEqual(true);
       expect(a10 === b10).toEqual(true);
 
-      let num1:Any = 1.0
+      let num1:any = 1.0
       let num2 = 1
       console.log(num1 == num2)
-      let num3:Any = 112233
+      let num3:any = 112233
       let num4 = 112233.0
       console.log(num3 == num4)
       

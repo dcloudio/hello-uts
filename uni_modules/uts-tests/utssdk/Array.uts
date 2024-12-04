@@ -300,8 +300,8 @@ export function testArray() : Result {
     })
     
     test("of-1", () => {
-      let a1 = Array.of('foo', 2, 'bar', true)
-      let a2 = Array.of()
+      let a1 = Array.of<any>('foo', 2, 'bar', true)
+      let a2 = Array.of<any>()
       console.log(a1,a2)
       type User = {
       	id:number
@@ -311,7 +311,7 @@ export function testArray() : Result {
       	id:1001,
       	name:"张三"
       } as User
-      let a3 = Array.of("aaa",false,u1)
+      let a3 = Array.of<any>("aaa",false,u1)
       expect(a1).toEqual([ "foo", 2, "bar", true ]);
       expect(a2).toEqual([]);
       // #ifdef APP-ANDROID
@@ -324,7 +324,12 @@ export function testArray() : Result {
       let a1 = Array.from('foo')
       let a2 = Array.from([1, 2, 3], function(x:any|null,index:number){
         
+        // #ifdef APP
         return (x as Number).toInt() + (x as Number).toInt()
+        // #endif
+        // #ifndef APP
+        return (x as number) + (x as number)
+        // #endif
       })
       // #ifdef APP-ANDROID
       expect(a1).toEqual(["f", "o", "o"]);
@@ -360,13 +365,14 @@ export function testArray() : Result {
       });
       // #endif
 
-      
+      // #ifdef APP
       let s1 = new Set([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)])
       Array.fromAsync(
         s1
       ).then((array) => {
         expect(array).toEqual([1, 2, 3]);
       });
+      // #endif
       
       // #ifdef APP-ANDROID
       UTSAndroid.getDispatcher("io").async(function(_){

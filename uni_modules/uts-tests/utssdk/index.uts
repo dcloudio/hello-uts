@@ -54,9 +54,7 @@ export function runTests() : UTSJSONObject {
   const TextDecoderRes = testDecoder();
   // #endif
   
-  // #ifdef APP-IOS || APP-ANDROID
   const IteratorRes = testIterator()
-  // #endif
   
   return {
     Array: ArrayRes,
@@ -85,8 +83,6 @@ export function runTests() : UTSJSONObject {
     NativeCode: NativeCodeRes,
     Primise: PromiseRes,
     
-    // #ifdef APP-IOS || APP-ANDROID
     Iterator: IteratorRes
-    // #endif
   }
 }
