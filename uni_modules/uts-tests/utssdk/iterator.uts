@@ -45,7 +45,7 @@ class TestChild implements UTSValueIterable<any | null> {
 		
 		holderArray: (any | null)[] = [null,  null]
     
-		valueIterator(): UTSIterator<any> {
+		valueIterator(): UTSIterator<any | null> {
 			let holderIndex = 0;
       let arr = this.holderArray.filter((value) => {
         return value != null
