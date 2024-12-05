@@ -41,23 +41,23 @@ class TestChild implements UTSValueIterable<any | null> {
 	}
 }
 
-	class TestClass implements UTSValueIterable<any> {
+	class TestClass implements UTSValueIterable<any | null> {
 		
 		holderArray: (any | null)[] = [null,  null]
     
-		valueIterator(): UTSIterator<any> {
+		valueIterator(): UTSIterator<any | null> {
 			let holderIndex = 0;
       let arr = this.holderArray.filter((value) => {
         return value != null
       })
 			let obj: UTSIterator<any> = {
       
-				next:() : UTSIteratorResult<any> => {
+				next:() : UTSIteratorResult<any | null> => {
           const done = holderIndex == arr.length
           return {
             done,
             value: done ? null : arr[holderIndex++],
-          } as UTSIteratorResult<any>
+          } as UTSIteratorResult<any | null>
 				}
 			}
 			return obj
@@ -67,24 +67,24 @@ class TestChild implements UTSValueIterable<any | null> {
 	
 	
 	
-	class TestClass2 implements UTSValueIterable<any> {
+	class TestClass2 implements UTSValueIterable<any | null> {
 		
 		holderArray: (any | null)[] = [11, 22, null, 33, 44, null]
     
-		valueIterator(): UTSIterator<any> {
+		valueIterator(): UTSIterator<any | null> {
 			let holderIndex = 0;
       let arr = this.holderArray.filter((value) => { 
         return value != null
       })
       
-			let obj: UTSIterator<any> = {
+			let obj: UTSIterator<any | null> = {
         
-				next: () : UTSIteratorResult<any> => {
+				next: () : UTSIteratorResult<any | null> => {
           const done = holderIndex == arr.length
           return {
             done,
             value: done ? null : arr[holderIndex++],
-          } as UTSIteratorResult<any>
+          } as UTSIteratorResult<any | null>
 				}
 			}
 			return obj
@@ -188,7 +188,7 @@ export function testIterator(): Result {
             }
             expect(forofRet2).toEqual([11, 22, 33, 44])
             
-            let test223 = new TestClass3()
+            let test223 = new TestClass3()  
             let forofRet3:Array<any|null> = []
             for (let item of test223) {
               forofRet3.push(item)
