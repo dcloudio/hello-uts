@@ -123,8 +123,8 @@ export function testOperators(): Result {
             expect(divide(16788990015, 5)).toEqualNumber(3357798003);
             expectNumber(divide(16788990015, 10088990000)).toEqualDouble(1.6640902622561822);
         
-            let utsNum1 = JSON.parse("0.123456")! as Number
-            let utsNum2 = JSON.parse("0.123456")! as Number
+            let utsNum1 = JSON.parse("0.123456")! as number
+            let utsNum2 = JSON.parse("0.123456")! as number
             
             let utsNum3 = utsNum1 / utsNum2
             expect(utsNum3).toEqualNumber(1);

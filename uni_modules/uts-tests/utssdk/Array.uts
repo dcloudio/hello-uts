@@ -298,6 +298,117 @@ export function testArray() : Result {
       // #endif
 
     })
+    
+    test("of-1", () => {
+      let a1 = Array.of<any>('foo', 2, 'bar', true)
+      let a2 = Array.of<any>()
+      console.log(a1,a2)
+      type User = {
+      	id:number
+      	name:string
+      }
+      let u1 = {
+      	id:1001,
+      	name:"张三"
+      } as User
+      let a3 = Array.of<any>("aaa",false,u1)
+      expect(a1).toEqual([ "foo", 2, "bar", true ]);
+      expect(a2).toEqual([]);
+      // #ifdef APP-ANDROID
+      expect(a3).toEqual([ "aaa", false, {id: 1001, name: "张三"} ] );
+      // #endif
+      
+    })
+    
+    test("from", () => {
+      let a1 = Array.from('foo')
+      let a2 = Array.from([1, 2, 3], function(x:any|null,index:number){
+        
+        // #ifdef APP
+        return (x as Number).toInt() + (x as Number).toInt()
+        // #endif
+        // #ifndef APP
+        return (x as number) + (x as number)
+        // #endif
+      })
+      // #ifdef APP-ANDROID
+      expect(a1).toEqual(["f", "o", "o"]);
+      // #endif
+      expect(a2).toEqual([2, 4, 6]);
+      let m1 = new Map<string,any>()
+      m1.set("name","张三")
+      m1.set("age",123)
+      let a3 = Array.from(m1)
+      // #ifdef APP-ANDROID
+      expect(a3).toEqual([["name","张三"],["age",123]]);
+      // #endif
+      
+      let s1 = new Set<string>()
+      s1.add("张三")
+      s1.add("李四")
+      let a4 = Array.from(s1)
+      expect(a4).toEqual(["张三","李四"]);
+      
+    })
+    
+    test("fromAsync", () => {
+      
+      // #ifdef APP-ANDROID
+      let m1 = new Map<Int,any>([
+          [1, 2],
+          [3, 4],
+        ])
+      Array.fromAsync(
+        m1
+      ).then((array) => {
+        expect(array).toEqual([[1, 2], [3, 4]]);
+      });
+      // #endif
+
+      // #ifdef APP
+      let s1 = new Set([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)])
+      Array.fromAsync(
+        s1
+      ).then((array) => {
+        expect(array).toEqual([1, 2, 3]);
+      });
+      // #endif
+      
+      // #ifdef APP-ANDROID
+      UTSAndroid.getDispatcher("io").async(function(_){
+        
+          let ret2 = new Array<any>()
+          let p = new Promise<number>((resolve, reject) => {
+          	setTimeout(() => {
+          		reject("xxxxxxxx")
+          	}, 1000)
+          })
+          
+          let pArray = [p, 1, 2, "3"]
+          const a = Array.fromAsync(pArray)
+          a.then((res) => {
+          	ret2 = ret2.concat(res)
+          }).catch((err) => {
+          	ret2.clear()
+          })
+          
+          const pArray1 = Array.fromAsync("abcdefg");
+          
+          pArray1.then((res) => {
+          	ret2 = ret2.concat(res)
+          }) 
+          
+          setTimeout(function(){
+            expect(ret2).toEqual(["a", "b", "c", "d", "e", "f", "g"]);
+          },200)
+          
+          setTimeout(function(){
+          	expect(ret2).toEqual([1]);
+          },2000)
+      },null)
+      // #endif      
+    })
+    
     test("indexOf", () => {
 
       let raw = {}

@@ -156,6 +156,13 @@
     		"enablePullDownRefresh": false
     	}
     },
+    {
+    	"path": "pages/SyntaxCase/nvueTest",
+    	"style": {
+    		"navigationBarTitleText": "",
+    		"enablePullDownRefresh": false
+    	}
+    },
     
 		{
 			"path": "pages/SyntaxCase/instanceTest",

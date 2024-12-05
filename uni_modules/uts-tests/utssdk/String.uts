@@ -464,6 +464,25 @@ export function testString() : Result {
       var str4 = "a, b, {c, d, e}, f, g, h";
       var re4 = /,(?![^{]*\})/;
       expect(str4.split(re4)).toEqual(["a", " b", " {c, d, e}", " f", " g", " h"]);
+      
+      let a1 = "#d1d1d1".replace(RegExp("\\s*,\\s*", "g"), ",")
+      let a2 = a1.split(RegExp("\\s+", ""));
+      expect(a2).toEqual(["#d1d1d1"]);
+      
+      let a3 = "123456a".split(RegExp("\\d+", ""));
+      expect(a3).toEqual(["","a"]);
+      
+      let a4 = "123456a".split(RegExp("\\d+", ""));
+      expect(a4).toEqual(["","a"]);
+      
+      let a5 = "778899	003213".split(RegExp("\\s+", ""));
+      expect(a5).toEqual(["778899","003213"]);
+      // #ifdef APP-ANDROID
+      let sp1 = "😄😄".split(RegExp("(?:)", ""));
+      let sp2 = "😄😄".split(RegExp("(?:)", "u"));
+      expect(sp1.length).toEqual(4);
+      expect(sp2.length).toEqual(2);
+      // #endif
     })
     test('toLowerCase', () => {
       // #TEST String.toLowerCase

@@ -120,7 +120,7 @@ export function testKeyWord() : Result {
       expect(instanceRet3).toEqual(false)
       // #ifdef APP-ANDROID
       let instanceRet4 = (typeof num1) == "number"
-      expect(instanceRet4).toEqual(false)
+      expect(instanceRet4).toEqual(true)
       // #endif
     })
 

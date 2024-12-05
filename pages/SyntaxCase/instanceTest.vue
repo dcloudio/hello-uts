@@ -22,7 +22,9 @@
 	export default {
 		data() {
 			return {
-				ret:''
+				ret:'',
+        // 将uts的class实例放进data里，测试响应式包装后是否有问题
+        user1: new User("张三", 20)
 			}
 		},
 		methods: {
@@ -57,11 +59,10 @@
       
 			instanceCreate() {
 				
-				const user1 = new User("张三", 20);
 				const user2 = new User("李四", 30);  
 				const user3 = new User("王五", 40);  
 				
-				let userText1 = user1.describeSelf() 
+				let userText1 = this.user1.describeSelf() 
 				let userText2 = user2.describeSelf()   
 				let userText3 = user3.describeSelf()  
 
