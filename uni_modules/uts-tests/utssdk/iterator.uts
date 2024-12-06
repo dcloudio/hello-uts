@@ -50,7 +50,7 @@ class TestChild implements UTSValueIterable<any | null> {
       let arr = this.holderArray.filter((value) => {
         return value != null
       })
-			let obj: UTSIterator<any> = {
+			let obj: UTSIterator<any | null> = {
       
 				next:() : UTSIteratorResult<any | null> => {
           const done = holderIndex == arr.length
