@@ -54,6 +54,9 @@ export function testUTSJSONObject() : Result {
 
       result["service"] = service
 
+    /**
+     * android 6.0 以下属性顺序不一致，可以忽略
+     */
       expect(result.toJSONObject().toJSONString()).toEqual('{"opt":"xxxx","service":{"array":[{"name":"xxx","type":0}],"name":"0xxxb34fb","type":0}}');
 
 
