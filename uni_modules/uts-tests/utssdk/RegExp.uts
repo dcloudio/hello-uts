@@ -333,6 +333,8 @@ export function testRegExp() : Result {
       expect(result1.index).toEqual(0);
       expect(result1.input).toEqual("hello world");
 
+      // #ifndef APP-ANDROID
+      // 目前的测试环境safari版本为15，不支持?<
       const pattern2 = /quick\s(?<color>brown).+?(jumps)/igd;
       const result2 = pattern2.exec('The Quick Brown Fox Jumps Over The Lazy Dog')!;
       expect(result2[0]).toEqual("Quick Brown Fox Jumps");
@@ -340,7 +342,8 @@ export function testRegExp() : Result {
       expect(result2[2]).toEqual("Jumps");
       expect(result2.index).toEqual(4);
       expect(result2.input).toEqual("The Quick Brown Fox Jumps Over The Lazy Dog");
-      // expect(result2.groups).toEqual({color: "Brown"});
+      expect(result2.groups).toEqual({color: "Brown"});
+      // #endif
 
       const pattern3 = /(\d{4})-(\d{2})-(\d{2})/g;
       const result3 = pattern3.exec("2023-02-01")!;
@@ -395,9 +398,9 @@ export function testRegExp() : Result {
       const match2 = CHUNK_REGEXP.exec('none')
       expect(match2![0]).toEqual("none");
       expect(match2![1]).toEqual("none");
-      // expect(JSON.stringify(match2![2])).toEqual("null");
-      // expect(JSON.stringify(match2![3])).toEqual("null");
-      // expect(JSON.stringify(match2![4])).toEqual("null");
+      expect(JSON.stringify(match2![2])).toEqual("null");
+      expect(JSON.stringify(match2![3])).toEqual("null");
+      expect(JSON.stringify(match2![4])).toEqual("null");
 
     })
   })

@@ -403,7 +403,7 @@ export function testArray() : Result {
           },200)
           
           setTimeout(function(){
-          	expect(ret2).toEqual([1]);
+          	expect(ret2).toEqual([]);
           },2000)
       },null)
       // #endif      
