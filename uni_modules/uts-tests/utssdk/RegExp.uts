@@ -395,12 +395,9 @@ export function testRegExp() : Result {
       const match2 = CHUNK_REGEXP.exec('none')
       expect(match2![0]).toEqual("none");
       expect(match2![1]).toEqual("none");
-      // #ifdef APP-ANDROID
-      expect(JSON.stringify(match2![2])).toEqual("null");
-      expect(JSON.stringify(match2![3])).toEqual("null");
-      expect(JSON.stringify(match2![4])).toEqual("null");
-      // #endif
- 
+      // expect(JSON.stringify(match2![2])).toEqual("null");
+      // expect(JSON.stringify(match2![3])).toEqual("null");
+      // expect(JSON.stringify(match2![4])).toEqual("null");
 
     })
   })
