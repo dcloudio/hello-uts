@@ -138,7 +138,7 @@ export class AppHookProxy implements UTSAndroidHookProxy {
 }
 
 
-//@UTSAndroid.Suppress("DEPRECATION")
+@UTSAndroid.Suppress("DEPRECATION")
 class ForeService extends Service {
 
 	constructor (){
@@ -425,7 +425,7 @@ class DemoActivity  extends Activity{
 	
 }
 
-//@UTSAndroid.Suppress("DEPRECATION")
+@UTSAndroid.Suppress("DEPRECATION")
 class IntentRunable implements Runnable{
 	override run(){
 		console.log("IntentRunable = " + Thread.currentThread().getName())
@@ -478,7 +478,7 @@ function initShortCut() {
 
 }
 
-//@UTSAndroid.Suppress("DEPRECATION")
+@UTSAndroid.Suppress("DEPRECATION")
 export function gotoDemoActivity():boolean {
 	// 这里的逻辑是为了判断 当前的自定义activity 是否注册了，并以此为条件判断是否是自定义基座
 	let hasXActivityIntegration =  true

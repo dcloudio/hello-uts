@@ -1,5 +1,6 @@
 import { describe, test, expect, Result } from './tests.uts'
 
+@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION","DEPRECATION")
 export function testString() : Result {
   return describe("String", () => {
     test('length', () => {
@@ -221,6 +222,7 @@ export function testString() : Result {
 
       expect("".indexOf("test")).toEqual(-1);
     })
+    
     test('match', () => {
       // #TEST String.match
       const str = 'The quick brown fox jumps over the lazy dog. It barked.';

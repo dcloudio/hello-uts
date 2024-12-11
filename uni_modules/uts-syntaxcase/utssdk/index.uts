@@ -435,7 +435,7 @@ export class UTSActivityComponentCallback extends UniActivityComponentCallback {
 export function Scan(timeMillis : Number = 60000):number {
 	return timeMillis
 }
-@UTSAndroid.Suppress("DEPRECATION")
+@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
 export function Scan1(timeMillis ?: Number):string {
 
 	if(timeMillis == null){
@@ -443,7 +443,7 @@ export function Scan1(timeMillis ?: Number):string {
 	}
 	return timeMillis!.toString()
 }
-@UTSAndroid.Suppress("DEPRECATION")
+@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
 export function Scan2(timeMillis ?: Number | null):string {
 
 	if(timeMillis == null){
@@ -461,12 +461,12 @@ export class myClass {
 		console.log(name);
 		return name
 	}
-	
+	@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
 	to1(name?: String):string {
 		if(name == null){
 			return "null"
 		}
-		return name
+		return name!
 	}
 }
 
