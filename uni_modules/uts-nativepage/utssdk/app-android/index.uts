@@ -371,7 +371,7 @@ class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
 	
 }
 
-//@UTSAndroid.Suppress("DEPRECATION")
+@UTSAndroid.Suppress("DEPRECATION")
 class DemoActivity  extends Activity{
 	
 	constructor (){

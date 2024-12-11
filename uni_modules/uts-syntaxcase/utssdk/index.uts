@@ -435,21 +435,21 @@ export class UTSActivityComponentCallback extends UniActivityComponentCallback {
 export function Scan(timeMillis : Number = 60000):number {
 	return timeMillis
 }
-
+@UTSAndroid.Suppress("DEPRECATION")
 export function Scan1(timeMillis ?: Number):string {
 
 	if(timeMillis == null){
 		return "null"
 	}
-	return timeMillis.toString()
+	return timeMillis!.toString()
 }
-
+@UTSAndroid.Suppress("DEPRECATION")
 export function Scan2(timeMillis ?: Number | null):string {
 
 	if(timeMillis == null){
 		return "null"
 	}
-	return timeMillis.toString()
+	return timeMillis!.toString()
 }
 
 export class myClass {
