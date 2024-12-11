@@ -80,6 +80,7 @@ class A6 implements IJSONStringify{
 }
 
 
+@UTSAndroid.Suppress("DEPRECATION")
 export function testJSON() : Result {
   return describe("JSON", () => {
     
