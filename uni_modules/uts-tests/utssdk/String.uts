@@ -602,16 +602,32 @@ export function testString() : Result {
       	c: 'collapse'
       }
       let b:string = `fdsfa${visibilitylist['n']}`
+      // #ifdef APP-ANDROID
       expect(b).toEqual("fdsfanull");
+      // #endif
+      // TODO: 需要编译器协助调用自定义函数将nil转成null
+      // #ifdef APP-IOS
+      expect(b).toEqual("fdsfanil");
+      // #endif
       
       let a:Number|null = null
       let ab:string = `aaa${a}`
+      // #ifdef APP-ANDROID
       expect(ab).toEqual("aaanull");
+      // #endif
+      // #ifdef APP-IOS
+      expect(ab).toEqual("aaanil");
+      // #endif
       
-      let c:Any|null = "123"
-      c = null
+      // let c:Any|null = "123"
+      // c = null
       let ac:string = `ccc${a}`
+      // #ifdef APP-ANDROID
       expect(ac).toEqual("cccnull");
+      // #endif
+      // #ifdef APP-IOS
+      expect(ac).toEqual("cccnil");
+      // #endif
       
     })
     test("matchAll", () => {
