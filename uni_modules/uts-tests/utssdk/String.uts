@@ -593,6 +593,25 @@ export function testString() : Result {
       expect(str1.startsWith("not to be", 10)).toEqual(true);
       expect(str1.startsWith("not to be", 8)).toEqual(false);
     })
+    test("toStringNullTest1", () => {
+      const visibilitylist = {
+      	v: 'visible',
+      	h: 'hidden',
+      	c: 'collapse'
+      }
+      let b:string = `fdsfa${visibilitylist['n']}`
+      expect(b).toEqual("fdsfanull");
+      
+      let a:Number|null = null
+      let ab:string = `aaa${a}`
+      expect(ab).toEqual("aaanull");
+      
+      let c:Any|null = "123"
+      c = null
+      let ac:string = `ccc${a}`
+      expect(ac).toEqual("cccnull");
+      
+    })
     test("matchAll", () => {
       // const reg = /t(e)(st(\d?))/g;
       // const str = 'test1test2';
