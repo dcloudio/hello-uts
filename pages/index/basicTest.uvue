@@ -24,6 +24,11 @@ import { runTests, Result } from '../../uni_modules/uts-tests'
 // #ifdef APP-IOS
 import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests'
 // #endif
+// #ifdef APP-ANDROID
+// 故意使用 import type 引入一个不存在的类型，测试编译器是否会报错，旧版本不会报错，但android补充了移除type类型的transformer就会报错
+// 目前android已经不再启用移除type类型的transformer
+import type { TestType } from '@/uni_modules/uts-tests'
+// #endif
 export default {
   data() {
     return {
