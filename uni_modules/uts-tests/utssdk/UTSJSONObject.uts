@@ -186,17 +186,13 @@ export function testUTSJSONObject() : Result {
     })
 
     test('get-no-exist-value', () => {
-      // #ifdef APP-ANDROID
       let test = {
       	qq:[11,22]
       }
       expect(test.getNumber("qq[2]")).toEqual(null);
       expect(test.getNumber("qq[2]",999)).toEqual(999);
-      
-      // #endif
     })
     test('setvalue-after-get', () => {
-      // #ifdef APP-ANDROID
       // #TEST UTSJSONObject.getJSON,UTSJSONObject.getArray
       let obj = {
         "cars": [
@@ -213,7 +209,6 @@ export function testUTSJSONObject() : Result {
       console.log(firstCar!['value'])//20
       // #END
       expect(firstCar!['value']).toEqual(20);
-      // #endif
     })
 
 
@@ -237,7 +232,6 @@ export function testUTSJSONObject() : Result {
     })
 
     test('assign-withtype', () => {
-      // #ifdef APP-ANDROID
       type User = {
         a : number
         b : number
@@ -248,10 +242,8 @@ export function testUTSJSONObject() : Result {
 
       expect(returnedTarget!.a).toEqual(1);
       console.log(returnedTarget)
-      // #endif
     })
     test('getArray_1', () => {
-      // #ifdef APP-ANDROID
       // #TEST UTSJSONObject.getArray_1
       //这个方法用来获取指定元素类型的数组
       let obj = JSON.parseObject('{"name":"tom","tag":["student","user"]}')
@@ -264,7 +256,6 @@ export function testUTSJSONObject() : Result {
       let genericArray = obj!.getArray<string>("tag")
       console.log(genericArray)
       // #END
-      // #endif
     })
 
     test('sample', () => {
