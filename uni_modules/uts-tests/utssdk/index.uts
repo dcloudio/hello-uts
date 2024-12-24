@@ -23,6 +23,8 @@ import { testPromise} from "./Promise.uts"
 import { testEncoder} from "./TextEncoder.uts"
 import { testDecoder} from "./TextDecoder.uts"
 import { testIterator } from "./iterator.uts"
+import { testUTSXXX } from "./UTSXXX.uts"
+
 // Proxy、Reflect、Weakmap、WeakSet 不支持
 export function runTests() : UTSJSONObject {
   const ArrayRes = testArray();
@@ -55,7 +57,7 @@ export function runTests() : UTSJSONObject {
   // #endif
   
   const IteratorRes = testIterator()
-  
+  const testUTSXXXRes = testUTSXXX()
   return {
     Array: ArrayRes,
     Date: DateRes,
@@ -82,7 +84,7 @@ export function runTests() : UTSJSONObject {
     // #endif
     NativeCode: NativeCodeRes,
     Primise: PromiseRes,
-    
-    Iterator: IteratorRes
+    Iterator: IteratorRes,
+    UTSXXX:testUTSXXXRes,
   }
 }
