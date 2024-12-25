@@ -212,7 +212,7 @@ export function testUTSJSONObject() : Result {
         ]
       }
 
-      let cars = obj.getArray<UTSJSONObject>("cars")
+      let cars: Array<UTSJSONObject> | null = obj.getArray<UTSJSONObject>("cars")
       cars![0].set("value", 20)
       let firstCar = obj.getJSON("cars[0]")
       console.log(firstCar!['value'])//20
