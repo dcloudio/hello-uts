@@ -464,6 +464,25 @@ export function testString() : Result {
       var str4 = "a, b, {c, d, e}, f, g, h";
       var re4 = /,(?![^{]*\})/;
       expect(str4.split(re4)).toEqual(["a", " b", " {c, d, e}", " f", " g", " h"]);
+      
+      let a1 = "#d1d1d1".replace(RegExp("\\s*,\\s*", "g"), ",")
+      let a2 = a1.split(RegExp("\\s+", ""));
+      expect(a2).toEqual(["#d1d1d1"]);
+      
+      let a3 = "123456a".split(RegExp("\\d+", ""));
+      expect(a3).toEqual(["","a"]);
+      
+      let a4 = "123456a".split(RegExp("\\d+", ""));
+      expect(a4).toEqual(["","a"]);
+      
+      let a5 = "778899	003213".split(RegExp("\\s+", ""));
+      expect(a5).toEqual(["778899","003213"]);
+      // #ifdef APP-ANDROID
+      let sp1 = "😄😄".split(RegExp("(?:)", ""));
+      let sp2 = "😄😄".split(RegExp("(?:)", "u"));
+      expect(sp1.length).toEqual(4);
+      expect(sp2.length).toEqual(2);
+      // #endif
     })
     test('toLowerCase', () => {
       // #TEST String.toLowerCase
@@ -573,6 +592,41 @@ export function testString() : Result {
       expect(str1.startsWith("not to be")).toEqual(false);
       expect(str1.startsWith("not to be", 10)).toEqual(true);
       expect(str1.startsWith("not to be", 8)).toEqual(false);
+    })
+    test("toStringNullTest1", () => {
+      const visibilitylist = {
+      	v: 'visible',
+      	h: 'hidden',
+      	c: 'collapse'
+      }
+      let b:string = `fdsfa${visibilitylist['n']}`
+      // #ifdef APP-ANDROID
+      expect(b).toEqual("fdsfanull");
+      // #endif
+      // TODO: 需要编译器协助调用自定义函数将nil转成null
+      // #ifdef APP-IOS
+      expect(b).toEqual("fdsfanil");
+      // #endif
+      
+      let a:Number|null = null
+      let ab:string = `aaa${a}`
+      // #ifdef APP-ANDROID
+      expect(ab).toEqual("aaanull");
+      // #endif
+      // #ifdef APP-IOS
+      expect(ab).toEqual("aaanil");
+      // #endif
+      
+      // let c:Any|null = "123"
+      // c = null
+      let ac:string = `ccc${a}`
+      // #ifdef APP-ANDROID
+      expect(ac).toEqual("cccnull");
+      // #endif
+      // #ifdef APP-IOS
+      expect(ac).toEqual("cccnil");
+      // #endif
+      
     })
     test("matchAll", () => {
       // const reg = /t(e)(st(\d?))/g;

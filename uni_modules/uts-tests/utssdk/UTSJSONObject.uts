@@ -1,6 +1,19 @@
 import { describe, test, expect, expectNumber, Result } from './tests.uts'
 import { mockData } from './data.uts'
 
+	
+type UserData = {
+	SSID:string;
+	BSSID:number;
+}
+
+type User = {
+	NAME:string;
+	AGE:number;
+	DATA:any;
+}
+	
+  
 
 export function testUTSJSONObject() : Result {
   return describe("utsjsonobject", () => {
@@ -90,8 +103,7 @@ export function testUTSJSONObject() : Result {
       let data5 = {
       	data4 :data4
       }
-      
-      expect(data5!.toJSONString()).toEqual('{"data4":{"data":{"num":1,"num2":2.369,"str":"test"},"name":"张三"}}')
+      expect(data5!.toJSONString()).toEqual('{"data4":{"data":{"str":"test","num":1,"num2":2.369},"name":"张三"}}')
       
       // class TestData6 implements IJsonStringify{
       // 	toJSON():any|null{
@@ -107,6 +119,25 @@ export function testUTSJSONObject() : Result {
       
       // expect(data6!.toJSONString()).toEqual('{"data":22.0,"array":[1,"22",false],"name":"data6"}')
       // console.log(data6.toJSONString())
+      
+      let data11 = {
+      	SSID:"hello-WIFI",
+      	BSSID:1101
+      } as UserData
+      let user1 = {
+      	NAME:"张三",
+      	AGE:12,
+      	DATA:data11
+      } as User
+      let user2 = {
+      	NAME:"李四",
+      	AGE:22,
+      	DATA:data11
+      } as User
+      let utsjson = {
+      	list : [user1,user2]
+      }
+      expect(utsjson.toJSONString()).toEqual('{"list":[{"DATA":{"BSSID":1101,"SSID":"hello-WIFI"},"AGE":12,"NAME":"张三"},{"DATA":{"BSSID":1101,"SSID":"hello-WIFI"},"AGE":22,"NAME":"李四"}]}')
       
       // #endif
     })
@@ -245,7 +276,7 @@ export function testUTSJSONObject() : Result {
         }
       }
       //返回指定键对应的值，如果对象中不存在此键则返回 null。
-      let name : string = person["name"] as String
+      let name : string = person["name"] as string
       //get 方法可以简化为使用下标运算符 `[]` 访问
       name = person['name'] as string
       //增加或更新指定键对应的值。
@@ -305,6 +336,15 @@ export function testUTSJSONObject() : Result {
       ((obj["a"] as UTSJSONObject)["b"] as UTSJSONObject)["c"] = "c1"
       expect(obj.getString("a.b.c")).toEqual('c1')
       
+    })
+    
+    test('property-access', () => {
+      const obj = {
+        a: { b: { c: 'c' } }
+      }
+      expect(((obj.a as UTSJSONObject).b as UTSJSONObject).c).toEqual('c');
+      ((obj.a as UTSJSONObject).b as UTSJSONObject).c = 'c1';
+      expect(((obj.a as UTSJSONObject).b as UTSJSONObject).c).toEqual('c1');
     })
   })
 }

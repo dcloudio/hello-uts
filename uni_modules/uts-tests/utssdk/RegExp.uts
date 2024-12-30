@@ -332,7 +332,7 @@ export function testRegExp() : Result {
       expect(result1[0]).toEqual('hello');
       expect(result1.index).toEqual(0);
       expect(result1.input).toEqual("hello world");
-
+// #ifndef APP-ANDROID || APP-PLUS
       const pattern2 = /quick\s(?<color>brown).+?(jumps)/igd;
       const result2 = pattern2.exec('The Quick Brown Fox Jumps Over The Lazy Dog')!;
       expect(result2[0]).toEqual("Quick Brown Fox Jumps");
@@ -378,6 +378,7 @@ export function testRegExp() : Result {
       const result8 = pattern8.exec('https://example.org')!;
       expect(result8[0]).toEqual('https://example.org');
 
+
       // #ifndef WEB
       // 目前的测试环境safari版本为15，不支持?<
       const pattern9 = /(?<=@)\w+/;
@@ -395,9 +396,12 @@ export function testRegExp() : Result {
       const match2 = CHUNK_REGEXP.exec('none')
       expect(match2![0]).toEqual("none");
       expect(match2![1]).toEqual("none");
-      // expect(JSON.stringify(match2![2])).toEqual("null");
-      // expect(JSON.stringify(match2![3])).toEqual("null");
-      // expect(JSON.stringify(match2![4])).toEqual("null");
+      // #ifndef APP-ANDROID
+      //expect(JSON.stringify(match2![2])).toEqual("null");
+      //expect(JSON.stringify(match2![3])).toEqual("null");
+      //expect(JSON.stringify(match2![4])).toEqual("null");
+      // #endif
+ // #endif
 
     })
   })

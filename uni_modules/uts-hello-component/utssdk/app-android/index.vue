@@ -158,7 +158,7 @@
 		 * 自定组件布局尺寸 
 		 * [可选实现]
 		 */
-		NVMeasure(size: UTSSize): UTSSize {
+		NVMeasure(size: UTSSize,mode:UTSMeasureMode): UTSSize {
 			size.width = 120.0.toFloat()
 			size.height = 800.0.toFloat()
 			return size

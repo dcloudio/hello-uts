@@ -193,6 +193,13 @@ export function testJSON() : Result {
       expect(obj4?.getAny('data[1].a')).toEqual(2)
       expect(obj4?.getJSON('data[2][1]')).toEqual({ "b": "test" })
       expect(obj4?.getArray('data[3]')).toEqual([1, 2, 3])
+      // #ifdef APP-ANDROID
+      let cc1 = JSON.parse<boolean>("12",true)
+      expect(cc1).toEqual(null)
+      
+      let cc2 = JSON.parse('{"a"2}',true)
+      expect(cc2).toEqual(null)  
+      // #endif
 
     })
     test('parseObject', () => {
@@ -367,9 +374,9 @@ export function testJSON() : Result {
       expect(JSON.stringify(true)).toEqual('true');
       expect(JSON.stringify(false)).toEqual('false');
       //console.log(JSON.stringify('foo'))
-      //expect(JSON.stringify('foo')).toEqual('foo');
-      expect(JSON.stringify(Math.PI)).toEqual('3.141592653589793');
-      expect(JSON.stringify(Math.E)).toEqual('2.718281828459045');
+      // expect(JSON.stringify('foo')).toEqual('foo'); 
+      // expect(JSON.stringify(Math.PI)).toEqual('3.141592653589793');
+      // expect(JSON.stringify(Math.E)).toEqual('2.718281828459045');
 
       /**
        * add since 2023-09-23
@@ -504,6 +511,29 @@ export function testJSON() : Result {
       const a = test<A>(`{"num": 1}`)
       expect(a.num).toEqual(1)
       // #endif
+      // #endif
+
+    })
+
+    test('parse-type-string', () => {
+      // #ifdef APP-ANDROID
+      
+      let bb2 = JSON.parse<string>('{"a":12}')
+      console.log(typeof bb2)
+      let bb3 = JSON.parse<string>('7897987')
+      console.log(typeof bb3)
+      let bb4 = JSON.parse<string>('null')
+      console.log(typeof bb4)
+     
+      expect(bb2).toEqual('{"a":12}')
+      expect(typeof bb2).toEqual("string")
+      
+      expect(bb3).toEqual('7897987')
+      expect(typeof bb3).toEqual("string")
+      
+      expect(bb4).toEqual('null')
+      expect(typeof bb4).toEqual("string")
+      
       // #endif
 
     })

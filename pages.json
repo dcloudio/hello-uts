@@ -15,7 +15,7 @@
 				"enablePullDownRefresh": false
 			}
 		}
-    // #ifndef WEB
+    // #ifndef WEB || MP
     ,
 		{
 			"path": "pages/advance/advance",
@@ -151,6 +151,13 @@
 		},
     {
     	"path": "pages/SyntaxCase/MixNativeCode",
+    	"style": {
+    		"navigationBarTitleText": "",
+    		"enablePullDownRefresh": false
+    	}
+    },
+    {
+    	"path": "pages/SyntaxCase/nvueTest",
     	"style": {
     		"navigationBarTitleText": "",
     		"enablePullDownRefresh": false
