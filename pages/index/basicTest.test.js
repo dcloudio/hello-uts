@@ -2,7 +2,15 @@ const ERR_RE = /expected:<(.*)> but was:<(.*)>/
 let result;
 const resultEmptyError = '获取到 result 是空的, 请运行项目进行排查'
 
+const platformInfo = process.env.uniTestPlatformInfo.toLocaleLowerCase()
+const isWeb = platformInfo.startsWith('web')
+
 beforeAll(async () => {
+  if(isWeb) {
+    const homePage = await program.reLaunch('/pages/index/index')
+    await homePage.waitFor('view')
+    await homePage.waitFor(10000)
+  }
   await program.reLaunch('/pages/index/basicTest')
   page = await program.currentPage()
   await page.waitFor(3000);
