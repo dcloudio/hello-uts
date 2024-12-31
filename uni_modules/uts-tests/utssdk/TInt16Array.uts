@@ -7,7 +7,7 @@ import {
 
 export class TInt16Array {
   test() {
-    // #ifdef  APP-ANDROID || WEB
+   
     this.testConstructor();
     this.testSet();
     this.testCopyWith();
@@ -31,10 +31,10 @@ export class TInt16Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
-    // #endif
+
   }
 
-  // #ifdef  APP-ANDROID || WEB
+
  from() {
     // #TEST Int16Array.from
     var array = Int16Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
@@ -154,7 +154,13 @@ export class TInt16Array {
     // #TEST Int16Array.entries
     let arr = new Int16Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
+    // #ifndef APP-IOS
     let firstEntry = entries.next().value[1];
+    // #endif
+    // #ifdef APP-IOS
+    let firstEntry = entries.next().value![1];
+    // #endif
+    
     console.log(firstEntry); // 10
     // #END
     expect(firstEntry).toEqual(10);
@@ -390,5 +396,5 @@ export class TInt16Array {
 
   }
 
-  // #endif
+
 }

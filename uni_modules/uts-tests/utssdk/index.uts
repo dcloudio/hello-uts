@@ -45,10 +45,7 @@ export function runTests() : UTSJSONObject {
   const JSONLargeRes = testJSONLarge();
   const consoleRes = testConsole();
   const UTSJSONObjectRes = testUTSJSONObject();
-
-  // #ifdef  APP-ANDROID || WEB
   const ArrayBufferRes = testArrayBuffer();
-  // #endif
   const NativeCodeRes = testNativeCode();
   const PromiseRes = testPromise();
   // #ifdef  APP-ANDROID || WEB
@@ -77,8 +74,8 @@ export function runTests() : UTSJSONObject {
     Type: TypeRes,
     console: consoleRes,
     UTSJSONObject: UTSJSONObjectRes,
-    // #ifdef  APP-ANDROID || WEB
     ArrayBuffer: ArrayBufferRes,
+    // #ifdef  APP-ANDROID || WEB
     TextEncoder: TextEncoderRes,
     TextDecoder: TextDecoderRes,
     // #endif

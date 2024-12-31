@@ -26,7 +26,6 @@ const int16 = new TInt16Array()
 
 export function testArrayBuffer() : Result {
   return describe("ArrayBuffer", () => {
-    // #ifdef  APP-ANDROID || WEB
     test('arraybuffer_isview', () => {
       // #TEST ArrayBuffer.isView
       var arrayBuffer = new ArrayBuffer(16)
@@ -869,6 +868,5 @@ export function testArrayBuffer() : Result {
     })
 
     //uint32  end
-    // #endif
   })
 }
