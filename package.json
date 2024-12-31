@@ -2,7 +2,7 @@
     "id": "hello-uts",
     "name": "hello-uts",
     "displayName": "hello-uts",
-    "version": "1.1.11",
+    "version": "1.1.12",
     "description": "UTS插件示例项目",
     "repository": "https://gitcode.net/dcloud/hello-uts",
     "keywords": [
