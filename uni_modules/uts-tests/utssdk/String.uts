@@ -479,6 +479,17 @@ export function testString() : Result {
       
       let a5 = "778899	003213".split(RegExp("\\s+", ""));
       expect(a5).toEqual(["778899","003213"]);
+      
+      const str5 = 'The quick brown fox jumps over the lazy dog.';
+      const chars5 = str5.split('',2);
+      expect(chars5.length).toEqual(2);
+      
+      const str6 = "Hello World. How are you doing?";
+      const chars6 = myString.split("", 3);
+        
+      expect(chars6.length).toEqual(3);
+      expect(chars6[2]).toEqual("l");
+
       // #ifdef APP-ANDROID
       let sp1 = "😄😄".split(RegExp("(?:)", ""));
       let sp2 = "😄😄".split(RegExp("(?:)", "u"));
