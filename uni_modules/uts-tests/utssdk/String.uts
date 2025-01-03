@@ -487,7 +487,11 @@ export function testString() : Result {
         
       expect(chars6.length).toEqual(3);
       expect(chars6[2]).toEqual("l");
-
+      let a6 = "".split("",2)
+      expect(a6.length).toEqual(0);
+      let a7 = "".split("")
+      expect(a7.length).toEqual(0);
+      
       // #ifdef APP-ANDROID
       let sp1 = "😄😄".split(RegExp("(?:)", ""));
       let sp2 = "😄😄".split(RegExp("(?:)", "u"));
