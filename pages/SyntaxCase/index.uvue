@@ -54,10 +54,15 @@
         <button @click="testUtsClassSetter">点击测试class 示例setter方法</button>
         <view>测试setter：{{ format(testUtsClassSetterResult) }}</view>
         <view>测试promise返回值：{{ format(testUtsReturnPromiseResult) }}</view>
-        <button @click="testAll">点击测试所有</button>
+        <button @click="testAll">点击测试所有</button>  
         <!-- #ifdef APP-IOS -->
         <button @click="testPromiseStaticMethod">点击测试promise静态方法</button>
-        <!-- #endif -->
+        <button @click="testBigArrayBuffer">测试原生->JS ArrayBuffer内存共享</button>
+        <button @click="doTestBufferParam">测试JS->原生 ArrayBuffer内存共享</button>
+        <button @click="doTestNestedBufferParam">嵌套类型ArrayBuffer参数传递</button>
+        <button @click="doTestBufferReturnedValue">ArrayBuffer返回值</button>
+        <button @click="doTestNestedBufferReturnedValue">嵌套类型ArrayBuffer返回值</button>
+        <!-- #endif -->  
       </view>
       <view style="height: 20px;"></view>
   </scroll-view>
@@ -81,7 +86,12 @@
     // #endif
     // #ifdef APP-IOS
     import {
-      testPromiseStaticMethod
+      testPromiseStaticMethod,
+      testBigArrayBuffer,
+      testArrayBufferParam,
+      testMultyArrayBufferParam,
+      testMultyReturnBuffer,
+      testReturnedArrayBuffer
     } from "@/uni_modules/uts-syntaxcase"
     // #endif
     let test:Test|null = null
@@ -470,6 +480,73 @@
             // #ifdef APP-IOS
             testPromiseStaticMethod() {
               testPromiseStaticMethod()
+            },
+            testBigArrayBuffer() {
+              testBigArrayBuffer({
+              	url: "/static/test.txt",
+              	success: (res) => {
+              		console.log("读取成功")
+              		console.log("ArrayBuffer 长度：",res.byteLength)
+              	},
+              	fail: (code) => {
+              		console.log(code)
+              	}
+              })
+            },
+            doTestBufferParam() {
+            	let buffer = new ArrayBuffer(16)
+            	let dataView = new DataView(buffer)
+            	dataView.setInt16(1, 42)
+            	testArrayBufferParam(buffer)
+            },
+            
+            doTestNestedBufferParam() {
+            	let buffer = new ArrayBuffer(16)
+            	let dataView = new DataView(buffer)
+            	dataView.setInt16(1, 42)
+            	testMultyArrayBufferParam({
+            		a: "1234",
+            		b: true,
+            		c: buffer
+            	})
+            },
+            
+            doTestBufferReturnedValue() {
+            	let buffer = testReturnedArrayBuffer()
+            	let dataView = new DataView(buffer)
+            	console.log(dataView.getInt16(0))
+            	console.log(dataView.getInt16(1))
+            	console.log(dataView.getInt16(2))
+            	console.log(dataView.getInt16(3))
+            	console.log(dataView.getInt16(4))
+            	console.log(dataView.getInt16(5))
+            	console.log(dataView.getInt16(6))
+            	console.log(dataView.getInt16(7))
+            	console.log(dataView.getInt16(8))
+            	console.log(dataView.getInt16(9))
+            	console.log(dataView.getInt16(10))
+            	console.log(dataView.getInt16(11))
+            	console.log(dataView.getInt16(12))
+            	console.log(dataView.getInt16(13))
+            	console.log(dataView.getInt16(14))
+            	console.log(new Uint8Array(buffer))
+            	console.log(new Uint8ClampedArray(buffer))
+            	console.log(new Uint16Array(buffer))
+            	console.log(new Uint32Array(buffer))
+            	console.log(new BigUint64Array(buffer))
+            	console.log(new Float32Array(buffer))
+            	console.log(new Float64Array(buffer))
+            	console.log(new Int8Array(buffer))
+            	console.log(new Int16Array(buffer))
+            	console.log(new Int32Array(buffer))
+            	console.log(new BigInt64Array(buffer))
+            },
+            
+            doTestNestedBufferReturnedValue() {
+            	let ret = testMultyReturnBuffer()
+            	console.log(ret.a)
+            	let dataView = new DataView(ret.b, 0, 16)
+            	console.log(dataView.getInt16(1))
             }
             // #endif
         }
