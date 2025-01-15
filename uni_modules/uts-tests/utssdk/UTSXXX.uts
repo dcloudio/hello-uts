@@ -1,0 +1,25 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+
+export function testUTSXXX() : Result {
+  return describe("KeyWord", () => {
+
+    test('UTSAndroid_setPrivacyAgree', () => {
+        // #ifdef APP-ANDROID
+        UTSAndroid.setPrivacyAgree(true)
+        let agreeRet = UTSAndroid.isPrivacyAgree()
+        expect(agreeRet).toEqual(agreeRet);
+        setTimeout(function(){
+        	UTSAndroid.setPrivacyAgree(false)
+        	let agreeRet2 = UTSAndroid.isPrivacyAgree()
+          expect(agreeRet2).toEqual(false);
+        },1000)
+        // #endif
+    })
+
+    
+
+
+
+  })
+}

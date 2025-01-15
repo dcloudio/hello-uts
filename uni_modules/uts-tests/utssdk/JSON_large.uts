@@ -6,6 +6,7 @@ type CityItem = {
 		children:Array<UTSJSONObject>
 	}
 	
+  // #ifdef APP-ANDROID
 	const allStr = `[
 	    {
 	        "title": "北京市",
@@ -22504,7 +22505,7 @@ type CityItem = {
 	    }
 	]`;
 	
-	
+	// #endif
 	
 
 	/**

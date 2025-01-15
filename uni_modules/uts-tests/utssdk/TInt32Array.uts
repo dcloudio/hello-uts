@@ -7,7 +7,7 @@ import {
 
 export class TInt32Array {
   test() {
-    // #ifdef  APP-ANDROID || WEB
+
 
     this.testInt32Array();
     this.testConstructor();
@@ -33,10 +33,10 @@ export class TInt32Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
-    // #endif
+
   }
 
-  // #ifdef  APP-ANDROID || WEB
+
  from() {
     // #TEST Int32Array.from
     var array = Int32Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
@@ -176,9 +176,21 @@ export class TInt32Array {
     let arr = new Int32Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
     let entry = entries.next();
+    // #ifndef APP-IOS
     console.log(entry.value[1]); // 10
+    // #endif
+    // #ifdef APP-IOS
+    console.log(entry.value![1]); // 10
+    // #endif
+    
     // #END
+    // #ifndef APP-IOS
     expect(entry.value[1]).toEqual(10);
+    // #endif
+    // #ifdef APP-IOS
+    expect(entry.value![1]).toEqual(10);
+    // #endif 
+    
   }
 
   includes() {
@@ -405,5 +417,5 @@ export class TInt32Array {
 
   }
 
-  // #endif
+
 }

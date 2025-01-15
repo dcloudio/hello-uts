@@ -14,7 +14,7 @@ type User = {
 }
 	
   
-
+@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION","ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE","UNUSED_VARIABLE","UNUSED_VALUE","VARIABLE_WITH_REDUNDANT_INITIALIZER")
 export function testUTSJSONObject() : Result {
   return describe("utsjsonobject", () => {
 
@@ -54,8 +54,10 @@ export function testUTSJSONObject() : Result {
 
       result["service"] = service
 
-      expect(result.toJSONObject().toJSONString()).toEqual('{"opt":"xxxx","service":{"array":[{"name":"xxx","type":0}],"name":"0xxxb34fb","type":0}}');
-
+      if(android.os.Build.VERSION.SDK_INT > 22){
+        // 6.0 以下字段顺序不一致，不影响结果
+      	expect(result.toJSONObject().toJSONString()).toEqual('{"opt":"xxxx","service":{"array":[{"name":"xxx","type":0}],"name":"0xxxb34fb","type":0}}');
+      }
 
       type TestData = {
       	num:number;
@@ -68,10 +70,11 @@ export function testUTSJSONObject() : Result {
       	num2:2.369,
       	str:'test'
       }
-      let data2 = JSON.parse<UTSJSONObject>(JSON.stringify(data1))
-      
-      expect(data2!.toJSONString()).toEqual('{"str":"test","num":1.0,"num2":2.369}')
-      
+      let data2 = JSON.parse<UTSJSONObject>(JSON.stringify(data1))!
+      if(android.os.Build.VERSION.SDK_INT > 22){
+        // 6.0 以下字段顺序不一致，不影响结果
+        expect(data2!.toJSONString()).toEqual('{"str":"test","num":1.0,"num2":2.369}')
+      }
       class TestData2 implements IJSONStringify{
       	toJSON():any|null{
       		return "122"
@@ -80,6 +83,7 @@ export function testUTSJSONObject() : Result {
       
       let testData2 = TestData2()
       let dataClass = UTSAndroid.getJavaClass(data2)
+      
       let data3 = {
       	strA:"stringA",
       	dataClass:dataClass,
@@ -87,9 +91,10 @@ export function testUTSJSONObject() : Result {
       	testData:testData2
       }
       
-      expect(data3!.toJSONString()).toEqual('{"testData":"122","strA":"stringA","dataClass":"io.dcloud.uts.UTSJSONObject","booleanB":false}')
-      
-      
+      if(android.os.Build.VERSION.SDK_INT > 22){
+        // 6.0 以下字段顺序不一致，不影响结果
+        expect(data3!.toJSONString()).toEqual('{"testData":"122","strA":"stringA","dataClass":"io.dcloud.uts.UTSJSONObject","booleanB":false}')
+      }
       type TestData4 = {
       	name:string,
       	data:any,
@@ -103,8 +108,10 @@ export function testUTSJSONObject() : Result {
       let data5 = {
       	data4 :data4
       }
-      expect(data5!.toJSONString()).toEqual('{"data4":{"data":{"str":"test","num":1,"num2":2.369},"name":"张三"}}')
-      
+      if(android.os.Build.VERSION.SDK_INT > 22){
+        // 6.0 以下字段顺序不一致，不影响结果
+        expect(data5!.toJSONString()).toEqual('{"data4":{"data":{"str":"test","num":1,"num2":2.369},"name":"张三"}}')
+      }
       // class TestData6 implements IJsonStringify{
       // 	toJSON():any|null{
       // 		return JSON.parse("22")
@@ -137,8 +144,10 @@ export function testUTSJSONObject() : Result {
       let utsjson = {
       	list : [user1,user2]
       }
-      expect(utsjson.toJSONString()).toEqual('{"list":[{"DATA":{"BSSID":1101,"SSID":"hello-WIFI"},"AGE":12,"NAME":"张三"},{"DATA":{"BSSID":1101,"SSID":"hello-WIFI"},"AGE":22,"NAME":"李四"}]}')
-      
+      if(android.os.Build.VERSION.SDK_INT > 22){
+        // 6.0 以下字段顺序不一致，不影响结果
+        expect(utsjson.toJSONString()).toEqual('{"list":[{"DATA":{"BSSID":1101,"SSID":"hello-WIFI"},"AGE":12,"NAME":"张三"},{"DATA":{"BSSID":1101,"SSID":"hello-WIFI"},"AGE":22,"NAME":"李四"}]}')
+      }
       // #endif
     })
 
@@ -203,7 +212,7 @@ export function testUTSJSONObject() : Result {
         ]
       }
 
-      let cars = obj.getArray<UTSJSONObject>("cars")
+      let cars: Array<UTSJSONObject> | null = obj.getArray<UTSJSONObject>("cars")
       cars![0].set("value", 20)
       let firstCar = obj.getJSON("cars[0]")
       console.log(firstCar!['value'])//20

@@ -7,7 +7,6 @@ import {
 
 export class TFloat64Array {
   test() {
-    // #ifdef  APP-ANDROID || WEB
     this.testfloat64();
     this.testConstructor();
     this.testSet();
@@ -32,9 +31,9 @@ export class TFloat64Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
-    // #endif
+
   }
-  // #ifdef  APP-ANDROID || WEB
+
   from() {
     // #TEST Float64Array.from
     var float64Array = Float64Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
@@ -173,11 +172,24 @@ export class TFloat64Array {
     // #TEST Float64Array.entries
     let arr = new Float64Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
-    console.log(entries.next().value[1]); // 10
-    console.log(entries.next().value[1]); // 20
+    // #ifndef APP-IOS
+    let value1 = entries.next().value[1] // 10
+    let value2 = entries.next().value[1] // 20
+    // #endif
+    // #ifdef APP-IOS
+    let value1 = entries.next().value![1] //10
+    let value2 = entries.next().value![1] //20
+    // #endif
     // #END
+    // #ifndef APP-IOS
     expect(entries.next().value[1]).toEqual(30);
     expect(entries.next().value[1]).toEqual(40);
+    // #endif
+    // #ifdef APP-IOS
+    expect(entries.next().value![1]).toEqual(30);
+    expect(entries.next().value![1]).toEqual(40);
+    // #endif
+ 
   }
 
   includes() {
@@ -448,5 +460,4 @@ export class TFloat64Array {
     )).toEqual(false);
   }
 
-  // #endif
 }

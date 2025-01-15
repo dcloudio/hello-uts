@@ -81,6 +81,7 @@ class A6 implements IJSONStringify{
 // #endif
 
 
+@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
 export function testJSON() : Result {
   return describe("JSON", () => {
     

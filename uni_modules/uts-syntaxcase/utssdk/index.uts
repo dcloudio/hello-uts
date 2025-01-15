@@ -433,22 +433,23 @@ export class UTSActivityComponentCallback extends UniActivityComponentCallback {
 // #endif
 
 export function Scan(timeMillis : Number = 60000):number {
-	console.log("Scan", timeMillis)
 	return timeMillis
 }
 
+@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
 export function Scan1(timeMillis ?: Number):string {
-	console.log("Scan", timeMillis)
+
 	if(timeMillis == null){
 		return "null"
 	}
 	return timeMillis!.toString()
 }
 
+@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
 export function Scan2(timeMillis ?: Number | null):string {
-	console.log("Scan", timeMillis)
+
 	if(timeMillis == null){
-		return "null"
+		return "null"  
 	}
 	return timeMillis!.toString()
 }
@@ -462,12 +463,12 @@ export class myClass {
 		console.log(name);
 		return name
 	}
-	
+  
+	@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
 	to1(name?: String):string {
 		if(name == null){
 			return "null"
 		}
-		console.log(name);
 		return name!
 	}
 }
@@ -487,3 +488,79 @@ export class PromiseReturnDemo {
     console.log('test2',this.recordRet)
   }
 }
+
+
+// #ifdef APP-IOS
+export type ReadFileOptions = {
+	url: string,
+	success: (res: ArrayBuffer) => void,
+	fail:(code: number) => void
+}
+
+export function testBigArrayBuffer(option: ReadFileOptions) {
+	ReadFile.readFile(option.url, (res: ArrayBuffer | null, code: number) => {
+		if (code == 0 && res != null) {
+			option.success(res!)  
+		}else {
+			option.fail(code)
+		}
+	})  
+}
+
+export function testArrayBufferParam(p: ArrayBuffer) {
+	let dataView = new DataView(p)
+	console.log(dataView.getInt16(1)) 
+}
+   
+export type CustomArrayOptions = {
+	a: string,
+	b: boolean,
+	c: ArrayBuffer  
+}
+         
+export function testMultyArrayBufferParam(option: CustomArrayOptions) {
+	console.log(option.a)      
+	console.log(option.b)
+	let dataView = new DataView(option.c)
+	console.log(dataView.getInt16(1)) 
+}
+
+
+export type TestArrayBufferResult = {
+	a: string,
+	b: ArrayBuffer
+	c: TestNestedArrayBufferR
+}
+
+export type TestNestedArrayBufferR = {
+	e: string,
+	f: ArrayBuffer
+}
+
+
+export function testMultyReturnBuffer(): TestArrayBufferResult {
+	let buffer = new ArrayBuffer(16)
+	let dataView = new DataView(buffer)
+	dataView.setInt16(1, 420)
+	
+	let brr: TestNestedArrayBufferR = {
+		e: "233333",
+		f: buffer
+	}
+	let ret: TestArrayBufferResult = {
+		a: "11111",
+		b: buffer,
+		c: brr
+	}
+	
+	return ret
+}
+
+export function testReturnedArrayBuffer(): ArrayBuffer {
+	let buffer = new ArrayBuffer(16)
+	let dataView = new DataView(buffer)
+	dataView.setInt16(1, 42)
+	return buffer
+}
+
+// #endif
