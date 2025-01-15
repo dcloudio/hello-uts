@@ -66,6 +66,24 @@ export function testArrayBuffer() : Result {
       expect(byteBuffer[1]).toEqual(2);
     })
     // #endif
+    
+    // #ifdef  APP-IOS
+    test('arraybuffer_toData', () => {
+      // #TEST ArrayBuffer.fromData,ArrayBuffer.toData
+      let str = 'hello world';
+      let data = str.data(using = String.Encoding.utf8)!
+      let arrayBuffer = ArrayBuffer.fromData(data)
+      let uint8Array = new Uint8Array(arrayBuffer)
+      console.log(uint8Array)
+      
+      let td = arrayBuffer.toData()
+      let content = new String(decoding = td, as = UTF8.self)
+      console.log(content)
+      // #END
+      expect(uint8Array.toString()).toEqual('104,101,108,108,111,32,119,111,114,108,100');
+      expect(content).toEqual('hello world');
+    })
+    // #endif
 
 
     //dataview start
