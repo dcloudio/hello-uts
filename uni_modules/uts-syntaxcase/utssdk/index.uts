@@ -498,7 +498,8 @@ export type ReadFileOptions = {
 }
 
 export function testBigArrayBuffer(option: ReadFileOptions) {
-	ReadFile.readFile(option.url, (res: ArrayBuffer | null, code: number) => {
+  let absolutePath = UTSiOS.convert2AbsFullPath(option.url)
+	ReadFile.readFile(absolutePath, (res: ArrayBuffer | null, code: number) => {
 		if (code == 0 && res != null) {
 			option.success(res!)  
 		}else {
