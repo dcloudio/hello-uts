@@ -1,19 +1,16 @@
 import DCloudUTSFoundation
-import DCloudUniappRuntime
 
 class ReadFile {
 	public static func readFile(
 	    _ path: String,
 	    _ completionHandler: ((ArrayBuffer?, NSNumber) -> Void)? = nil
 	) {
-	    let absolutePath = UTSiOS.convert2AbsFullPath(path)
-	
-	    if FileManager.default.fileExists(atPath: absolutePath) == false {
+	    if FileManager.default.fileExists(atPath: path) == false {
 	        completionHandler?(nil, 1)
 	        return
 	    }
 	    
-	    let fileUrl = URL(fileURLWithPath: absolutePath)
+	    let fileUrl = URL(fileURLWithPath: path)
 	    
 	    do {
 	        let fileData = try Data(contentsOf: fileUrl)
