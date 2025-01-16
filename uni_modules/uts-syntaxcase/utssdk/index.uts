@@ -564,3 +564,15 @@ export function testReturnedArrayBuffer(): ArrayBuffer {
 }
 
 // #endif
+
+export class TestStatic {
+  static get test1(): string {
+    return "test1";
+  }
+  static get test2(): string {
+    return "test2";
+  }
+  static set test2(value: string) {
+    console.log(value)
+  }
+}
