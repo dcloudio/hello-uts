@@ -1,0 +1,88 @@
+function test1(
+    arg1: boolean,
+    arg2: boolean | null,
+    arg3: true | null,
+    arg4: false | null,
+    arg5: true | false | null
+) {}
+function test2(
+    arg1: string | null,
+    arg2: string | number,
+    arg3: string | number | null
+) {}
+type Arg1 = string | null;
+type Arg2 = string | number;
+type Arg3 = string | number | null;
+function test3(
+    arg1: Arg1,
+    arg2: Arg2,
+    arg3: Arg3,
+    arg4: Arg1 | number,
+    arg5: Arg2 | number,
+    arg6: Arg3 | boolean
+) {}
+type A = {
+    a: string;
+};
+type B = {
+    b: number;
+};
+type C = A | B;
+function test4(
+    arg1: C | null,
+    arg2: A,
+    arg3: B,
+    arg4: A | B | null,
+    arg5: A | B | C
+) {}
+
+function test5(
+    arg1: keyof A,
+    arg2: keyof B,
+    arg4: keyof A | keyof B,
+    arg5: keyof A | keyof B | null
+) {}
+
+function test6(
+    arg1: (() => string | number) | null,
+    arg2: () => string | number | null,
+    arg3: (() => string) | ((arg3: string) => number),
+    arg4: (() => string) | ((arg4: number) => number) | null
+) {}
+
+export function testParameterUnion() {
+    test1(true, true, true, false, true);
+    // #ifndef APP-IOS
+    // 目前 iOS 不支持可选 Boolean 类型
+    test1(true, null, null, null, null);
+    // #endif
+    test2("test2", "test2", "test2");
+    test2(null, 1, 1);
+    test2(null, 1, null);
+    test3("test3", "test3", "test3", "test3", "test3", "test3");
+    test3(null, 1, 1, null, 1, null);
+    test3(null, 1, null, 1, 1, true);
+    test4({ a: "test" }, { a: "test" }, { b: 1 }, { a: "test" }, { a: "test" });
+    test4({ b: 1 }, { a: "test" }, { b: 1 }, { b: 1 }, { b: 1 });
+    test5("a", "b", "a", "a");
+    test5("a", "b", "a", "b");
+    test5("a", "b", "b", null);
+    test6(
+        () => "test",
+        () => "test",
+        () => "test",
+        () => "test"
+    );
+    test6(
+        null,
+        () => 1,
+        (arg3: string) => 1,
+        (arg4: number) => 1
+    );
+    test6(
+        null,
+        () => 1,
+        (arg3: string) => 1,
+        null
+    );
+}

@@ -20,6 +20,7 @@
     import {
         runTests
     } from '../../uni_modules/uts-tests'
+    import { testSyntaxUnion } from '@/uni_modules/uts-test-syntax-union'
     export default {
         data() {
             return {
@@ -28,6 +29,7 @@
             }
         },
         onReady() {
+            testSyntaxUnion()
             this.test()
         },
         methods: {
