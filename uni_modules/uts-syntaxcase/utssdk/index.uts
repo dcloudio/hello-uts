@@ -93,6 +93,12 @@ export async function testAsyncParam3(id : number, name : string, opts : AsyncOp
   const res : SyntaxResult = {
     name: "testUtsAsyncMulitParam"
   }
+  
+  const a = await 1
+  console.log(a, a == 1)
+  const b: string | null = null
+  const ret = await b
+  console.log(ret, ret == null)
   return await testAwaitPromise(res);
   // return { name: "testAsync" };
 }
