@@ -29,6 +29,7 @@ import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests'
 // 目前android已经不再启用移除type类型的transformer
 import type { TestType } from '@/uni_modules/uts-tests'
 // #endif
+import { testSyntaxUnion } from '@/uni_modules/uts-test-syntax-union'
 export default {
   data() {
     return {
@@ -39,6 +40,7 @@ export default {
     }
   },
   onReady() {
+    testSyntaxUnion()
     this.test()
   },
   methods: {
