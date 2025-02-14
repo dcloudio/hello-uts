@@ -46,7 +46,7 @@ object NativeCode {
 
             callback("设备内存:$totalMem MB,可用内存:$availMem MB")
 
-        },1000,2000)
+        },1000,2000).toInt()
 
     }
     

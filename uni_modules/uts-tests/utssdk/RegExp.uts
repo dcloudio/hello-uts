@@ -316,6 +316,16 @@ export function testRegExp() : Result {
       expect(isASCIIIDPart("a")).toEqual(true);
       expect(isASCIIIDPart("α")).toEqual(false);
       expect(isASCIIIDPart(":")).toEqual(false);
+      
+      var regex8 = /foo/g;
+      // regex.lastIndex is at 0
+      let a1 = regex8.test("foo"); // true
+      let b1 = regex8.lastIndex
+      // regex.lastIndex is now at 3
+      let a2 = regex8.test("foo"); // false
+      let b2 = regex8.lastIndex
+      expect([a1,a2,b1,b2]).toEqual([true,false,3,0]);
+      
     })
     test('exec', () => {
       
