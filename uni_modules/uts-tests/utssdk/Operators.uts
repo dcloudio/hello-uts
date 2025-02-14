@@ -342,6 +342,11 @@ export function testOperators(): Result {
             expect(r3).toEqual(-0.09090909090909091);
             let r4 = 1 % -0.1;
             expect(r4).toEqual(0.09999999999999995);
+            
+            var inc = Math.PI / 180.0
+            expect(inc).toEqual(0.017453292519943295);
+            inc = Math.abs(11-120)
+            expect(inc).toEqual(109);
         })
     })
 }
