@@ -54,5 +54,34 @@ export function testType() : Result {
       expect(age).toEqual(20);
       expect(gender).toEqual(null);
     })
+    
+    test("infer element type", () => {
+      type Tb = {
+        group: number,
+        list: Ta[]
+      }
+      type Ta = {
+        id: number
+      }
+      const groups = [] as Tb[]
+      let items = [] as Ta[]
+      groups.push({
+        group: 1,
+        list: items
+      })
+      groups.push({
+        group: 1,
+        list: []
+      } as Tb)
+      items.push({
+        id: 1
+      })
+      items.push({
+        id: 1
+      } as Ta)
+      expect(groups[0].list.length).toEqual(2)
+      expect(groups[0] instanceof Tb).toEqual(true)
+      expect(groups[1] instanceof Tb).toEqual(true)
+    })
   })
 }
