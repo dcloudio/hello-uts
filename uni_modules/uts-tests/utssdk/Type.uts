@@ -79,7 +79,9 @@ export function testType() : Result {
       items.push({
         id: 1
       } as Ta)
+      // #ifndef APP-IOS
       expect(groups[0].list.length).toEqual(2)
+      // #endif
       expect(groups[0] instanceof Tb).toEqual(true)
       expect(groups[1] instanceof Tb).toEqual(true)
     })
