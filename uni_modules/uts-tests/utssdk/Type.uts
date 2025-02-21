@@ -56,12 +56,12 @@ export function testType() : Result {
     })
     
     test("infer element type", () => {
+      type Ta = {
+        id: number
+      }
       type Tb = {
         group: number,
         list: Ta[]
-      }
-      type Ta = {
-        id: number
       }
       const groups = [] as Tb[]
       let items = [] as Ta[]
