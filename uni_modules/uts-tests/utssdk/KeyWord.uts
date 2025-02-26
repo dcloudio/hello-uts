@@ -104,6 +104,21 @@ export function testKeyWord() : Result {
       // #ifdef APP-ANDROID
       expect(typeof (UTSAndroid.getUniActivity())).toEqual('object')
       // #endif
+      
+      let a1:string|null  = ""
+      let a2:string|null  = null
+      expect(typeof (a1)).toEqual('string')
+      expect(typeof (a2)).toEqual('object')
+
+      let b1:number|null  = 11
+      let b2:number|null  = null
+      expect(typeof (b1)).toEqual('number')
+      expect(typeof (b2)).toEqual('object')
+      
+      let c1:any|null  = 11
+      let c2:any|null  = null
+      expect(typeof (c1)).toEqual('number')
+      expect(typeof (c2)).toEqual('object')
 
 
     })
