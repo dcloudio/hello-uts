@@ -8,7 +8,6 @@ import {
 
 export class TInt8Array {
   test() {
-    // #ifdef  APP-ANDROID || WEB
 
     this.testConstructor();
     this.testSet();
@@ -33,10 +32,8 @@ export class TInt8Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
-    //#endif
   }
 
-  // #ifdef  APP-ANDROID || WEB
   from() {
     // #TEST Int8Array.from
     var array = Int8Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
@@ -161,8 +158,14 @@ export class TInt8Array {
     // #TEST Int8Array.entries
     let arr = new Int8Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
+    // #ifndef APP-IOS
     let ret1 = entries.next().value[1]
     let ret2 = entries.next().value[1]
+    // #endif
+    // #ifdef APP-IOS
+    let ret1 = entries.next().value![1]
+    let ret2 = entries.next().value![1]
+    // #endif
     console.log(ret1); // Output: 10
     console.log(ret2); // Output: 20
     // #END
@@ -414,5 +417,4 @@ export class TInt8Array {
     expect(res1).toEqual(false);
     expect(res).toEqual(true);
   }
-  // #endif
 }

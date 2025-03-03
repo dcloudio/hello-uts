@@ -3,13 +3,13 @@ import AlertDialog from 'android.app.AlertDialog';
 import DialogInterface from 'android.content.DialogInterface';
 import EditText from 'android.widget.EditText';
 
-//@UTSAndroid.Suppress("UNUSED_PARAMETER")
+@UTSAndroid.Suppress("UNUSED_PARAMETER")
 export function showAlert(_title : string | null, _message : string | null, _result : (index : Number) => void) {
 	let uiRunable = new DialogUIRunnable(null, _title!, _message!, "", false);
 	UTSAndroid.getUniActivity()!.runOnUiThread(uiRunable)
 }
 
-//@UTSAndroid.Suppress("UNUSED_PARAMETER")
+@UTSAndroid.Suppress("UNUSED_PARAMETER")
 export function showPrompt(_title : string | null, _message : string | null, _placeholder : string | null, success : (content : string) => void) {
 	let uiRunable = new DialogUIRunnable(success, _title!, _message!, _placeholder!, true);
 	UTSAndroid.getUniActivity()!.runOnUiThread(uiRunable)

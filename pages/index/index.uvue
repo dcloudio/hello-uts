@@ -6,14 +6,15 @@
             <button type="primary" @tap="testDoSthWithCallback">uts异步方法（无参数）</button>
             <button type="primary" @tap="testDoSthWithString">uts异步方法（字符串参数）</button>
             <button type="primary" @tap="testDoSthWithJSON">uts异步方法（json参数）</button>
-            <button type="primary"  @tap="testCallback">多次回调示例</button>
+            <button type="primary" @tap="testCallback">多次回调示例</button>
+            <button type="primary" @tap="testPluginDepend">uts插件依赖示例</button>
             <button type="primary"  @tap="testBuildinObject">内置对象语法测试</button>
         </view>
     </view>
 </template>
 <script>
     import { callWithJSONParam, callWithStringParam, callWithoutParam, JsonParamOptions, inputJSON ,onCallback} from "../../uni_modules/uts-helloworld";
-
+    import { testb } from "@/uni_modules/uts-test-b";
     export default {
         data() {
             return {
@@ -91,6 +92,12 @@
               uni.navigateTo({
                   url: `/pages/index/basicTest`
               })
+            },
+            /**
+             * 测试插件依赖
+             */
+            testPluginDepend() {
+              testb()
             }
         
         }

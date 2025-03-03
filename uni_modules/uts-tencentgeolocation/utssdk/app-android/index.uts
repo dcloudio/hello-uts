@@ -187,7 +187,7 @@ export function getLocation(locationOptions: LocationOptions):boolean {
 /**
  * 持续监听位置变化
  */
-//@UTSAndroid.Suppress("UNUSED_PARAMETER")
+@UTSAndroid.Suppress("UNUSED_PARAMETER")
 export function watchPosition(_locationOptions: LocationOptions) {
 	//todo
 }
@@ -195,7 +195,7 @@ export function watchPosition(_locationOptions: LocationOptions) {
 /**
  * 关闭监听位置变化
  */
-//@UTSAndroid.Suppress("UNUSED_PARAMETER")
+@UTSAndroid.Suppress("UNUSED_PARAMETER")
 export function clearWatch() {
 	//todo
 }

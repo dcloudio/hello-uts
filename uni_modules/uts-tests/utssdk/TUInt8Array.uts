@@ -7,7 +7,6 @@ import {
 
 export class TUint8Array {
   test() {
-    // #ifdef  APP-ANDROID || WEB
 
     this.testMAX();
     this.testConstructor();
@@ -33,9 +32,9 @@ export class TUint8Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
-    // #endif
+
   }
-  // #ifdef  APP-ANDROID || WEB
+
   of() {
     // #TEST Uint8Array.of
     var array = Uint8Array.of(1, 2, 3)
@@ -165,9 +164,19 @@ export class TUint8Array {
     let arr = new Uint8Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
     let entry = entries.next().value;
+    // #ifndef APP-IOS
     console.log(entry[1]); // 10
+    // #endif
+    // #ifdef APP-IOS
+    console.log(entry![1]); // 10
+    // #endif
     // #END
+    // #ifndef APP-IOS
     expect(entry[1]).toEqual(10);
+    // #endif
+    // #ifdef APP-IOS
+    expect(entry![1]).toEqual(10);
+    // #endif
   }
   includes() {
     // #TEST Uint8Array.includes
@@ -395,5 +404,4 @@ export class TUint8Array {
   }
 
 
-  // #endif
 }

@@ -1,5 +1,6 @@
 import { describe, test, expect, Result } from './tests.uts'
 
+@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION","DEPRECATION")
 export function testString() : Result {
   return describe("String", () => {
     test('length', () => {
@@ -221,6 +222,7 @@ export function testString() : Result {
 
       expect("".indexOf("test")).toEqual(-1);
     })
+    
     test('match', () => {
       // #TEST String.match
       const str = 'The quick brown fox jumps over the lazy dog. It barked.';
@@ -477,6 +479,21 @@ export function testString() : Result {
       
       let a5 = "778899	003213".split(RegExp("\\s+", ""));
       expect(a5).toEqual(["778899","003213"]);
+      
+      const str5 = 'The quick brown fox jumps over the lazy dog.';
+      const chars5 = str5.split('',2);
+      expect(chars5.length).toEqual(2);
+      
+      const str6 = "Hello World. How are you doing?";
+      const chars6 = myString.split("", 3);
+        
+      expect(chars6.length).toEqual(3);
+      expect(chars6[2]).toEqual("l");
+      let a6 = "".split("",2)
+      expect(a6.length).toEqual(0);
+      let a7 = "".split("")
+      expect(a7.length).toEqual(0);
+      
       // #ifdef APP-ANDROID
       let sp1 = "😄😄".split(RegExp("(?:)", ""));
       let sp2 = "😄😄".split(RegExp("(?:)", "u"));

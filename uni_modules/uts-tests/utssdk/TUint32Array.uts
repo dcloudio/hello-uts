@@ -7,7 +7,6 @@ import {
 
 export class TUint32Array {
   test() {
-    // #ifdef  APP-ANDROID || WEB
 
     this.testuint32();
     this.testConstructor();
@@ -33,10 +32,9 @@ export class TUint32Array {
     this.subarray();
     this.values();
     this.arrayBufferSlice();
-    // #endif
+
   }
 
-  // #ifdef  APP-ANDROID || WEB
   from() {
     // #TEST Uint32Array.from
     var array = Uint32Array.from([1, 2, 3], (v : number, _ : number) : number => v + v);
@@ -183,9 +181,19 @@ export class TUint32Array {
     let arr = new Uint32Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
     let entry = entries.next().value;
+    // #ifndef APP-IOS
     console.log(entry[1]); // 10
+    // #endif
+    // #ifdef APP-IOS
+    console.log(entry![1]); // 10
+    // #endif
     // #END
+    // #ifndef APP-IOS
     expect(entry[1]).toEqual(10);
+    // #endif
+    // #ifdef APP-IOS
+    expect(entry![1]).toEqual(10);
+    // #endif
   }
 
   includes() {
@@ -422,7 +430,4 @@ export class TUint32Array {
   }
 
 
-
-
-  // #endif
 }

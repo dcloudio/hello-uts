@@ -26,7 +26,6 @@ const int16 = new TInt16Array()
 
 export function testArrayBuffer() : Result {
   return describe("ArrayBuffer", () => {
-    // #ifdef  APP-ANDROID || WEB
     test('arraybuffer_isview', () => {
       // #TEST ArrayBuffer.isView
       var arrayBuffer = new ArrayBuffer(16)
@@ -65,6 +64,24 @@ export function testArrayBuffer() : Result {
       expect(int8[1]).toEqual(2);
       expect(byteBuffer[0]).toEqual(1);
       expect(byteBuffer[1]).toEqual(2);
+    })
+    // #endif
+    
+    // #ifdef  APP-IOS
+    test('arraybuffer_toData', () => {
+      // #TEST ArrayBuffer.fromData,ArrayBuffer.toData
+      let str = 'hello world';
+      let data = str.data(using = String.Encoding.utf8)!
+      let arrayBuffer = ArrayBuffer.fromData(data)
+      let uint8Array = new Uint8Array(arrayBuffer)
+      console.log(uint8Array)
+      
+      let td = arrayBuffer.toData()
+      let content = new String(decoding = td, as = UTF8.self)
+      console.log(content)
+      // #END
+      expect(uint8Array.toString()).toEqual('104,101,108,108,111,32,119,111,114,108,100');
+      expect(content).toEqual('hello world');
     })
     // #endif
 
@@ -869,6 +886,5 @@ export function testArrayBuffer() : Result {
     })
 
     //uint32  end
-    // #endif
   })
 }
