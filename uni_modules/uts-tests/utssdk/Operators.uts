@@ -289,6 +289,20 @@ export function testOperators(): Result {
             expect(1 == 1).toEqual(true);
             expect('hello' == 'hello').toEqual(true);
         })
+        test('in', () => {
+            const a = {a : 1} as UTSJSONObject
+            expect('a' in a).toEqual(true);
+            expect('b' in a).toEqual(false);
+            
+            const a2 = {
+              name:"张三"
+            }
+            a2["age"] = 12
+            expect('age' in a2).toEqual(true);
+            expect('age2' in a2).toEqual(false);
+            
+            
+        })
         test('!==', () => {
             // swift里，基础类型暂不支持!==,===对比
             expect(1 != 1).toEqual(false);
