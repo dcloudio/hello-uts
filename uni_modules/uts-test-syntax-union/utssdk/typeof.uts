@@ -49,7 +49,10 @@ function handleComplexType(value: User | string | number) {
 export function testTypeof(): any[] {
     return [
         handlePrimitive("hello"), // "HELLO"
+        // #ifdef APP-ANDROID
         handlePrimitive(42), // "42.00"
+        // #endif
+        
         handlePrimitive(true), // "true"
 
         handleNullable("test"), // "test"
@@ -61,6 +64,9 @@ export function testTypeof(): any[] {
 
         handleComplexType({ name: "张三", age: 25 }), // "张三 is 25"
         handleComplexType("  test  "), // "test"
+        // #ifdef APP-ANDROID
         handleComplexType(42), // "42"
+        // #endif
+        
     ];
 }

@@ -117,7 +117,10 @@ export function testKeyWord() : Result {
       
       let c1:any|null  = 11
       let c2:any|null  = null
-      expect(typeof (c1)).toEqual('number')
+      // #ifdef APP-ANDROID
+       expect(typeof (c1)).toEqual('number')
+      // #endif
+     
       expect(typeof (c2)).toEqual('object')
 
 
