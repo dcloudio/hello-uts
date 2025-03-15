@@ -1,3 +1,4 @@
+import { testBasic } from "./basic.uts";
 import { testRestParameters } from "./restParameters.uts";
 import { testDiscriminatedUnion } from "./discriminatedUnion.uts";
 import { testParameterUnion } from "./parameterUnion.uts";
@@ -9,6 +10,7 @@ import { testAssignments } from "./assignments.uts";
 import { testControlFlowAnalysis } from "./controlFlowAnalysis.uts";
 
 export function testSyntaxUnion() {
+    testBasic();
     const result = {
         testDiscriminatedUnion: testDiscriminatedUnion(),
         testParameterUnion: testParameterUnion(),
