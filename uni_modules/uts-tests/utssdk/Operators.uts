@@ -197,13 +197,13 @@ export function testOperators(): Result {
             const b: number = -2;
             expect(!(a > 0 || b > 0)).toEqual(false);
         })
-        // test('??=', () => {
-        // 	const a = { duration: 50 };
-        // 	a.duration ??= 10;
-        // 	expect(a.duration).toEqual(50);
-        // 	a.speed ??= 25;
-        // 	expect(a.duration).toEqual(25);
-        // })
+        test('??=', () => {
+        	const a = { duration: 50 }
+          a.speed ??= 25
+        	expect(a.speed).toEqual(25);
+        	a.duration ??= 10
+        	expect(a.duration).toEqual(50);
+        })
         test('||', () => {
             const a: number = 3;
             const b: number = -2;
@@ -244,13 +244,6 @@ export function testOperators(): Result {
         	expect(foo).toEqual("default string");
         	const baz = 0 ?? 42;
         	expect(baz).toEqual(0);
-        })
-        test('??=', () => {
-        	const a = { duration: 50 }
-          a.speed ??= 25
-        	expect(a.speed).toEqual(25);
-        	a.duration ??= 10
-        	expect(a.duration).toEqual(50);
         })
         test('?.', () => {
           type Cat = {
@@ -307,20 +300,6 @@ export function testOperators(): Result {
             expect(1 == 1).toEqual(true);
             expect('hello' == 'hello').toEqual(true);
         })
-        test('in', () => {
-            const a = {a : 1} as UTSJSONObject
-            expect('a' in a).toEqual(true);
-            expect('b' in a).toEqual(false);
-            
-            const a2 = {
-              name:"张三"
-            }
-            a2["age"] = 12
-            expect('age' in a2).toEqual(true);
-            expect('age2' in a2).toEqual(false);
-            
-            
-        })
         test('!==', () => {
             // swift里，基础类型暂不支持!==,===对比
             expect(1 != 1).toEqual(false);
@@ -364,6 +343,20 @@ export function testOperators(): Result {
             b >>>= 2;   //  00111111111111111111111111111110
             expect(b).toEqual(1073741822);
             // #endif
+        })
+        test('in', () => {
+            const a = {a : 1} as UTSJSONObject
+            expect('a' in a).toEqual(true);
+            expect('b' in a).toEqual(false);
+            
+            const a2 = {
+              name:"张三"
+            }
+            a2["age"] = 12
+            expect('age' in a2).toEqual(true);
+            expect('age2' in a2).toEqual(false);
+            
+            
         })
         test('float_number_format', () => {
             let r1 = 1 + -1.1;
