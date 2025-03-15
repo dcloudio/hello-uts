@@ -239,23 +239,41 @@ export function testOperators(): Result {
             a *= 3;
             expect(a).toEqual(6);
         })
-        // test('??', () => {
-        // 	const foo = null ?? 'default string';
-        // 	expect(foo).toEqual("default string");
-        // 	const baz = 0 ?? 42;
-        // 	expect(baz).toEqual(0);
-        // })
-        // test('?.', () => {
-        // 	const adventurer = {
-        // 	  name: 'Alice',
-        // 	  cat: {
-        // 	    name: 'Dinah'
-        // 	  }
-        // 	};
-        // 	const dogName = adventurer.cat?.name;
-        // 	console.log(dogName);
-        // 	expect(dogName).toEqual(undefined);
-        // })
+        test('??', () => {
+        	const foo = null ?? 'default string';
+        	expect(foo).toEqual("default string");
+        	const baz = 0 ?? 42;
+        	expect(baz).toEqual(0);
+        })
+        test('??=', () => {
+        	const a = { duration: 50 }
+          a.speed ??= 25
+        	expect(a.speed).toEqual(25);
+        	a.duration ??= 10
+        	expect(a.duration).toEqual(50);
+        })
+        test('?.', () => {
+          type Cat = {
+            name: string
+          }
+          type Adventurer = {
+            name: string
+            cat?: Cat | null
+          }
+        	const adventurer1: Adventurer = {
+        	  name: 'Alice',
+        	  cat: {
+        	    name: 'Dinah'
+        	  }
+        	}
+        	expect(adventurer1.cat?.name).toEqual("Dinah")
+          // #ifdef APP-ANDROID || APP-IOS
+          const adventurer2: Adventurer = {
+            name: 'Alice'
+          }
+          expect(adventurer2.cat?.name).toEqual(null)
+          // #endif
+        })
         test('%', () => {
             expect(13 % 5).toEqual(3);
             expect(-13 % 5).toEqual(-3);
