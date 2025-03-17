@@ -334,8 +334,7 @@ export function testRegExp() : Result {
       const reg =  /([-+]?((\d+\.\d+)|((\d+)|(\.\d+)))(?:e[-+]?\d+)?)/g
       console.log("onLoad",reg)
       let str = 'L 97.55,34.55,0-1'
-      let match = null as null|RegExpExecArray
-      let c = str.charAt(0)
+      let match:null|RegExpExecArray
       str = str.slice(1);
       match = reg.exec(str);
       let arrayRet = [match]

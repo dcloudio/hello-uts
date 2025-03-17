@@ -27,7 +27,7 @@ function handleObjectAndFunction(
     } else if (Array.isArray(value)) {
         return value.join(","); // value是string[]类型
     } else {
-        return JSON.stringify(value)!; // value是object类型
+        return JSON.stringify(value); // value是object类型
     }
 }
 

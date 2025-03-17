@@ -38,7 +38,7 @@ class Test {
     move2() {
         const animal2 = this.animal2;
         if (animal2 != null) {
-            if ("swim" in animal2!) {
+            if ("swim" in animal2) {
                 animal2.swim();
             }
         }

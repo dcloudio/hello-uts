@@ -43,7 +43,7 @@ type Test1Arg = {
     if (arg == null) {
       return null
     }
-    return arg!['value'] as string
+    return arg['value'] as string
   }
   
   // 事件定义
