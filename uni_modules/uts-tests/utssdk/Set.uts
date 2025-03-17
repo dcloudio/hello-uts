@@ -1,6 +1,7 @@
 import { describe, test, expect, Result } from './tests.uts'
-
+// #ifdef APP-ANDROID
 @UTSAndroid.Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER","ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+// #endif
 export function testSet() : Result {
   return describe("Set", () => {
     test('size', () => {

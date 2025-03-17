@@ -1,6 +1,7 @@
 import { describe, test, expect, Result } from './tests.uts'
-
+// #ifdef APP-ANDROID
 @UTSAndroid.Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER","NAME_SHADOWING")
+// #endif
 export function testPromise() : Result {
   return describe("Promise", () => {
     test('constructor', () => {

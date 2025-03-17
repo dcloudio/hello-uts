@@ -172,6 +172,20 @@ export class TFloat64Array {
     // #TEST Float64Array.entries
     let arr = new Float64Array([10, 20, 30, 40, 50]);
     let entries = arr.entries();
+    
+    // #ifndef APP-IOS
+    let value1 = entries.next().value[1] // 10
+    let value2 = entries.next().value[1] // 20
+    expect(value1).toEqual(10);
+    expect(value2).toEqual(20);
+    // #endif
+    // #ifdef APP-IOS
+    let value1 = entries.next().value![1] //10
+    let value2 = entries.next().value![1] //20
+    expect(value1).toEqual(10);
+    expect(value2).toEqual(20);
+    // #endif
+    
     // #ifndef APP-IOS
     expect(entries.next().value[1]).toEqual(30);
     expect(entries.next().value[1]).toEqual(40);

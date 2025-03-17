@@ -1,7 +1,8 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-
+// #ifdef APP-ANDROID
 @UTSAndroid.Suppress("USELESS_IS_CHECK")
+// #endif
 export function testType() : Result {
   return describe("Type", () => {
     test("Object literal to type instance", () => {

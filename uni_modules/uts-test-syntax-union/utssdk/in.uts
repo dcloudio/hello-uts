@@ -24,6 +24,9 @@ function move2(animal: Fish | Bird | Human) {
     }
 }
 
+// #ifdef APP-ANDROID
+@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
+// #endif
 class Test {
     animal: Fish | Bird;
     animal2: Fish | Bird | null = null;
@@ -38,7 +41,7 @@ class Test {
     move2() {
         const animal2 = this.animal2;
         if (animal2 != null) {
-            if ("swim" in animal2) {
+            if ("swim" in animal2!) {
                 animal2.swim();
             }
         }
