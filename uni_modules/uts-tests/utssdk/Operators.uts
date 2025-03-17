@@ -1,5 +1,8 @@
 import { describe, test, expect,expectNumber, Result } from './tests.uts'
 
+// #ifdef APP-ANDROID
+  @UTSAndroid.Suppress("USELESS_ELVIS")
+// #endif
 export function testOperators(): Result {
     return describe("Operators", () => {
         test('+', () => {
@@ -239,6 +242,7 @@ export function testOperators(): Result {
             a *= 3;
             expect(a).toEqual(6);
         })
+        
         test('??', () => {
         	const foo = null ?? 'default string';
         	expect(foo).toEqual("default string");
