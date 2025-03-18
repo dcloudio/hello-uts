@@ -39,9 +39,7 @@ type Test1Arg = {
   export function test4(arg: Test1Arg | Test2Arg): string {
     return arg['value'] as string
   }
-  // #ifdef APP-ANDROID
-  @UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
-  // #endif
+  
   export function test5(arg: Test1Arg | Test2Arg | null): string | null {
     if (arg == null) {
       return null

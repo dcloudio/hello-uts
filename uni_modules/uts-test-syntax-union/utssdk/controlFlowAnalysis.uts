@@ -6,9 +6,7 @@ function padLeft(padding: number | string, input: string) {
 }
 export function testControlFlowAnalysis() {
     const result: string[] = [];
-    // #ifdef APP-ANDROID
     result.push(padLeft(1, "hello"));
-    // #endif
     result.push(padLeft("1", "hello"));
     return result;
 }
