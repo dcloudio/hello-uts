@@ -298,7 +298,7 @@ export function testArray() : Result {
       // #endif
 
     })
-    
+
     test("of-1", () => {
       let a1 = Array.of<any>('foo', 2, 'bar', true)
       let a2 = Array.of<any>()
@@ -317,14 +317,14 @@ export function testArray() : Result {
       // #ifdef APP-ANDROID
       expect(a3).toEqual([ "aaa", false, {id: 1001, name: "张三"} ] );
       // #endif
-      
+
     })
-    
+
     test("from", () => {
       // #ifdef APP-ANDROID
       let a1 = Array.from('foo')
       let a2 = Array.from<number>([1, 2, 3], function(x:any|null,index:number):number{
-        
+
         // #ifdef APP
         return (x as Number).toInt() + (x as Number).toInt()
         // #endif
@@ -344,18 +344,18 @@ export function testArray() : Result {
       expect(a3).toEqual([["name","张三"],["age",123]]);
       // #endif
       // #endif
- 
-      
+
+
       let s1 = new Set<string>()
       s1.add("张三")
       s1.add("李四")
       let a4 = Array.from<string>(s1)
       expect(a4).toEqual(["张三","李四"]);
-      
+
     })
-    
+
     test("fromAsync", () => {
-      
+
       // #ifdef APP-ANDROID
       let m1 = new Map<Int,any>([
           [1, 2],
@@ -376,17 +376,17 @@ export function testArray() : Result {
         expect(array).toEqual([1, 2, 3]);
       });
       // #endif
-      
+
       // #ifdef APP-ANDROID
       UTSAndroid.getDispatcher("io").async(function(_){
-        
+
           let ret2 = new Array<any>()
           let p = new Promise<number>((resolve, reject) => {
           	setTimeout(() => {
           		reject("xxxxxxxx")
           	}, 1000)
           })
-          
+
           let pArray = [p, 1, 2, "3"]
           const a = Array.fromAsync<any>(pArray)
           a.then((res) => {
@@ -394,24 +394,24 @@ export function testArray() : Result {
           }).catch((err) => {
           	ret2.clear()
           })
-          
+
           const pArray1 = Array.fromAsync("abcdefg");
-          
+
           pArray1.then((res) => {
           	ret2 = ret2.concat(res)
-          }) 
-          
+          })
+
           setTimeout(function(){
             expect(ret2).toEqual(["a", "b", "c", "d", "e", "f", "g"]);
           },200)
-          
+
           setTimeout(function(){
           	expect(ret2).toEqual([]);
           },2000)
       },null)
-      // #endif      
+      // #endif
     })
-    
+
     test("indexOf", () => {
 
       let raw = {}
@@ -555,7 +555,7 @@ export function testArray() : Result {
 
       const firstElement = array1.shift();
 
-      console.log(array1); // [2, 3]     
+      console.log(array1); // [2, 3]
 
       console.log(firstElement); //1
       // #END
@@ -615,7 +615,7 @@ export function testArray() : Result {
       expect(months).toEqual(["Jan", "Feb", "March", "April", "May"]);
     })
     test('sort', () => {
-      // #TEST Array.slice
+      // #TEST Array.sort
       const months = ['March', 'Jan', 'Feb', 'Dec'];
       months.sort();
       console.log(months)//["Dec", "Feb", "Jan", "March"]
@@ -897,7 +897,7 @@ export function testArray() : Result {
       // #ifdef APP-ANDROID
       new Array(20).fill(0)
       // #endif
-      
+
       // #END
 
     })
