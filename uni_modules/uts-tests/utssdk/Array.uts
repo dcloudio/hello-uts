@@ -10,8 +10,8 @@ export function testArray() : Result {
       // #TEST Array.Constructor
       let a1 = [1, 2, 3]
       let a2 = [1, '2', 3]
-      console.log(a1) //[1, 2, 3]
-      console.log(a2) // [1, '2', 3]
+      // console.log(a1) //[1, 2, 3]
+      // console.log(a2) // [1, '2', 3]
       // #END
       expect(a1).toEqual([1, 2, 3]);
       expect(a2).toEqual([1, '2', 3]);
@@ -35,7 +35,7 @@ export function testArray() : Result {
       let a1 = [1, 2, 3]
       let a2 = [1, 2, 3]
       let equalsRet = (a1 == a2)
-      console.log(equalsRet)
+      // console.log(equalsRet)
       // #ifndef APP-IOS
       expect(equalsRet).toEqual(false);
       // #endif
@@ -55,9 +55,9 @@ export function testArray() : Result {
 
       let convertArrayFromJava = Array.fromNative(javaArray);
       let convertArrayFromKotlin = Array.fromNative(kotlinArray);
-      console.log(convertArrayFromJava[0] == convertArrayFromKotlin[0])//true
+      // console.log(convertArrayFromJava[0] == convertArrayFromKotlin[0])//true
 
-      console.log(convertArrayFromJava[0])//"1"
+      // console.log(convertArrayFromJava[0])//"1"
       // #END
       expect(convertArrayFromJava[0] == convertArrayFromKotlin[0]).toEqual(true);
       expect(convertArrayFromJava[0]).toEqual("1");
@@ -68,9 +68,9 @@ export function testArray() : Result {
     test('length', () => {
       // #TEST Array.length
       const arr = ['shoes', 'shirts', 'socks', 'sweaters'];
-      console.log(arr.length)//4
-      console.log(arr[1])//'shoes'
-      console.log(arr[1])//'shirts'
+      // console.log(arr.length)//4
+      // console.log(arr[1])//'shoes'
+      // console.log(arr[1])//'shirts'
       // #END
       // expect(arr[4]).toEqual(null);
       const numbers : number[] = [1, 2, 3, 4, 5];
@@ -91,17 +91,17 @@ export function testArray() : Result {
     test("concat", () => {
       // #TEST Array.concat,Array.concat_1
       let ret = ['a', 'b', 'c'].concat(['d', 'e', 'f'])
-      console.log(ret) //["a", "b", "c", "d", "e", "f"]
+      // console.log(ret) //["a", "b", "c", "d", "e", "f"]
       let ret1 = [1, 2, 3].concat([4, 5, 6])
-      console.log(ret1)//[1, 2, 3, 4, 5, 6]
+      // console.log(ret1)//[1, 2, 3, 4, 5, 6]
       let ret2 = [''].concat([''])//
-      console.log(ret2)//["", ""]
+      // console.log(ret2)//["", ""]
 
       const num1 = [1, 2, 3];
       const num2 = [4, 5, 6];
       const num3 = [7, 8, 9];
       const numbers = num1.concat(num2, num3);
-      console.log(numbers)//[1, 2, 3, 4, 5, 6, 7, 8, 9]
+      // console.log(numbers)//[1, 2, 3, 4, 5, 6, 7, 8, 9]
       // #END
 
       expect(numbers).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -114,26 +114,28 @@ export function testArray() : Result {
       // #TEST Array.copyWithin
       const arr = ['a', 'b', 'c', 'd', 'e'];
       let ret1 = arr.copyWithin(0, 3, 4)
-      console.log(ret1)//["d", "b", "c", "d", "e"]
+      // console.log(ret1)//["d", "b", "c", "d", "e"]
       // #END
       expect(ret1).toEqual(["d", "b", "c", "d", "e"]);
       expect(arr.copyWithin(1, 3)).toEqual(["d", "d", "e", "d", "e"]);
       const arr2 = [1, 2, 3, 4, 5];
+      // #ifndef APP-HARMONY
       expect(arr2.copyWithin(-2)).toEqual([1, 2, 3, 1, 2]);
+      // #endif
       expect(arr2.copyWithin(-2, -3, -1)).toEqual([1, 2, 3, 3, 1]);
     })
     test("every", () => {
       // #TEST Array.every,Array.every_1,Array.every_2,Array.every_3
       const isBelowThreshold = (currentValue : number) : boolean => currentValue < 40;
       const array1 : number[] = [1, 30, 39, 29, 10, 13];
-      console.log(array1.every(isBelowThreshold));// true
+      // console.log(array1.every(isBelowThreshold));// true
 
       const array2 : number[] = [1, 30, 39, 29, 10, 13, 41];
-      console.log(array2.every(isBelowThreshold));// false
+      // console.log(array2.every(isBelowThreshold));// false
 
       const array3 : number[] = [1, 2, 3];
       array3.every((element : number, index : number, array : number[]) : boolean => {
-        console.log(array[index])//1=>2->3
+        // console.log(array[index])//1=>2->3
         return true;
       })
 
@@ -149,7 +151,7 @@ export function testArray() : Result {
       // #TEST Array.fill
       const array1 : number[] = [1, 2, 3, 4];
       let ret1 = array1.fill(0, 2, 4)
-      console.log(ret1); //[1, 2, 0, 0]
+      // console.log(ret1); //[1, 2, 0, 0]
       // #END
       expect(ret1).toEqual([1, 2, 0, 0]);
       expect(array1.fill(5, 1)).toEqual([1, 5, 5, 5]);
@@ -157,14 +159,19 @@ export function testArray() : Result {
       const array2 : number[] = [1, 2, 3]
       expect(array2.fill(4)).toEqual([4, 4, 4]);
       const array3 : number[] = [0, 0]
+      // #ifdef APP-HARMONY
+      expect(array3.fill(1, undefined)).toEqual([1, 1]);
+      // #endif
+      // #ifndef APP-HARMONY
       expect(array3.fill(1, null)).toEqual([1, 1]);
+      // #endif
       expect(array3.fill(1, 0, 1.5)).toEqual([1, 1]);
     })
     test("filter", () => {
       // #TEST Array.filter,Array.filter_1,Array.filter_2,Array.filter_3
       const words : string[] = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
       const result = words.filter((word : string) : boolean => word.length > 6);
-      console.log(result);// ["exuberant", "destruction", "present"]
+      // console.log(result);// ["exuberant", "destruction", "present"]
 
       const array1 : number[] = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
       const isPrime = array1.filter((num : number) : boolean => {
@@ -176,11 +183,11 @@ export function testArray() : Result {
         }
         return num > 1;
       })
-      console.log(isPrime)//[2, 3, 5, 7, 11, 13]
+      // console.log(isPrime)//[2, 3, 5, 7, 11, 13]
 
       const array2 : number[] = [1, 2, 3];
       array2.filter((element : number, index : number, array : number[]) : boolean => {
-        console.log(array[index])//1=>2=>3
+        // console.log(array[index])//1=>2=>3
         return true;
       })
       // #END
@@ -195,19 +202,24 @@ export function testArray() : Result {
       // #TEST Array.find_2
       const array1 : number[] = [5, 12, 8, 130, 44];
       const found1 = array1.find((element : number) : boolean => element > 10);
-      console.log(found1) //12
+      // console.log(found1) //12
       // #END
       expect(found1).toEqual(12);
       // #TEST Array.find_1
       const array3 : number[] = [5, 12, 8, 130, 44];
       const found2 = array3.find((element : number, index : number) : boolean => element < 5);
-      console.log(found2) // null
+      // console.log(found2) // null
       // #END
+      // #ifndef APP-HARMONY
       expect(found2).toEqual(null);
+      // #endif
+      // #ifdef APP-HARMONY
+      expect(found2).toEqual(undefined);
+      // #endif
       // #TEST Array.find
       let array2 : number[] = [1, 2, 3];
       array2.find((element : number, index : number, array : number[]) : boolean => {
-        console.log(array[index]) //1=>2=>3
+        // console.log(array[index]) //1=>2=>3
         return true;
       })
       // #END
@@ -221,14 +233,14 @@ export function testArray() : Result {
       // #TEST Array.findIndex_1,Array.findIndex_2,Array.findIndex
       const array1 : number[] = [5, 12, 8, 130, 44];
       let isLargeNumber = (element : number, index : number) : boolean => element > 13;
-      console.log(isLargeNumber)//3
+      // console.log(isLargeNumber)//3
 
       const array2 : number[] = [10, 11, 12];
-      console.log(array2.findIndex(isLargeNumber))//3
+      // console.log(array2.findIndex(isLargeNumber))//3
 
       const array3 : number[] = [1, 2, 3];
       array3.findIndex((element : number, index : number, array : number[]) : boolean => {
-        console.log(array[index]) //1=>2=>3
+        // console.log(array[index]) //1=>2=>3
         return true;
       })
       // #END
@@ -250,7 +262,7 @@ export function testArray() : Result {
     test("forEach", () => {
       // #TEST Array.forEach,Array.forEach_1,Array.forEach_2
       const array1 : string[] = ['a', 'b', 'c'];
-      array1.forEach(element => console.log(element));
+      array1.forEach(element => // console.log(element));
       // expected output: "a"
       // expected output: "b"
       // expected output: "c"
@@ -259,7 +271,7 @@ export function testArray() : Result {
       items.forEach((item : string) => {
         copyItems.push(item);
       });
-      console.log(copyItems)//['item1', 'item2', 'item3']
+      // console.log(copyItems)//['item1', 'item2', 'item3']
       // #END
       array1.forEach((element : string, index : number) => {
         expect(array1[index]).toEqual(element)
@@ -269,7 +281,7 @@ export function testArray() : Result {
     test("includes", () => {
       // #TEST Array.includes
       const array1 : number[] = [1, 2, 3];
-      console.log(array1.includes(2))//true
+      // console.log(array1.includes(2))//true
       // #END
       expect(array1.includes(2)).toEqual(true);
       const pets : string[] = ['cat', 'dog', 'bat'];
@@ -285,7 +297,12 @@ export function testArray() : Result {
       }
 
       // #ifndef APP-IOS
+      // #ifdef APP-HARMONY
+      const s: P[] = JSON.parse(JSON.stringify([{ x: 0, y: 0 }]))
+      // #endif
+      // #ifndef APP-HARMONY
       const s = JSON.parse<P[]>(JSON.stringify([{ x: 0, y: 0 }])) as P[]
+      // #endif
       s[0].x += 0;
       const clearList = s.map((v : P, _, _a) : number => v.x)
       expect(clearList.includes(0)).toEqual(true);
@@ -302,7 +319,7 @@ export function testArray() : Result {
     test("of-1", () => {
       let a1 = Array.of<any>('foo', 2, 'bar', true)
       let a2 = Array.of<any>()
-      console.log(a1,a2)
+      // console.log(a1,a2)
       type User = {
       	id:number
       	name:string
@@ -397,11 +414,11 @@ export function testArray() : Result {
       });
       // #endif
 
-      // #ifdef APP
+      // #ifdef APP-ANDROID || APP-IOS
       let s1 = new Set([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)])
       Array.fromAsync<number>(
         s1
-      ).then((array) => {
+      ).then((array: Array<number>) => {
         expect(array).toEqual([1, 2, 3]);
       });
       // #endif
@@ -453,12 +470,12 @@ export function testArray() : Result {
       // #TEST Array.indexOf
       const beasts : string[] = ['ant', 'bison', 'camel', 'duck', 'bison'];
 
-      console.log(beasts.indexOf('bison')); //  1
+      // console.log(beasts.indexOf('bison')); //  1
 
 
-      console.log(beasts.indexOf('bison', 2));// 2
+      // console.log(beasts.indexOf('bison', 2));// 2
 
-      console.log(beasts.indexOf('giraffe'));// -1
+      // console.log(beasts.indexOf('giraffe'));// -1
       // #END
 
       expect(beasts.indexOf('bison')).toEqual(1);
@@ -498,8 +515,8 @@ export function testArray() : Result {
 
       // #TEST Array.lastIndexOf
       const animals : string[] = ['Dodo', 'Tiger', 'Penguin', 'Dodo'];
-      console.log(animals.lastIndexOf('Dodo'));//3
-      console.log(animals.lastIndexOf('Tiger'));//1
+      // console.log(animals.lastIndexOf('Dodo'));//3
+      // console.log(animals.lastIndexOf('Tiger'));//1
       // #END
 
       expect(animals.lastIndexOf('Dodo')).toEqual(3);
@@ -522,7 +539,7 @@ export function testArray() : Result {
       // #TEST Array.map,Array.map_1,Array.map_2
       const array1 : number[] = [1, 4, 9, 16];
       const map1 = array1.map((x : number) : number => x * 2);
-      console.log(map1);
+      // console.log(map1);
       // expected output: Array [2, 8, 18, 32]
       const numbers : number[] = [1, 4, 9];
       const roots = numbers.map((num : number) : number => num + 1);
@@ -530,7 +547,7 @@ export function testArray() : Result {
 
       const array2 : number[] = [1, 2, 3];
       array2.map((element : number, index : number, array : number[]) => {
-        console.log(array[index]) //1=>2=>3
+        // console.log(array[index]) //1=>2=>3
       })
       // #END
       array2.map((element : number, index : number, array : number[]) => {
@@ -544,8 +561,8 @@ export function testArray() : Result {
       // #TEST Array.pop
       const plants : string[] = ['broccoli', 'cauliflower', 'cabbage', 'kale', 'tomato'];
       let ret1 = plants.pop()
-      console.log(ret1)//"tomato"
-      console.log(plants)//["broccoli", "cauliflower", "cabbage", "kale"]
+      // console.log(ret1)//"tomato"
+      // console.log(plants)//["broccoli", "cauliflower", "cabbage", "kale"]
       // #END
       expect(ret1).toEqual("tomato");
       expect(plants).toEqual(["broccoli", "cauliflower", "cabbage", "kale"]);
@@ -557,8 +574,8 @@ export function testArray() : Result {
       // #TEST Array.push
       const animals : string[] = ['pigs', 'goats', 'sheep'];
       const count = animals.push('cows');
-      console.log(count)//4
-      console.log(animals) //['pigs', 'goats', 'sheep', 'cows']
+      // console.log(count)//4
+      // console.log(animals) //['pigs', 'goats', 'sheep', 'cows']
       // #END
       expect(count).toEqual(4);
       expect(animals).toEqual(['pigs', 'goats', 'sheep', 'cows']);
@@ -574,7 +591,7 @@ export function testArray() : Result {
         (previousValue : number, currentValue : number) : number => previousValue + currentValue,
         initialValue
       );
-      console.log(sumWithInitial)//10
+      // console.log(sumWithInitial)//10
       // #END
       expect(sumWithInitial).toEqual(10);
     })
@@ -584,9 +601,9 @@ export function testArray() : Result {
 
       const firstElement = array1.shift();
 
-      console.log(array1); // [2, 3]
+      // console.log(array1); // [2, 3]
 
-      console.log(firstElement); //1
+      // console.log(firstElement); //1
       // #END
       expect(firstElement).toEqual(1);
       expect(array1).toEqual([2, 3]);
@@ -595,22 +612,22 @@ export function testArray() : Result {
       // #TEST Array.slice
       const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
 
-      console.log(animals.slice(2));
+      // console.log(animals.slice(2));
       //  ["camel", "duck", "elephant"]
 
-      console.log(animals.slice(2, 4));
+      // console.log(animals.slice(2, 4));
       //["camel", "duck"]
 
-      console.log(animals.slice(1, 5));
+      // console.log(animals.slice(1, 5));
       //  ["bison", "camel", "duck", "elephant"]
 
-      console.log(animals.slice(-2));
+      // console.log(animals.slice(-2));
       // ["duck", "elephant"]
 
-      console.log(animals.slice(2, -1));
+      // console.log(animals.slice(2, -1));
       // ["camel", "duck"]
 
-      console.log(animals.slice());
+      // console.log(animals.slice());
       //["ant", "bison", "camel", "duck", "elephant"]
       // #END
       expect(animals.slice(2)).toEqual(["camel", "duck", "elephant"]);
@@ -624,7 +641,7 @@ export function testArray() : Result {
       // #TEST Array.some
       const array : number[] = [1, 2, 3, 4, 5];
       const even = (element : number) : boolean => element % 2 == 0;
-      console.log(array.some(even));//true
+      // console.log(array.some(even));//true
       // #END
 
       expect(array.some(even)).toEqual(true);
@@ -636,7 +653,7 @@ export function testArray() : Result {
       // #TEST Array.splice
       const months : string[] = ['Jan', 'March', 'April', 'June'];
       months.splice(1, 0, 'Feb');
-      console.log(months)//["Jan", "Feb", "March", "April", "June"]
+      // console.log(months)//["Jan", "Feb", "March", "April", "June"]
       // #END
 
       expect(months).toEqual(["Jan", "Feb", "March", "April", "June"]);
@@ -647,7 +664,7 @@ export function testArray() : Result {
       // #TEST Array.sort
       const months = ['March', 'Jan', 'Feb', 'Dec'];
       months.sort();
-      console.log(months)//["Dec", "Feb", "Jan", "March"]
+      // console.log(months)//["Dec", "Feb", "Jan", "March"]
       // #END
       expect(months).toEqual(["Dec", "Feb", "Jan", "March"]);
 
@@ -689,10 +706,10 @@ export function testArray() : Result {
       // #TEST Array.unshift
       const array1 = [1, 2, 3];
       let ret1 = array1.unshift(4, 5)
-      console.log(ret1);
+      // console.log(ret1);
       //  5
 
-      console.log(array1);
+      // console.log(array1);
       // [4, 5, 1, 2, 3]
       // #END
       expect(ret1).toEqual(5);
@@ -701,7 +718,7 @@ export function testArray() : Result {
     test("toString", () => {
       // #TEST Array.toString
       const array1 : number[] = [1, 2, 3];
-      console.log(array1.toString()) //"1,2,3"
+      // console.log(array1.toString()) //"1,2,3"
       // #END
       expect(array1.toString()).toEqual("1,2,3");
       const array2 = new Array<string>()
@@ -725,7 +742,7 @@ export function testArray() : Result {
       // #TEST Array.reduceRight,Array.reduceRight_1,Array.reduceRight_2,Array.reduceRight_3,Array.reduceRight_4,Array.reduceRight_5,Array.reduceRight_6
       const array1 : number[][] = [[0, 1], [2, 3], [4, 5]];
       const result1 = array1.reduceRight((accumulator : number[], currentValue : number[]) : number[] => accumulator.concat(currentValue));
-      console.log(result1) //[4, 5, 2, 3, 0, 1]
+      // console.log(result1) //[4, 5, 2, 3, 0, 1]
 
 
       const array2 : number[] = [1, 2, 3, 4];
@@ -733,11 +750,11 @@ export function testArray() : Result {
         return acc + cur;
       });
 
-      console.log(result2) //10
+      // console.log(result2) //10
 
 
       const result3 = array2.reduceRight((acc : number, cur : number) : number => acc + cur, 5);
-      console.log(result3) //15
+      // console.log(result3) //15
       // #END
 
       expect(result3).toEqual(15);
@@ -790,16 +807,16 @@ export function testArray() : Result {
     test("isArray", () => {
       // #TEST Array.isArray
 
-      console.log(Array.isArray([1, 3, 5]));
+      // console.log(Array.isArray([1, 3, 5]));
       // Expected output: true
 
-      console.log(Array.isArray('[]'));
+      // console.log(Array.isArray('[]'));
       // Expected output: false
 
-      console.log(Array.isArray(new Array(5)));
+      // console.log(Array.isArray(new Array(5)));
       // Expected output: true
       // #ifdef APP-ANDROID
-      console.log(Array.isArray(new Int16Array([15, 33])));
+      // console.log(Array.isArray(new Int16Array([15, 33])));
       // #endif
       // Expected output: false
       // #END
@@ -808,20 +825,20 @@ export function testArray() : Result {
     test("sample", () => {
       // #TEST Array.sampleCreate
       const fruits = ['Apple', 'Banana']
-      console.log(fruits.length)
+      // console.log(fruits.length)
       // #END
 
       // #TEST Array.sampleVisit
       const first = fruits[0]
-      console.log(first)     // Apple
+      // console.log(first)     // Apple
 
       const last = fruits[fruits.length - 1]
-      console.log(last) // Banana
+      // console.log(last) // Banana
       // #END
 
       // #TEST Array.sampleForEach
       fruits.forEach(function (item, index: number, array) {
-        console.log(item, index)
+        // console.log(item, index)
       })
       // Apple 0
       // Banana 1
@@ -830,23 +847,23 @@ export function testArray() : Result {
       // #TEST Array.sampleAdd
       let newLength = fruits.push('Orange')
       // ["Apple", "Banana", "Orange"]
-      console.log(newLength)//3
+      // console.log(newLength)//3
       // #END
 
       // #TEST Array.samplePop
       const lastE = fruits.pop() // remove Orange (from the end)
       // ["Apple", "Banana"]
-      console.log(lastE)
+      // console.log(lastE)
       // #END
 
       // #TEST Array.sampleShift
       const firstE = fruits.shift() // remove Apple from the front
-      console.log(firstE) // ["Banana"]
+      // console.log(firstE) // ["Banana"]
       // #END
 
       // #TEST Array.sampleUnshift
       newLength = fruits.unshift('Strawberry') // add to the front
-      console.log(newLength) // 2
+      // console.log(newLength) // 2
       // ["Strawberry", "Banana"]
       // #END
 
@@ -859,34 +876,34 @@ export function testArray() : Result {
 
       // #TEST Array.sampleSplice
       const removedItem = fruits.splice(pos, 1) // this is how to remove an item
-      console.log(removedItem) // ["Banana"]
+      // console.log(removedItem) // ["Banana"]
 
       // #END
 
       // #TEST Array.sampleSpliceMul
       const vegetables = ['Cabbage', 'Turnip', 'Radish', 'Carrot']
-      console.log(vegetables)
+      // console.log(vegetables)
       // ["Cabbage", "Turnip", "Radish", "Carrot"]
       pos = 1
       const n = 2
       const removedItems = vegetables.splice(pos, n)
       // this is how to remove items, n defines the number of items to be removed,
       // starting at the index position specified by pos and progressing toward the end of array.
-      console.log(vegetables)
+      // console.log(vegetables)
       // ["Cabbage", "Carrot"] (the original array is changed)
-      console.log(removedItems)
+      // console.log(removedItems)
       // ["Turnip", "Radish"]
       // #END
 
       // #TEST Array.sampleSpliceCopy
       const shallowCopy = fruits.slice() // this is how to make a copy
-      console.log(shallowCopy) // ["Strawberry", "Mango"]
+      // console.log(shallowCopy) // ["Strawberry", "Mango"]
       // #END
 
       // #TEST Array.sampleForEachCallback
       let array = ['a', 'b', 'c'];
       array.forEach(element => {
-        console.log(element)
+        // console.log(element)
         // array.pop() // 此行为在 Android 平台会造成闪退，在 iOS 平台会输出 'a', 'b', 'c', 而 JS 会输出 'a', 'b'
       });
 
@@ -895,7 +912,7 @@ export function testArray() : Result {
       array = ['a', 'b', 'c'];
       let index = 0;
       while (index < array.length) {
-        console.log(array[index]);
+        // console.log(array[index]);
         array.pop();
         index += 1;
       }
