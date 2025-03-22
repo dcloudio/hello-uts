@@ -84,12 +84,12 @@ export function testJSON() : Result {
   return describe("JSON", () => {
     
     test('custom-stringify', () => {
-      // #ifdef APP-ANDROID
       expect(JSON.stringify(new A1())!.length).toEqual(28)
       expect(JSON.stringify(new A2())).toEqual("2")
       expect(JSON.stringify(new A3())).toEqual('"json"')
       expect(JSON.stringify(new A4())).toEqual('null')
-      // js平台toJSON不会递归
+      // #ifdef APP-ANDROID || APP-IOS
+      // js引擎toJSON不会归调用
       expect(JSON.stringify(new A5())!.length).toEqual(28)
       expect(JSON.stringify(new A6())!.length).toEqual(28)
       // #endif
@@ -146,12 +146,20 @@ export function testJSON() : Result {
 
       let json3 = `{"id":"216776999999","name":"小王","grade":1.0,"list":[1,2,3],"address":{"province":"beijing","city":"haidian","streat":"taipingzhuang","other":2},"anyValue":[[null,null]],"obj":{"a":1,"b":false,"c":null},"customClass":{"name":"lisi","age":30},"numList":[1,2,3,null],"list2":[1,2,3,4],"dic":{"1":{"c":[null]}},"dicArr":[{"a":{"c":[null]}},{"b":{"c":1}}]}`
       let obj3 = JSON.parse(json3)! as UTSJSONObject;
-      let obj3Address = obj3.getAny("address")!
+      let obj3Address: any = obj3.getAny("address")!
       console.log(obj3Address)
       expect(obj3Address instanceof UTSJSONObject).toEqual(true)
+      // #ifdef APP-HARMONY
+      // arkts any类型使用受限 https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide#限制使用esobject类型
+      let obj3DicArr: (any | null)[] = obj3.getArray("dicArr")!
+      let obj3DicArrFirst = obj3DicArr[0] as UTSJSONObject
+      let obj3DicArrFirstA: any | null = obj3DicArrFirst['a']
+      // #endif
+      // #ifndef APP-HARMONY
       let obj3DicArr = obj3.getArray("dicArr")!
       let obj3DicArrFirst = obj3DicArr[0] as UTSJSONObject
       let obj3DicArrFirstA = obj3DicArrFirst['a']
+      // #endif
       console.log(obj3DicArrFirstA instanceof UTSJSONObject)
       expect(obj3DicArrFirstA instanceof UTSJSONObject).toEqual(true)
       // 目前仅android 支持，暂不放开
@@ -228,11 +236,13 @@ export function testJSON() : Result {
 			  }`;
       let obj3 = JSON.parseObject<UserJSON>(json2);
       expect(obj3!.id).toEqual("30");
+      // #ifndef APP-HARMONY
       const json3 = `{
 			    "name": "John"
 			  }`;
       let obj4 = JSON.parseObject<UserJSON>(json3);
       expect(obj4).toEqual(null);
+      // #endif
     })
     test('parseArray', () => {
       // #TEST JSON.parseArray
@@ -450,6 +460,7 @@ export function testJSON() : Result {
 
     })
 
+    // #ifndef APP-HARMONY
     test('invalidField', () => {
       let str = "{\"a+b\":\"test1\",\"a-b\":2,\"class\":true}"
       let p = JSON.parseObject<PersonJSON>(str)
@@ -460,6 +471,7 @@ export function testJSON() : Result {
       let retStr = JSON.stringify(p)
       console.log(retStr)
     })
+    // #endif
 
     test('UTSJSONOject', () => {
       let t1 = "1"
@@ -474,9 +486,18 @@ export function testJSON() : Result {
       //console.log(t1);
       expect(t1).toEqual("2")
       //console.log(JSON.stringify(a));
+      // #ifdef APP-HARMONY
+      // arkts any类型使用受限 https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide#限制使用esobject类型
+      const map: Map<string, any | null> = {
+        a: 1
+      }.toMap()
+      // #endif
+      // #ifndef APP-HARMONY
+      // arkts any类型使用受限 https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide#限制使用esobject类型
       const map = {
         a: 1
       }.toMap()
+      // #endif
       expect(map.get('a')).toEqual(1)
 
       const json = `{"result":true, "count":42}`;
@@ -492,7 +513,7 @@ export function testJSON() : Result {
         num : number,
       }
       const map = JSON.parse<Map<string, A>>(`{"a": {"num": 1}}`)
-      // #ifndef APP-IOS
+      // #ifndef APP-IOS || APP-HARMONY
       expect(map instanceof Map).toEqual(true)
       // #endif
       expect(map?.get('a')?.num).toEqual(1)
@@ -503,9 +524,17 @@ export function testJSON() : Result {
       type A = {
         num : number,
       }
+      // #ifdef APP-HARMONY
+      // arkts不允许嵌套function声明，但是可以在function声明内使用箭头函数
+      const test = <T>(json : string) : T => {
+        return JSON.parse<T>(json)!
+      }
+      // #endif
+      // #ifndef APP-HARMONY
       function test<T>(json : string) : T {
         return JSON.parse<T>(json)!
       }
+      // #endif
 
       // #ifndef APP-IOS
       const a = test<A>(`{"num": 1}`)
