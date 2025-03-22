@@ -10,9 +10,9 @@ export function testNumber() : Result {
       function financial(x : Number) : String {
         return x.toFixed(2);
       }
-      console.log(financial(123.456));
+      // console.log(financial(123.456));
       // expected output: "123.46"
-      console.log(financial(0.004));
+      // console.log(financial(0.004));
       // expected output: "0.00"
       // #END
 
@@ -24,11 +24,11 @@ export function testNumber() : Result {
       let num1 : number = -1.1 / 0.1
       let num2 : number = -1.1 / 0.1
       let num3 : number = -1.1 / -0.1
-      console.warn(num1)
-      console.warn(num2)
-      console.warn(num3)
+      // console.warn(num1)
+      // console.warn(num2)
+      // console.warn(num3)
       let obj = { "id": "3be2c600-894c-4231-aa56-82fd989cc961", "result": { "result": [num1, num2, num3] } }
-      console.log(JSON.stringify(obj))
+      // console.log(JSON.stringify(obj))
 
 
 
@@ -84,7 +84,12 @@ export function testNumber() : Result {
       type A = {
         a : number
       }
+      // #ifdef APP-HARMONY
+      let aj: A = JSON.parse('{"a":1}');
+      // #endif
+      // #ifndef APP-HARMONY
       let aj = JSON.parse<A>('{"a":1}');
+      // #endif
       expect(aj?.a == 1).toEqual(true);
       expect(aj?.a == 1 as number).toEqual(true);
       expect(aj?.a == 1.0).toEqual(true);
@@ -193,7 +198,7 @@ export function testNumber() : Result {
 
     test('toPrecision', () => {
       // #TEST Number.toPrecision
-      console.log(123.456.toPrecision(4))//123.5
+      // console.log(123.456.toPrecision(4))//123.5
       // #END
       expect(123.456.toPrecision(4)).toEqual("123.5");
       expect(0.004.toPrecision(4)).toEqual("0.004000");
@@ -202,7 +207,7 @@ export function testNumber() : Result {
 
     test('toString', () => {
       // #TEST Number.toString
-      console.log((10).toString())//10
+      // console.log((10).toString())//10
       // #END
 
       expect((10).toString()).toEqual("10");
@@ -255,7 +260,7 @@ export function testNumber() : Result {
 
     test('valueOf', () => {
       // #TEST Number.valueOf
-      console.log((10).valueOf()) //10
+      // console.log((10).valueOf()) //10
       // #END
       expect((10).valueOf()).toEqual(10);
       expect((-10.2).valueOf()).toEqual(-10.2);
@@ -271,10 +276,10 @@ export function testNumber() : Result {
     })
     // #endif
     test('toInt', () => {
-      // #ifdef APP
+      // #ifdef APP-ANDROID || APP-IOS
       // #TEST Number.toInt
       let a = 12
-      console.log(a.toInt());
+      // console.log(a.toInt());
       // expected output: 12
 
       // Int最大值2147483647,溢出了
@@ -286,11 +291,11 @@ export function testNumber() : Result {
     })
 
     test('toByte', () => {
-      // #ifdef APP
+      // #ifdef APP-ANDROID || APP-IOS
       // #TEST Number.toByte
       let a = 12
       // #ifdef APP-ANDROID
-      console.log(a.toByte());
+      // console.log(a.toByte());
       // #endif
       // expected output: 12
       // #END
@@ -302,7 +307,7 @@ export function testNumber() : Result {
       // #ifdef APP-ANDROID
       // #TEST Number.toLong
       let a = 12
-      console.log(a.toLong());
+      // console.log(a.toLong());
       // expected output: 12
       // #END
       expect(a.toLong()).toEqual(12);
@@ -310,11 +315,11 @@ export function testNumber() : Result {
     })
 
     test('from', () => {
-      // #ifdef APP
+      // #ifdef APP-ANDROID || APP-IOS
       // #TEST Number.from
       let a: Int = 12
       let b = Number.from(a)
-      console.log(b);
+      // console.log(b);
       // expected output: 12
       // #END
       expect(b).toEqual(12);
@@ -383,15 +388,15 @@ export function testNumber() : Result {
 
       let num1:any = 1.0
       let num2 = 1
-      console.log(num1 == num2)
+      // console.log(num1 == num2)
       let num3:any = 112233
       let num4 = 112233.0
-      console.log(num3 == num4)
+      // console.log(num3 == num4)
       
       // #ifdef APP-ANDROID
       let num5:Any = 112233.0
       let num6:Any = 112233
-      console.log(num5 == num6)
+      // console.log(num5 == num6)
       // #endif
       
       let u11 = {
@@ -399,11 +404,16 @@ export function testNumber() : Result {
         age:0
       }
       u11["age2"] = 0.0
+      // #ifdef APP-HARMONY
+      let a22: number = u11["age2"]
+      // #endif
+      // #ifndef APP-HARMONY
       let a22 = u11["age2"]
-      console.log(a22 == 0)
-      console.log(a22 == 0.0)
-      console.log(a22 != 0)
-      console.log(a22 != 0.0)
+      // #endif
+      // console.log(a22 == 0)
+      // console.log(a22 == 0.0)
+      // console.log(a22 != 0)
+      // console.log(a22 != 0.0)
 
     })
 
