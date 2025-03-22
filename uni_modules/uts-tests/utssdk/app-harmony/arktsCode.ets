@@ -1,8 +1,8 @@
 interface INativeCode {
-  getNativeStr(): string;
+  getNativeStr: () => string;
 }
 
-export const NativeCode = {
+export const NativeCode: INativeCode = {
   getNativeStr: () => {
     return "harmonyos-code";
   }
