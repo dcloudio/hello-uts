@@ -30,6 +30,7 @@ import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests'
 import type { TestType } from '@/uni_modules/uts-tests'
 // #endif
 import { testSyntaxUnion } from '@/uni_modules/uts-test-syntax-union'
+import { testBuildinNative  } from '@/uni_modules/uts-tests-hybrid'
 export default {
   data() {
     return {
@@ -41,6 +42,7 @@ export default {
   },
   onReady() {
     testSyntaxUnion()
+    testBuildinNative()
     this.test()
   },
   methods: {
