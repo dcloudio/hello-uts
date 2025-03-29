@@ -255,9 +255,14 @@ export function testUTSJSONObject() : Result {
       // #TEST UTSJSONObject.getArray_1
       //这个方法用来获取指定元素类型的数组
       let obj = JSON.parseObject('{"name":"tom","tag":["student","user"]}')
-
+      // #ifdef APP-HARMONY
+      // arkts any类型使用受限 https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide#限制使用esobject类型
+      let noGenericArray: (any | null)[] | null = obj!.getArray("tag")
+      // #endif
+      // #ifndef APP-HARMONY
       // 这里得到是 Array<*>
       let noGenericArray = obj!.getArray("tag")
+      // #endif
       console.log(noGenericArray)
 
       // 这里得到是 Array<string>
@@ -303,7 +308,7 @@ export function testUTSJSONObject() : Result {
       // #END
       // #TEST UTSJSONObject.toMap
       person1 = JSON.parseObject('{"name":"Tom"}')!
-      person1.toMap().forEach((value, key) => {
+      person1.toMap().forEach((value: any, key: string) => {
         console.log(key)
         console.log(value)
       })

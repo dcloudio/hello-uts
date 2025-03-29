@@ -3,11 +3,9 @@ import { testDate } from './Date.uts'
 import { testString } from './String.uts'
 import { testError } from './Error.uts'
 import { testKeyWord } from './KeyWord.uts'
-// #ifndef APP-HARMONY
 import { testJSON } from './JSON.uts'
 import { testJSONLarge } from './JSON_large.uts'
 import { testUTSJSONObject } from './UTSJSONObject.uts'
-// #endif
 import { testConsole } from './console.uts'
 import { testNumber } from './Number.uts'
 import { testMap } from './Map.uts'
@@ -22,11 +20,11 @@ export { Result } from './tests.uts'
 import { testNativeCode } from './NativeCode.uts'
 import { testEncoder } from "./TextEncoder.uts"
 import { testDecoder } from "./TextDecoder.uts"
+// TODO 确认鸿蒙对Promise的catch参数有何要求
+import { testPromise } from "./Promise.uts"
 // #ifndef APP-HARMONY
 // 相关测试例有非常多的类型推断错误暂时屏蔽，https://issuereporter.developer.huawei.com/detail/250322170103030/comment
 import { testArrayBuffer } from './ArrayBuffer.uts'
-// TODO 确认鸿蒙对Promise的catch参数有何要求
-import { testPromise } from "./Promise.uts"
 // for of、for in在鸿蒙平台支持度欠佳，或许应该借助编译器拉齐？
 import { testIterator } from "./iterator.uts"
 // #endif
@@ -48,20 +46,18 @@ export function runTests(): UTSJSONObject {
   const ForLoopRes = testForLoop();
   const GlobalRes = testGlobal();
   const TypeRes = testType();
-  // #ifndef APP-HARMONY
   const JsonRes = testJSON();
   const JSONLargeRes = testJSONLarge();
   const UTSJSONObjectRes = testUTSJSONObject();
-  // #endif
   const consoleRes = testConsole();
   const NativeCodeRes = testNativeCode();
+  const PromiseRes = testPromise();
   // #ifdef  APP-ANDROID || WEB
   const TextEncoderRes = testEncoder();
   const TextDecoderRes = testDecoder();
   // #endif
   // #ifndef APP-HARMONY
   const ArrayBufferRes = testArrayBuffer();
-  const PromiseRes = testPromise();
   const IteratorRes = testIterator()
   // #endif
   const testUTSXXXRes = testUTSXXX()
@@ -81,19 +77,17 @@ export function runTests(): UTSJSONObject {
     Global: GlobalRes,
     Type: TypeRes,
     console: consoleRes,
-    // #ifndef APP-HARMONY
-    ArrayBuffer: ArrayBufferRes,
-    // #endif
+    Json: JsonRes,
+    JSONLarge: JSONLargeRes,
+    UTSJSONObject: UTSJSONObjectRes,
+    Primise: PromiseRes,
     // #ifdef  APP-ANDROID || WEB
     TextEncoder: TextEncoderRes,
     TextDecoder: TextDecoderRes,
     // #endif
     NativeCode: NativeCodeRes,
     // #ifndef APP-HARMONY
-    Primise: PromiseRes,
-    Json: JsonRes,
-    JSONLarge: JSONLargeRes,
-    UTSJSONObject: UTSJSONObjectRes,
+    ArrayBuffer: ArrayBufferRes,
     Iterator: IteratorRes,
     // #endif
     UTSXXX: testUTSXXXRes,

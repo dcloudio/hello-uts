@@ -84,12 +84,7 @@ export function testNumber() : Result {
       type A = {
         a : number
       }
-      // #ifdef APP-HARMONY
-      let aj: A = JSON.parse('{"a":1}');
-      // #endif
-      // #ifndef APP-HARMONY
       let aj = JSON.parse<A>('{"a":1}');
-      // #endif
       expect(aj?.a == 1).toEqual(true);
       expect(aj?.a == 1 as number).toEqual(true);
       expect(aj?.a == 1.0).toEqual(true);

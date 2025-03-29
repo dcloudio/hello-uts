@@ -53,12 +53,7 @@ export function testMap() : Result {
 
       expect(map1.get('bar')).toEqual("foo");
       // js端输出undefined需要抹平差异
-      // #ifdef APP-HARMONY
-      expect(map1.get('baz')).toEqual(undefined);
-      // #endif
-      // #ifndef APP-HARMONY
       expect(map1.get('baz')).toEqual(null);
-      // #endif
     })
     test('has', () => {
       // #TEST Map.has
