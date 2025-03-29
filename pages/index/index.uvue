@@ -7,18 +7,14 @@
             <button type="primary" @tap="testDoSthWithString">uts异步方法（字符串参数）</button>
             <button type="primary" @tap="testDoSthWithJSON">uts异步方法（json参数）</button>
             <button type="primary" @tap="testCallback">多次回调示例</button>
-            <!-- #ifndef APP-HARMONY -->
             <button type="primary" @tap="testPluginDepend">uts插件依赖示例</button>
-            <!-- #endif -->
             <button type="primary"  @tap="testBuildinObject">内置对象语法测试</button>
         </view>
     </view>
 </template>
 <script>
     import { callWithJSONParam, callWithStringParam, callWithoutParam, JsonParamOptions, inputJSON ,onCallback} from "../../uni_modules/uts-helloworld";
-    // #ifndef APP-HARMONY
     import { testb } from "@/uni_modules/uts-test-b";
-    // #endif
     export default {
         data() {
             return {
@@ -97,14 +93,12 @@
                   url: `/pages/index/basicTest`
               })
             },
-            // #ifndef APP-HARMONY
             /**
              * 测试插件依赖
              */
             testPluginDepend() {
               testb()
             }
-            // #endif
         
         }
     }
