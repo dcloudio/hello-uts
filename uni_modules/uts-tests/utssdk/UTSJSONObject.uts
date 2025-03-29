@@ -346,5 +346,13 @@ export function testUTSJSONObject() : Result {
       ((obj.a as UTSJSONObject).b as UTSJSONObject).c = 'c1';
       expect(((obj.a as UTSJSONObject).b as UTSJSONObject).c).toEqual('c1');
     })
+
+    test('issue-16094', () => {
+      const a = {
+        nullish: null
+      }
+      const res = a.getString('nullish', 'default')
+      expect(res).toEqual('default')
+    })
   })
 }
