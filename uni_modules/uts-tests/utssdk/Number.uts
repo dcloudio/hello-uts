@@ -179,7 +179,6 @@ export function testNumber() : Result {
 
     test('isNaN', () => {
       expect(isNaN(0)).toEqual(false);
-      // #ifdef APP-ANDROID
       let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
       let aNumber = aj2['a'] as Number
       expect(isNaN(aNumber)).toEqual(false);
@@ -187,7 +186,6 @@ export function testNumber() : Result {
       expect(Number.isNaN(11)).toEqual(false);
       expect(Number.isNaN(null)).toEqual(false);
       expect(Number.isNaN(1 / 0)).toEqual(false);
-      // #endif
     })
 
     test('toPrecision', () => {

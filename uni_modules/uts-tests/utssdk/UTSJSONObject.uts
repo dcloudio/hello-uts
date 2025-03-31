@@ -13,6 +13,7 @@ type User = {
 	DATA:any;
 }
 	
+@UTSAndroid.Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE","UNUSED_VALUE","VARIABLE_WITH_REDUNDANT_INITIALIZER","UNUSED_VARIABLE")
 export function testUTSJSONObject() : Result {
   return describe("utsjsonobject", () => {
 
@@ -265,6 +266,7 @@ export function testUTSJSONObject() : Result {
       // #END
     })
 
+   
     test('sample', () => {
       // #TEST UTSJSONObject.sample_create,UTSJSONObject.get,UTSJSONObject.set
       const person : UTSJSONObject = {
