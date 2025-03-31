@@ -1,7 +1,8 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-
+// #ifdef APP-ANDROID
 @UTSAndroid.Suppress("USELESS_IS_CHECK")
+// #endif
 export function testType() : Result {
   return describe("Type", () => {
     test("Object literal to type instance", () => {
@@ -80,6 +81,9 @@ export function testType() : Result {
         id: 1
       } as Ta)
       // #ifndef APP-IOS
+      expect(groups[0].list.length).toEqual(2)
+      // #endif
+      // #ifdef APP-ANDROID
       expect(groups[0].list.length).toEqual(2)
       // #endif
       expect(groups[0] instanceof Tb).toEqual(true)

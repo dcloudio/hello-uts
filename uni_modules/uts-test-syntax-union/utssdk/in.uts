@@ -24,6 +24,7 @@ function move2(animal: Fish | Bird | Human) {
     }
 }
 
+
 class Test {
     animal: Fish | Bird;
     animal2: Fish | Bird | null = null;

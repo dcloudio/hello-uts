@@ -1,6 +1,5 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION","DEPRECATION")
 export function testString() : Result {
   return describe("String", () => {
     test('length', () => {

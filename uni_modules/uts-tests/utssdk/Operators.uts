@@ -1,5 +1,8 @@
 import { describe, test, expect,expectNumber, Result } from './tests.uts'
 
+// #ifdef APP-ANDROID
+  @UTSAndroid.Suppress("USELESS_ELVIS")
+// #endif
 export function testOperators(): Result {
     return describe("Operators", () => {
         test('+', () => {
@@ -197,13 +200,13 @@ export function testOperators(): Result {
             const b: number = -2;
             expect(!(a > 0 || b > 0)).toEqual(false);
         })
-        // test('??=', () => {
-        // 	const a = { duration: 50 };
-        // 	a.duration ??= 10;
-        // 	expect(a.duration).toEqual(50);
-        // 	a.speed ??= 25;
-        // 	expect(a.duration).toEqual(25);
-        // })
+        test('??=', () => {
+        	const a = { duration: 50 }
+          a.speed ??= 25
+        	expect(a.speed).toEqual(25);
+        	a.duration ??= 10
+        	expect(a.duration).toEqual(50);
+        })
         test('||', () => {
             const a: number = 3;
             const b: number = -2;
@@ -239,23 +242,35 @@ export function testOperators(): Result {
             a *= 3;
             expect(a).toEqual(6);
         })
-        // test('??', () => {
-        // 	const foo = null ?? 'default string';
-        // 	expect(foo).toEqual("default string");
-        // 	const baz = 0 ?? 42;
-        // 	expect(baz).toEqual(0);
-        // })
-        // test('?.', () => {
-        // 	const adventurer = {
-        // 	  name: 'Alice',
-        // 	  cat: {
-        // 	    name: 'Dinah'
-        // 	  }
-        // 	};
-        // 	const dogName = adventurer.cat?.name;
-        // 	console.log(dogName);
-        // 	expect(dogName).toEqual(undefined);
-        // })
+        
+        test('??', () => {
+        	const foo = null ?? 'default string';
+        	expect(foo).toEqual("default string");
+        	const baz = 0 ?? 42;
+        	expect(baz).toEqual(0);
+        })
+        test('?.', () => {
+          type Cat = {
+            name: string
+          }
+          type Adventurer = {
+            name: string
+            cat?: Cat | null
+          }
+        	const adventurer1: Adventurer = {
+        	  name: 'Alice',
+        	  cat: {
+        	    name: 'Dinah'
+        	  }
+        	}
+        	expect(adventurer1.cat?.name).toEqual("Dinah")
+          // #ifdef APP-ANDROID || APP-IOS
+          const adventurer2: Adventurer = {
+            name: 'Alice'
+          }
+          expect(adventurer2.cat?.name).toEqual(null)
+          // #endif
+        })
         test('%', () => {
             expect(13 % 5).toEqual(3);
             expect(-13 % 5).toEqual(-3);
@@ -332,6 +347,35 @@ export function testOperators(): Result {
             b >>>= 2;   //  00111111111111111111111111111110
             expect(b).toEqual(1073741822);
             // #endif
+        })
+        test('in', () => {
+            const a = {a : 1} as UTSJSONObject
+            expect('a' in a).toEqual(true);
+            expect('b' in a).toEqual(false);
+            
+            const a2 = {
+              name:"张三"
+            }
+            a2["age"] = 12
+            expect('age' in a2).toEqual(true);
+            expect('age2' in a2).toEqual(false);
+            
+            
+        })
+        test('float_number_format', () => {
+            let r1 = 1 + -1.1;
+            expect(r1).toEqual(-0.10000000000000009);
+            let r2 = -0.1 * 1.1;
+            expect(r2).toEqual(-0.11000000000000001);
+            let r3 = -0.1 / 1.1;
+            expect(r3).toEqual(-0.09090909090909091);
+            let r4 = 1 % -0.1;
+            expect(r4).toEqual(0.09999999999999995);
+            
+            var inc = Math.PI / 180.0
+            expect(inc).toEqual(0.017453292519943295);
+            inc = Math.abs(11-120)
+            expect(inc).toEqual(109);
         })
     })
 }

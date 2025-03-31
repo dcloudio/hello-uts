@@ -13,8 +13,6 @@ type User = {
 	DATA:any;
 }
 	
-  
-@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION","ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE","UNUSED_VARIABLE","UNUSED_VALUE","VARIABLE_WITH_REDUNDANT_INITIALIZER")
 export function testUTSJSONObject() : Result {
   return describe("utsjsonobject", () => {
 

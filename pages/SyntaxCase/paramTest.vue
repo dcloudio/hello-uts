@@ -6,6 +6,7 @@
     <button @click="returnParamTest">返回复杂对象参数</button>
     <button @click="callbackArrayTest">异步返回数组</button>
     <button @click="callbackParamTest">异步返回复杂对象</button>
+    <button @click="callbackDefaultParamTest">默认值测试</button>
   </div>
 </template>
 
@@ -17,6 +18,8 @@
 		returnParam,
 		callbackArray,
 		callbackParam,
+    DefaultParamTest,
+    defaultParamFunc
 	} from '@/uni_modules/uts-advance'
 
 
@@ -75,7 +78,18 @@
 				});
 
 			},
-
+      callbackDefaultParamTest(){
+        if(defaultParamFunc() == "789" && DefaultParamTest.execute() == "123" && new DefaultParamTest().execute2() == "456"){
+          uni.showToast({
+            title:'测试通过'
+          })
+        }else{
+          uni.showToast({
+            title:'测试失败'
+          })
+        }
+        			
+      },
 			callbackParamTest() {
 				callbackParam(function(res) {
 					if ('{"title":"callbackParam","array":["4","5","6"]}' == JSON.stringify(res)) {

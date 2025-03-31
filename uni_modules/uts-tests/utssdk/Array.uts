@@ -345,13 +345,40 @@ export function testArray() : Result {
       // #endif
       // #endif
 
-
       let s1 = new Set<string>()
       s1.add("张三")
       s1.add("李四")
       let a4 = Array.from<string>(s1)
       expect(a4).toEqual(["张三","李四"]);
-
+      
+      // #ifdef APP-ANDROID
+      let content = "€"
+      let encoder = new TextEncoder();
+      let view : Uint8Array = encoder.encode(content);
+      let numberArray : number[] = Array.from(view) as number[]
+      expect(numberArray).toEqual([ -30, -126, -84 ]);
+      let view2 : Uint8Array = encoder.encode(content);
+      let numberArray2 : number[] = Array.from(view2,function(element:any|null,index:number):any|null{
+          if("number" == typeof element){
+            return (element as number) + 1
+          }
+          return element
+      }) as number[]
+      expect(numberArray2).toEqual([ -29, -125, -83 ]);
+      
+      let view3 = [1,2,3].toKotlinList().toTypedArray()
+      let numberArray3 : number[] = Array.from(view3) as number[]
+      expect(numberArray3).toEqual([ 1, 2, 3 ]);
+      let view4 = [4.5,"aaa"].toKotlinList().toTypedArray()
+      let numberArray4 = Array.from(view4,function(element:any|null,index:number):any|null{
+      	if("number" == typeof element){
+      		return (element as number) + 1
+      	}
+      	return element
+      })
+      expect(numberArray4).toEqual( [ 5.5, "aaa" ]);
+      
+      // #endif
     })
 
     test("fromAsync", () => {

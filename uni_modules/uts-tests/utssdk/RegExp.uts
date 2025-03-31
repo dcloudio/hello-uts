@@ -316,8 +316,39 @@ export function testRegExp() : Result {
       expect(isASCIIIDPart("a")).toEqual(true);
       expect(isASCIIIDPart("α")).toEqual(false);
       expect(isASCIIIDPart(":")).toEqual(false);
+      
+      var regex8 = /foo/g;
+      // regex.lastIndex is at 0
+      let a1 = regex8.test("foo"); // true
+      let b1 = regex8.lastIndex
+      // regex.lastIndex is now at 3
+      let a2 = regex8.test("foo"); // false
+      let b2 = regex8.lastIndex
+      // #ifdef APP-ANDROID
+      expect([a1,a2,b1,b2]).toEqual([true,false,3,0]);
+      // #endif
+      
     })
     test('exec', () => {
+      
+      const reg =  /([-+]?((\d+\.\d+)|((\d+)|(\.\d+)))(?:e[-+]?\d+)?)/g
+      console.log("onLoad",reg)
+      let str = 'L 97.55,34.55,0-1'
+      let match:null|RegExpExecArray
+      str = str.slice(1);
+      match = reg.exec(str);
+      let arrayRet = [match]
+      for (let i = 0; i < 5; i++) {
+      	console.log(match,'--')
+      	match = reg.exec(str);
+      	arrayRet.push(match)
+      	
+      }
+      // #ifdef APP-ANDROID
+      expect(JSON.stringify(arrayRet)).toEqual('[["97.55","97.55","97.55","97.55",null,null,null],["34.55","34.55","34.55","34.55",null,null,null],["0","0","0",null,"0","0",null],["-1","-1","1",null,"1","1",null],null,["97.55","97.55","97.55","97.55",null,null,null]]');
+      // #endif
+      
+      
       const pattern = new RegExp('hello');
       const result = pattern.exec('hi there');
       expect(result).toEqual(null);
@@ -401,6 +432,8 @@ export function testRegExp() : Result {
       //expect(JSON.stringify(match2![3])).toEqual("null");
       //expect(JSON.stringify(match2![4])).toEqual("null");
       // #endif
+      
+      
  // #endif
 
     })

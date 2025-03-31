@@ -80,8 +80,6 @@ class A6 implements IJSONStringify{
 }
 // #endif
 
-
-@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
 export function testJSON() : Result {
   return describe("JSON", () => {
     
@@ -91,6 +89,7 @@ export function testJSON() : Result {
       expect(JSON.stringify(new A2())).toEqual("2")
       expect(JSON.stringify(new A3())).toEqual('"json"')
       expect(JSON.stringify(new A4())).toEqual('null')
+      // js平台toJSON不会递归
       expect(JSON.stringify(new A5())!.length).toEqual(28)
       expect(JSON.stringify(new A6())!.length).toEqual(28)
       // #endif
