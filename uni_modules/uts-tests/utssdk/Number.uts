@@ -180,7 +180,7 @@ export function testNumber() : Result {
     test('isNaN', () => {
       expect(isNaN(0)).toEqual(false);
       let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
-      let aNumber = aj2['a'] as Number
+      let aNumber = aj2['a'] as number
       expect(isNaN(aNumber)).toEqual(false);
       expect(Number.isNaN(aNumber)).toEqual(false);
       expect(Number.isNaN(11)).toEqual(false);
