@@ -15,7 +15,6 @@ import { testMath } from './Math.uts'
 import { testRegExp } from './RegExp.uts'
 import { testForLoop } from './ForLoop.uts'
 import { testGlobal } from './Global.uts'
-import { testType } from './Type.uts'
 export { Result } from './tests.uts'
 import { testNativeCode } from './NativeCode.uts'
 import { testEncoder } from "./TextEncoder.uts"
@@ -27,6 +26,7 @@ import { testPromise } from "./Promise.uts"
 import { testArrayBuffer } from './ArrayBuffer.uts'
 // for of、for in在鸿蒙平台支持度欠佳，或许应该借助编译器拉齐？
 import { testIterator } from "./iterator.uts"
+import { testType } from './Type.uts'
 // #endif
 import { testUTSXXX } from "./UTSXXX.uts"
 
@@ -45,7 +45,6 @@ export function runTests(): UTSJSONObject {
   const KeyWordRes = testKeyWord();
   const ForLoopRes = testForLoop();
   const GlobalRes = testGlobal();
-  const TypeRes = testType();
   const JsonRes = testJSON();
   const JSONLargeRes = testJSONLarge();
   const UTSJSONObjectRes = testUTSJSONObject();
@@ -59,6 +58,7 @@ export function runTests(): UTSJSONObject {
   // #ifndef APP-HARMONY
   const ArrayBufferRes = testArrayBuffer();
   const IteratorRes = testIterator()
+  const TypeRes = testType();
   // #endif
   const testUTSXXXRes = testUTSXXX()
   return {
@@ -75,7 +75,6 @@ export function runTests(): UTSJSONObject {
     KeyWord: KeyWordRes,
     ForLoop: ForLoopRes,
     Global: GlobalRes,
-    Type: TypeRes,
     console: consoleRes,
     Json: JsonRes,
     JSONLarge: JSONLargeRes,
@@ -89,6 +88,7 @@ export function runTests(): UTSJSONObject {
     // #ifndef APP-HARMONY
     ArrayBuffer: ArrayBufferRes,
     Iterator: IteratorRes,
+    Type: TypeRes,
     // #endif
     UTSXXX: testUTSXXXRes,
   }
