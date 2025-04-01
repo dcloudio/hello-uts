@@ -88,8 +88,11 @@ export function testJSON() : Result {
       expect(JSON.stringify(new A2())).toEqual("2")
       expect(JSON.stringify(new A3())).toEqual('"json"')
       expect(JSON.stringify(new A4())).toEqual('null')
+      // #ifdef APP-ANDROID || APP-IOS
+      // js引擎toJSON不会归调用
       expect(JSON.stringify(new A5())!.length).toEqual(28)
       expect(JSON.stringify(new A6())!.length).toEqual(28)
+      // #endif
  
     })
     
@@ -233,11 +236,13 @@ export function testJSON() : Result {
 			  }`;
       let obj3 = JSON.parseObject<UserJSON>(json2);
       expect(obj3!.id).toEqual("30");
+      // #ifndef APP-HARMONY
       const json3 = `{
 			    "name": "John"
 			  }`;
       let obj4 = JSON.parseObject<UserJSON>(json3);
       expect(obj4).toEqual(null);
+      // #endif
     })
     test('parseArray', () => {
       // #TEST JSON.parseArray
@@ -455,6 +460,7 @@ export function testJSON() : Result {
 
     })
 
+    // #ifndef APP-HARMONY
     test('invalidField', () => {
       let str = "{\"a+b\":\"test1\",\"a-b\":2,\"class\":true}"
       let p = JSON.parseObject<PersonJSON>(str)
@@ -465,6 +471,7 @@ export function testJSON() : Result {
       let retStr = JSON.stringify(p)
       console.log(retStr)
     })
+    // #endif
 
     test('UTSJSONOject', () => {
       let t1 = "1"
@@ -506,7 +513,7 @@ export function testJSON() : Result {
         num : number,
       }
       const map = JSON.parse<Map<string, A>>(`{"a": {"num": 1}}`)
-      // #ifndef APP-IOS
+      // #ifndef APP-IOS || APP-HARMONY
       expect(map instanceof Map).toEqual(true)
       // #endif
       expect(map?.get('a')?.num).toEqual(1)
