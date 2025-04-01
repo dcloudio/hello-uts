@@ -109,6 +109,10 @@ export function testGlobal() : Result {
       expect(a2).toEqual("+-123%EF%BC%81@#%EF%BF%A5%25%E2%80%A6%E2%80%A6&*%EF%BC%88%EF%BC%89%E2%80%94%E2%80%94+")
       let a3 = decodeURI(encodeURI("+=&123")!)
       expect(a3).toEqual("+=&123")
+      let a5 = encodeURI(":/?#[]@!$&'()*+,;=")
+      expect(a5).toEqual(":/?#%5B%5D@!$&'()*+,;=")
+      let b5 = decodeURI(a5!!)
+      expect(b5).toEqual(":/?#[]@!$&'()*+,;=")
       // #END
     })
 
