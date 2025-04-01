@@ -111,7 +111,7 @@ export function testGlobal() : Result {
       expect(a3).toEqual("+=&123")
       let a5 = encodeURI(":/?#[]@!$&'()*+,;=")
       expect(a5).toEqual(":/?#%5B%5D@!$&'()*+,;=")
-      let b5 = decodeURI(a5!!)
+      let b5 = decodeURI(a5!)  
       expect(b5).toEqual(":/?#[]@!$&'()*+,;=")
       // #END
     })
