@@ -19,7 +19,6 @@ export { Result } from './tests.uts'
 import { testNativeCode } from './NativeCode.uts'
 import { testEncoder } from "./TextEncoder.uts"
 import { testDecoder } from "./TextDecoder.uts"
-// TODO 确认鸿蒙对Promise的catch参数有何要求
 import { testPromise } from "./Promise.uts"
 // #ifndef APP-HARMONY
 // 相关测试例有非常多的类型推断错误暂时屏蔽，https://issuereporter.developer.huawei.com/detail/250322170103030/comment
