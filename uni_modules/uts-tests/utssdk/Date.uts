@@ -1,6 +1,6 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-export function testDate() : Result {
+export function testDate(): Result {
   return describe("Date", () => {
     test('now', () => {
       // #ifdef APP-ANDROID
@@ -17,11 +17,11 @@ export function testDate() : Result {
       // #TEST Date.now
       const start = Date.now()
       // this example takes 2 seconds to run
-      // console.log('starting timer...')
+      console.log('starting timer...')
       // expected output: starting timer...
       setTimeout(() => {
         const millis = Date.now() - start
-        // console.log(`seconds elapsed = ${Math.floor(millis / 1000)}`)
+        console.log(`seconds elapsed = ${Math.floor(millis / 1000)}`)
         // expected output: seconds elapsed = 2
       }, 2000)
       // #END
@@ -37,15 +37,15 @@ export function testDate() : Result {
     test('new Date', () => {
       // #TEST Date.Constructor
       const futureDate = new Date();
-      // console.log(futureDate)//日期和时间
+      console.log(futureDate)//日期和时间
       // #END
       // #TEST Date.Constructor_1
       let date1 = new Date('1992-02-02');
-      // console.log(date1.getTime()) // 696988800000
+      console.log(date1.getTime()) // 696988800000
       // #END
       // #TEST Date.Constructor_2
       let date7 = new Date(2016, 6, 6, 14, 6, 59, 1000)
-      // console.log(date7.getMinutes()) //7
+      console.log(date7.getMinutes()) //7
       // #END
       expect(date7.getMinutes()).toEqual(7);
 
@@ -53,7 +53,7 @@ export function testDate() : Result {
       expect(date1.getTime()).toEqual(696988800000);
 
       // #ifdef APP-ANDROID
-      if(java.util.TimeZone.getDefault().rawOffset == 28800000){
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
         // 确保不收本机时区干扰
         let date2 = new Date('Sun Feb 03 1991 08:00:00 GMT+0800');
         expect(date2.getTime()).toEqual(665539200000);
@@ -123,25 +123,25 @@ export function testDate() : Result {
     test('valueOf', () => {
       // #TEST Date.valueOf
       const date1 = new Date('December 17, 1995 03:24:00');
-      // console.log(date1.valueOf())//819141840000
+      console.log(date1.valueOf())//819141840000
       // #END
       // #ifdef APP-ANDROID
-      if(java.util.TimeZone.getDefault().rawOffset == 28800000){
-      // #endif
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
+        // #endif
         expect(date1.valueOf()).toEqual(819141840000);
         const date2 = new Date('1995-12-17T03:24:00');
         expect(date2.valueOf()).toEqual(819141840000);
-      // #ifdef APP-ANDROID
+        // #ifdef APP-ANDROID
       }
       // #endif
     })
     test('parse', () => {
       // #TEST Date.parse
       const unixTimeZero = Date.parse('01 Jan 1970 00:00:00 GMT');
-      // console.log('Unix time zero:', unixTimeZero); // 0
+      console.log('Unix time zero:', unixTimeZero); // 0
 
       const javaScriptRelease = Date.parse('04 Dec 1995 00:12:00 GMT');
-      // console.log('JavaScript release:', javaScriptRelease); // 818035920000
+      console.log('JavaScript release:', javaScriptRelease); // 818035920000
       // #END
 
       expect(unixTimeZero).toEqual(0);
@@ -152,7 +152,7 @@ export function testDate() : Result {
       const date1 = new Date('01 Jan 1970 00:00:00 GMT');
       const date2 = new Date('December 17, 1995 03:24:00');
       // #ifdef APP-IOS
-      // console.log(date1.toTimeString())//"08:00:00 GMT+0800 (中国标准时间)"
+      console.log(date1.toTimeString())//"08:00:00 GMT+0800 (中国标准时间)"
       // #endif
 
       // #ifdef APP-IOS
@@ -160,7 +160,7 @@ export function testDate() : Result {
       // expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800 (中国标准时间)");
       // #endif
       // #ifdef APP-ANDROID
-      if(java.util.TimeZone.getDefault().rawOffset == 28800000){
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
         expect(date1.toTimeString()).toEqual("08:00:00 GMT+0800");
         expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800");
       }
@@ -169,11 +169,11 @@ export function testDate() : Result {
 
     test('toXString', () => {
       // #ifdef APP-ANDROID
-      if(java.util.TimeZone.getDefault().rawOffset == 28800000){
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
         // #TEST Date.toString
         let event = new Date('1995-12-17T03:24:00');
         let ret = event.toString()
-        // console.log(ret)//"Sun Dec 17 1995 03:24:00 GMT+0800"
+        console.log(ret)//"Sun Dec 17 1995 03:24:00 GMT+0800"
         // #END
 
 
@@ -188,13 +188,13 @@ export function testDate() : Result {
 
         // #TEST Date.toISOString
         event = new Date('1995-12-17T03:24:00');
-        // console.log(event.toISOString())//"1995-12-16T19:24:00.000Z"
+        console.log(event.toISOString())//"1995-12-16T19:24:00.000Z"
         // #END
 
         expect(event.toISOString()).toEqual("1995-12-16T19:24:00.000Z");
         // #TEST Date.toJSON
         event = new Date('1995-12-17T03:24:00');
-        // console.log(event.toJSON()) //"1995-12-16T19:24:00.000Z"
+        console.log(event.toJSON()) //"1995-12-16T19:24:00.000Z"
         // #END
         expect(event.toJSON()).toEqual("1995-12-16T19:24:00.000Z");
         // #TEST Date.toDateString
@@ -219,7 +219,7 @@ export function testDate() : Result {
 
     test('newDateTest', () => {
       // #ifdef APP-ANDROID
-      if(java.util.TimeZone.getDefault().rawOffset == 28800000){
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
         expect(new Date("2024/5/1").toString()).toEqual("Wed May 01 2024 00:00:00 GMT+0800");
         expect(new Date("2024/5/1 10:00:00").toString()).toEqual("Wed May 01 2024 10:00:00 GMT+0800");
         expect(new Date("2024-05-01 10:00:00").toString()).toEqual("Wed May 01 2024 10:00:00 GMT+0800");
@@ -246,22 +246,22 @@ export function testDate() : Result {
       const finalMonthBoundaryDate = new Date(2016, 1, 29, 23, 59, 59, 999);
       const subsequentMonthBoundaryDate = new Date(2016, 1, 29, 23, 59, 59, 1000);
 
-      // console.log('Birthday date:', birthday.getDate()); // 19
+      console.log('Birthday date:', birthday.getDate()); // 19
 
-      // console.log('First millisecond date:', firstMillisecondDate.getDate()); // 6
-      // console.log('Previous millisecond date:', previousMillisecondDate.getDate()); // 5
-      // console.log('Final millisecond date:', finalMillisecondDate.getDate()); // 6
-      // console.log('Subsequent millisecond date:', subsequentMillisecondDate.getDate()); // 7
+      console.log('First millisecond date:', firstMillisecondDate.getDate()); // 6
+      console.log('Previous millisecond date:', previousMillisecondDate.getDate()); // 5
+      console.log('Final millisecond date:', finalMillisecondDate.getDate()); // 6
+      console.log('Subsequent millisecond date:', subsequentMillisecondDate.getDate()); // 7
 
-      // console.log('First millisecond (month boundary) date:', firstMonthBoundaryDate.getDate()); // 29
-      // console.log('Previous millisecond (month boundary) date:', previousMonthBoundaryDate.getDate()); // 28
-      // console.log('Final millisecond (month boundary) date:', finalMonthBoundaryDate.getDate()); // 29
-      // console.log('Subsequent millisecond (month boundary) date:', subsequentMonthBoundaryDate.getDate()); // 1
+      console.log('First millisecond (month boundary) date:', firstMonthBoundaryDate.getDate()); // 29
+      console.log('Previous millisecond (month boundary) date:', previousMonthBoundaryDate.getDate()); // 28
+      console.log('Final millisecond (month boundary) date:', finalMonthBoundaryDate.getDate()); // 29
+      console.log('Subsequent millisecond (month boundary) date:', subsequentMonthBoundaryDate.getDate()); // 1
 
       // #ifndef WEB
       // safari 15不支持此格式的日期字符串
       const parsedDate = Date.parse("2024-01-09 22:00:00");
-      // console.log('Parsed date:', parsedDate); // 1704808800000
+      console.log('Parsed date:', parsedDate); // 1704808800000
       // #endif
 
       // #END
@@ -277,13 +277,13 @@ export function testDate() : Result {
       expect(subsequentMonthBoundaryDate.getDate()).toEqual(1);
 
       // #ifndef WEB
-        // #ifdef APP-ANDROID
-        if(java.util.TimeZone.getDefault().rawOffset == 28800000){
+      // #ifdef APP-ANDROID
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
         // #endif
-          expect(parsedDate).toEqual(1704808800000);
+        expect(parsedDate).toEqual(1704808800000);
         // #ifdef APP-ANDROID
-          }
-        // #endif
+      }
+      // #endif
       // #endif
     });
 
@@ -301,17 +301,17 @@ export function testDate() : Result {
       const finalWeekBoundaryDay = new Date(2016, 6, 9, 23, 59, 59, 999);
       const subsequentWeekBoundaryDay = new Date(2016, 6, 9, 23, 59, 59, 1000);
 
-      // console.log('Birthday day:', birthday.getDay()); // 2 (Tuesday)
+      console.log('Birthday day:', birthday.getDay()); // 2 (Tuesday)
 
-      // console.log('First millisecond day:', firstMillisecondDay.getDay()); // 3 (Wednesday)
-      // console.log('Previous millisecond day:', previousMillisecondDay.getDay()); // 2 (Tuesday)
-      // console.log('Final millisecond day:', finalMillisecondDay.getDay()); // 3 (Wednesday)
-      // console.log('Subsequent millisecond day:', subsequentMillisecondDay.getDay()); // 4 (Thursday)
+      console.log('First millisecond day:', firstMillisecondDay.getDay()); // 3 (Wednesday)
+      console.log('Previous millisecond day:', previousMillisecondDay.getDay()); // 2 (Tuesday)
+      console.log('Final millisecond day:', finalMillisecondDay.getDay()); // 3 (Wednesday)
+      console.log('Subsequent millisecond day:', subsequentMillisecondDay.getDay()); // 4 (Thursday)
 
-      // console.log('First millisecond (week boundary) day:', firstWeekBoundaryDay.getDay()); // 6 (Saturday)
-      // console.log('Previous millisecond (week boundary) day:', previousWeekBoundaryDay.getDay()); // 5 (Friday)
-      // console.log('Final millisecond (week boundary) day:', finalWeekBoundaryDay.getDay()); // 6 (Saturday)
-      // console.log('Subsequent millisecond (week boundary) day:', subsequentWeekBoundaryDay.getDay()); // 0 (Sunday)
+      console.log('First millisecond (week boundary) day:', firstWeekBoundaryDay.getDay()); // 6 (Saturday)
+      console.log('Previous millisecond (week boundary) day:', previousWeekBoundaryDay.getDay()); // 5 (Friday)
+      console.log('Final millisecond (week boundary) day:', finalWeekBoundaryDay.getDay()); // 6 (Saturday)
+      console.log('Subsequent millisecond (week boundary) day:', subsequentWeekBoundaryDay.getDay()); // 0 (Sunday)
 
       // #END
       expect(birthday.getDay()).toEqual(2);
@@ -336,12 +336,12 @@ export function testDate() : Result {
       const finalMillisecondYear = new Date(2016, 11, 31, 23, 59, 59, 999);
       const subsequentMillisecondYear = new Date(2016, 11, 31, 23, 59, 59, 1000);
 
-      // console.log('Moon landing year:', moonLanding.getFullYear()); // 1969
+      console.log('Moon landing year:', moonLanding.getFullYear()); // 1969
 
-      // console.log('First millisecond year:', firstMillisecondYear.getFullYear()); // 2016
-      // console.log('Previous millisecond year:', previousMillisecondYear.getFullYear()); // 2015
-      // console.log('Final millisecond year:', finalMillisecondYear.getFullYear()); // 2016
-      // console.log('Subsequent millisecond year:', subsequentMillisecondYear.getFullYear()); // 2017
+      console.log('First millisecond year:', firstMillisecondYear.getFullYear()); // 2016
+      console.log('Previous millisecond year:', previousMillisecondYear.getFullYear()); // 2015
+      console.log('Final millisecond year:', finalMillisecondYear.getFullYear()); // 2016
+      console.log('Subsequent millisecond year:', subsequentMillisecondYear.getFullYear()); // 2017
 
       // #END
 
@@ -356,17 +356,17 @@ export function testDate() : Result {
     test('getHours', () => {
       // #TEST Date.getHours
       const birthday = new Date('March 13, 08 04:20');
-      // console.log('Birthday hours:', birthday.getHours()); // 4
+      console.log('Birthday hours:', birthday.getHours()); // 4
 
       const date1 = new Date(2016, 6, 6, 13);
       const date2 = new Date(2016, 6, 6, 13, 0, 0, -1);
       const date3 = new Date(2016, 6, 6, 13, 59, 59, 999);
       const date4 = new Date(2016, 6, 6, 13, 59, 59, 1000);
 
-      // console.log('First millisecond hours:', date1.getHours()); // 13
-      // console.log('Previous millisecond hours:', date2.getHours()); // 12
-      // console.log('Final millisecond hours:', date3.getHours()); // 13
-      // console.log('Subsequent millisecond hours:', date4.getHours()); // 14
+      console.log('First millisecond hours:', date1.getHours()); // 13
+      console.log('Previous millisecond hours:', date2.getHours()); // 12
+      console.log('Final millisecond hours:', date3.getHours()); // 13
+      console.log('Subsequent millisecond hours:', date4.getHours()); // 14
       // #END
 
       expect(birthday.getHours()).toEqual(4);
@@ -394,17 +394,17 @@ export function testDate() : Result {
     test('getMinutes', () => {
       // #TEST Date.getMinutes
       const birthday = new Date('March 13, 08 04:20');
-      // console.log('Birthday minutes:', birthday.getMinutes()); // 20
+      console.log('Birthday minutes:', birthday.getMinutes()); // 20
 
       const date1 = new Date(2016, 6, 6, 14, 6);
       const date2 = new Date(2016, 6, 6, 14, 6, 0, -1);
       const date3 = new Date(2016, 6, 6, 14, 6, 59, 999);
       const date4 = new Date(2016, 6, 6, 14, 6, 59, 1000);
 
-      // console.log('First millisecond minutes:', date1.getMinutes()); // 6
-      // console.log('Previous millisecond minutes:', date2.getMinutes()); // 5
-      // console.log('Final millisecond minutes:', date3.getMinutes()); // 6
-      // console.log('Subsequent millisecond minutes:', date4.getMinutes()); // 7
+      console.log('First millisecond minutes:', date1.getMinutes()); // 6
+      console.log('Previous millisecond minutes:', date2.getMinutes()); // 5
+      console.log('Final millisecond minutes:', date3.getMinutes()); // 6
+      console.log('Subsequent millisecond minutes:', date4.getMinutes()); // 7
       // #END
 
       expect(birthday.getMinutes()).toEqual(20);
@@ -423,12 +423,12 @@ export function testDate() : Result {
       const finalMillisecondMonth = new Date(2016, 6, 31, 23, 59, 59, 999);
       const subsequentMillisecondMonth = new Date(2016, 6, 31, 23, 59, 59, 1000);
 
-      // console.log('Moon landing month:', moonLanding.getMonth()); // 6
+      console.log('Moon landing month:', moonLanding.getMonth()); // 6
 
-      // console.log('First millisecond month:', firstMillisecondMonth.getMonth()); // 6
-      // console.log('Previous millisecond month:', previousMillisecondMonth.getMonth()); // 5
-      // console.log('Final millisecond month:', finalMillisecondMonth.getMonth()); // 6
-      // console.log('Subsequent millisecond month:', subsequentMillisecondMonth.getMonth()); // 7
+      console.log('First millisecond month:', firstMillisecondMonth.getMonth()); // 6
+      console.log('Previous millisecond month:', previousMillisecondMonth.getMonth()); // 5
+      console.log('Final millisecond month:', finalMillisecondMonth.getMonth()); // 6
+      console.log('Subsequent millisecond month:', subsequentMillisecondMonth.getMonth()); // 7
 
       // #END
 
@@ -443,17 +443,17 @@ export function testDate() : Result {
     test('getSeconds', () => {
       // #TEST Date.getSeconds
       const moonLanding = new Date('July 20, 69 00:20:18');
-      // console.log('Moon landing seconds:', moonLanding.getSeconds()); // 18
+      console.log('Moon landing seconds:', moonLanding.getSeconds()); // 18
 
       const date1 = new Date(2016, 6, 6, 14, 16, 30);
       const date2 = new Date(2016, 6, 6, 14, 16, 30, -1);
       const date3 = new Date(2016, 6, 6, 14, 16, 30, 999);
       const date4 = new Date(2016, 6, 6, 14, 16, 30, 1000);
 
-      // console.log('First millisecond seconds:', date1.getSeconds()); // 30
-      // console.log('Previous millisecond seconds:', date2.getSeconds()); // 29
-      // console.log('Final millisecond seconds:', date3.getSeconds()); // 30
-      // console.log('Subsequent millisecond seconds:', date4.getSeconds()); // 31
+      console.log('First millisecond seconds:', date1.getSeconds()); // 30
+      console.log('Previous millisecond seconds:', date2.getSeconds()); // 29
+      console.log('Final millisecond seconds:', date3.getSeconds()); // 30
+      console.log('Subsequent millisecond seconds:', date4.getSeconds()); // 31
       // #END
 
       expect(moonLanding.getSeconds()).toEqual(18);
@@ -466,13 +466,13 @@ export function testDate() : Result {
     test('getTime', () => {
       // #TEST Date.getTime
       const moonLanding = new Date('July 20, 69 20:17:40 GMT+00:00');
-      // console.log(moonLanding.getTime()); // -14182940000
+      console.log(moonLanding.getTime()); // -14182940000
 
       const dateEpoch = new Date(0);
-      // console.log(dateEpoch.getTime()); // 0
+      console.log(dateEpoch.getTime()); // 0
 
       const dateOneMillisecond = new Date(1);
-      // console.log(dateOneMillisecond.getTime()); // 1
+      console.log(dateOneMillisecond.getTime()); // 1
       // #END
 
       expect(moonLanding.getTime()).toEqual(-14182940000);
@@ -483,13 +483,13 @@ export function testDate() : Result {
     test('setDate', () => {
       // #TEST Date.setDate
       const event = new Date('August 19, 1975 23:15:30');
-      // console.log('Original date:', event.getDate()); // 19
+      console.log('Original date:', event.getDate()); // 19
 
       event.setDate(24);
-      // console.log('Updated date (24):', event.getDate()); // 24
+      console.log('Updated date (24):', event.getDate()); // 24
 
       event.setDate(32);
-      // console.log('Updated date (32):', event.getDate()); // 1
+      console.log('Updated date (32):', event.getDate()); // 1
       // #END
 
       expect(event.getDate()).toEqual(1);
@@ -499,7 +499,7 @@ export function testDate() : Result {
       // #TEST Date.setFullYear
       const event = new Date('August 19, 1975 23:15:30');
       event.setFullYear(1969);
-      // console.log('Updated year:', event.getFullYear()); // 1969
+      console.log('Updated year:', event.getFullYear()); // 1969
       // #END
 
       expect(event.getFullYear()).toEqual(1969);
@@ -508,10 +508,10 @@ export function testDate() : Result {
     test('setHours', () => {
       // #TEST Date.setHours
       const event = new Date('August 19, 1975 23:15:30');
-      // console.log('Original hours:', event.getHours()); // 23
+      console.log('Original hours:', event.getHours()); // 23
 
       event.setHours(20);
-      // console.log('Updated hours:', event.getHours()); // 20
+      console.log('Updated hours:', event.getHours()); // 20
       // #END
 
       expect(event.getHours()).toEqual(20);
@@ -520,10 +520,10 @@ export function testDate() : Result {
     test('setMilliseconds', () => {
       // #TEST Date.setMilliseconds
       const event = new Date('August 19, 1975 23:15:30');
-      // console.log('Original milliseconds:', event.getMilliseconds()); // 0
+      console.log('Original milliseconds:', event.getMilliseconds()); // 0
 
       event.setMilliseconds(456);
-      // console.log('Updated milliseconds:', event.getMilliseconds()); // 456
+      console.log('Updated milliseconds:', event.getMilliseconds()); // 456
       // #END
 
 
@@ -533,10 +533,10 @@ export function testDate() : Result {
     test('setMinutes', () => {
       // #TEST Date.setMinutes
       const event = new Date('August 19, 1975 23:15:30');
-      // console.log('Original minutes:', event.getMinutes()); // 15
+      console.log('Original minutes:', event.getMinutes()); // 15
 
       event.setMinutes(45);
-      // console.log('Updated minutes:', event.getMinutes()); // 45
+      console.log('Updated minutes:', event.getMinutes()); // 45
       // #END
 
       expect(event.getMinutes()).toEqual(45);
@@ -545,10 +545,10 @@ export function testDate() : Result {
     test('setMonth', () => {
       // #TEST Date.setMonth
       const event = new Date('August 19, 1975 23:15:30');
-      // console.log('Original month:', event.getMonth()); // 7 (August)
+      console.log('Original month:', event.getMonth()); // 7 (August)
 
       event.setMonth(3);
-      // console.log('Updated month:', event.getMonth()); // 3 (April)
+      console.log('Updated month:', event.getMonth()); // 3 (April)
       // #END
 
       expect(event.getMonth()).toEqual(3);
@@ -557,10 +557,10 @@ export function testDate() : Result {
     test('setSeconds', () => {
       // #TEST Date.setSeconds
       const event = new Date('August 19, 1975 23:15:30');
-      // console.log('Original seconds:', event.getSeconds()); // 30
+      console.log('Original seconds:', event.getSeconds()); // 30
 
       event.setSeconds(42);
-      // console.log('Updated seconds:', event.getSeconds()); // 42
+      console.log('Updated seconds:', event.getSeconds()); // 42
       // #END
 
       expect(event.getSeconds()).toEqual(42);
@@ -572,7 +572,7 @@ export function testDate() : Result {
 
       const futureDate = new Date();
       futureDate.setTime(launchDate.getTime());
-      // console.log('Future date time:', futureDate.getTime()); // Should match launchDate.getTime()
+      console.log('Future date time:', futureDate.getTime()); // Should match launchDate.getTime()
       // #END
 
       expect(futureDate.getTime()).toEqual(launchDate.getTime());
