@@ -308,7 +308,7 @@ export function testUTSJSONObject() : Result {
       // #END
       // #TEST UTSJSONObject.toMap
       person1 = JSON.parseObject('{"name":"Tom"}')!
-      person1.toMap().forEach((value: any, key: string) => {
+      person1.toMap().forEach((value: any | null, key: string) => {
         console.log(key)
         console.log(value)
       })
