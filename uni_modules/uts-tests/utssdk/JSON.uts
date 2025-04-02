@@ -426,7 +426,7 @@ export function testJSON(): Result {
       // const jsonRet2 = JSON.parse<Msg>(msg)!
 
       // const paramsStr = JSON.stringify(jsonRet2.params)
-      console.log(paramsStr)
+      // console.log(paramsStr)
       // expect(paramsStr).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
       // const params = JSON.parse<CallUniMethodParams>(paramsStr)!
       // expect(JSON.stringify(params)).toEqual('{"method":"reLaunch","args":[{"url":"/pages/index/index"}]}')
