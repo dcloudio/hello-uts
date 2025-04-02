@@ -124,7 +124,7 @@ export function testUTSJSONObject(): Result {
       // }
 
       // expect(data6!.toJSONString()).toEqual('{"data":22.0,"array":[1,"22",false],"name":"data6"}')
-      console.log(data6.toJSONString())
+      // console.log(data6.toJSONString())
 
       let data11 = {
         SSID: "hello-WIFI",
