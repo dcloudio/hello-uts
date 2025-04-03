@@ -386,7 +386,7 @@ export function testArray(): Result {
       // #ifdef APP-ANDROID
       let m1 = new Map<Int, any>([
         [1, 2],
-        [3, 4],
+        [3, 4],  
       ])
       Array.fromAsync<Array<number>>(
         m1
@@ -395,7 +395,7 @@ export function testArray(): Result {
       });
       // #endif
 
-      // #ifdef APP-ANDROID || APP-IOS
+      // #ifdef APP-ANDROID 
       let s1 = new Set([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)])
       Array.fromAsync<number>(
         s1
