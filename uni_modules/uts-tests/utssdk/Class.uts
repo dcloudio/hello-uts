@@ -1,0 +1,23 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+class TestClass {
+  static test() : boolean {
+    // 测试静态方法内的class继承
+    class A { }
+    class B extends A {
+      bool : boolean = true
+      constructor() {
+        super()
+      }
+    }
+    return new B().bool
+  }
+}
+
+export function testClass() : Result {
+  return describe("Class", () => {
+    test('Class static method', () => {
+      expect(TestClass.test()).toEqual(true)
+    })
+  })
+}
