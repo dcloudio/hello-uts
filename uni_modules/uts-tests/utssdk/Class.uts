@@ -1,7 +1,7 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-class TestClass {
-  static test() : boolean {
+class TestStaticMethodClass {
+  static setup = () : boolean => {
     // 测试静态方法内的class继承
     class A { }
     class B extends A {
@@ -17,7 +17,7 @@ class TestClass {
 export function testClass() : Result {
   return describe("Class", () => {
     test('Class static method', () => {
-      expect(TestClass.test()).toEqual(true)
+      expect(TestStaticMethodClass.setup()).toEqual(true)
     })
   })
 }
