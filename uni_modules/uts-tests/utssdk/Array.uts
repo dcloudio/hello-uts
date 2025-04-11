@@ -250,7 +250,7 @@ export function testArray(): Result {
     test("forEach", () => {
       // #TEST Array.forEach,Array.forEach_1,Array.forEach_2
       const array1: string[] = ['a', 'b', 'c'];
-      array1.forEach(element => console.log(element));
+      array1.forEach(element => {console.log(element)});
       // expected output: "a"
       // expected output: "b"
       // expected output: "c"
