@@ -1,5 +1,13 @@
 import { describe, test, expect, Result } from './tests.uts'
 
+// #ifdef APP-HARMONY
+let tempDir = ''
+UTSHarmony.onAppAbilityCreate(() => {
+  const context = UTSHarmony.getUIAbilityContext()
+  tempDir = context?.getApplicationContext?.()?.tempDir || ''
+})
+// #endif
+
 
 export function testUTSXXX() : Result {
   return describe("KeyWord", () => {
@@ -17,9 +25,11 @@ export function testUTSXXX() : Result {
         // #endif
     })
 
-    
-
-
+    // #ifdef APP-HARMONY
+    test('UTSHarmony_getUIAbilityContext', () => {
+      expect(tempDir.length > 0).toEqual(true)
+    })
+    // #endif
 
   })
 }
