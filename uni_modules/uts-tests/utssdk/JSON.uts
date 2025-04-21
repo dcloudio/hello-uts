@@ -566,6 +566,12 @@ export function testJSON(): Result {
       // #endif
 
     })
+    
+    test('parse-nested-array', () => {
+      const obj = JSON.parse('{"arr": [[{"key": "value"}]]}') as UTSJSONObject
+      const arr: UTSJSONObject[][] = obj['arr'] as UTSJSONObject[][]
+      expect(arr[0][0] instanceof UTSJSONObject).toEqual(true)
+    })
 
   })
 }
