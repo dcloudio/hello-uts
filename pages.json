@@ -15,7 +15,7 @@
 				"enablePullDownRefresh": false
 			}
 		}
-    // #ifndef WEB || MP
+    // #ifndef WEB || MP || APP-HARMONY
     ,
 		{
 			"path": "pages/advance/advance",
@@ -171,18 +171,11 @@
 				"enablePullDownRefresh": false
 			}
 
-		},
-    // {
-    // 	"path": "pages/SyntaxCase/defaultValueTest",
-    // 	"style": {
-    // 		"navigationBarTitleText": "",
-    // 		"enablePullDownRefresh": false
-    // 	}
-    // },
+		}
     
     // #endif
-    // #ifdef APP
-		{
+    // #ifdef APP-ANDROID || APP-IOS
+		,{
 			"path": "pages/SyntaxCase/utsAndroid",
 			"style": {
 				"navigationBarTitleText": "",

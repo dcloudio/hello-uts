@@ -1,7 +1,6 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-@UTSAndroid.Suppress("UNNECESSARY_NOT_NULL_ASSERTION","DEPRECATION")
-export function testString() : Result {
+export function testString(): Result {
   return describe("String", () => {
     test('length', () => {
       // #TEST String.length
@@ -34,6 +33,7 @@ export function testString() : Result {
       // const str = 'x'.repeat(length);
       // expect(str.length).toEqual(11);
     })
+    // #ifndef APP-HARMONY
     test('at', () => {
       // #TEST String.at
       const sentence = 'The quick brown fox jumps over the lazy dog.';
@@ -60,6 +60,7 @@ export function testString() : Result {
       const empty = "";
       expect(empty.at(0)).toEqual(null);
     })
+    // #endif
     test('charAt', () => {
       // #TEST String.charAt
       const anyString = "Brave new world";
@@ -98,7 +99,7 @@ export function testString() : Result {
       let ret = "ab\uD800".toWellFormed()
       console.log(ret) //"ab\uFFFD"
       // #END
-      
+
       expect(ret).toEqual("ab\uFFFD");
       expect("ab\uD800c".toWellFormed()).toEqual("ab\uFFFDc");
       expect("\uDFFFab".toWellFormed()).toEqual("\uFFFDab");
@@ -115,7 +116,7 @@ export function testString() : Result {
       let ret = "ab\uD800".isWellFormed()
       console.log(ret) //false
       // #END
-      
+
       expect(ret).toEqual(false);
       expect("ab\uD800c".isWellFormed()).toEqual(false);
       expect("\uDFFFab".isWellFormed()).toEqual(false);
@@ -222,7 +223,7 @@ export function testString() : Result {
 
       expect("".indexOf("test")).toEqual(-1);
     })
-    
+
     test('match', () => {
       // #TEST String.match
       const str = 'The quick brown fox jumps over the lazy dog. It barked.';
@@ -261,17 +262,17 @@ export function testString() : Result {
 
     })
     test('padEnd', () => {
-       // #TEST String.padEnd
+      // #TEST String.padEnd
       const str1 = 'Breaded Mushrooms';
-      let ret1= str1.padEnd(25, '.')
+      let ret1 = str1.padEnd(25, '.')
       console.log(ret1);
       // expected output: "Breaded Mushrooms........"
       const str2 = '200';
-      let ret2=str2.padEnd(5)
+      let ret2 = str2.padEnd(5)
       console.log(ret2);
       // expected output: "200  "
       // #END
-      
+
       expect(str1.padEnd(25, '.')).toEqual("Breaded Mushrooms........");
       expect(ret2).toEqual("200  ");
 
@@ -281,13 +282,13 @@ export function testString() : Result {
       expect('abc'.padEnd(1)).toEqual("abc");
     })
     test('padStart', () => {
-       // #TEST String.padStart
+      // #TEST String.padStart
       const str1 = '5';
       let ret = str1.padStart(2, '0')
       console.log(ret);
       // expected output: "05"
       // #END
-      
+
       expect(ret).toEqual("05");
 
       expect('abc'.padStart(10)).toEqual("       abc");
@@ -327,7 +328,7 @@ export function testString() : Result {
       expect(ret1).toEqual("The quick brown fox jumps over the lazy monkey. If the dog reacted, was it really lazy?");
       expect(ret2).toEqual("The quick brown fox jumps over the lazy ferret. If the dog reacted, was it really lazy?");
       const str = 'abc12345#$*%';
-      const replacer = (match : string, p : string[], offset : number, string : string) : string => {
+      const replacer = (match: string, p: string[], offset: number, string: string): string => {
         // p1 is nondigits, p2 digits, and p3 non-alphanumerics
         expect(offset).toEqual(0);
         expect(match).toEqual(str);
@@ -340,17 +341,17 @@ export function testString() : Result {
       // #ifdef APP-ANDROID
       // 不包含捕捉组的示例
       let a = "The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?"
-      let b = a.replace(RegExp("fox"), function (match : string, offset : number, string : string) : string {
+      let b = a.replace(RegExp("fox"), function (match: string, offset: number, string: string): string {
         console.log("match", match)
         console.log("offset", offset)
         console.log("string", string)
         return "cat"
       })
       console.log("b:", b)
-      
+
       // 包含一个捕获组的示例。注意，目前android仅支持最多五个捕获组
       let a1 = "The quick brown fox jumps over the lazy dog. If the dog reacted, was it really lazy?"
-      let b1 = a1.replace(RegExp("(fox)"), function (match : string, p1 : string, offset : number, string : string) : string {
+      let b1 = a1.replace(RegExp("(fox)"), function (match: string, p1: string | null, offset: number, string: string): string {
         console.log("match", match)
         console.log("p1", p1)
         console.log("offset", offset)
@@ -466,34 +467,34 @@ export function testString() : Result {
       var str4 = "a, b, {c, d, e}, f, g, h";
       var re4 = /,(?![^{]*\})/;
       expect(str4.split(re4)).toEqual(["a", " b", " {c, d, e}", " f", " g", " h"]);
-      
+
       let a1 = "#d1d1d1".replace(RegExp("\\s*,\\s*", "g"), ",")
       let a2 = a1.split(RegExp("\\s+", ""));
       expect(a2).toEqual(["#d1d1d1"]);
-      
+
       let a3 = "123456a".split(RegExp("\\d+", ""));
-      expect(a3).toEqual(["","a"]);
-      
+      expect(a3).toEqual(["", "a"]);
+
       let a4 = "123456a".split(RegExp("\\d+", ""));
-      expect(a4).toEqual(["","a"]);
-      
+      expect(a4).toEqual(["", "a"]);
+
       let a5 = "778899	003213".split(RegExp("\\s+", ""));
-      expect(a5).toEqual(["778899","003213"]);
-      
+      expect(a5).toEqual(["778899", "003213"]);
+
       const str5 = 'The quick brown fox jumps over the lazy dog.';
-      const chars5 = str5.split('',2);
+      const chars5 = str5.split('', 2);
       expect(chars5.length).toEqual(2);
-      
+
       const str6 = "Hello World. How are you doing?";
       const chars6 = myString.split("", 3);
-        
+
       expect(chars6.length).toEqual(3);
       expect(chars6[2]).toEqual("l");
-      let a6 = "".split("",2)
+      let a6 = "".split("", 2)
       expect(a6.length).toEqual(0);
       let a7 = "".split("")
       expect(a7.length).toEqual(0);
-      
+
       // #ifdef APP-ANDROID
       let sp1 = "😄😄".split(RegExp("(?:)", ""));
       let sp2 = "😄😄".split(RegExp("(?:)", "u"));
@@ -510,18 +511,18 @@ export function testString() : Result {
       console.log(str2.toLowerCase());
       // "alphabet"
       // #END
-      
+
       expect(str1.toLowerCase()).toEqual("中文简体 zh-cn || zh-hans");
 
       expect(str2.toLowerCase()).toEqual("alphabet");
     })
     test('toUpperCase', () => {
-       // #TEST String.toUpperCase
+      // #TEST String.toUpperCase
       const sentence = 'The quick brown fox jumps over the lazy dog.';
       console.log(sentence.toUpperCase());
       // expected output: "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG."
       // #END
-      
+
       expect(sentence.toUpperCase()).toEqual("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.");
     })
 
@@ -538,12 +539,12 @@ export function testString() : Result {
       expect("Blue Whale, Killer Whale".lastIndexOf("blue")).toEqual(-1);
     })
     test("substring", () => {
-       // #TEST String.substr
+      // #TEST String.substr
       var str1 = "Mozilla";
       let ret = str1.substring(0, 3)
       console.log(ret)//"Moz"
       // #END
-      
+
       expect(ret).toEqual("Moz");
       expect(str1.substring(3, 0)).toEqual("Moz");
       expect(str1.substring(3, -3)).toEqual("Moz");
@@ -568,7 +569,7 @@ export function testString() : Result {
       console.log(ret) //Hello world!
       // #END
       expect(ret).toEqual("Hello world!");
-      const orig : string = '   foo  ';
+      const orig: string = '   foo  ';
       expect(orig.trim()).toEqual("foo");
       const str = '\t\t\tworld\t\t\t';
       expect(str.trim()).toEqual('world');
@@ -604,7 +605,7 @@ export function testString() : Result {
       expect(str.startsWith('HELLO')).toEqual(false);
       expect(str.startsWith('o')).toEqual(false);
 
-      const str1 : string = "To be, or not to be, that is the question.";
+      const str1: string = "To be, or not to be, that is the question.";
       expect(str1.startsWith("To be")).toEqual(true);
       expect(str1.startsWith("not to be")).toEqual(false);
       expect(str1.startsWith("not to be", 10)).toEqual(true);
@@ -612,11 +613,11 @@ export function testString() : Result {
     })
     test("toStringNullTest1", () => {
       const visibilitylist = {
-      	v: 'visible',
-      	h: 'hidden',
-      	c: 'collapse'
+        v: 'visible',
+        h: 'hidden',
+        c: 'collapse'
       }
-      let b:string = `fdsfa${visibilitylist['n']}`
+      let b: string = `fdsfa${visibilitylist['n']}`
       // #ifdef APP-ANDROID
       expect(b).toEqual("fdsfanull");
       // #endif
@@ -624,26 +625,26 @@ export function testString() : Result {
       // #ifdef APP-IOS
       expect(b).toEqual("fdsfanil");
       // #endif
-      
-      let a:Number|null = null
-      let ab:string = `aaa${a}`
+
+      let a: Number | null = null
+      let ab: string = `aaa${a}`
       // #ifdef APP-ANDROID
       expect(ab).toEqual("aaanull");
       // #endif
       // #ifdef APP-IOS
       expect(ab).toEqual("aaanil");
       // #endif
-      
+
       // let c:Any|null = "123"
       // c = null
-      let ac:string = `ccc${a}`
+      let ac: string = `ccc${a}`
       // #ifdef APP-ANDROID
       expect(ac).toEqual("cccnull");
       // #endif
       // #ifdef APP-IOS
       expect(ac).toEqual("cccnil");
       // #endif
-      
+
     })
     test("matchAll", () => {
       // const reg = /t(e)(st(\d?))/g;

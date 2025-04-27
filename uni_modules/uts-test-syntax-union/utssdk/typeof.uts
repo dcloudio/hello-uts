@@ -19,6 +19,7 @@ function handleNullable(value: string | null): string {
 }
 
 // 对象和函数的类型保护
+
 function handleObjectAndFunction(
     value: UTSJSONObject | (() => string) | string[] | null
 ) {
@@ -50,6 +51,7 @@ export function testTypeof(): any[] {
     return [
         handlePrimitive("hello"), // "HELLO"
         handlePrimitive(42), // "42.00"
+        
         handlePrimitive(true), // "true"
 
         handleNullable("test"), // "test"
@@ -62,5 +64,6 @@ export function testTypeof(): any[] {
         handleComplexType({ name: "张三", age: 25 }), // "张三 is 25"
         handleComplexType("  test  "), // "test"
         handleComplexType(42), // "42"
+        
     ];
 }

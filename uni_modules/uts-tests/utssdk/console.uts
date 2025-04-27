@@ -22,6 +22,16 @@ export function testConsole() : Result {
         let pageInstance = new io.dcloud.uniapp.vue.ComponentInternalInstance()
         expect(obtainInnerObject(pageInstance).get("className")).toEqual("io.dcloud.uniapp.vue.ComponentInternalInstance");
         expect(obtainInnerObject(pageInstance).get("type")).toEqual("object");
+        
+        let event1 = new UniNativeViewEvent("000111",{
+        	"name":"zhangsan",
+        	"age":12
+        })
+        let obtainRet = obtainInnerObject(event1)
+        console.log("obtainRet",obtainRet)
+        let aa1 = (obtainInnerObject(obtainRet) as UTSJSONObject).toJSONString()
+        expect(JSON.stringify(event1).length).toEqual(55);
+        expect(aa1.length > 6000).toEqual(true);
       // #endif
     })
     

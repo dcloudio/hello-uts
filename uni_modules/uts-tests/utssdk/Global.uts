@@ -103,6 +103,16 @@ export function testGlobal() : Result {
       expect(encodeURI("你好+22")).toEqual('%E4%BD%A0%E5%A5%BD+22')
       expect(encodeURI("你;/=好+22")).toEqual('%E4%BD%A0;/=%E5%A5%BD+22')
       expect(encodeURI("https://demo.dcloud.net.cn/mock/最新/12")).toEqual('https://demo.dcloud.net.cn/mock/%E6%9C%80%E6%96%B0/12')
+      let a1 = decodeURI(encodeURI("123 456+789")!)
+      expect(a1).toEqual("123 456+789")
+      let a2 = encodeURI("+-123！@#￥%……&*（）——+")!
+      expect(a2).toEqual("+-123%EF%BC%81@#%EF%BF%A5%25%E2%80%A6%E2%80%A6&*%EF%BC%88%EF%BC%89%E2%80%94%E2%80%94+")
+      let a3 = decodeURI(encodeURI("+=&123")!)
+      expect(a3).toEqual("+=&123")
+      let a5 = encodeURI(":/?#[]@!$&'()*+,;=")
+      expect(a5).toEqual(":/?#%5B%5D@!$&'()*+,;=")
+      let b5 = decodeURI(a5!)  
+      expect(b5).toEqual(":/?#[]@!$&'()*+,;=")
       // #END
     })
 

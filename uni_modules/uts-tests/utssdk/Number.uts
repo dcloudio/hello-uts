@@ -1,12 +1,13 @@
 import { describe, test, expect, Result } from './tests.uts'
-
+// #ifdef APP-ANDROID
 @UTSAndroid.Suppress("IMPLICIT_BOXING_IN_IDENTITY_EQUALS")
-export function testNumber() : Result {
+// #endif
+export function testNumber(): Result {
   return describe("Number", () => {
 
     test('toFixed', () => {
       // #TEST Number.toFixed
-      function financial(x : Number) : String {
+      function financial(x: Number): String {
         return x.toFixed(2);
       }
       console.log(financial(123.456));
@@ -20,9 +21,9 @@ export function testNumber() : Result {
       expect(financial(0)).toEqual("0.00");
       expect(financial(1)).toEqual("1.00");
 
-      let num1 : number = -1.1 / 0.1
-      let num2 : number = -1.1 / 0.1
-      let num3 : number = -1.1 / -0.1
+      let num1: number = -1.1 / 0.1
+      let num2: number = -1.1 / 0.1
+      let num3: number = -1.1 / -0.1
       console.warn(num1)
       console.warn(num2)
       console.warn(num3)
@@ -81,7 +82,7 @@ export function testNumber() : Result {
 
     test('number-from-json-parse', () => {
       type A = {
-        a : number
+        a: number
       }
       let aj = JSON.parse<A>('{"a":1}');
       expect(aj?.a == 1).toEqual(true);
@@ -93,9 +94,9 @@ export function testNumber() : Result {
       expect(numberEquals(aj?.a, 1 as number)).toEqual(true);
       expect(numberEquals(aj?.a, 1.0)).toEqual(true);
       expect(numberEquals(aj?.a, 1.0 as number)).toEqual(true);
-      let ki : Int = 1;
-      let kd : Double = 1.0;
-      let kf : Float = (1.0).toFloat();
+      let ki: Int = 1;
+      let kd: Double = 1.0;
+      let kf: Float = (1.0).toFloat();
       expect(aj?.a == ki).toEqual(true);
       expect(aj?.a == kd).toEqual(true);
       expect(aj?.a == kf).toEqual(true);
@@ -178,15 +179,16 @@ export function testNumber() : Result {
 
     test('isNaN', () => {
       expect(isNaN(0)).toEqual(false);
-      // #ifdef APP-ANDROID
       let aj2 = JSON.parse('{"a":1}') as UTSJSONObject;
-      let aNumber = aj2['a'] as Number
+      let aNumber = aj2['a'] as number
       expect(isNaN(aNumber)).toEqual(false);
       expect(Number.isNaN(aNumber)).toEqual(false);
       expect(Number.isNaN(11)).toEqual(false);
+      // #ifdef APP-ANDROID
       expect(Number.isNaN(null)).toEqual(false);
-      expect(Number.isNaN(1 / 0)).toEqual(false);
       // #endif
+
+      expect(Number.isNaN(1 / 0)).toEqual(false);
     })
 
     test('toPrecision', () => {
@@ -230,7 +232,7 @@ export function testNumber() : Result {
        */
       expect(bStr12.length).toEqual(21);
       expect(bStr12.substring(0, 14)).toEqual("27373a86ba1a19");
-    
+
       // #ifdef APP-ANDROID
       expect(0.6.toString()).toEqual("0.6");
       expect((2709954670497349.5).toString(10)).toEqual("2709954670497349.5");
@@ -240,14 +242,14 @@ export function testNumber() : Result {
       expect((JSON.stringify(0.0000001))).toEqual("1e-7");
       expect((JSON.stringify(100000000000000000000.0))).toEqual("100000000000000000000");
       expect((JSON.stringify(1000000000000000000000.0))).toEqual("1e+21");
-      
-      let a11:number|null = null
-      let b11:Int|null = null
-      
+
+      let a11: number | null = null
+      let b11: Int | null = null
+
       expect(a11.toString()).toEqual("null");
       expect(b11.toString()).toEqual("null");
-      
-      
+
+
       // #endif
     })
 
@@ -269,7 +271,7 @@ export function testNumber() : Result {
     })
     // #endif
     test('toInt', () => {
-      // #ifdef APP
+      // #ifdef APP-ANDROID || APP-IOS
       // #TEST Number.toInt
       let a = 12
       console.log(a.toInt());
@@ -284,7 +286,7 @@ export function testNumber() : Result {
     })
 
     test('toByte', () => {
-      // #ifdef APP
+      // #ifdef APP-ANDROID || APP-IOS
       // #TEST Number.toByte
       let a = 12
       // #ifdef APP-ANDROID
@@ -308,7 +310,7 @@ export function testNumber() : Result {
     })
 
     test('from', () => {
-      // #ifdef APP
+      // #ifdef APP-ANDROID || APP-IOS
       // #TEST Number.from
       let a: Int = 12
       let b = Number.from(a)
@@ -379,25 +381,30 @@ export function testNumber() : Result {
       expect(a10 == b10).toEqual(true);
       expect(a10 === b10).toEqual(true);
 
-      let num1:any = 1.0
+      let num1: any = 1.0
       let num2 = 1
       console.log(num1 == num2)
-      let num3:any = 112233
+      let num3: any = 112233
       let num4 = 112233.0
       console.log(num3 == num4)
-      
+
       // #ifdef APP-ANDROID
-      let num5:Any = 112233.0
-      let num6:Any = 112233
+      let num5: Any = 112233.0
+      let num6: Any = 112233
       console.log(num5 == num6)
       // #endif
-      
+
       let u11 = {
-        name:"zhangsan",
-        age:0
+        name: "zhangsan",
+        age: 0
       }
       u11["age2"] = 0.0
+      // #ifdef APP-HARMONY
+      let a22: number = u11["age2"]
+      // #endif
+      // #ifndef APP-HARMONY
       let a22 = u11["age2"]
+      // #endif
       console.log(a22 == 0)
       console.log(a22 == 0.0)
       console.log(a22 != 0)

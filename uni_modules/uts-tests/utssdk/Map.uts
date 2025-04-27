@@ -1,10 +1,10 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-export function testMap() : Result {
+export function testMap(): Result {
   return describe("Map", () => {
     test('size', () => {
       // #TEST Map.size
-      const map1 : Map<string, string> = new Map();
+      const map1: Map<string, string> = new Map();
       map1.set('a', 'alpha');
       map1.set('b', 'beta');
       map1.set('g', 'gamma');
@@ -109,7 +109,7 @@ export function testMap() : Result {
       expect(map5.get('key2')).toEqual('value2');
 
       // #TEST Map.set_1
-       map1 = new Map(); //定义一个map，key为string类型，value也是string类型
+      map1 = new Map(); //定义一个map，key为string类型，value也是string类型
       map1.set('key1', "abc");
       map1.set('key1', "def");
       console.log(map1.get('key1')) //返回 def
@@ -122,13 +122,13 @@ export function testMap() : Result {
       map1.set('key1', 'value1');
       map1.set('key2', 'value2');
       map1.set('key3', 'value3');
-      map1.forEach((value : string, key : string, map : Map<string, string>) => {
+      map1.forEach((value: string, key: string, map: Map<string, string>) => {
         console.log(key)
         console.log(value)
       })
       // #END
 
-      map1.forEach((value : string, key : string, map : Map<string, string>) => {
+      map1.forEach((value: string, key: string, map: Map<string, string>) => {
         expect(value).toEqual(map.get(key)!);
       })
       map1.forEach((value, key) => {
@@ -194,16 +194,16 @@ export function testMap() : Result {
       map2.set("age", 12)
 
       // 遍历函数 1
-      map2.forEach(function (value : any | null) {
+      map2.forEach(function (value: any | null) {
         console.log(value)
       })
       // 遍历函数 2
-      map2.forEach(function (value : any | null, key : string) {
+      map2.forEach(function (value: any | null, key: string) {
         console.log(key)
         console.log(value)
       })
       // 遍历函数 3
-      map2.forEach(function (value : any | null, key : string, map : Map<string, any | null>) {
+      map2.forEach(function (value: any | null, key: string, map: Map<string, any | null>) {
         console.log(value)
         console.log(key)
         console.log(map)

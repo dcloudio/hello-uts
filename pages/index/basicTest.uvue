@@ -30,6 +30,9 @@ import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests'
 import type { TestType } from '@/uni_modules/uts-tests'
 // #endif
 import { testSyntaxUnion } from '@/uni_modules/uts-test-syntax-union'
+// #ifdef APP-ANDROID || APP-IOS
+import { testBuildinNative  } from '@/uni_modules/uts-tests-hybrid'
+// #endif
 export default {
   data() {
     return {
@@ -41,6 +44,9 @@ export default {
   },
   onReady() {
     testSyntaxUnion()
+    // #ifdef APP-ANDROID || APP-IOS
+    testBuildinNative()
+    // #endif
     this.test()
   },
   methods: {

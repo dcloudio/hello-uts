@@ -1,10 +1,10 @@
 import { describe, test, expect, expectNumber, Result } from './tests.uts'
 
-export function testMath() : Result {
+export function testMath(): Result {
   return describe("Math", () => {
     test('E', () => {
       // #TEST Math.E
-      function getNapier() : number {
+      function getNapier(): number {
         return Math.E
       }
       console.log(getNapier());
@@ -15,7 +15,7 @@ export function testMath() : Result {
     })
     test('LN10', () => {
       // #TEST Math.LN10
-      function getNatLog10() : number {
+      function getNatLog10(): number {
         return Math.LN10;
       }
       console.log(getNatLog10());
@@ -26,7 +26,7 @@ export function testMath() : Result {
     })
     test('LN2', () => {
       // #TEST Math.LN2
-      function getNatLog2() : number {
+      function getNatLog2(): number {
         return Math.LN2;
       }
       console.log(getNatLog2());
@@ -36,7 +36,7 @@ export function testMath() : Result {
     })
     test('LOG10E', () => {
       // #TEST Math.LOG10E
-      function getLog10e() : number {
+      function getLog10e(): number {
         return Math.LOG10E;
       }
       console.log(getLog10e());
@@ -46,7 +46,7 @@ export function testMath() : Result {
     })
     test('LOG2E', () => {
       // #TEST Math.LOG2E
-      function getLog2e() : number {
+      function getLog2e(): number {
         return Math.LOG2E;
       }
       console.log(getLog2e());
@@ -56,7 +56,7 @@ export function testMath() : Result {
     })
     test('PI', () => {
       // #TEST Math.PI
-      function calculateCircumference(radius : number) : number {
+      function calculateCircumference(radius: number): number {
         return 2 * Math.PI * radius;
       }
       console.log(calculateCircumference(1));
@@ -67,7 +67,7 @@ export function testMath() : Result {
 
     test('SQRT1_2', () => {
       // #TEST Math.SQRT1_2
-      function getRoot1_2() : number {
+      function getRoot1_2(): number {
         return Math.SQRT1_2;
       }
       console.log(getRoot1_2());
@@ -78,7 +78,7 @@ export function testMath() : Result {
 
     test('SQRT2', () => {
       // #TEST Math.SQRT2
-      function getRoot2() : number {
+      function getRoot2(): number {
         return Math.SQRT2;
       }
       console.log(getRoot2());
@@ -90,7 +90,7 @@ export function testMath() : Result {
 
     test('abs', () => {
       // #TEST Math.abs
-      function difference(a : number, b : number) : number {
+      function difference(a: number, b: number): number {
         return Math.abs(a - b);
       }
 
@@ -106,14 +106,14 @@ export function testMath() : Result {
       expect(difference(3, 5)).toEqual(2);
       expect(difference(5, 3)).toEqual(2);
       expect(difference(1.23456, 7.89012)).toEqual(6.6555599999999995);
-      
+
       let utsNumber1 = JSON.parse("-160")! as number
       expect(Math.abs(utsNumber1)).toEqual(160);
-      
+
       let utsNumber2 = Math.abs(0) - 0.123456
       expect(Math.abs(utsNumber2)).toEqual(0.123456);
-      
-      
+
+
     })
 
     test('acos', () => {
@@ -171,7 +171,7 @@ export function testMath() : Result {
       console.log(Math.asin(0));
       // expected output: 0
 
-      // console.log(Math.asin(0.5));
+      console.log(Math.asin(0.5));
       // expected output: 0.5235987755982989
 
       console.log(Math.asin(1));
@@ -520,7 +520,7 @@ export function testMath() : Result {
 
     test('random', () => {
       // #TEST Math.random
-      function getRandomInt(max : number) : number {
+      function getRandomInt(max: number): number {
         return Math.floor(Math.random() * max);
       }
 
@@ -573,7 +573,7 @@ export function testMath() : Result {
 
     test('sqrt', () => {
       // #TEST Math.sqrt
-      function calcHypotenuse(a : number, b : number) : number {
+      function calcHypotenuse(a: number, b: number): number {
         return (Math.sqrt((a * a) + (b * b)));
       }
       console.log(calcHypotenuse(3, 4));
@@ -596,7 +596,7 @@ export function testMath() : Result {
       console.log(Math.tan(0));
       // expected output: 0.0
 
-      // console.log(Math.tan(1));
+      console.log(Math.tan(1));
       // expected output: 1.5574077246549023
       // #END
       // 解决精度问题
@@ -639,7 +639,7 @@ export function testMath() : Result {
     })
 
     test('round', () => {
-     // #TEST Math.round
+      // #TEST Math.round
       expect(Math.round(0.9)).toEqual(1);
       expect(Math.round(5.95)).toEqual(6);
       expect(Math.round(-5.05)).toEqual(-5);

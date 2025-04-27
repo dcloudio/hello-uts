@@ -1,6 +1,6 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-export function testDate() : Result {
+export function testDate(): Result {
   return describe("Date", () => {
     test('now', () => {
       // #ifdef APP-ANDROID
@@ -53,7 +53,7 @@ export function testDate() : Result {
       expect(date1.getTime()).toEqual(696988800000);
 
       // #ifdef APP-ANDROID
-      if(java.util.TimeZone.getDefault().rawOffset == 28800000){
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
         // 确保不收本机时区干扰
         let date2 = new Date('Sun Feb 03 1991 08:00:00 GMT+0800');
         expect(date2.getTime()).toEqual(665539200000);
@@ -126,12 +126,12 @@ export function testDate() : Result {
       console.log(date1.valueOf())//819141840000
       // #END
       // #ifdef APP-ANDROID
-      if(java.util.TimeZone.getDefault().rawOffset == 28800000){
-      // #endif
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
+        // #endif
         expect(date1.valueOf()).toEqual(819141840000);
         const date2 = new Date('1995-12-17T03:24:00');
         expect(date2.valueOf()).toEqual(819141840000);
-      // #ifdef APP-ANDROID
+        // #ifdef APP-ANDROID
       }
       // #endif
     })
@@ -160,7 +160,7 @@ export function testDate() : Result {
       // expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800 (中国标准时间)");
       // #endif
       // #ifdef APP-ANDROID
-      if(java.util.TimeZone.getDefault().rawOffset == 28800000){
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
         expect(date1.toTimeString()).toEqual("08:00:00 GMT+0800");
         expect(date2.toTimeString()).toEqual("03:24:00 GMT+0800");
       }
@@ -169,7 +169,7 @@ export function testDate() : Result {
 
     test('toXString', () => {
       // #ifdef APP-ANDROID
-      if(java.util.TimeZone.getDefault().rawOffset == 28800000){
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
         // #TEST Date.toString
         let event = new Date('1995-12-17T03:24:00');
         let ret = event.toString()
@@ -219,7 +219,7 @@ export function testDate() : Result {
 
     test('newDateTest', () => {
       // #ifdef APP-ANDROID
-      if(java.util.TimeZone.getDefault().rawOffset == 28800000){
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
         expect(new Date("2024/5/1").toString()).toEqual("Wed May 01 2024 00:00:00 GMT+0800");
         expect(new Date("2024/5/1 10:00:00").toString()).toEqual("Wed May 01 2024 10:00:00 GMT+0800");
         expect(new Date("2024-05-01 10:00:00").toString()).toEqual("Wed May 01 2024 10:00:00 GMT+0800");
@@ -277,13 +277,13 @@ export function testDate() : Result {
       expect(subsequentMonthBoundaryDate.getDate()).toEqual(1);
 
       // #ifndef WEB
-        // #ifdef APP-ANDROID
-        if(java.util.TimeZone.getDefault().rawOffset == 28800000){
+      // #ifdef APP-ANDROID
+      if (java.util.TimeZone.getDefault().rawOffset == 28800000) {
         // #endif
-          expect(parsedDate).toEqual(1704808800000);
+        expect(parsedDate).toEqual(1704808800000);
         // #ifdef APP-ANDROID
-          }
-        // #endif
+      }
+      // #endif
       // #endif
     });
 

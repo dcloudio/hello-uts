@@ -519,3 +519,17 @@ export function openFileWithProvider(){
 	const context = UTSAndroid.getUniActivity()!;
 	context.startActivity(intent);
 }
+
+
+export class DefaultParamTest {
+	static execute(msg : String = "123") : string {
+    return msg
+	}
+	execute2(msg : String = "456") : string {
+    return msg
+	}
+}
+
+export function defaultParamFunc(msg : string = "789"):string {
+	return msg
+}

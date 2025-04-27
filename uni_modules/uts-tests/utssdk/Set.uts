@@ -1,7 +1,8 @@
 import { describe, test, expect, Result } from './tests.uts'
-
-@UTSAndroid.Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER","ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-export function testSet() : Result {
+// #ifdef APP-ANDROID
+@UTSAndroid.Suppress("VARIABLE_WITH_REDUNDANT_INITIALIZER", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+// #endif
+export function testSet(): Result {
   return describe("Set", () => {
     test('size', () => {
       // #TEST Set.size
@@ -64,14 +65,14 @@ export function testSet() : Result {
       const set1 = new Set<number>([1, 2, 3, 4, 5]);
       console.log(set1.has(1));
       // expected output: true
-      
+
       console.log(set1.has(5));
       // expected output: true
-      
+
       console.log(set1.has(6));
       // expected output: false
       // #END
-      
+
       expect(set1.has(1)).toEqual(true);
       expect(set1.has(5)).toEqual(true);
       expect(set1.has(6)).toEqual(false);
@@ -79,13 +80,13 @@ export function testSet() : Result {
     test('forEach', () => {
       // #TEST Set.forEach,Set.forEach_1，Set.forEach_2
       const set1 = new Set<any>(['foo', 'bar'])
-      let logSetElements = (value : any) => {
+      let logSetElements = (value: any) => {
         console.log(value);
         // expected output: foo
         // expected output: bar
       }
       // #END
-      logSetElements = (value : any) => {
+      logSetElements = (value: any) => {
         expect(set1.has(value)).toEqual(true);
       }
       set1.forEach(logSetElements);
