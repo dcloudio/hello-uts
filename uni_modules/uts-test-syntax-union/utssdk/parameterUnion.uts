@@ -83,6 +83,40 @@ function test6(
   console.log("arg4",arg4)
 }
 
+interface TestInterface {
+  test1(arg1: A | B): void
+  test2(arg1: A | B | null): void
+  test3(arg1?: A | B): void
+  test4(arg1?: A | B | null): void
+  test5: (arg1: A | B | null) => void
+  test6?: ((arg1: A | B) => void) | null
+  test7?: (arg1: A | B) => void
+}
+
+class TestClass implements TestInterface {
+  test1(arg1: A | B): void {
+    console.log(arg1)
+  }
+  test2(arg1: A | B | null): void {
+    console.log(arg1)
+  }
+  test3(arg1?: A | B): void {
+    console.log(arg1)
+  }
+  test4(arg1?: A | B | null): void {
+    console.log(arg1)
+  }
+  test5 = (arg1: A | B | null): void => {
+    console.log(arg1)
+  }
+  test6: ((arg1: A | B) => void) | null = (arg1: A | B): void => {
+    console.log(arg1)
+  }
+  test7: ((arg1: A | B) => void) | null = (arg1: A | B): void => {
+    console.log(arg1)
+  }
+}
+
 export function testParameterUnion() {
     test1(true, true, true, false, true);
     // #ifndef APP-IOS
@@ -118,4 +152,10 @@ export function testParameterUnion() {
         (_: string) => 1,
         null
     );
+    const test = new TestClass()
+    test.test1({ a: 'test' })
+    test.test1({ b: 1 })
+    test.test5(null)
+    test.test5({ a: 'test' })
+    test.test5({ b: 1 })
 }

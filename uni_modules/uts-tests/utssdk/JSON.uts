@@ -89,11 +89,13 @@ export function testJSON(): Result {
       expect(JSON.stringify(new A2())).toEqual("2")
       expect(JSON.stringify(new A3())).toEqual('"json"')
       expect(JSON.stringify(new A4())).toEqual('null')
+      // #endif
+      // #ifdef APP-ANDROID || APP-IOS
       // js引擎toJSON不会归调用
       expect(JSON.stringify(new A5())!.length).toEqual(28)
       expect(JSON.stringify(new A6())!.length).toEqual(28)
       // #endif
-
+      
     })
 
     test('parse', () => {
@@ -565,6 +567,12 @@ export function testJSON(): Result {
 
       // #endif
 
+    })
+    
+    test('parse-nested-array', () => {
+      const obj = JSON.parse('{"arr": [[{"key": "value"}]]}') as UTSJSONObject
+      const arr: UTSJSONObject[][] = obj['arr'] as UTSJSONObject[][]
+      expect(arr[0][0] instanceof UTSJSONObject).toEqual(true)
     })
 
   })

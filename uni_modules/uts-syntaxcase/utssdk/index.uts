@@ -319,7 +319,7 @@ export class UTSAcvitiyLifeCycleCallback extends UniActivityLifeCycleCallback {
   }
 
   override onResume(params : UniActivityParams) {
-    console.log('UTSAcvitiyLifeCycle', 'onResume', params)
+    console.log('UTSAcvitiyLifeCycle', 'onResume', params.activity)
     callback('onResume')
   }
   override onPreResume(params : UniActivityParams) {

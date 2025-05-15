@@ -28,6 +28,7 @@ import { testIterator } from "./iterator.uts"
 import { testType } from './Type.uts'
 // #endif
 import { testUTSXXX } from "./UTSXXX.uts"
+import { testClass } from "./Class.uts"
 
 // Proxy、Reflect、Weakmap、WeakSet 不支持
 export function runTests(): UTSJSONObject {
@@ -60,6 +61,7 @@ export function runTests(): UTSJSONObject {
   const TypeRes = testType();
   // #endif
   const testUTSXXXRes = testUTSXXX()
+  const testClassRes = testClass()
   return {
     Array: ArrayRes,
     Date: DateRes,
@@ -90,5 +92,6 @@ export function runTests(): UTSJSONObject {
     Type: TypeRes,
     // #endif
     UTSXXX: testUTSXXXRes,
+    Class: testClassRes
   }
 }
