@@ -117,6 +117,21 @@ class TestClass implements TestInterface {
   }
 }
 
+interface TestInterface2 {
+  test1(arg1: A | B): void
+}
+
+class TestClass2 implements TestInterface2 {
+  test1(arg1: any): void {
+    console.log(arg1)
+  }
+}
+
+function test7(test: TestInterface2) {
+  test.test1({ a: 'test' })
+  test.test1({ b: 1 })
+}
+
 export function testParameterUnion() {
     test1(true, true, true, false, true);
     // #ifndef APP-IOS
@@ -158,4 +173,5 @@ export function testParameterUnion() {
     test.test5(null)
     test.test5({ a: 'test' })
     test.test5({ b: 1 })
+    test7(new TestClass2())
 }
