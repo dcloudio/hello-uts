@@ -299,6 +299,19 @@ export function testForLoop(): Result {
       //   '2: EVEN - 1 (Inner Continue) - 3 (End of Outer)',
       //   '3: ODD (Loop Break)'
       // ])
+      
+      const tokens = ["heading", "paragraph"];
+      for (let i = 0; i < tokens.length; i++) {
+          const token = tokens[i];
+          switch (token) {
+              case "heading":
+                  continue;
+              case "paragraph":
+                  continue;
+              default:
+                  break;
+          }
+      }
     })
   })
 }
