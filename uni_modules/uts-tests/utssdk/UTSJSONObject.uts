@@ -359,5 +359,30 @@ export function testUTSJSONObject(): Result {
       const res = a.getString('nullish', 'default')
       expect(res).toEqual('default')
     })
+    
+    test('issue-16690', () => {
+      expect(new TestA("id", "name").test()).toEqual({
+        id: "id",
+        item: {
+          id: "id",
+          name: "name"
+        }
+      } as UTSJSONObject)
+    })
   })
+}
+export class TestA {
+  id : string;
+  name : string;
+  constructor(id : string, name : string) {
+    this.id = id;
+    this.name = name;
+  }
+  test() : UTSJSONObject {
+    const obj : UTSJSONObject = {
+      id: this.id,
+      item: { id: this.id, name: this.name },
+    };
+    return obj;
+  }
 }
