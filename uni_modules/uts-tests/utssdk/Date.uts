@@ -1,5 +1,39 @@
 import { describe, test, expect, Result } from './tests.uts'
 
+
+function getPastTwoYearsDates(limit:number): string[] {
+  const dates: string[] = [];
+  const endDate = new Date("2024-12-10");
+  endDate.setDate(endDate.getDate() - 1); // 截止到昨天
+  endDate.setHours(0); // 清除时间部分
+
+  const startDate = new Date(endDate.getTime());
+  if(limit == 1){
+	startDate.setMonth(startDate.getMonth() - 1);
+  }else{
+	  startDate.setMonth(startDate.getMonth() - 10);
+  }
+  
+
+  const currentDate = new Date(startDate.getTime());
+
+  while (currentDate.getTime() <= endDate.getTime()) {
+    dates.push(formatDate(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return dates;
+}
+
+function formatDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = (date.getDate()).toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+
+
 export function testDate(): Result {
   return describe("Date", () => {
     test('now', () => {
@@ -33,6 +67,111 @@ export function testDate(): Result {
       }, 2000)
       // #endif
 
+    })
+    test('Date-speed', () => {
+      let startMill = Date.now()
+      // 使用示例
+      
+      const dateList = getPastTwoYearsDates(1);
+      // console.log(dateList);
+      const dateStrings: string[] = [
+        // 基础格式
+        "Dec 25, 1995",
+        "01 Jan 1970 00:00:00 GMT",
+        "1995-12-17T03:24:00",
+        "December 17, 1995 03:24:00",
+        "December 17, 95 03:24:00",
+        "March 13, 08 04:20",
+        "July 20, 69 20:17:40 GMT+00:00",
+        "December 31, 1975, 23:15:30 GMT+11:00",
+        
+        // 斜杠格式
+        "2023/08/13 12:35:54",
+        "1995-02-14",
+        "2024-01-09 22:00:00",
+        "2024/5/1",
+        "2024/5/1 00:00:00",
+        "2024-05-01 00:00",
+        "2024/05/01 00:00",
+        "2024-5-1 00:00",
+        
+        // 扩展格式
+        "Oct 31, 2020",
+        "15 Apr 1985 14:30:00 GMT",
+        "2020-05-20T15:30:45",
+        "November 5, 2005 08:45:30",
+        "September 9, 99 17:20:00",
+        "August 8, 07 12:00 GMT+05:30",
+        "January 1, 2023, 00:00:00 GMT-08:00",
+        "2008/07/15 18:20:55",
+        "2025-12-24 23:59:59",
+        
+        // 特殊格式
+        "2023-09-01T00:00:00Z",
+        "March 21, 2022 09:45:30 GMT+02:00",
+        "May 5, 85 05:05:05 GMT-12:00",
+        "April 30, 1999, 19:20:21 GMT+09:00",
+        "2030-07-04 18:30:00"
+      ];
+      let hitDate:Date[] = []
+      for(let perDate of dateList){
+      	let perDateObj = Date(perDate)
+      	for(let dateStr of dateStrings){
+      		let perNewDate = Date(dateStr)
+      		if(perNewDate.getDate() == perDateObj.getDate() ){
+      			hitDate.push(perNewDate)
+      		}
+      	}
+      }
+      console.log(hitDate.length)
+      let diffMill = Date.now() - startMill
+      expect(diffMill < 2000).toEqual(true)
+      
+      let nextDateList:Array<Date> = []
+      const dateList2 = getPastTwoYearsDates(2);
+      for(let perDate of dateList2){
+      	let perDateObj = Date(perDate)
+      	nextDateList.push(perDateObj)
+      }
+      let startMill2 = Date.now()
+      // 使用示例
+      for(let perDateObj of nextDateList){
+      	perDateObj.setHours(startMill2 % 12)
+      }
+      let diffMill2 = Date.now() - startMill2
+      
+      expect(diffMill2 < 200).toEqual(true)
+      
+      
+      let startMill3 = Date.now()
+      let millList:Array<string> = []
+      // 使用示例
+      for(let perDateObj of nextDateList){
+      	millList.push(perDateObj.toString())
+      }
+      console.log(millList.length)
+      let diffMill3 = Date.now() - startMill3
+      
+      expect(diffMill3 < 500).toEqual(true)
+      
+      let startMill4 = Date.now()
+      // 使用示例
+      for(let perDateObj of nextDateList){
+      	perDateObj.setMilliseconds(startMill4 % 300)
+      }
+      let diffMill4 = Date.now() - startMill2
+      expect(diffMill4 < 500).toEqual(true)
+      
+      let startMill5 = Date.now()
+      let millList5:Array<string> = []
+      // 使用示例
+      for(let perDateObj of nextDateList){
+      	millList5.push(perDateObj.toISOString())
+      }
+      console.log(millList.length)
+      let diffMill5 = Date.now() - startMill5
+      expect(diffMill5 < 200).toEqual(true)
+      
     })
     test('new Date', () => {
       // #TEST Date.Constructor
