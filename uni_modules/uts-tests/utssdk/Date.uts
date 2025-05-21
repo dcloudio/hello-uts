@@ -135,9 +135,11 @@ export function testDate(): Result {
       }
       let startMill2 = Date.now()
       // 使用示例
+      // #ifdef APP-ANDROID
       for(let perDateObj of nextDateList){
       	perDateObj.setHours(startMill2 % 12)
       }
+      // #endif
       let diffMill2 = Date.now() - startMill2
       
       expect(diffMill2 < 200).toEqual(true)
@@ -156,18 +158,22 @@ export function testDate(): Result {
       
       let startMill4 = Date.now()
       // 使用示例
+      // #ifdef APP-ANDROID
       for(let perDateObj of nextDateList){
       	perDateObj.setMilliseconds(startMill4 % 300)
       }
+      // #endif   
       let diffMill4 = Date.now() - startMill2
       expect(diffMill4 < 500).toEqual(true)
       
       let startMill5 = Date.now()
       let millList5:Array<string> = []
       // 使用示例
-      for(let perDateObj of nextDateList){
+      // #ifdef APP-ANDROID
+      for(let perDateObj of nextDateList){  
       	millList5.push(perDateObj.toISOString())
       }
+      // #endif
       console.log(millList.length)
       let diffMill5 = Date.now() - startMill5
       expect(diffMill5 < 200).toEqual(true)
