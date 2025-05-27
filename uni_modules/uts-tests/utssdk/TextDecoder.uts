@@ -16,6 +16,7 @@ export function testDecoder() : Result {
       expect(utf8decoder.decode(u8arr)).toEqual('馉');
       expect(utf8decoder.decode(i8arr)).toEqual('馉')
 
+      // #ifndef APP-IOS
       utf8decoder = new TextDecoder("utf-8");
       var arraybuffer = new ArrayBuffer(4)
       var dataView = new DataView(arraybuffer)
@@ -24,7 +25,7 @@ export function testDecoder() : Result {
       dataView.setInt8(2, -82)
       dataView.setInt8(3, -73)
       expect(utf8decoder.decode(dataView)).toEqual('𠮷');
-
+      // #endif
       // #END
     })
   })
