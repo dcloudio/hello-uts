@@ -18,8 +18,8 @@ export function testEncoder() : Result {
       for(let item of int8){
       	ret2.push(item)
       }
-      expect(ret1.toString()).toEqual("-30,-126,-84");
-      expect(ret2.toString()).toEqual("-30,-126,-84");
+      expect(ret1.toString()).toEqual("226,130,172");
+      expect(ret2.toString()).toEqual("226,130,172");
       
       
     })
