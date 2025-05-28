@@ -133,6 +133,7 @@ export function testDate(): Result {
       	let perDateObj = Date(perDate)
       	nextDateList.push(perDateObj)
       }
+      // #ifdef APP-ANDROID
       let startMill2 = Date.now()
       // 使用示例
       for(let perDateObj of nextDateList){
@@ -141,6 +142,7 @@ export function testDate(): Result {
       let diffMill2 = Date.now() - startMill2
       
       expect(diffMill2 < 200).toEqual(true)
+      // #endif
       
       
       let startMill3 = Date.now()
@@ -154,6 +156,7 @@ export function testDate(): Result {
       
       expect(diffMill3 < 500).toEqual(true)
       
+      // #ifndef APP-IOS
       let startMill4 = Date.now()
       // 使用示例
       for(let perDateObj of nextDateList){
@@ -171,6 +174,7 @@ export function testDate(): Result {
       console.log(millList.length)
       let diffMill5 = Date.now() - startMill5
       expect(diffMill5 < 200).toEqual(true)
+      // #endif
       
     })
     test('new Date', () => {

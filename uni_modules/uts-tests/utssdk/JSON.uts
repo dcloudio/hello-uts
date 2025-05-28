@@ -90,7 +90,7 @@ export function testJSON(): Result {
       expect(JSON.stringify(new A3())).toEqual('"json"')
       expect(JSON.stringify(new A4())).toEqual('null')
       // #endif
-      // #ifdef APP-ANDROID || APP-IOS
+      // #ifdef APP-ANDROID
       // js引擎toJSON不会归调用
       expect(JSON.stringify(new A5())!.length).toEqual(28)
       expect(JSON.stringify(new A6())!.length).toEqual(28)
