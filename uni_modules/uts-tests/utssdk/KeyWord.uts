@@ -64,6 +64,12 @@ class ChildrenTest extends Parent {
   // #endif 
 }
 
+// #ifdef APP-IOS
+class TestGeneric<T> {
+  value?: T
+} 
+// #endif
+
 export function testKeyWord() : Result {
   return describe("KeyWord", () => {
 
@@ -140,6 +146,12 @@ export function testKeyWord() : Result {
       let instanceRet4 = (typeof num1) == "number"
       expect(instanceRet4).toEqual(true)
       // #endif
+      
+      // #ifdef APP-IOS
+      let test1: TestGeneric<User> = new TestGeneric<User>()
+      expect(test1 instanceof TestGeneric<unknown>).toEqual(true)
+      // #endif
+
     })
 
     test('isArray', () => {
