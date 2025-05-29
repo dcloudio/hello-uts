@@ -6,9 +6,12 @@ class TestStaticMethodClass {
     class A { }
     class B extends A {
       bool : boolean = true
+      // #ifdef APP-ANDROID
       constructor() {
         super()
-      }
+      }   
+      // #endif
+
     }
     return new B().bool
   }
