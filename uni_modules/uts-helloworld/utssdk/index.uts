@@ -3,7 +3,8 @@
  */
 export type inputJSON = {
 	inputText: string,
-	errCode: number
+	errCode: number,
+  complete ?: (res: inputJSON)  => void
 }
 /**
  * json入参格式
@@ -38,6 +39,15 @@ export function callWithStringParam(input: string, success: (res: string) => voi
 export function callWithJSONParam(opts: JsonParamOptions) {
 	opts.input.errCode = 10;
 	opts.success(opts.input);
+  
+  let input = {
+    inputText: '嵌套回调',
+    errCode: 11
+  } as inputJSON;
+  
+  setTimeout(() => {
+    opts.input.complete?.(input);
+  }, 1000)
 	return { name: "doSthWithCallback" };
 }
 
