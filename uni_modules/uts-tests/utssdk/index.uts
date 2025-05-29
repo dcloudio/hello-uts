@@ -53,7 +53,7 @@ export function runTests(): UTSJSONObject {
   const consoleRes = testConsole();
   const NativeCodeRes = testNativeCode();
   const PromiseRes = testPromise();
-  // #ifdef  APP-ANDROID || WEB || APP-IOS
+  // #ifdef  APP-ANDROID || WEB || (APP-IOS && UNI-APP-X)
   const TextEncoderRes = testEncoder();
   const TextDecoderRes = testDecoder();
   // #endif
@@ -85,7 +85,7 @@ export function runTests(): UTSJSONObject {
     JSONLarge: JSONLargeRes,
     UTSJSONObject: UTSJSONObjectRes,
     Primise: PromiseRes,
-    // #ifdef  APP-ANDROID || WEB || APP-IOS
+    // #ifdef  APP-ANDROID || WEB || (APP-IOS && UNI-APP-X)
     TextEncoder: TextEncoderRes,
     TextDecoder: TextDecoderRes,
     // #endif
