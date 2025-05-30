@@ -326,9 +326,7 @@ export function testRegExp(): Result {
       // regex.lastIndex is now at 3
       let a2 = regex8.test("foo"); // false
       let b2 = regex8.lastIndex
-      // #ifdef APP-ANDROID
       expect([a1, a2, b1, b2]).toEqual([true, false, 3, 0]);
-      // #endif
 
     })
     test('exec', () => {
@@ -410,6 +408,29 @@ export function testRegExp(): Result {
       const pattern8 = /https:\/\/(?!\w+\.(com|net))\w+\.\w+/;
       const result8 = pattern8.exec('https://example.org')!;
       expect(result8[0]).toEqual('https://example.org');
+      
+      
+      // #ifdef APP-IOS
+      const str3 = 'abc="123123" src="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/uni@2x.png"'
+      let m : RegExpExecArray | null;
+      const attrReg = /([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
+      m = attrReg.exec(str3)
+      expect(m).toEqual([ 'abc="123123"', 'abc', '123123', '', '' ])
+      expect(attrReg.lastIndex).toEqual(12)
+      let i = 0
+      while(m != null) {
+        m = attrReg.exec(str3)
+        if (i == 0) {
+          expect(m).toEqual(['src="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/uni@2x.png"', "src", "https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/uni@2x.png", '', ''])
+          expect(attrReg.lastIndex).toEqual(78)
+        } else if (i == 1) {
+          expect(m).toEqual(null)
+          // expect(attrReg.lastIndex).toEqual(0)
+        }
+        i++;
+      }
+      
+      // #endif
 
 
       // #ifndef WEB
