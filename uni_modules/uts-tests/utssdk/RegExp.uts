@@ -768,6 +768,27 @@ export function testRegExp(): Result {
       expect(regex1.test(str1)).toEqual(false);
     });
 
+    test("reg-replace-innervar", () => {
+       // #ifdef APP-ANDROID
+       const FLOAT_REGEX = /(-)?(\d[\d\.]*)/g;
+       const template = '10px 20px'.replace(FLOAT_REGEX, '${0}')
+       expect(template).toEqual("${0}px ${0}px");
+       
+       
+       const bullet = /(?:[*+-]|\d{1,9}[.)])/;
+       let valSource = bullet.source;
+       valSource = valSource.replace(/(^|[^\[])\^/g, '$1');
+       console.log(valSource)
+       expect(valSource).toEqual("(?:[*+-]|\\d{1,9}[.)])");
+       
+       const lheadingCore = /^(?!bull |blockCode|fences|blockquote|heading|html|table)((?:.|\n(?!\s*?\n|bull |blockCode|fences|blockquote|heading|html|table))+?)\n {0,3}(=+|-+) *(?:\n+|$)/;
+       const source1 = lheadingCore.source
+       const next1 = source1.replace(RegExp('bull','g'),valSource);
+       expect(next1).toEqual("^(?!(?:[*+-]|\\d{1,9}[.)]) |blockCode|fences|blockquote|heading|html|table)((?:.|\\n(?!\\s*?\\n|(?:[*+-]|\\d{1,9}[.)]) |blockCode|fences|blockquote|heading|html|table))+?)\\n {0,3}(=+|-+) *(?:\\n+|$)");
+       
+       // #endif
+    })
+    
 
     test("reg-speed-0", () => {
        // #ifdef APP-ANDROID
@@ -788,6 +809,7 @@ export function testRegExp(): Result {
        expect(diffMill < 1000).toEqual(true);
        // #endif
     })
+    
 
     test('test', () => {
       // #TEST RegExp.test

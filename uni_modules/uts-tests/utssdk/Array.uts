@@ -364,7 +364,7 @@ export function testArray(): Result {
         }
         return element
       }) as number[]
-      expect(numberArray2).toEqual([-29, -125, -83]);
+      expect(numberArray2).toEqual([227,131, 173]);
 
       let view3 = [1, 2, 3].toKotlinList().toTypedArray()
       let numberArray3: number[] = Array.from(view3) as number[]
