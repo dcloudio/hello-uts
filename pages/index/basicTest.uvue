@@ -14,12 +14,18 @@
           <text class="failed">{{ fail }}</text>
         </view>
       </view>
-    </view>
+      <view class="result">
+        <view> uvue 测试</view>
+        <view>总共：{{ uvueResult.length }}</view>
+        <view>通过：{{ uvueResult.filter(i=>!!i).length }}</view>
+        <view>失败：{{ uvueResult.filter(i=>!i).length }}</view>
+      </view>
     <!-- #ifdef APP -->
   </scroll-view>
   <!-- #endif -->
 </template>
 <script lang="ts">
+import { testEncoder } from './basicEncoder'
 import { runTests, Result } from '../../uni_modules/uts-tests'
 // #ifdef APP-IOS
 import { testTypeFromAppJs, Options } from '@/uni_modules/uts-ios-tests'
@@ -39,6 +45,7 @@ export default {
       title: 'UTS基础语法',
       resultArray: [] as Result[],
       result: {} as UTSJSONObject,
+      uvueResult: [] as boolean[],
       names: [] as string[],
     }
   },
@@ -51,6 +58,8 @@ export default {
   },
   methods: {
     test() {
+      const uvueTest = testEncoder().map(i => i.pass)
+      this.uvueResult = uvueTest
       this.result = runTests()
       // const resultMap = this.result.toMap()
       // resultMap.forEach((res, name) => {
