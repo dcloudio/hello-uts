@@ -20,6 +20,8 @@
         <view>通过：{{ uvueResult.filter(i=>!!i).length }}</view>
         <view>失败：{{ uvueResult.filter(i=>!i).length }}</view>
       </view>
+      
+    </view>
     <!-- #ifdef APP -->
   </scroll-view>
   <!-- #endif -->
