@@ -115,9 +115,9 @@ export function testDate(): Result {
       ];
       let hitDate:Date[] = []
       for(let perDate of dateList){
-      	let perDateObj = Date(perDate)
+        let perDateObj = new Date(perDate)
       	for(let dateStr of dateStrings){
-      		let perNewDate = Date(dateStr)
+          let perNewDate = new Date(dateStr)
       		if(perNewDate.getDate() == perDateObj.getDate() ){
       			hitDate.push(perNewDate)
       		}
@@ -130,7 +130,7 @@ export function testDate(): Result {
       let nextDateList:Array<Date> = []
       const dateList2 = getPastTwoYearsDates(2);
       for(let perDate of dateList2){
-      	let perDateObj = Date(perDate)
+      	let perDateObj = new Date(perDate)
       	nextDateList.push(perDateObj)
       }
       let startMill2 = Date.now()
