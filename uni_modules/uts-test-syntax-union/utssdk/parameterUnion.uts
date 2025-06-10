@@ -90,7 +90,9 @@ interface TestInterface {
   test4(arg1?: A | B | null): void
   test5: (arg1: A | B | null) => void
   test6?: ((arg1: A | B) => void) | null
+  // #ifndef APP-HARMONY
   test7?: (arg1: A | B) => void
+  // #endif
 }
 
 class TestClass implements TestInterface {
@@ -112,9 +114,11 @@ class TestClass implements TestInterface {
   test6: ((arg1: A | B) => void) | null = (arg1: A | B): void => {
     console.log(arg1)
   }
+  // #ifndef APP-HARMONY
   test7: ((arg1: A | B) => void) | null = (arg1: A | B): void => {
     console.log(arg1)
   }
+  // #endif
 }
 
 interface TestInterface2 {
@@ -173,5 +177,7 @@ export function testParameterUnion() {
     test.test5(null)
     test.test5({ a: 'test' })
     test.test5({ b: 1 })
+    // #ifndef APP-HARMONY
     test7(new TestClass2())
+    // #endif
 }
