@@ -1,6 +1,8 @@
 <!-- HBuilder X 版本要求: 3.6.11+ -->
 <script lang="ts">
+  // #ifdef APP-ANDROID || APP-HARMONY
   let firstBackTime = 0
+  // #endif
   export default {
     onLaunch: function () {
       console.log('App Launch')
@@ -11,7 +13,7 @@
     onHide: function () {
       console.log('App Hide')
     },
-    // #ifdef UNI-APP-X && APP-ANDROID
+    // #ifdef UNI-APP-X && APP-ANDROID || APP-HARMONY
     onLastPageBackPress: function () {
       console.log('App LastPageBackPress')
       if (firstBackTime == 0) {
