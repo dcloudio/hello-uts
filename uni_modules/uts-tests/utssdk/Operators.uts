@@ -342,6 +342,9 @@ export function testOperators(): Result {
             const t2l = t1l >>> 0
             expect(t1l).toEqual(3055341859); 
             expect(t2l).toEqual(3055341859); 
+            const aa = 3144134277.518717
+            const bb = aa | 0
+            expect(bb).toEqual(-1150833019); 
         })
         test('>>>=', () => {
             let a = 5; //  00000000000000000000000000000101
