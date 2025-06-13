@@ -338,6 +338,10 @@ export function testOperators(): Result {
             const c: number = -5;         //  11111111111111111111111111111011
             expect(a >>> b).toEqual(1); // 00000000000000000000000000000001
             // expect(c >>> b).toEqual(1073741822); // 00111111111111111111111111111110
+            const t1l = 3055341859 //这里安卓端默认number就无法正常运算了
+            const t2l = t1l >>> 0
+            expect(t1l).toEqual(3055341859); 
+            expect(t2l).toEqual(3055341859); 
         })
         test('>>>=', () => {
             let a = 5; //  00000000000000000000000000000101
