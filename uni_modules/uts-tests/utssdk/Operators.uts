@@ -256,6 +256,7 @@ export function testOperators(): Result {
           type Adventurer = {
             name: string
             cat?: Cat | null
+            cats ?: Array<Cat> | null
           }
         	const adventurer1: Adventurer = {
         	  name: 'Alice',
@@ -269,6 +270,19 @@ export function testOperators(): Result {
             name: 'Alice'
           }
           expect(adventurer2.cat?.name).toEqual(null)
+          // #endif
+          
+          const adventurers: Adventurer[] = [{
+            name: 'Alice',
+            cats: [{
+              name: 'Dinah'
+            }]
+          }]
+          // 跨所有平台的正确写法
+          expect(adventurers[0].cats?.[0].name).toEqual("Dinah")
+          // #ifdef APP-ANDROID
+          // swift 中是不能对非空类型做解包的
+          expect(adventurers[0]?.cats[0]?.name).toEqual("Dinah")
           // #endif
         })
         test('%', () => {
