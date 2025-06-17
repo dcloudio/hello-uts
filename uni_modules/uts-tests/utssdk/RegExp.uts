@@ -1,6 +1,7 @@
 import { describe, test, expect, Result } from './tests.uts'
 
 
+// #ifdef APP-ANDROID
 class RegExpBenchmark0 {
 
 	// 正则表达式定义
@@ -561,7 +562,7 @@ class RegExpBenchmark2 {
 	}
 
 }
-
+// #endif
 
 export function testRegExp(): Result {
   return describe("RegExp", () => {
