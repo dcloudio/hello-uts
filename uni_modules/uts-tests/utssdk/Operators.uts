@@ -262,7 +262,11 @@ export function testOperators(): Result {
         	  name: 'Alice',
         	  cat: {
         	    name: 'Dinah'
-        	  }
+        	  },
+            //#ifdef APP-HARMONY
+            // TODO 编译器调整后删除此条件编译
+            cats: null
+            //#endif
         	}
         	expect(adventurer1.cat?.name).toEqual("Dinah")
           // #ifdef APP-ANDROID || APP-IOS
