@@ -28,6 +28,9 @@ import { testIterator } from "./iterator.uts"
 import { testType } from './Type.uts'
 // #endif
 import { testUTSXXX } from "./UTSXXX.uts"
+// #ifdef APP-ANDROID
+import { testClass } from "./Class.uts"
+// #endif
 
 // Proxy、Reflect、Weakmap、WeakSet 不支持
 export function runTests(): UTSJSONObject {
@@ -50,7 +53,7 @@ export function runTests(): UTSJSONObject {
   const consoleRes = testConsole();
   const NativeCodeRes = testNativeCode();
   const PromiseRes = testPromise();
-  // #ifdef  APP-ANDROID || WEB
+  // #ifdef  APP-ANDROID || WEB || (APP-IOS && UNI-APP-X)
   const TextEncoderRes = testEncoder();
   const TextDecoderRes = testDecoder();
   // #endif
@@ -60,6 +63,9 @@ export function runTests(): UTSJSONObject {
   const TypeRes = testType();
   // #endif
   const testUTSXXXRes = testUTSXXX()
+  // #ifdef APP-ANDROID
+  const testClassRes = testClass()
+  // #endif
   return {
     Array: ArrayRes,
     Date: DateRes,
@@ -79,7 +85,7 @@ export function runTests(): UTSJSONObject {
     JSONLarge: JSONLargeRes,
     UTSJSONObject: UTSJSONObjectRes,
     Primise: PromiseRes,
-    // #ifdef  APP-ANDROID || WEB
+    // #ifdef  APP-ANDROID || WEB || (APP-IOS && UNI-APP-X)
     TextEncoder: TextEncoderRes,
     TextDecoder: TextDecoderRes,
     // #endif
@@ -90,5 +96,8 @@ export function runTests(): UTSJSONObject {
     Type: TypeRes,
     // #endif
     UTSXXX: testUTSXXXRes,
+    // #ifdef APP-ANDROID
+    Class: testClassRes
+    // #endif
   }
 }

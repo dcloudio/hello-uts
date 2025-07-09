@@ -39,9 +39,9 @@ export function describe(name: string, fn: () => void): Result {
 export function test(name: string, fn: () => void) {
     try {
         fn()
-        console.log('push....', name)
+        // console.log('push....', name)
         result.passed.push(name)
-        console.log('push....', result.passed.length)
+        // console.log('push....', result.passed.length)
     } catch (e) {
         if (e instanceof Error) {
             result.failed.push(`${name}:\n${(e as Error).message}`)

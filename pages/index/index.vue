@@ -61,7 +61,13 @@
 			testDoSthWithJSON: function () {
 				var inputObject = {
 					inputText:this.stringParam,
-					errCode:0
+					errCode:0,
+          complete: (res) => {
+            uni.showToast({
+                title: '嵌套回调结果:' + JSON.stringify(res),
+                icon: 'none'
+            });
+          }
 				}
 				
 				callWithJSONParam({

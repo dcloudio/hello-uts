@@ -2,7 +2,14 @@ import { describe, test, expect, Result } from './tests.uts'
 
 export function testGlobal() : Result {
   return describe("Global", () => {
-
+  
+  test('setTimeout', () => {
+    let aCount = 0
+    setTimeout(function () {
+      aCount += 1
+      expect(aCount > 0).toEqual(true);
+    })
+  })
 
     test('setInterval', () => {
       // #TEST Global.setInterval
@@ -12,8 +19,6 @@ export function testGlobal() : Result {
         aCount += 1
       }, 0)
       setTimeout(function () {
-        console.log(aCount)
-        console.log(taskId)
         clearInterval(taskId)
         expect(aCount > 10).toEqual(true);
       }, 200)

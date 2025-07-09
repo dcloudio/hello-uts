@@ -290,6 +290,7 @@ export function testOperators(): Result {
             expect(c >> b).toEqual(-2); // 11111111111111111111111111111110
 			//expect(16677889900 >> 10).toEqual(-490215);
 			//expect(888999555666 >> 23.567).toEqual(-7);
+            expect(3144134277.518717 >> 0).toEqual(-1150833019)
         })
         test('>>=', () => {
             let a = 5;      //  00000000000000000000000000000101

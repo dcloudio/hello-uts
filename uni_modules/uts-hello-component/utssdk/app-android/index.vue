@@ -10,10 +10,7 @@
 	import LinearLayout from 'android.widget.LinearLayout'
 	import View from 'android.view.View'
 
-	class ButtonClickListsner implements View.OnClickListener {
-		constructor() {
-			super()
-		}
+	class ButtonClickListenr implements View.OnClickListener {
 		override onClick(v ? : View) {
 			console.log(v)
 		}
@@ -116,7 +113,7 @@
 			button.setText("点击触发");
 			button.setTag("centerButton");
 			contentLayout.addView(button, new LinearLayout.LayoutParams(500, 500));
-			button.setOnClickListener(new ButtonClickListsner())
+			button.setOnClickListener(new ButtonClickListenr())
 			return contentLayout
 		},
 
