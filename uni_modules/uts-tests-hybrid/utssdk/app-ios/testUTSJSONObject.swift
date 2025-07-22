@@ -25,7 +25,7 @@ class TestUTSJSONObject {
         ])
         // 得到一个UTSJSONObject对象
         let returnedTarget = UTSJSONObject.assign(target, source);
-        console.log(returnedTarget.toMap().count) //3
+        console.log(returnedTarget.toMap().size) //3
         // #END
         
         // #TEST UTSJSONObject.assign
@@ -79,7 +79,7 @@ class TestUTSJSONObject {
             ]
         ])
         
-        let cars: [UTSJSONObject]? = obj.getArray("cars")
+        let cars: UTSArray<UTSJSONObject>? = obj.getArray<UTSJSONObject>("cars")
         cars![0].set("value", 20)
         console.log(cars![0]["value"]) // 20
         // #END
@@ -88,12 +88,12 @@ class TestUTSJSONObject {
         //这个方法用来获取指定元素类型的数组
         let obj1 = JSON.parseObject("{\"name\":\"tom\",\"tag\":[\"student\",\"user\"]}")
 
-        // 这里得到是 Array<*>
+        // 这里得到是 Array<*>   
         let noGenericArray = obj1!.getArray("tag")
         console.log(noGenericArray)
 
         // 这里得到是 Array<string>, 注意：要手动指定返回值类型，以便Swift进行泛型推断
-        let genericArray: [String]? = obj1!.getArray("tag")
+        let genericArray: UTSArray<String>? = obj1!.getArray("tag")
         console.log(genericArray) //["student", "user"]
         // #END
     }
@@ -133,7 +133,7 @@ class TestUTSJSONObject {
         //增加或更新指定键对应的值。
         person.set("name", "Tom1")
         
-        //set 方法可以简化为使用下标运算符 `[]` 赋值
+        //set 方法可以简化为使用下标运算符 `[]` 赋值   
         person["name"] = "Tom2"
         
         // #END

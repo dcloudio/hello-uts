@@ -2,6 +2,7 @@ import { CLLocationManager, CLAuthorizationStatus } from "CoreLocation"
 import { TencentLBSLocationManager, TencentLBSLocation, TencentLBSRequestLevel, TencentLBSLocationManagerDelegate } from "TencentLBS"
 import { NSError, Bundle } from "Foundation"
 import { LocationOptions, LocationResponse } from "../interface.uts"
+import { NSObject } from 'ObjectiveC';
 
 /**
  * 判断当前是否是自定义基座
@@ -12,10 +13,10 @@ export function checkHasIntegration():boolean{
 }
 
 
-/**
+/**  
  * 定位 LBSLocation 类，封装定位相关方法
  */
-class LBSLocation implements TencentLBSLocationManagerDelegate {
+class LBSLocation implements NSObject, TencentLBSLocationManagerDelegate {
 	
 	// 定义 locationManager 属性，类型为 TencentLBSLocationManager
 	locationManager!: TencentLBSLocationManager

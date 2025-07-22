@@ -208,7 +208,7 @@ export function testPromiseStaticMethod() {
 	 // test for all 
 	 Promise.all([p0, p1, p2])
 	 .then((res)=> {
-		 console.log(res, res.count)
+		 console.log(res, res.length)
 	 })
 	 .catch( (error: any | null) => {
 		 console.log(error, "rejected test for promise.all")

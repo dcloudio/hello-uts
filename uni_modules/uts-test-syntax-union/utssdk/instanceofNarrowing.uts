@@ -26,6 +26,7 @@ function handleDate(date: any | null) {
     return "未知";
 }
 
+// 这种写法不再支持，要求开发者写具体的泛型类型如 Map<string, string>
 function handleMap(map: any | null) {
     if (map instanceof Map) {
         return map.get("a") as string | null;
@@ -33,6 +34,7 @@ function handleMap(map: any | null) {
     return "未知";
 }
 
+// 这种写法不再支持，要求开发者写具体的泛型类型如 Set<string>
 function handleSet(set: any | null) {
     if (set instanceof Set) {
         return set.size;
