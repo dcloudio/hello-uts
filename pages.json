@@ -192,7 +192,15 @@
 			}
 		}
     // #endif
-
+    // #ifdef APP-HARMONY
+    ,{
+      "path" : "pages/issues/issue-20157/issue-20157",
+      "style" : 
+      {
+        "navigationBarTitleText" : "issue-20157"
+      }
+    }
+    // #endif 
 	],
 	"tabBar": {
 		"color": "#7A7E83",
