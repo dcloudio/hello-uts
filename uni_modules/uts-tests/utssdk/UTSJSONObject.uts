@@ -369,6 +369,17 @@ export function testUTSJSONObject(): Result {
         }
       } as UTSJSONObject)
     })
+    
+    test('issue-19443', () => {
+      let u1 = {
+        "name":"zhangsan",
+      }
+      u1['.'] = 321
+      u1['a.b'] = 123
+      expect(u1["a.b"]).toEqual(123)
+      expect(u1["."]).toEqual(321)
+      expect(u1["name"]).toEqual("zhangsan")
+    })
   })
 }
 export class TestA {
