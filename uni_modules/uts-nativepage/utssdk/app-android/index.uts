@@ -347,7 +347,7 @@ class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
 		fruitName:TextView;
 		constructor(view:View) {
 			super(view);
-			fruitName = view.findViewById(R.id.fruit_name) as TextView;
+			this.fruitName = view.findViewById(R.id.fruit_name) as TextView;
 		}
 	}
 

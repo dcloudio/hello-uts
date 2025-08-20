@@ -208,7 +208,7 @@ export function gotoCameraTake(imageDone : (event : string) => void) : boolean {
 		} else {
 			//callback(false,"用户拒绝了部分权限")
 		}
-	}, function (_ : boolean, _ : string[]) {
+	}, function (_1 : boolean, _2 : string[]) {
 		//callback(false,"用户拒绝了部分权限")
 	},true)
 
@@ -365,7 +365,7 @@ export function arrayPermissionFlowTest(callback : (ret : boolean, desc : string
 		} else {
 			callback(false, "用户拒绝了部分权限")
 		}
-	}, function (_ : boolean, _ : string[]) {
+	}, function (_1 : boolean, _2 : string[]) {
 		callback(false, "用户拒绝了部分权限")
 	})
 
@@ -510,7 +510,7 @@ export function singlePermissionFlowTest(callback : (ret : boolean, desc : strin
 		} else {
 			callback(false, "用户拒绝了部分权限")
 		}
-	}, function (_ : boolean, _ : string[]) {
+	}, function (_1 : boolean, _2 : string[]) {
 		callback(false, "用户拒绝了部分权限")
 	})
 
