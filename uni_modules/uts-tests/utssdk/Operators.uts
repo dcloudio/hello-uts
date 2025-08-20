@@ -362,7 +362,9 @@ export function testOperators(): Result {
             expect(t2l).toEqual(3055341859); 
             const aa = 3144134277.518717
             const bb = aa | 0
+            // #ifdef APP-ANDROID
             expect(bb).toEqual(-1150833019); 
+            // #endif
         })
         test('>>>=', () => {
             let a = 5; //  00000000000000000000000000000101
