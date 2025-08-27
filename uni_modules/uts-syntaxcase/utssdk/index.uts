@@ -277,7 +277,7 @@ export function callJavaMethodGetInfo():String {
 }
 
 
-
+@UTSJS.keepAlive
 export function callKotlinCallbackUTS(callback: (res: string) => void) {
 	NativeCode.kotlinCallbackUTS(function(res:string){
     console.log(res)
