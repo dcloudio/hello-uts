@@ -436,7 +436,7 @@
                     }
                 })
                 
-                const res = task.sync({ 
+                const res = task!.sync({ 
                   success:(res) => {
                       console.log("task.sync.success.callback", res);
                       this.testUtsClassInstanceResult['success'] = true;
