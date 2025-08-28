@@ -386,7 +386,7 @@
                     }
                 } catch (e) {}
             },
-            async testUtsClassAsync():Promise<Void> {
+            async testUtsClassAsync():Promise<void> {
                 if (test == null) {
                     this.testUtsClassConstructor()
                 }
