@@ -126,7 +126,9 @@
                             this.testGetBatteryCapacity()
                             break
                         case 'testActivityCallback':
+                            // #ifdef APP-ANDROID
                             this.testActivityCallback()
+                            // #endif
                             break
                         case 'testGotoDemoActivity':
                             this.testGotoDemoActivity()
