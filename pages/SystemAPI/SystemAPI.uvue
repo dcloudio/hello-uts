@@ -19,7 +19,7 @@
 </template>
 <script lang="ts">
     import { gotoDemoActivity,sayHelloFromJar,sayHelloFromSO } from "@/uni_modules/uts-nativepage";
-    import { getBatteryInfo, GetBatteryInfoOptions } from "@/uni_modules/uts-getbatteryinfo";
+    import { getBatteryInfo, GetBatteryInfoOptions,GetBatteryInfoSuccess } from "@/uni_modules/uts-getbatteryinfo";
     // #ifdef APP-ANDROID
      import {
        UTSAcvitiyLifeCycleCallback,
@@ -126,7 +126,9 @@
                             this.testGetBatteryCapacity()
                             break
                         case 'testActivityCallback':
+                            // #ifdef APP-ANDROID
                             this.testActivityCallback()
+                            // #endif
                             break
                         case 'testGotoDemoActivity':
                             this.testGotoDemoActivity()
@@ -147,9 +149,9 @@
 
             testGetBatteryCapacity() {
                 getBatteryInfo({
-                    success(res) {
+                    success(res:GetBatteryInfoSuccess) {
                         uni.showToast({
-                            title: "当前电量：" + (res as UTSJSONObject)['level'] + '%',
+                            title: "当前电量：" + res.level + '%',
                             icon: 'none'
                         });
                     }
