@@ -18,9 +18,10 @@
     </view>
 </template>
 <script lang="ts">
-    import { gotoDemoActivity,sayHelloFromJar,sayHelloFromSO } from "@/uni_modules/uts-nativepage";
+    
     import { getBatteryInfo, GetBatteryInfoOptions,GetBatteryInfoSuccess } from "@/uni_modules/uts-getbatteryinfo";
     // #ifdef APP-ANDROID
+    import { gotoDemoActivity,sayHelloFromJar,sayHelloFromSO } from "@/uni_modules/uts-nativepage";
      import {
        UTSAcvitiyLifeCycleCallback,
        UTSAcvitiyKeyEventCallback,
