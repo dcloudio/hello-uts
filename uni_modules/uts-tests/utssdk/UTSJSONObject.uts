@@ -80,7 +80,7 @@ export function testUTSJSONObject(): Result {
         }
       }
 
-      let testData2 = TestData2()
+      let testData2 = new TestData2()
       let dataClass = UTSAndroid.getJavaClass(data2)
 
       let data3 = {
