@@ -322,6 +322,13 @@ export class UTSAcvitiyLifeCycleCallback extends UniActivityLifeCycleCallback {
     console.log('UTSAcvitiyLifeCycle', 'onResume', params.activity)
     callback('onResume')
   }
+  
+  override onPictureInPictureModeChanged(params : UniActivityParams) {
+    console.log('UTSAcvitiyLifeCycle', 'onPictureInPictureModeChanged', params.result)
+    callback('onPictureInPictureModeChanged')
+  }
+  
+  
   override onPreResume(params : UniActivityParams) {
     console.log('UTSAcvitiyLifeCycle', 'onPreResume', params)
     callback('onPreResume')
