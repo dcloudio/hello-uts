@@ -201,6 +201,15 @@
       }
     }
     // #endif 
+    // #ifdef APP-ANDROID
+    ,{
+      "path" : "pages/issues/issue-20232/issue-20232",
+      "style" : 
+      {
+        "navigationBarTitleText" : "issue-20232"
+      }
+    }
+    // #endif 
 	],
 	"tabBar": {
 		"color": "#7A7E83",
