@@ -18,7 +18,9 @@
     </view>
 </template>·
 <script>
+    // #ifdef APP-ANDROID
     import { gotoDemoActivity } from "@/uni_modules/uts-nativepage";
+    // #endif
     import { getBatteryInfo } from "@/uni_modules/uts-getbatteryinfo";
 
     export default {

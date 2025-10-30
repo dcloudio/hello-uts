@@ -1,7 +1,9 @@
-export default function getBatteryInfo(options) {
+export function getBatteryInfo(options) {
     if (navigator.getBattery) {
         navigator.getBattery().then(battery => {
             const res = {
+				errCode: 0,
+				errSubject: "uni-getBatteryInfo",
                 errMsg: 'getBatteryInfo:ok',
                 level: battery.level * 100,
                 isCharging: battery.charging
