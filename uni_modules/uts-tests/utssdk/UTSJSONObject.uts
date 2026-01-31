@@ -24,6 +24,10 @@ export function testUTSJSONObject(): Result {
         age: 11
       }
 
+	    let objAs = {
+	      age: 23
+	    } as UTSJSONObject
+
       let ret1 = UTSJSONObject.keys(obj).length
       console.log(ret1) //2
       // #END
@@ -31,6 +35,8 @@ export function testUTSJSONObject(): Result {
       expect(ret1).toEqual(2);
       expect(UTSJSONObject.keys(mockData).length).toEqual(2);
 
+      expect(obj.age).toEqual(11);
+      expect(objAs.age).toEqual(23);
     })
 
     test('toJSONObject', () => {
