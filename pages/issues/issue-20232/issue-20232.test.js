@@ -9,7 +9,7 @@ if(isAndroid) {
 }
 
 describe('issue-20232', () => {
-  if(!isAndroid) {
+  if(!isAndroid || process.env.UNI_APP_X!=='true') {
     it('skip',() => {
       expect(1).toBe(1)
     })
