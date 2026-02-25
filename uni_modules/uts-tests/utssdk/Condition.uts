@@ -1,0 +1,124 @@
+import { describe, test, expect, Result } from './tests.uts'
+
+export function testCondition(): Result {
+  return describe('Condition', () => {
+    test('IfStatement truthy/falsy for string/number', () => {
+      const str: string = 'hello'
+      const emptyStr: string = ''
+      const num: number = 123
+      const zero: number = 0
+
+      const logs: string[] = []
+      if (str) {
+        logs.push('str true')
+      }
+      if (emptyStr) {
+        logs.push('emptyStr true')
+      } else {
+        logs.push('emptyStr false')
+      }
+      if (num) {
+        logs.push('num true')
+      }
+      if (zero) {
+        logs.push('zero true')
+      } else {
+        logs.push('zero false')
+      }
+      expect(logs).toEqual(['str true', 'emptyStr false', 'num true', 'zero false'])
+    })
+
+    test('WhileStatement truthy/falsy for string/number', () => {
+      let str: string = 'hello'
+      const emptyStr: string = ''
+      let num: number = 123
+      const zero: number = 0
+
+      const logs: string[] = []
+      let loop = 0
+
+      while (str) {
+        logs.push('while str')
+        str = ''
+        loop++
+      }
+      while (emptyStr) {
+        logs.push('while emptyStr')
+        loop++
+      }
+      while (num) {
+        logs.push('while num')
+        num = 0
+        loop++
+      }
+      while (zero) {
+        logs.push('while zero')
+        loop++
+      }
+
+      expect(logs).toEqual(['while str', 'while num'])
+      expect(loop).toEqual(2)
+    })
+
+    test('DoStatement truthy/falsy for string/number', () => {
+      let str: string = 'hello'
+      const emptyStr: string = ''
+      let num: number = 123
+      const zero: number = 0
+
+      const logs: string[] = []
+      let loop = 0
+
+      do {
+        logs.push('do str')
+        str = ''
+        loop++
+      } while (str)
+
+      do {
+        logs.push('do emptyStr')
+        loop++
+      } while (emptyStr)
+
+      do {
+        logs.push('do num')
+        num = 0
+        loop++
+      } while (num)
+
+      do {
+        logs.push('do zero')
+        loop++
+      } while (zero)
+
+      expect(logs).toEqual(['do str', 'do emptyStr', 'do num', 'do zero'])
+      expect(loop).toEqual(4)
+    })
+
+    test('ForStatement truthy/falsy for string/number', () => {
+      let str: string = 'hello'
+      const emptyStr: string = ''
+      let num: number = 123
+      const zero: number = 0
+
+      const logs: string[] = []
+
+      for (; str;) {
+        logs.push('for str')
+        str = ''
+      }
+      for (; emptyStr;) {
+        logs.push('for emptyStr')
+      }
+      for (; num;) {
+        logs.push('for num')
+        num = 0
+      }
+      for (; zero;) {
+        logs.push('for zero')
+      }
+
+      expect(logs).toEqual(['for str', 'for num'])
+    })
+  })
+}
