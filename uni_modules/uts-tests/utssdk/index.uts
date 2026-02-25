@@ -14,6 +14,7 @@ import { testOperators } from './Operators.uts'
 import { testMath } from './Math.uts'
 import { testRegExp } from './RegExp.uts'
 import { testForLoop } from './ForLoop.uts'
+import { testCondition } from './Condition.uts'
 import { testGlobal } from './Global.uts'
 export { Result } from './tests.uts'
 import { testNativeCode } from './NativeCode.uts'
@@ -46,6 +47,7 @@ export function runTests(): UTSJSONObject {
   const RegExpRes = testRegExp();
   const KeyWordRes = testKeyWord();
   const ForLoopRes = testForLoop();
+  const ConditionRes = testCondition();
   const GlobalRes = testGlobal();
   const JsonRes = testJSON();
   const JSONLargeRes = testJSONLarge();
@@ -79,6 +81,7 @@ export function runTests(): UTSJSONObject {
     RegExp: RegExpRes,
     KeyWord: KeyWordRes,
     ForLoop: ForLoopRes,
+    Condition: ConditionRes,
     Global: GlobalRes,
     console: consoleRes,
     Json: JsonRes,
