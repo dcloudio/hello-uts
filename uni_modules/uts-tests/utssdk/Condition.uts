@@ -347,5 +347,144 @@ export function testCondition(): Result {
         'refNumA.value true'
       ])
     })
+
+    test('any type truthy/falsy tests', () => {
+      const str: string = 'hello'
+      let anyVal: any = 'hello'
+      const logs: string[] = []
+
+      if (anyVal) {
+        logs.push('anyVal is truthy')
+      }
+      while (anyVal) {
+        logs.push('while anyVal')
+        break
+      }
+      const ternaryAny = anyVal ? 'true' : 'false'
+      expect(ternaryAny).toEqual('true')
+
+      if (!anyVal) {
+        logs.push('!anyVal is truthy')
+      }
+
+      let anyA: any = 1
+      let anyB: any = 2
+      const anyOr = anyA || anyB
+      const anyAnd = anyA && anyB
+      expect(anyOr).toEqual(1)
+      expect(anyAnd).toEqual(2)
+
+      const anyOrStr = anyVal || str
+      const strAndAny = str && anyVal
+      expect(anyOrStr).toEqual('hello')
+      expect(strAndAny).toEqual('hello')
+
+      expect(logs).toEqual(['anyVal is truthy', 'while anyVal'])
+    })
+
+    test('union type truthy/falsy tests', () => {
+      const logs: string[] = []
+
+      let unionStrNum: string | number = 'test'
+      if (unionStrNum) {
+        logs.push('unionStrNum is truthy')
+      }
+
+      let unionStrNull: string | null = 'test'
+      if (unionStrNull) {
+        logs.push('unionStrNull is truthy')
+      }
+
+      let unionNumUndefined: number | undefined = 123
+      if (unionNumUndefined) {
+        logs.push('unionNumUndefined is truthy')
+      }
+
+      const unionOr = unionStrNum || unionStrNull
+      const unionAnd = unionStrNum && unionStrNull
+      expect(unionOr).toEqual('test')
+      expect(unionAnd).toEqual('test')
+      
+      function unionFunction () : string | number {
+        return ""
+      }
+      
+      if (unionFunction()) {
+        logs.push("=====")
+      }
+
+      expect(logs).toEqual([
+        'unionStrNum is truthy',
+        'unionStrNull is truthy',
+        'unionNumUndefined is truthy'
+      ])
+    })
+
+    test('generic function truthy/falsy tests', () => {
+      const logs: string[] = []
+
+      function checkGeneric<T>(val: T): string {
+        if (val) {
+          logs.push('generic val is truthy')
+        }
+        const ternaryGeneric = val ? 'true' : 'false'
+        return ternaryGeneric
+      }
+      expect(checkGeneric('hello')).toEqual('true')
+      expect(checkGeneric(123)).toEqual('true')
+      expect(checkGeneric({ x: 1 })).toEqual('true')
+
+      function checkGenericWithConstraint<T extends object>(val: T): void {
+        if (val) {
+          logs.push('generic constrained val is truthy')
+        }
+      }
+      checkGenericWithConstraint({ x: 1 })
+
+      function genericLogical<T>(a: T, b: T): T {
+        const result = a || b
+        return result
+      }
+      expect(genericLogical('a', 'b')).toEqual('a')
+
+      expect(logs).toEqual([
+        'generic val is truthy',
+        'generic val is truthy',
+        'generic val is truthy',
+        'generic constrained val is truthy'
+      ])
+    })
+
+    test('void and function return truthy tests', () => {
+      const logs: string[] = []
+
+      function returnsVoid(): void {
+        logs.push('side effect')
+      }
+      let voidResult: void = returnsVoid()
+      if (voidResult) {
+        logs.push('voidResult is truthy')
+      }
+
+      function getAny(): any {
+        return 'dynamic'
+      }
+      if (getAny()) {
+        logs.push('getAny() is truthy')
+      }
+
+      let anyVal: any = 'hello'
+      let unionStrNum: string | number = 'test'
+      if (anyVal && unionStrNum) {
+        logs.push('anyVal && unionStrNum truthy')
+      }
+
+      expect(logs).toEqual([
+        'side effect',
+        'voidResult is truthy',
+        'getAny() is truthy',
+        'anyVal && unionStrNum truthy'
+      ])
+    })
   })
 }
