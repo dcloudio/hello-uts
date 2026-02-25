@@ -120,5 +120,232 @@ export function testCondition(): Result {
 
       expect(logs).toEqual(['for str', 'for num'])
     })
+
+    test('Conditional/Unary/Logical operators', () => {
+      const str: string = 'hello'
+      const emptyStr: string = ''
+      const num: number = 123
+      const zero: number = 0
+
+      const ternaryStr = str ? 'true' : 'false'
+      const ternaryNum = num ? 'true' : 'false'
+      expect(ternaryStr).toEqual('true')
+      expect(ternaryNum).toEqual('true')
+
+      const unaryLogs: string[] = []
+      if (!emptyStr) {
+        unaryLogs.push('!emptyStr true')
+      }
+      if (!zero) {
+        unaryLogs.push('!zero true')
+      }
+      expect(unaryLogs).toEqual(['!emptyStr true', '!zero true'])
+
+      const logicalLogs: string[] = []
+      if (str && num) {
+        logicalLogs.push('str && num')
+      }
+      if (emptyStr || zero) {
+        logicalLogs.push('emptyStr || zero')
+      } else {
+        logicalLogs.push('emptyStr || zero false')
+      }
+      expect(logicalLogs).toEqual(['str && num', 'emptyStr || zero false'])
+
+      const numA = 1
+      const numB = 2
+      const numC = numA || numB
+      const numD = numA && numB
+      const strC = emptyStr || str
+      const strD = emptyStr && str
+      expect(numC).toEqual(1)
+      expect(numD).toEqual(2)
+      expect(strC).toEqual('hello')
+      expect(strD).toEqual('')
+
+      const objA = { x: 1 }
+      const objB = { x: 2 }
+      const objC = objA || objB
+      const objD = objA && objB
+      expect(objC).toEqual(objA)
+      expect(objD).toEqual(objB)
+    })
+
+    test('Logical operators with mixed boolean and non-boolean', () => {
+      const str: string = 'hello'
+      const num: number = 123
+
+      // function getNumber(): number {
+      //   return 10
+      // }
+      // function getString(): string {
+      //   return 'test'
+      // }
+      // type M = { v: number }
+      // function getObject(): M {
+      //   return { v: 1 } as M
+      // }
+
+      const boolVal = true
+      const boolAndStr = boolVal && str
+      const boolOrNum = boolVal || num
+      const strAndBool = str && boolVal
+      const numOrBool = num || boolVal
+
+      expect(boolAndStr).toEqual('hello')
+      expect(boolOrNum).toEqual(true)
+      expect(strAndBool).toEqual(true)
+      expect(numOrBool).toEqual(123)
+      
+      // expect(getNumber() && str).toEqual('hello')
+      // expect(getString() && num).toEqual(123)
+      // expect(getObject() && boolVal).toEqual(true)
+    })
+
+    test('Truthiness for objects/booleans/functions/ref', () => {
+      const logs: string[] = []
+
+      let a = { b: 1 }
+      if (a) {
+        logs.push('a object true')
+      }
+
+      type Ma = { m: string }
+      let b: Ma = { m: '1' }
+      if (b) {
+        logs.push('b interface true')
+      }
+
+      class MyClass {
+        c: number = 1
+      }
+      let c = new MyClass()
+      if (c) {
+        logs.push('c class true')
+      }
+
+      if (true) {
+        logs.push('true literal')
+      }
+      if (false) {
+        logs.push('false literal')
+      }
+
+      const boolVar = true
+      if (boolVar) {
+        logs.push('boolVar')
+      }
+
+      const str: string = 'hello'
+      const num: number = 123
+      if (str == 'hello') {
+        logs.push('str == hello')
+      }
+      if (num > 0) {
+        logs.push('num > 0')
+      }
+
+      function getStr(): string {
+        return 'test'
+      }
+      if (getStr()) {
+        logs.push('getStr truthy')
+      }
+
+      function getNum(): number {
+        return 1
+      }
+      if (getNum()) {
+        logs.push('getNum truthy')
+      }
+
+      function getBool(): boolean {
+        return true
+      }
+      if (getBool()) {
+        logs.push('getBool truthy')
+      }
+
+      function getClassObj(): MyClass {
+        return new MyClass()
+      }
+      if (getClassObj()) {
+        logs.push('getClassObj truthy')
+      }
+
+      function getInterfaceObj(): Ma {
+        return { m: 'test' }
+      }
+      if (getInterfaceObj()) {
+        logs.push('getInterfaceObj truthy')
+      }
+
+      type O = { x: number }
+      function getObjLiteral(): O {
+        return { x: 1 } as O
+      }
+      if (getObjLiteral()) {
+        logs.push('getObjLiteral truthy')
+      }
+
+      function wrapStr(s: string): string {
+        return s
+      }
+      if (wrapStr(getStr())) {
+        logs.push('wrapStr(getStr()) truthy')
+      }
+
+      if (getStr() && getNum()) {
+        logs.push('getStr && getNum')
+      }
+      if (getBool() || getStr()) {
+        logs.push('getBool || getStr')
+      }
+
+      const ternaryFunc = getStr() ? 'true' : 'false'
+      expect(ternaryFunc).toEqual('true')
+
+      if (!getStr()) {
+        logs.push('!getStr truthy')
+      }
+      if (!getBool()) {
+        logs.push('!getBool truthy')
+      }
+
+      function getNumA(): number {
+        return 1
+      }
+      function getNumB(): number {
+        return 2
+      }
+      // expect(getNumA() && getNumB()).toEqual(2)
+
+      const refNumA = ref(1)
+      const refNumB = ref(2)
+      if (refNumA.value) {
+        logs.push('refNumA.value true')
+      }
+      expect(refNumB.value).toEqual(2)
+
+      expect(logs).toEqual([
+        'a object true',
+        'b interface true',
+        'c class true',
+        'true literal',
+        'boolVar',
+        'str == hello',
+        'num > 0',
+        'getStr truthy',
+        'getNum truthy',
+        'getBool truthy',
+        'getClassObj truthy',
+        'getInterfaceObj truthy',
+        'getObjLiteral truthy',
+        'wrapStr(getStr()) truthy',
+        'getStr && getNum',
+        'getBool || getStr',
+        'refNumA.value true'
+      ])
+    })
   })
 }
