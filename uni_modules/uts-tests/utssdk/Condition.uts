@@ -121,6 +121,125 @@ export function testCondition(): Result {
       expect(logs).toEqual(['for str', 'for num'])
     })
 
+    test('Truthiness for arithmetic expressions', () => {
+      const logs: string[] = []
+      const a: number = 5
+      const b: number = 2
+      const c: number = 10
+      const d: number = 3
+
+      if (a + b) {
+        logs.push('a + b')
+      }
+      if (a - b) {
+        logs.push('a - b')
+      }
+      if (b - b) {
+        logs.push('b - b true')
+      } else {
+        logs.push('b - b false')
+      }
+      if (a * b) {
+        logs.push('a * b')
+      }
+      if (a * 0) {
+        logs.push('a * 0 true')
+      } else {
+        logs.push('a * 0 false')
+      }
+      if (a / b) {
+        logs.push('a / b')
+      }
+      if (0 / b) {
+        logs.push('0 / b true')
+      } else {
+        logs.push('0 / b false')
+      }
+
+      const inf: number = 1 / 0
+      if (inf) {
+        logs.push('1 / 0')
+      }
+
+      if (a % b) {
+        logs.push('a % b')
+      }
+      if (4 % 2) {
+        logs.push('4 % 2 true')
+      } else {
+        logs.push('4 % 2 false')
+      }
+
+      if (-1) {
+        logs.push('-1')
+      }
+      if (-0) {
+        logs.push('-0 true')
+      } else {
+        logs.push('-0 false')
+      }
+
+      if ((a + b) * (a - b)) {
+        logs.push('compound product')
+      }
+      if ((a - 5) * (b - 2)) {
+        logs.push('zero compound true')
+      } else {
+        logs.push('zero compound false')
+      }
+      if ((a + b + c) - (a + b + c)) {
+        logs.push('sum cancel true')
+      } else {
+        logs.push('sum cancel false')
+      }
+      if ((c / d) * (d - b)) {
+        logs.push('fraction * diff')
+      }
+      if (((a + b) * (c - d)) / (a + b)) {
+        logs.push('cancel division')
+      }
+      if (((a + b) * (c - d)) / (a + b) - (c - d)) {
+        logs.push('cancel to zero true')
+      } else {
+        logs.push('cancel to zero false')
+      }
+      if ((a * b) + (c * d) - (a * b) - (c * d)) {
+        logs.push('multi cancel true')
+      } else {
+        logs.push('multi cancel false')
+      }
+      if ((a - b) * (b - a)) {
+        logs.push('neg product')
+      }
+      if ((a + b) % (a - b)) {
+        logs.push('mod compound')
+      }
+
+      expect(logs).toEqual([
+        'a + b',
+        'a - b',
+        'b - b false',
+        'a * b',
+        'a * 0 false',
+        'a / b',
+        '0 / b false',
+        '1 / 0',
+        'a % b',
+        '4 % 2 false',
+        '-1',
+        '-0 false',
+        'compound product',
+        'zero compound false',
+        'sum cancel false',
+        'fraction * diff',
+        'cancel division',
+        'cancel to zero false',
+        'multi cancel false',
+        'neg product',
+        'mod compound'
+      ])
+    })
+
     test('Conditional/Unary/Logical operators', () => {
       const str: string = 'hello'
       const emptyStr: string = ''
