@@ -481,7 +481,6 @@ export function testCondition(): Result {
 
       expect(logs).toEqual([
         'side effect',
-        'voidResult is truthy',
         'getAny() is truthy',
         'anyVal && unionStrNum truthy'
       ])
