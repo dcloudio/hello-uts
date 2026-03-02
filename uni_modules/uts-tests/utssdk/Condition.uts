@@ -288,6 +288,50 @@ export function testCondition(): Result {
       const objD = objA && objB
       expect(objC).toEqual(objA)
       expect(objD).toEqual(objB)
+      const chainStrA = ''
+      const chainStrB = 'hello'
+      const chainStrC = ''
+      const chainStrD = 'world'
+
+      const chainedStrOr = chainStrA || chainStrB || chainStrC || chainStrD
+      console.log('chainedStrOr:', chainedStrOr)
+      expect(chainedStrOr).toEqual('hello')
+
+      const chainAndA = 'left'
+      const chainAndB = 'middle'
+      const chainAndC = ''
+      const chainAndD = 'right'
+      const chainedStrAnd = chainAndA && chainAndB && chainAndC && chainAndD
+      console.log('chainedStrAnd:', chainedStrAnd)
+      expect(chainedStrAnd).toEqual('')
+
+      const chainNumA = 0
+      const chainNumB = 10
+      const chainNumC = 20
+      const chainedNumOr = chainNumA || chainNumB || chainNumC
+      expect(chainedNumOr).toEqual(10)
+
+      const chainNumAndA = 1
+      const chainNumAndB = 2
+      const chainNumAndC = 3
+      const chainedNumAnd = chainNumAndA && chainNumAndB && chainNumAndC
+      expect(chainedNumAnd).toEqual(3)
+
+      let assignOrA = ''
+      assignOrA ||= 'fallback'
+      expect(assignOrA).toEqual('fallback')
+
+      let assignOrB = 'kept'
+      assignOrB ||= 'ignored'
+      expect(assignOrB).toEqual('kept')
+
+      let assignAndA = 'next'
+      assignAndA &&= 'updated'
+      expect(assignAndA).toEqual('updated')
+
+      let assignAndB = ''
+      assignAndB &&= 'ignored'
+      expect(assignAndB).toEqual('')
     })
 
     test('Logical operators with mixed boolean and non-boolean', () => {
