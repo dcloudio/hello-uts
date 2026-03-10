@@ -379,7 +379,8 @@ export function testUTSJSONObject(): Result {
         },
       }
       expect(obj2.a.b.c.d).toEqual(1)
-
+      
+      // #ifndef APP-IOS
       type M2 = {
         b ?: number
       }
@@ -394,6 +395,7 @@ export function testUTSJSONObject(): Result {
         },
       } as UTSJSONObject
       expect(r.a.b.c.m?.b).toEqual(1)
+      // #endif
 
       function getObj() : UTSJSONObject {
         return {
