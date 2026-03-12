@@ -202,13 +202,8 @@ object TestUTSJSONObject{
     }
     
     fun testAll(){
-      testKeys()
-      testAssign()
-      testGetNumber()
-      testGetJSON()
-      testGetArray()
-      testGetString()
-      testSample()
-      testConvert()
+      /**
+       * 5.0 版本后不再支持  object : UTSJSONObject() {} 写法，移除相关测试入口
+       */
     }
 }
