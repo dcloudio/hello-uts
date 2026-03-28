@@ -2,3 +2,5 @@
 /.hbuilderx
 /.vite
 .DS_Store
+/scripts/dist/
+/scripts/node_modules/
