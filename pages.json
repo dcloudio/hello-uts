@@ -62,6 +62,7 @@
         "enablePullDownRefresh": false
       }
     },
+    // #ifndef VUE3-VAPOR
     {
       "path": "pages/SDKIntegration/Lottie/index",
       "style": {
@@ -69,6 +70,7 @@
         "enablePullDownRefresh": false
       }
     },
+    // #endif
     {
       "path": "pages/SDKIntegration/Toast/Toast",
       "style": {
