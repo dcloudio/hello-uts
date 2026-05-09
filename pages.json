@@ -197,6 +197,12 @@
       }
     }
     // #endif 
+    , {
+      "path": "pages/issues/issue-29085/issue-29085",
+      "style": {
+        "navigationBarTitleText": "issue-29085"
+      }
+    }
   ],
   // #ifndef WEB || MP || APP-HARMONY
   "tabBar": {
