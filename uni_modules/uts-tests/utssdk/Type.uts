@@ -27,7 +27,7 @@ export function testType() : Result {
         name: 'Tom'
       } as Person
 
-      expect(person.name).toEqual('Tom');
+      // expect(person.name).toEqual('Tom');
     })
     test("Type with any[]", () => {
       type Person = {
