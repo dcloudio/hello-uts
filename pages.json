@@ -41,6 +41,7 @@
         "navigationBarTitleText": ""
       }
     },
+    // #ifndef VUE3-VAPOR
     {
       "path": "pages/component/helloView",
       "style": {
@@ -62,7 +63,6 @@
         "enablePullDownRefresh": false
       }
     },
-    // #ifndef VUE3-VAPOR
     {
       "path": "pages/SDKIntegration/Lottie/index",
       "style": {
@@ -70,15 +70,15 @@
         "enablePullDownRefresh": false
       }
     },
-    // #endif
     {
       "path": "pages/SDKIntegration/Toast/Toast",
       "style": {
         "navigationBarTitleText": "",
         "enablePullDownRefresh": false
       }
-
+    
     },
+    // #endif 
     {
       "path": "pages/lifecycle/lifecycle",
       "style": {
@@ -222,10 +222,12 @@
         "pagePath": "pages/SystemAPI/SystemAPI",
         "text": "系统API"
       },
+      // #ifndef VUE3-VAPOR
       {
         "pagePath": "pages/SDKIntegration/SDKIntegration",
         "text": "三方SDK"
       }
+      // #endif 
     ]
   },
   // #endif
