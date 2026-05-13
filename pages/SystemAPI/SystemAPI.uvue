@@ -57,12 +57,11 @@ const list = ref([{
       name: "获取电池电量",
       function: "testGetBatteryCapacity"
     },
+    // #ifdef APP-ANDROID
     {
       name: "进入画中画模式",
       function: "testPictureInPicture"
-    }
-    // #ifdef APP-ANDROID
-    ,
+    },
     {
       name: "注册activity 回调方法",
       function: "testActivityCallback"
@@ -86,6 +85,7 @@ const list = ref([{
     url: "SystemAPI/Alert/alert"
   }] as Page[]
 },
+// #ifdef APP-ANDROID
 {
   name: "android平台",
   open: false,
@@ -99,7 +99,9 @@ const list = ref([{
     name: "调用so中的方法",
     function: "testNativeSO"
   }] as Page[]
-}] as ListItem[])
+},
+// #endif
+] as ListItem[])
 const arrowUpIcon = '/static/icons/arrow-up.png'
 const arrowDownIcon = '/static/icons/arrow-down.png'
 const arrowRightIcon = '/static/icons/arrow-right.png'

@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <view>
     <button @click="doLogTest">打印测试</button>
     <text>{{testRet}}</text>
-  </div>
+  </view>
 </template>
 
 <script setup lang="uts">
-import { getLog, logObjectTest, logClassTest, logFunctionTest, logFileTest, logDateTest, logUTSJSONObjectTest } from '../../uni_modules/uts-api-test'
+import { getLog, logObjectTest, logClassTest, logFunctionTest, logFileTest, logDateTest, logUTSJSONObjectTest } from '@/uni_modules/uts-api-test'
 
 const testRet = ref('')
 
