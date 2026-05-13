@@ -101,6 +101,7 @@ const list = ref([{
     url: "SyntaxCase/consoleTest"
   }] as Page[]
 },
+// #ifndef VUE3-VAPOR
 {
   name: "组件开发示例",
   open: false,
@@ -109,16 +110,24 @@ const list = ref([{
     url: "component/helloView"
   }]
 },
+// #endif
 {
   name: "平台代码示例",
   open: false,
-  pages: [{
-    name: "UTSAndroid",
-    url: "SyntaxCase/utsAndroid"
-  }, {
-    name: "UTSiOS",
-    url: "SyntaxCase/utsiOS"
-  }] as Page[]
+  pages: [
+    // #ifdef APP-ANDROID
+    {
+      name: "UTSAndroid",
+      url: "SyntaxCase/utsAndroid"
+    }, 
+    // #endif
+    // #ifdef APP-IOS
+    {
+      name: "UTSiOS",
+      url: "SyntaxCase/utsiOS"
+    },
+    // #endif
+  ] as Page[]
 },
 ] as ListItem[])
 const arrowUpIcon = '/static/icons/arrow-up.png'
