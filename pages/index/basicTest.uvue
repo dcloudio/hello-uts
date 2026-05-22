@@ -78,7 +78,7 @@ function test() {
 }
 
 // #ifdef APP-IOS
-function jest_testTypeFromAppJs() {
+const jest_testTypeFromAppJs = function() {
   return testTypeFromAppJs({
     num: 1
   } as Options)
