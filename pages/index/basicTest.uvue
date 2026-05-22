@@ -55,14 +55,6 @@ const uvuePassed = ref([] as string[])
 const uvueFailed = ref([] as string[])
 const names = ref([] as string[])
 
-onReady(() => {
-  testSyntaxUnion()
-  // #ifdef APP-ANDROID || APP-IOS
-  testBuildinNative()
-  // #endif
-  test()
-})
-
 function test() {
   const encoderTests = testEncoder()
   const conditionTests = testCondition()
@@ -89,6 +81,17 @@ function jest_testTypeFromAppJs() {
   } as Options)
 }
 // #endif
+
+
+onReady(() => {
+  testSyntaxUnion()
+  // #ifdef APP-ANDROID || APP-IOS
+  testBuildinNative()
+  // #endif
+  test()
+})
+
+
 </script>
 <style>
 @import '@/common/uni-uvue.css';
