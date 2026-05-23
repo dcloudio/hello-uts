@@ -21,7 +21,6 @@
   const title = 'SDK集成示例'
 
 // #ifdef APP-ANDROID || APP-IOS
-
   import { checkHasIntegration } from "@/uni_modules/uts-tencentgeolocation"
   // #ifndef VUE3-VAPOR
   import { checkHasLottieIntegration } from "@/uni_modules/uts-animation-view"

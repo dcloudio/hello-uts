@@ -52,7 +52,7 @@
         "enablePullDownRefresh": false
       }
     }
-    // #ifdef APP-ANDROID || APP-IOS
+    // #ifdef APP-ANDROID || APP-IOS || APP-PLUS
     ,{
       "path": "pages/SystemAPI/Alert/alert",
       "style": {
