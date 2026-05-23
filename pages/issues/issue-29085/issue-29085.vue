@@ -1,6 +1,6 @@
 <template>
   <view>
-    <text>issue-29085：{{ testStatus29085 }}</text>
+    <text>issue-29085：{{ data.testStatus29085 }}</text>
   </view>
 </template>
 
