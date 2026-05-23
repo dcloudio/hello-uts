@@ -1,7 +1,7 @@
 <template>
     <view class="content">
 		<page-head :title="title"></page-head>
-        <view v-for="(item,name) in result" :key="name" class="result">
+        <view v-for="(item,name) in data.result" :key="name" class="result">
             <view>{{name}}测试结果：</view>
              <view>
                 测试api：{{item.passed.join(', ')}}
@@ -24,8 +24,10 @@
     export default {
         data() {
             return {
-				title: 'UTS基础语法',
-                result: {}
+                title: 'UTS基础语法',
+                data: {
+                  result: {}
+                }
             }
         },
         onReady() {
@@ -34,8 +36,8 @@
         },
         methods: {
             test() {
-                this.result = runTests()
-                console.log(this.result)
+                this.data.result = runTests()
+                console.log(this.data.result)
             }
         }
     }
