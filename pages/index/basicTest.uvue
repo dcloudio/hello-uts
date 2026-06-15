@@ -62,11 +62,18 @@
   const names = ref([] as string[])
 
   function test() {
-    const encoderTests = testEncoder()
     const conditionTests = testCondition()
-    uvueResult.value = encoderTests.map(item => item.pass).concat(conditionTests.map(item => item.pass))
-    uvuePassed.value = encoderTests.filter(item => item.pass).map(item => item.name).concat(conditionTests.filter(item => item.pass).map(item => item.name))
-    uvueFailed.value = encoderTests.filter(item => !item.pass).map(item => item.name).concat(conditionTests.filter(item => !item.pass).map(item => item.name))
+    uvueResult.value = conditionTests.map(item => item.pass)
+    uvuePassed.value = conditionTests.filter(item => item.pass).map(item => item.name)
+    uvueFailed.value = conditionTests.filter(item => !item.pass).map(item => item.name)
+    // #ifdef APP-ANDROID && !VUE3-VAPOR
+    //Android平台蒸汽模式暂不支持在uvue页面中使用TextEncoder、TextDecoder
+    const encoderTests = testEncoder()
+    uvueResult.value = encoderTests.map(item => item.pass).concat(uvueResult.value)
+    uvuePassed.value = encoderTests.filter(item => item.pass).map(item => item.name).concat(uvuePassed.value)
+    uvueFailed.value = encoderTests.filter(item => !item.pass).map(item => item.name).concat(uvueFailed.value)
+    // #endif
+
     data.result = runTests()
     if (null != data.result) {
       for (const key in data.result) {

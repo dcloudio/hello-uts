@@ -22,6 +22,10 @@
 
   // #ifdef APP-ANDROID || APP-IOS
   import {
+    // #ifdef APP-ANDROID
+    getMetaConfig,
+    quitApp,
+    // #endif
     doTimerTask,
     doIntervalTask,
     clearIntervalTask,
@@ -29,16 +33,11 @@
     TimerOptions
   } from "@/uni_modules/uts-advance"
   // #endif
-  
-  // #ifdef APP-ANDROID
-  getMetaConfig,
-  quitApp,
-  // #endif
 
   type Page = {
     name : string,
-    url ?: string
-    function ?: string
+    url ?: string,
+    function ?: string,
   }
 
   type ListItem = {
