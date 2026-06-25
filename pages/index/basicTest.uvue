@@ -66,8 +66,7 @@
     uvueResult.value = conditionTests.map(item => item.pass)
     uvuePassed.value = conditionTests.filter(item => item.pass).map(item => item.name)
     uvueFailed.value = conditionTests.filter(item => !item.pass).map(item => item.name)
-    // #ifdef APP-IOS || APP-HARMONY || (APP-ANDROID && !VUE3-VAPOR)
-    //Android平台蒸汽模式暂不支持在uvue页面中使用TextEncoder、TextDecoder
+    // #ifdef APP-IOS || APP-HARMONY || APP-ANDROID
     const encoderTests = testEncoder()
     uvueResult.value = encoderTests.map(item => item.pass).concat(uvueResult.value)
     uvuePassed.value = encoderTests.filter(item => item.pass).map(item => item.name).concat(uvuePassed.value)
