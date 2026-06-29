@@ -1,4 +1,4 @@
-<template name="page-head">
+<template>
     <view class="common-page-head">
         <view class="common-page-head-title-box">
             <text class="common-page-head-title">{{title}}</text>
@@ -6,15 +6,14 @@
     </view>
 </template>
 <script>
-    export default {
-        name: "page-head",
-        props: {
-            title: {
-                type: String,
-                default: ""
-            }
-        }
+export default {
+  props: {
+    title: {
+      type: String,
+      default: ''
     }
+  }
+}
 </script>
 <style>
     .common-page-head {

@@ -2,7 +2,7 @@ const platformInfo = process.env.uniTestPlatformInfo.toLocaleLowerCase()
 const isAndroid = platformInfo.startsWith('android')
 
 let page 
-if(isAndroid) {
+if(isAndroid && process.env.UNI_APP_X==='true') {
   beforeAll(async () => {
     page = await program.reLaunch('/pages/issues/issue-20232/issue-20232')
   });
@@ -17,9 +17,7 @@ describe('issue-20232', () => {
   }
   
   it('issue-20232', async () => {
-    const {
-      testStatus20232,
-    } = await page.data()
+    const testStatus20232 = await page.data('data.testStatus20232')
     expect(testStatus20232).toBe('测试通过')
   })
 });
