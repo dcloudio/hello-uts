@@ -45,6 +45,11 @@
   // #ifdef APP-ANDROID || APP-IOS
   import { testBuildinNative } from '@/uni_modules/uts-tests-hybrid'
   // #endif
+  // #ifdef APP-IOS && UNI-APP-X || APP-ANDROID && VUE3-VAPOR
+  import {
+    testInterceptor
+  } from '@/uni_modules/uts-interceptor';
+  // #endif
 
   type DataType = {
     result : UTSJSONObject | null
@@ -98,11 +103,20 @@
     // #endif
     test()
   })
+  
+  // #ifdef APP-IOS && UNI-APP-X || APP-ANDROID && VUE3-VAPOR
+  function jest_testInterceptor() {
+    return testInterceptor('test')
+  }
+  // #endif
 
 
   defineExpose({
     // #ifdef APP-IOS
     jest_testTypeFromAppJs,
+    // #endif
+    // #ifdef APP-IOS && UNI-APP-X || APP-ANDROID && VUE3-VAPOR
+    jest_testInterceptor,
     // #endif
     data
   })
