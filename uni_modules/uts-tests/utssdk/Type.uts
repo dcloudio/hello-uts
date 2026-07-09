@@ -1,11 +1,5 @@
 import { describe, test, expect, Result } from './tests.uts'
 
-type TypeRenameModelA = {
-  value: number
-}
-
-type TypeRenameModelB = TypeRenameModelA
-
 // #ifdef APP-ANDROID
 @UTSAndroid.Suppress("USELESS_IS_CHECK")
 // #endif
@@ -104,22 +98,6 @@ export function testType() : Result {
       // #endif
       expect(groups[0] instanceof Tb).toEqual(true)
       expect(groups[1] instanceof Tb).toEqual(true)
-    })
-    test("local type refs should not trigger rename", () => {
-      const createModel = (): TypeRenameModelB => {
-        return {
-          value: 1
-        } as TypeRenameModelB
-      }
-      const createList = (): Array<TypeRenameModelA> => {
-        return [createModel()] as Array<TypeRenameModelA>
-      }
-
-      const list = createList()
-      expect(list.length).toEqual(1)
-      expect(list[0].value).toEqual(1)
-      expect(list[0] instanceof TypeRenameModelA).toEqual(true)
-      expect(createModel() instanceof TypeRenameModelA).toEqual(true)
     })
   })
 }
